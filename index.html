@@ -2,182 +2,269 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-  <title>WorldPiBank</title>
-
-  <!-- cache + autosize guard -->
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-  <meta http-equiv="Pragma" content="no-cache" />
-  <meta http-equiv="Expires" content="0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>PiKoreaBank</title>
   <style>
-    html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
     :root{
-      --bg:#f6f7fb; --card:#ffffff; --txt:#1f2328; --muted:#6b7280;
-      --primary:#6a0dad; --ring:#e8e4ff;
-      --radius:12px; --shadow:0 6px 18px rgba(28,27,58,.06);
+      --brand:#6a0dad;
+      --brand-2:#531187;
+      --bg:#f7f7fa;
+      --card:#ffffff;
+      --text:#222;
+      --muted:#666;
+      --radius:14px;
+      --shadow:0 6px 20px rgba(0,0,0,.08);
+      --maxw:960px;
     }
-    @media (prefers-color-scheme: dark){
-      :root{ --bg:#0f1115; --card:#151821; --txt:#e5e7eb; --muted:#9aa3b2; --ring:#29224b;}
-    }
-    *{box-sizing:border-box; margin:0}
+    html,body{height:100%}
     body{
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Apple SD Gothic Neo,Malgun Gothic,sans-serif;
-      background:var(--bg); color:var(--txt); line-height:1.35;
+      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Apple SD Gothic Neo,Pretendard,Arial,sans-serif;
+      background:var(--bg); color:var(--text);
+      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
     }
-    .wrap{max-width:820px; margin:0 auto; padding:18px 14px 64px}
-
-    /* top bar */
-    .langbar{display:flex; justify-content:flex-end; align-items:center; gap:8px; margin-bottom:8px}
-    .langbtn{border:1px solid var(--ring); background:#fff; padding:8px 10px; border-radius:10px; cursor:pointer; box-shadow:var(--shadow); font-weight:700; line-height:1}
-    .langbtn[aria-pressed="true"]{background:#6a0dad; color:#fff; border-color:#6a0dad}
-
-    /* hero */
-    .hero{background:#6a0dad; color:#fff; border-radius:14px; padding:20px 16px; text-align:center; box-shadow:var(--shadow)}
-    .hero h1{font-size:22px; line-height:1.2; margin-bottom:4px}
-    .hero p{font-size:13px; opacity:.92}
-
-    /* actions */
-    .top-actions{display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin:12px 0 14px}
-    .btn{background:#fff; color:var(--primary); border:1px solid #efe7ff;
-      padding:9px 12px; border-radius:10px; text-decoration:none; font-weight:700; line-height:1; box-shadow:var(--shadow)}
-
-    /* card */
-    .card{background:var(--card); border-radius:var(--radius); padding:14px; border:1px solid var(--ring); box-shadow:var(--shadow); margin-top:12px}
-    .card h3{font-size:16px; margin-bottom:8px}
-
-    /* services */
-    .services{display:grid; gap:8px}
-    @media (min-width:600px){ .services{grid-template-columns: repeat(2, 1fr);} }
-    @media (min-width:900px){ .services{grid-template-columns: repeat(3, 1fr);} }
-    .svc{
-      display:flex; align-items:center; gap:10px; padding:10px 12px;
-      border:1px solid var(--ring); background:#fff; border-radius:10px; box-shadow:var(--shadow);
-      min-height:52px;
+    header{
+      background:linear-gradient(135deg,var(--brand),#8d3cff);
+      color:#fff; padding:22px 16px;
+      position:sticky; top:0; z-index:10;
     }
-    .dot{width:18px; height:18px; border-radius:50%}
-    .pay{background:#ffd166}.send{background:#84d2ff}.rewards{background:#ff9fb3}.ubi{background:#a3e48c}.support{background:#c9c9ff}
-    .title{font-weight:800; margin-bottom:1px}
-    .desc{font-size:12px; color:var(--muted)}
-    footer{margin-top:14px; text-align:center; color:var(--muted); font-size:12px}
+    header .wrap{max-width:var(--maxw); margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:12px}
+    h1{font-size:22px; margin:0}
+    .tagline{margin:2px 0 0; font-size:13px; opacity:.9}
+    .toolbar{display:flex; gap:8px; flex-wrap:wrap}
+    .btn{
+      border:0; padding:8px 12px; border-radius:10px; cursor:pointer; background:#fff; color:#3a2a5e;
+      font-weight:600; box-shadow:0 2px 8px rgba(0,0,0,.08)
+    }
+    .btn.ghost{background:transparent; color:#fff; border:1px solid rgba(255,255,255,.5)}
+    .btn.active{background:#fffb; backdrop-filter:saturate(140%) blur(6px)}
+    main{padding:18px}
+    .container{max-width:var(--maxw); margin:0 auto}
+    .grid{
+      display:grid; gap:16px;
+      grid-template-columns:repeat(12,1fr);
+    }
+    .card{
+      background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow);
+      padding:18px; min-height:120px;
+    }
+    /* 기본 배치: 2열 카드 + 사이드 */
+    .span-8{grid-column:span 8}
+    .span-4{grid-column:span 4}
+    .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
+    .primary{
+      background:var(--brand); color:#fff; border:0; padding:12px 16px; border-radius:12px; font-weight:700; cursor:pointer
+    }
+    .primary:hover{background:var(--brand-2)}
+    .muted{color:var(--muted); font-size:13px}
+    code{background:#f1ecff; padding:2px 6px; border-radius:6px}
+
+    footer{padding:30px 16px; text-align:center; color:var(--muted)}
+
+    /* 모바일 최적화: 1열, 카드 높이 과도 증가 방지 */
+    @media (max-width: 840px){
+      .grid{grid-template-columns:repeat(6,1fr)}
+      .span-8{grid-column:span 6}
+      .span-4{grid-column:span 6}
+      .card{padding:16px}
+      header .wrap{flex-direction:column; align-items:flex-start}
+    }
+
+    /* PC에서 모바일 미리보기 강제 모드 */
+    .mobile-preview .container{max-width:420px}
+    .mobile-preview .grid{grid-template-columns:repeat(6,1fr)}
+    .mobile-preview .span-8,
+    .mobile-preview .span-4{grid-column:span 6}
+
+    /* 언어가 BOTH일 때 양쪽 텍스트 정돈 */
+    .both-line{display:flex; flex-direction:column; gap:4px}
+    .both-label{font-size:12px; color:var(--muted)}
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <!-- Language switch -->
-    <div class="langbar">
-      <button id="btn-ko" class="langbtn" aria-pressed="false">한국어</button>
-      <button id="btn-en" class="langbtn" aria-pressed="true">English</button>
-    </div>
-
-    <!-- HERO -->
-    <section class="hero">
-      <h1 data-i18n="title">WorldPiBank</h1>
-      <p data-i18n="subtitle">Payments · Send · Rewards · UBI — Optimized for Pi Browser</p>
-    </section>
-
-    <!-- Policy buttons -->
-    <div class="top-actions">
-      <a class="btn" href="Privacy.html" data-i18n="privacy">Privacy Policy</a>
-      <a class="btn" href="Terms.html" data-i18n="terms">Terms of Use</a>
-    </div>
-
-    <!-- Services -->
-    <section class="card">
-      <h3 data-i18n="services">Services</h3>
-      <div class="services">
-        <div class="svc"><span class="dot pay"></span><div>
-          <div class="title" data-i18n="pay_t">Payments</div>
-          <div class="desc" data-i18n="pay_d">Merchant / Personal</div>
-        </div></div>
-
-        <div class="svc"><span class="dot send"></span><div>
-          <div class="title" data-i18n="send_t">Send</div>
-          <div class="desc" data-i18n="send_d">Wallet to wallet transfer</div>
-        </div></div>
-
-        <div class="svc"><span class="dot rewards"></span><div>
-          <div class="title" data-i18n="rewards_t">Rewards</div>
-          <div class="desc" data-i18n="rewards_d">Activity incentives</div>
-        </div></div>
-
-        <div class="svc"><span class="dot ubi"></span><div>
-          <div class="title" data-i18n="ubi_t">UBI</div>
-          <div class="desc" data-i18n="ubi_d">Community distribution</div>
-        </div></div>
-
-        <div class="svc"><span class="dot support"></span><div>
-          <div class="title" data-i18n="support_t">Support</div>
-          <div class="desc" data-i18n="support_d">Contact: ljw2358@naver.com</div>
-        </div></div>
+  <header>
+    <div class="wrap">
+      <div>
+        <h1 id="title">PiKoreaBank</h1>
+        <p class="tagline" id="tagline">Web3 • Pi Network • Digital Bank</p>
       </div>
-    </section>
+      <!-- PC 제어/미리보기 툴바 (휴대폰에서는 자동 감춤) -->
+      <div class="toolbar" id="desktopToolbar" style="display:none">
+        <button class="btn" data-lang="en">EN</button>
+        <button class="btn" data-lang="ko">KO</button>
+        <button class="btn" data-lang="both">BOTH</button>
+        <button class="btn ghost" data-view="desktop">Desktop</button>
+        <button class="btn ghost" data-view="mobile">Mobile</button>
+      </div>
+    </div>
+  </header>
 
-    <!-- About -->
-    <section class="card">
-      <h3 data-i18n="about">About</h3>
-      <p data-i18n="about_d">WorldPiBank is a lightweight web app for the Pi ecosystem. It is optimized to display cleanly without stretching issues on Pi Browser or mobile browsers.</p>
-    </section>
+  <main>
+    <div class="container">
+      <div class="grid">
+        <section class="card span-8">
+          <h2 id="balanceTitle">Your Balance</h2>
+          <p id="balanceText"><strong>Pi: 0.0000</strong></p>
+          <div class="actions">
+            <button class="primary" id="sendBtn">Send Pi</button>
+            <button class="primary" id="payBtn">Pay</button>
+            <button class="primary" id="rewardBtn">Rewards</button>
+            <button class="primary" id="ubiBtn">UBI</button>
+          </div>
+          <p class="muted" id="disclaimer">* Demo UI. Features coming soon.</p>
+        </section>
 
-    <footer>© WorldPiBank</footer>
-  </div>
+        <aside class="card span-4">
+          <h3 id="supportTitle">Support</h3>
+          <div id="walletBlock"></div>
+          <div class="actions" style="margin-top:10px">
+            <button class="primary" id="donateBtn">Donate</button>
+          </div>
+          <p class="muted" id="referralBlock"></p>
+        </aside>
+      </div>
+    </div>
+  </main>
 
-  <!-- Simple i18n -->
+  <footer>
+    <span id="copyright">© 2025 PiKoreaBank – All Rights Reserved</span>
+  </footer>
+
   <script>
-    const dict = {
+    // --- i18n 사전 ---
+    const I18N = {
       en: {
-        title: "WorldPiBank",
-        subtitle: "Payments · Send · Rewards · UBI — Optimized for Pi Browser",
-        privacy: "Privacy Policy",
-        terms: "Terms of Use",
-        services: "Services",
-        pay_t: "Payments", pay_d: "Merchant / Personal",
-        send_t: "Send", send_d: "Wallet to wallet transfer",
-        rewards_t: "Rewards", rewards_d: "Activity incentives",
-        ubi_t: "UBI", ubi_d: "Community distribution",
-        support_t: "Support", support_d: "Contact: ljw2358@naver.com",
-        about: "About",
-        about_d: "WorldPiBank is a lightweight web app for the Pi ecosystem. It is optimized to display cleanly without stretching issues on Pi Browser or mobile browsers."
+        title: "PiKoreaBank",
+        tagline: "Web3 • Pi Network • Digital Bank",
+        balanceTitle: "Your Balance",
+        disclaimer: "* Demo UI. Features coming soon.",
+        sendBtn: "Send Pi",
+        payBtn: "Pay",
+        rewardBtn: "Rewards",
+        ubiBtn: "UBI",
+        supportTitle: "Support",
+        walletLabel: "Wallet",
+        donateBtn: "Donate",
+        referralText: "Referral: ",
+        copyright: "© 2025 PiKoreaBank – All Rights Reserved"
       },
       ko: {
-        title: "월드파이뱅크",
-        subtitle: "결제 · 송금 · 보상 · UBI — Pi 브라우저 최적화",
-        privacy: "개인정보 처리방침",
-        terms: "이용 약관",
-        services: "서비스",
-        pay_t: "결제", pay_d: "상점 / 개인",
-        send_t: "보내기", send_d: "지갑 간 전송",
-        rewards_t: "보상", rewards_d: "활동 리워드",
-        ubi_t: "기본소득(UBI)", ubi_d: "커뮤니티 분배",
-        support_t: "고객센터", support_d: "문의: ljw2358@naver.com",
-        about: "소개",
-        about_d: "월드파이뱅크는 Pi 생태계를 위한 초경량 웹앱입니다. Pi Browser 및 모바일 브라우저에서 화면이 늘어지지 않도록 최적화했습니다."
+        title: "파이한국은행",
+        tagline: "웹3 • 파이 네트워크 • 디지털 뱅크",
+        balanceTitle: "내 잔액",
+        disclaimer: "* 데모 UI입니다. 기능은 곧 제공됩니다.",
+        sendBtn: "송금",
+        payBtn: "결제",
+        rewardBtn: "리워드",
+        ubiBtn: "기본소득",
+        supportTitle: "후원 안내",
+        walletLabel: "지갑",
+        donateBtn: "후원하기",
+        referralText: "추천코드: ",
+        copyright: "© 2025 파이한국은행 – All Rights Reserved"
       }
     };
 
-    const $ = (sel) => document.querySelectorAll(sel);
+    // --- 유틸 ---
+    const qs = new URLSearchParams(location.search);
+    const prefersLang = qs.get("lang") || localStorage.getItem("lang") || (navigator.language || navigator.userLanguage || "en").toLowerCase().startsWith("ko") ? "ko" : "en";
+    const forcedView = qs.get("view"); // 'mobile' | 'desktop' | null
+
     function setLang(lang){
-      const d = dict[lang] || dict.en;
-      $('[data-i18n]').forEach(el => {
-        const k = el.getAttribute('data-i18n');
-        if (d[k] !== undefined) el.textContent = d[k];
-      });
-      // Toggle button states
-      document.getElementById('btn-ko').setAttribute('aria-pressed', lang==='ko');
-      document.getElementById('btn-en').setAttribute('aria-pressed', lang==='en');
-      // Persist
-      localStorage.setItem('wpi_lang', lang);
-      // Set html lang attribute
-      document.documentElement.setAttribute('lang', lang);
+      localStorage.setItem("lang", lang);
+      render(lang);
     }
 
-    // Initial language: localStorage -> browser -> default en
-    const saved = localStorage.getItem('wpi_lang');
-    const initial = saved || (navigator.language || navigator.userLanguage || 'en').toLowerCase().startsWith('ko') ? 'ko' : 'en';
-    setLang(initial);
+    function textBlock(label, value, lang){
+      // BOTH 모드: 한/영 동시에 출력
+      if(lang === "both"){
+        return `
+          <div class="both-line">
+            <span><span class="both-label">[KO]</span> ${value.ko}</span>
+            <span><span class="both-label">[EN]</span> ${value.en}</span>
+          </div>
+        `;
+      }
+      return (lang === "ko") ? value.ko : value.en;
+    }
 
-    // Handlers
-    document.getElementById('btn-ko').addEventListener('click', ()=>setLang('ko'));
-    document.getElementById('btn-en').addEventListener('click', ()=>setLang('en'));
+    function render(lang){
+      const t = I18N[lang] || I18N.en;
+
+      // 텍스트 채우기
+      document.getElementById("title").textContent = lang==="both" ? "PiKoreaBank / 파이한국은행" : t.title;
+      document.getElementById("tagline").textContent = lang==="both" ? "Web3 • Pi Network • Digital Bank / 웹3 • 파이 네트워크 • 디지털 뱅크" : t.tagline;
+
+      document.getElementById("balanceTitle").textContent = (lang==="both") ? "Your Balance / 내 잔액" : t.balanceTitle;
+      document.getElementById("disclaimer").textContent = (lang==="both") ? "* Demo UI. Features coming soon. / * 데모 UI입니다. 기능은 곧 제공됩니다." : t.disclaimer;
+
+      document.getElementById("sendBtn").textContent = (lang==="both") ? "Send Pi / 송금" : t.sendBtn;
+      document.getElementById("payBtn").textContent = (lang==="both") ? "Pay / 결제" : t.payBtn;
+      document.getElementById("rewardBtn").textContent = (lang==="both") ? "Rewards / 리워드" : t.rewardBtn;
+      document.getElementById("ubiBtn").textContent = (lang==="both") ? "UBI / 기본소득" : t.ubiBtn;
+
+      document.getElementById("supportTitle").textContent = (lang==="both") ? "Support / 후원 안내" : t.supportTitle;
+
+      // 지갑/추천코드 블록 (둘 다 표시)
+      const walletHTML = `
+        ${textBlock("wallet", {
+          ko: `<strong>${I18N.ko.walletLabel}:</strong><br><code>GCLU-XXXX-XXXX-XXXX</code>`,
+          en: `<strong>${I18N.en.walletLabel}:</strong><br><code>GCLU-XXXX-XXXX-XXXX</code>`
+        }, lang)}
+      `;
+      document.getElementById("walletBlock").innerHTML = walletHTML;
+
+      document.getElementById("donateBtn").textContent = (lang==="both") ? "Donate / 후원하기" : t.donateBtn;
+
+      const referralHTML = (lang==="both")
+        ? `${I18N.en.referralText} ljw2358 / ${I18N.ko.referralText} ljw2358`
+        : `${t.referralText} ljw2358`;
+      document.getElementById("referralBlock").textContent = referralHTML;
+
+      document.getElementById("copyright").textContent = t.copyright;
+
+      // 헤더 툴바 버튼 활성 표시
+      document.querySelectorAll('.btn[data-lang]').forEach(b=>{
+        b.classList.toggle('active', b.getAttribute('data-lang')===lang);
+      });
+    }
+
+    // --- 초기 모드 결정 ---
+    let lang = (["en","ko","both"].includes(prefersLang)) ? prefersLang : ( (navigator.language||"en").toLowerCase().startsWith("ko") ? "ko" : "en" );
+    // 모바일 기기 감지(간단)
+    const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+
+    // PC에서만 상단 툴바 보이기
+    const desktopToolbar = document.getElementById("desktopToolbar");
+    if(!isMobile) desktopToolbar.style.display = "flex";
+
+    // PC 미리보기 강제 모드
+    if(!isMobile && forcedView === "mobile"){
+      document.body.classList.add("mobile-preview");
+    }else if(!isMobile && forcedView === "desktop"){
+      document.body.classList.remove("mobile-preview");
+    }
+
+    // 버튼 이벤트(언어 전환 / 뷰 전환)
+    document.querySelectorAll('.btn[data-lang]').forEach(btn=>{
+      btn.addEventListener('click', ()=> setLang(btn.getAttribute('data-lang')));
+    });
+    document.querySelectorAll('.btn[data-view]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const v = btn.getAttribute('data-view');
+        if(v==="mobile"){ document.body.classList.add("mobile-preview"); }
+        else { document.body.classList.remove("mobile-preview"); }
+      });
+    });
+
+    // 액션 버튼(데모)
+    document.getElementById("sendBtn").addEventListener('click', ()=> alert(lang==="ko"?"송금 기능은 곧 제공됩니다.":"Pi transfer feature coming soon!"));
+    document.getElementById("payBtn").addEventListener('click', ()=> alert(lang==="ko"?"결제 기능은 곧 제공됩니다.":"Payment feature coming soon!"));
+    document.getElementById("rewardBtn").addEventListener('click', ()=> alert(lang==="ko"?"리워드 기능은 곧 제공됩니다.":"Rewards feature coming soon!"));
+    document.getElementById("ubiBtn").addEventListener('click', ()=> alert(lang==="ko"?"기본소득(UBI) 기능은 곧 제공됩니다.":"UBI feature coming soon!"));
+    document.getElementById("donateBtn").addEventListener('click', ()=> alert(lang==="ko"?"후원 페이지는 곧 제공됩니다.":"Donation page coming soon!"));
+
+    // 최초 렌더
+    render(lang);
   </script>
 </body>
 </html>
