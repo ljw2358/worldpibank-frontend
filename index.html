@@ -4,6 +4,121 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>WorldPiBank</title>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <style>
+    :root{
+      --bg:#f6f7fb; --card:#ffffff; --txt:#1f2328; --muted:#6b7280;
+      --primary:#6a0dad; --primary-2:#8e3df2; --ring:#e8e4ff;
+      --radius:14px; --shadow:0 8px 24px rgba(28,27,58,.06);
+    }
+    @media (prefers-color-scheme: dark){
+      :root{ --bg:#0f1115; --card:#151821; --txt:#e5e7eb; --muted:#9aa3b2; --ring:#29224b;}
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Apple SD Gothic Neo,Malgun Gothic,sans-serif;
+      background:var(--bg); color:var(--txt); line-height:1.35;
+    }
+    .wrap{max-width:820px; margin:0 auto; padding:18px 14px 64px}
+
+    /* HERO */
+    .hero{
+      background:linear-gradient(135deg, var(--primary), var(--primary-2));
+      color:#fff; border-radius:18px; padding:28px 18px; text-align:center; box-shadow:var(--shadow);
+    }
+    .hero h1{margin:6px 0 6px; font-size:26px; line-height:1.15}
+    .hero p{margin:0; opacity:.92; font-size:14px}
+
+    /* 상단 버튼 */
+    .top-actions{
+      display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin:14px 0 16px;
+    }
+    .btn{
+      background:#fff; color:var(--primary); border:1px solid #efe7ff;
+      padding:10px 14px; border-radius:12px; text-decoration:none; font-weight:700;
+      box-shadow:var(--shadow); line-height:1; /* 높이 과증가 방지 */
+    }
+
+    /* 카드 */
+    .card{
+      background:var(--card); border-radius:var(--radius); padding:16px;
+      border:1px solid var(--ring); box-shadow:var(--shadow); margin-top:12px;
+    }
+    .card h3{margin:0 0 10px; font-size:17px}
+
+    /* 서비스 리스트 */
+    .services{display:grid; gap:10px}
+    @media (min-width:600px){ .services{grid-template-columns: repeat(2, 1fr);} }
+    @media (min-width:900px){ .services{grid-template-columns: repeat(3, 1fr);} }
+
+    .svc{
+      display:flex; align-items:center; gap:10px;
+      padding:12px; border-radius:12px; border:1px solid var(--ring); background:#fff;
+      box-shadow:var(--shadow);
+      min-height:56px; /* 균일 높이 */
+    }
+    .ico{font-size:18px; line-height:1; width:22px; text-align:center}
+    .title{font-weight:800; margin-bottom:2px}
+    .desc{font-size:12px; color:var(--muted); margin:0}
+
+    footer{margin-top:16px; text-align:center; color:var(--muted); font-size:12px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <h1>WorldPiBank</h1>
+      <p>결제 · 송금 · 보상 · 기본소득 — Pi Browser 최적화</p>
+    </section>
+
+    <div class="top-actions">
+      <a class="btn" href="Privacy.html?v=2">개인정보 처리방침</a>
+      <a class="btn" href="Terms.html?v=2">이용약관</a>
+    </div>
+
+    <section class="card">
+      <h3>서비스 메뉴</h3>
+      <div class="services">
+        <div class="svc">
+          <div class="ico">💳</div>
+          <div><div class="title">Pi 결제</div><p class="desc">상점/개인용 결제 플로우</p></div>
+        </div>
+        <div class="svc">
+          <div class="ico">💸</div>
+          <div><div class="title">송금 (Send)</div><p class="desc">Pi 지갑 간 전송</p></div>
+        </div>
+        <div class="svc">
+          <div class="ico">🎁</div>
+          <div><div class="title">보상 (Rewards)</div><p class="desc">참여 리워드</p></div>
+        </div>
+        <div class="svc">
+          <div class="ico">🌱</div>
+          <div><div class="title">기본소득 (UBI)</div><p class="desc">커뮤니티 분배</p></div>
+        </div>
+        <div class="svc">
+          <div class="ico">☎️</div>
+          <div><div class="title">고객센터</div><p class="desc">문의: ljw2358@naver.com</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h3>소개</h3>
+      <p>월드파이뱅크는 Pi 생태계를 위한 초경량 웹앱입니다. 모바일에서도 요소가 과하게 늘어나지 않도록 라인높이·패딩을 최적화했습니다.</p>
+    </section>
+
+    <footer>© WorldPiBank</footer>
+  </div>
+</body>
+</html><!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WorldPiBank</title>
 
   <!-- 캐시 방지 -->
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
