@@ -1,6 +1,144 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WorldPiBank</title>
+
+  <!-- 캐시 방지 -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <style>
+    :root{
+      --bg:#f6f7fb; --card:#ffffff; --txt:#1f2328; --muted:#6b7280;
+      --primary:#6a0dad; --primary-2:#8e3df2; --ring:#e9e4ff;
+      --radius:18px; --shadow:0 10px 30px rgba(28,27,58,.08);
+    }
+    @media (prefers-color-scheme: dark){
+      :root{ --bg:#0f1115; --card:#151821; --txt:#e5e7eb; --muted:#9aa3b2; --ring:#2b2250; }
+    }
+    *{box-sizing:border-box}
+    body{margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Apple SD Gothic Neo,Malgun Gothic,sans-serif; background:var(--bg); color:var(--txt)}
+    .wrap{max-width:860px; margin:0 auto; padding:20px 16px 80px}
+
+    /* 상단 히어로 */
+    .hero{
+      background: radial-gradient(1200px 300px at 50% -80px, #e9d7ff 0%, transparent 70%), linear-gradient(135deg, var(--primary), var(--primary-2));
+      color:#fff; border-radius:calc(var(--radius) + 6px);
+      padding:48px 28px; text-align:center; box-shadow:var(--shadow);
+    }
+    .brand{display:inline-flex; align-items:center; gap:10px; padding:10px 14px; border-radius:999px; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.25)}
+    .brand b{letter-spacing:.2px}
+    .hero h1{margin:14px 0 8px; font-size:34px; line-height:1.15}
+    .hero p{margin:0; opacity:.92}
+
+    /* 상단 버튼 */
+    .top-actions{display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin:22px 0}
+    .btn{
+      background: #fff; color: var(--primary); border: 1px solid #efe7ff;
+      padding:12px 18px; border-radius:14px; text-decoration:none; font-weight:700;
+      box-shadow:var(--shadow);
+    }
+    .btn:active{transform:translateY(1px); opacity:.95}
+
+    /* 카드 */
+    .card{
+      background:var(--card); border-radius:var(--radius); padding:20px;
+      border:1px solid var(--ring); box-shadow:var(--shadow); margin-top:16px;
+    }
+    .card h3{margin:4px 0 14px; font-size:18px}
+
+    /* 서비스 리스트 */
+    .services{display:grid; gap:14px}
+    @media (min-width:600px){ .services{grid-template-columns: repeat(2, 1fr);} }
+    @media (min-width:900px){ .services{grid-template-columns: repeat(3, 1fr);} }
+
+    .svc{
+      background:linear-gradient(0deg, rgba(255,255,255,.4), rgba(255,255,255,.4));
+      border:1px solid var(--ring); border-radius:16px; padding:18px;
+      display:flex; align-items:center; gap:14px; box-shadow:var(--shadow);
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+    .svc:active{transform:translateY(1px)}
+    .ico{font-size:22px; width:28px; text-align:center}
+    .svc .title{font-weight:800}
+    .svc .desc{font-size:13px; color:var(--muted); margin-top:2px}
+
+    /* 푸터 */
+    footer{margin-top:18px; text-align:center; color:var(--muted); font-size:12px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="brand">🟣 <b>WorldPiBank</b></div>
+      <h1>Pi Network 기반 글로벌 디지털 뱅크</h1>
+      <p>결제 · 송금 · 보상 · 기본소득을 위한 초경량 웹앱</p>
+    </section>
+
+    <!-- 상단 정책 버튼 -->
+    <div class="top-actions">
+      <a class="btn" href="Privacy.html?v=1">개인정보 처리방침</a>
+      <a class="btn" href="Terms.html?v=1">이용약관</a>
+    </div>
+
+    <!-- 서비스 -->
+    <section class="card">
+      <h3>서비스 메뉴</h3>
+      <div class="services">
+        <div class="svc">
+          <div class="ico">💳</div>
+          <div>
+            <div class="title">Pi 결제</div>
+            <div class="desc">상점용/개인용 결제 플로우(베타)</div>
+          </div>
+        </div>
+        <div class="svc">
+          <div class="ico">💸</div>
+          <div>
+            <div class="title">송금 (Send)</div>
+            <div class="desc">Pi 지갑 간 즉시 전송</div>
+          </div>
+        </div>
+        <div class="svc">
+          <div class="ico">🎁</div>
+          <div>
+            <div class="title">보상 (Rewards)</div>
+            <div class="desc">참여/설문/활동 리워드</div>
+          </div>
+        </div>
+        <div class="svc">
+          <div class="ico">🌱</div>
+          <div>
+            <div class="title">기본소득 (UBI)</div>
+            <div class="desc">커뮤니티 주도 분배 모델</div>
+          </div>
+        </div>
+        <div class="svc">
+          <div class="ico">☎️</div>
+          <div>
+            <div class="title">고객센터</div>
+            <div class="desc">문의: ljw2358@naver.com</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 소개 -->
+    <section class="card">
+      <h3>소개</h3>
+      <p>월드파이뱅크는 Pi 생태계의 결제·송금·보상·기본소득 실험을 지원합니다. Pi Browser에서도 빠르게 열리도록 설계했고, 추후 각 메뉴는 실제 기능 페이지로 연결됩니다.</p>
+    </section>
+
+    <footer>© WorldPiBank</footer>
+  </div>
+</body>
+</html><!DOCTYPE html>
+<html lang="ko">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>WorldPiBank</title>
