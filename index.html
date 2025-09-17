@@ -94,6 +94,49 @@
 <img src="pi_logo.png" alt="Pi Logo" class="pi-logo" />
 
 <div class="chat" aria-label="채팅">💬</div>
+<!-- Pi Network JS SDK -->
+<script src="https://sdk.minepi.com/pi-sdk.js"></script>
+<script>
+  // SDK 초기화
+  Pi.init({ version: "2.0" });
 
+  // Login 버튼 이벤트 연결
+  const loginBtn = document.querySelector(".login");
+  if (loginBtn) {
+    loginBtn.addEventListener("click", async () => {
+      try {
+        // 필요한 권한만 요청
+        const scopes = ["payments", "username"];
+        const authResult = await Pi.authenticate(scopes, onIncompletePaymentFound);
+
+        // 로그인 성공 시 결과
+        console.log("Authenticated:", authResult);
+
+        // 버튼 텍스트 변경
+        loginBtn.innerText = "✅ Logged in";
+        loginBtn.disabled = true;
+
+        // 서버 연동 예시(추후 필요시)
+        // await fetch("/api/session", {
+        // method: "POST",
+        // headers: { "Content-Type": "application/json" },
+        // body: JSON.stringify({
+        // token: authResult.accessToken,
+        // uid: authResult.user.uid
+        // })
+        // });
+      } catch (err) {
+        console.error("Login failed:", err);
+        alert("Login failed. Please try again.");
+      }
+    });
+  }
+
+  // 결제 미완료 처리 콜백
+  function onIncompletePaymentFound(payment) {
+    console.log("Incomplete payment found:", payment);
+    // TODO: 서버 검증 후 결제 완료 처리
+  }
+</script>
 </body>
 </html>
