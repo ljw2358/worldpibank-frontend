@@ -6,88 +6,42 @@
   <title>World Pi Bank</title>
   <meta name="description" content="Web3 · Pi Network · Digital Bank (Demo UI)" />
   <style>
-    :root {
-      --purple: #6c28d9;
-      --purple2: #732aed;
-      --gray: #f5f5f5;
-      --card: #ffffff;
-      --text: #192937;
-      --radius: 20px;
-    }
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background: var(--gray);
-      color: var(--text);
-      text-align: center;
-    }
-    header {
-      background: linear-gradient(90deg, var(--purple), var(--purple2));
-      color: white;
-      padding: 24px;
-    }
-    .lang {
-      margin-top: 10px;
-    }
-    .chip {
-      display: inline-block;
-      padding: 6px 14px;
-      margin: 4px;
-      border-radius: 50px;
-      background: white;
-      color: var(--purple2);
-      font-weight: bold;
-      text-decoration: none;
-    }
-    .chip.active {
-      background: var(--purple2);
-      color: white;
-    }
-    .card {
-      background: var(--card);
-      border-radius: var(--radius);
-      padding: 20px;
-      margin: 20px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    .btn {
-      display: inline-block;
-      width: 45%;
-      margin: 8px;
-      padding: 16px;
-      border-radius: var(--radius);
-      background: var(--purple2);
-      color: white;
-      font-weight: bold;
-      text-decoration: none;
-    }
+    body { font-family: Arial, sans-serif; background: #6a0dad; color: white; margin: 0; padding: 0; }
+    .container { max-width: 500px; margin: auto; padding: 20px; text-align: center; }
+    .card { background: white; color: black; border-radius: 12px; padding: 20px; margin: 15px 0; }
+    .btn { display: block; margin: 10px auto; padding: 15px; border-radius: 8px; background: #7d3cff; color: white; text-decoration: none; font-weight: bold; }
+    .lang { margin: 15px; }
   </style>
 </head>
 <body>
-  <header>
+  <div class="container">
     <h1>World Pi Bank</h1>
     <p>Web3 · Pi Network · Digital Bank</p>
-    <div class="lang">
-      <a class="chip" href="index.html">KO</a>
-      <a class="chip active" href="index_en.html">EN</a>
-    </div>
-  </header>
 
-  <main>
+    <div class="lang">
+      <a href="index.html" class="btn">KO</a>
+      <a href="index_en.html" class="btn">EN</a>
+      <a href="index_both.html" class="btn">BOTH</a>
+    </div>
+
     <div class="card">
       <h2>My Balance</h2>
-      <p>Pi : 0.0000</p>
-      <div>
-        <a href="#" class="btn">Payment / Send<br>Merchant / Personal</a>
-        <a href="#" class="btn">Rewards<br>Participation Incentives</a>
-        <a href="#" class="btn">UBI<br>Basic Income</a>
-        <a href="#" class="btn">Support<br>My Mail</a>
-      </div>
-      <p style="margin-top:20px; font-size:14px; color:#555;">
-        Note: World Pi Bank is a Web3 demo app for the Pi ecosystem.  
-        Operated by AI automated system.
-      </p>
+      <p>Pi: 0.0000</p>
     </div>
-  </main>
+
+    <a href="#" class="btn">Pay / Send<br>Merchants / Individuals</a>
+    <a href="#" class="btn">Rewards<br>Participation Incentives</a>
+    <a href="#" class="btn">UBI<br>Basic Income</a>
+    <a href="mailto:ljw2358@gmail.com" class="btn">Support<br>My Email</a>
+
+    <div class="card">
+      <h3>Notice</h3>
+      <p>World Pi Bank is a Web3 demo app for the Pi ecosystem. Operates with AI automation system.</p>
+    </div>
+
+    <footer>
+      <p>© 2025 WorldPiBank · All Rights Reserved</p>
+    </footer>
+  </div>
 </body>
 </html>
