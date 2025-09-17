@@ -1,165 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>World Pi Bank · 세계파이은행</title>
-<style>
-  :root{
-    --bg:#270043; /* 배경(진보라) */
-    --card:#4b1b85; /* 카드 */
-    --sub:#d6c2ff; /* 보조텍스트 */
-    --login:#7f4d00; /* 로그인 버튼 색상(어둡게) */
-    --chat:#6f27a8; /* 채팅 버튼 */
-  }
-  *{box-sizing:border-box}
-  html,body{margin:0;background:var(--bg);color:#fff;font-family:Arial,Helvetica,sans-serif;text-align:center}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#270043" />
+  <title>World Pi Bank · 세계파이은행</title>
+  <style>
+    :root{
+      --bg:#270043; /* 배경(진보라) */
+      --card:#4b1b85; /* 카드 배경 */
+      --sub:#d6c2ff; /* 보조 텍스트 */
+      --login:#7f4d00; /* 로그인(어둡게) */
+      --chat:#6f27a8; /* 채팅 버튼 */
+    }
+    *{box-sizing:border-box}
+    html,body{
+      margin:0;background:var(--bg);color:#fff;
+      font-family:Arial,Helvetica,sans-serif;text-align:center
+    }
 
-  header{padding:26px 16px 6px}
-  header h1{margin:0;font-size:30px;line-height:1.2}
-  header .sub{margin-top:8px;color:var(--sub);font-size:15px}
+    header{padding:26px 16px 6px}
+    header h1{margin:0;font-size:30px;line-height:1.2}
+    header .sub{margin-top:8px;color:var(--sub);font-size:15px}
 
-  .grid{
-    display:grid;grid-template-columns:1fr 1fr;
-    gap:44px; /* 넓은 간격 */
-    max-width:440px;margin:22px auto 0;padding:0 16px;
-  }
-  .card{
-    background:var(--card);border-radius:14px;padding:20px 16px;min-height:92px;
-    display:flex;flex-direction:column;align-items:flex-start;justify-content:center;
-    box-shadow:0 10px 22px rgba(0,0,0,.22);
-  }
-  .card b{font-size:18px}
-  .card small{color:#eddfff;margin-top:6px}
+    /* 카드 그리드: 간격 넓힘 */
+    .grid{
+      display:grid;grid-template-columns:1fr 1fr;
+      gap:44px;
+      max-width:440px;margin:22px auto 0;padding:0 16px;
+    }
+    .card{
+      background:var(--card);border-radius:14px;padding:20px 16px;min-height:92px;
+      display:flex;flex-direction:column;align-items:flex-start;justify-content:center;
+      box-shadow:0 10px 22px rgba(0,0,0,.22);
+    }
+    .card b{font-size:18px}
+    .card small{color:#eddfff;margin-top:6px}
 
-  .login-wrap{display:flex;justify-content:center;margin:28px 0 100px}
-  .login{
-    background:var(--login);color:#fff;border:none;border-radius:14px;
-    padding:12px 30px;font-size:18px;box-shadow:0 8px 18px rgba(0,0,0,.28);
-  }
+    .login-wrap{display:flex;justify-content:center;margin:28px 0 100px}
+    .login{
+      background:var(--login);color:#fff;border:none;border-radius:14px;
+      padding:12px 30px;font-size:18px;box-shadow:0 8px 18px rgba(0,0,0,.28);
+      cursor:pointer
+    }
 
-  /* QR: 좌하단(채팅보다 큼) */
-  .qr{
-    position:fixed;left:14px;bottom:92px;z-index:10;
-    width:80px;height:80px;
-  }
-  /* 중앙 하단 Pi 로고 */
-  .pi-logo{
-    position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:9;
-    width:128px;height:128px;
-  }
+    /* QR: 좌하단(채팅보다 큼) */
+    .qr{
+      position:fixed;left:14px;bottom:92px;z-index:10;
+      width:80px;height:80px;
+    }
+    /* 중앙 하단 Pi 로고 */
+    .pi-logo{
+      position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:9;
+      width:128px;height:128px;
+    }
 
-  /* 채팅 버튼 */
-  .chat{
-    position:fixed;right:18px;bottom:18px;width:60px;height:60px;border-radius:50%;
-    background:var(--chat);display:flex;align-items:center;justify-content:center;font-size:20px;
-    box-shadow:0 10px 22px rgba(0,0,0,.28);
-  }
+    /* 채팅 버튼 */
+    .chat{
+      position:fixed;right:18px;bottom:18px;width:60px;height:60px;border-radius:50%;
+      background:var(--chat);display:flex;align-items:center;justify-content:center;font-size:20px;
+      box-shadow:0 10px 22px rgba(0,0,0,.28);
+    }
 
-  @media (max-width:360px){
-    .grid{gap:40px}
-    .qr{width:76px;height:76px}
-    .pi-logo{width:120px;height:120px}
-  }
-
-  /* 상태 뱃지(중립 색) */
-  #pi-status{
-    position:fixed;top:10px;left:10px;padding:6px 10px;border-radius:10px;
-    background:#5a5a5a;color:#fff;font-size:12px;z-index:9999;opacity:.9
-  }
-</style>
+    @media (max-width:360px){
+      .grid{gap:40px}
+      .qr{width:76px;height:76px}
+      .pi-logo{width:120px;height:120px}
+    }
+  </style>
 </head>
 <body>
 
-<header>
-  <h1>World Pi Bank · 세계파이은행</h1>
-  <div class="sub">Pi Digital Bank · 파이 디지털 은행</div>
-</header>
+  <header>
+    <h1>World Pi Bank · 세계파이은행</h1>
+    <div class="sub">Pi Digital Bank · 파이 디지털 은행</div>
+  </header>
 
-<main class="grid">
-  <div class="card"><b>✈️ Payments/Transfers</b><small>Merchant · Personal · 결제/보내기</small></div>
-  <div class="card"><b>🎁 Rewards</b><small>Participation Incentives · 보상</small></div>
-  <div class="card"><b>✋ UBI</b><small>Universal Basic Income · 기본소득</small></div>
-  <div class="card"><b>☎️ Customer Support</b><small>ljw2358@naver.com · 고객센터</small></div>
-</main>
+  <main class="grid">
+    <div class="card"><b>✈️ Payments/Transfers</b><small>Merchant · Personal · 결제/보내기</small></div>
+    <div class="card"><b>🎁 Rewards</b><small>Participation Incentives · 보상</small></div>
+    <div class="card"><b>✋ UBI</b><small>Universal Basic Income · 기본소득</small></div>
+    <div class="card"><b>☎️ Customer Support</b><small>ljw2358@naver.com · 고객센터</small></div>
+  </main>
 
-<div class="login-wrap">
-  <button class="login">🔑 Login</button>
-</div>
+  <div class="login-wrap">
+    <button class="login">🔑 Login</button>
+  </div>
 
-<!-- 내장 QR (SVG) -->
-<svg class="qr" viewBox="0 0 100 100" aria-label="QR Code">
-  <rect width="100" height="100" rx="12" fill="#fff"/>
-  <rect x="8" y="8" width="24" height="24" fill="#000"/>
-  <rect x="68" y="8" width="24" height="24" fill="#000"/>
-  <rect x="8" y="68" width="24" height="24" fill="#000"/>
-  <rect x="44" y="44" width="12" height="12" fill="#000"/>
-  <rect x="60" y="44" width="6" height="6" fill="#000"/>
-  <rect x="44" y="60" width="6" height="6" fill="#000"/>
-  <rect x="56" y="68" width="12" height="12" fill="#000"/>
-</svg>
+  <!-- 내장 QR (SVG) -->
+  <svg class="qr" viewBox="0 0 100 100" aria-label="QR Code">
+    <rect width="100" height="100" rx="12" fill="#fff"/>
+    <rect x="8" y="8" width="24" height="24" fill="#000"/>
+    <rect x="68" y="8" width="24" height="24" fill="#000"/>
+    <rect x="8" y="68" width="24" height="24" fill="#000"/>
+    <rect x="44" y="44" width="12" height="12" fill="#000"/>
+    <rect x="60" y="44" width="6" height="6" fill="#000"/>
+    <rect x="44" y="60" width="6" height="6" fill="#000"/>
+    <rect x="56" y="68" width="12" height="12" fill="#000"/>
+  </svg>
 
-<!-- 내장 Pi 로고 (SVG) -->
-<svg class="pi-logo" viewBox="0 0 200 200" aria-label="Pi Logo">
-  <defs>
-    <radialGradient id="g" cx="50%" cy="45%" r="60%">
-      <stop offset="0%" stop-color="#ffcc66"/>
-      <stop offset="100%" stop-color="#b9770e"/>
-    </radialGradient>
-  </defs>
-  <circle cx="100" cy="100" r="90" fill="url(#g)"/>
-  <circle cx="100" cy="100" r="84" fill="none" stroke="rgba(0,0,0,.15)" stroke-width="6"/>
-  <text x="50%" y="56%" text-anchor="middle" font-size="84" font-family="Arial, Helvetica, sans-serif" fill="#4b1b85" font-weight="700">π</text>
-</svg>
+  <!-- 내장 Pi 로고 (SVG) -->
+  <svg class="pi-logo" viewBox="0 0 200 200" aria-label="Pi Logo">
+    <defs>
+      <radialGradient id="g" cx="50%" cy="45%" r="60%">
+        <stop offset="0%" stop-color="#ffcc66"/>
+        <stop offset="100%" stop-color="#b9770e"/>
+      </radialGradient>
+    </defs>
+    <circle cx="100" cy="100" r="90" fill="url(#g)"/>
+    <circle cx="100" cy="100" r="84" fill="none" stroke="rgba(0,0,0,.15)" stroke-width="6"/>
+    <text x="50%" y="56%" text-anchor="middle" font-size="84" font-family="Arial, Helvetica, sans-serif" fill="#4b1b85" font-weight="700">π</text>
+  </svg>
 
-<div class="chat" aria-label="채팅">💬</div>
+  <div class="chat" aria-label="chat">💬</div>
 
-<!-- Pi SDK + 로그인 (배너는 중립 안내만 표시) -->
-<script src="https://sdk.minepi.com/pi-sdk.js"></script>
-<script>
-  // 상태 뱃지(중립)
-  const badge=document.createElement('div');
-  badge.id='pi-status';
-  badge.textContent='Pi SDK: checking…';
-  document.body.appendChild(badge);
-  const setStatus=(t)=>{ badge.textContent=t; };
-
-  try{
-    if(typeof Pi==='undefined'){
-      setStatus('Pi SDK not found. Open in Pi Browser or check network.');
-    }else{
-      setStatus('Pi SDK loaded. Tap Login to authenticate.');
-      Pi.init({version:"2.0"});
-
-      // 참고 안내(강한 경고 제거, 정보만)
-      const ua = navigator.userAgent;
-      if(!/PiBrowser/i.test(ua)){
-        setStatus('Tip: Best experience in Pi Browser. Tap Login to test.');
+  <!-- Pi SDK + 로그인 -->
+  <script src="https://sdk.minepi.com/pi-sdk.js"></script>
+  <script>
+    // SDK 초기화 및 로그인
+    (function(){
+      if (typeof Pi === "undefined") {
+        console.warn("Pi SDK not found. Open in Pi Browser.");
+        return;
       }
+      Pi.init({ version: "2.0" });
 
-      const loginBtn=document.querySelector('.login');
-      if(loginBtn){
-        loginBtn.addEventListener('click', async ()=>{
-          try{
-            const scopes=["payments","username"];
-            const auth=await Pi.authenticate(scopes, p=>console.log('incomplete payment:', p));
-            console.log('Authenticated:', auth);
-            loginBtn.innerText="✅ Logged in";
-            loginBtn.disabled=true;
-            setStatus('Authenticated. Welcome, ' + (auth?.user?.username || 'Pioneer') + '!');
-          }catch(e){
-            console.error(e);
-            setStatus('Login failed. Check Approved origins or try again.');
-            alert("Login failed. Please try again.");
-          }
-        });
-      }
-    }
-  }catch(e){
-    console.error(e);
-    setStatus('SDK init error.');
-  }
-</script>
+      const loginBtn = document.querySelector(".login");
+      if (!loginBtn) return;
+
+      loginBtn.addEventListener("click", async () => {
+        try {
+          const scopes = ["payments", "username"];
+          const auth = await Pi.authenticate(scopes, (p)=>console.log("incomplete payment:", p));
+          console.log("Authenticated:", auth);
+          loginBtn.textContent = "✅ Logged in";
+          loginBtn.disabled = true;
+        } catch (e) {
+          console.error("Login failed:", e);
+          alert("Login failed. Check Approved origins and try again.");
+        }
+      });
+    })();
+  </script>
 
 </body>
 </html>
