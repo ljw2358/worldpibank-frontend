@@ -1,99 +1,186 @@
-<section class="grid" aria-label="주요 기능">
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PiTown Style – 4 Cards (KO/EN)</title>
+  <style>
+    :root{
+      --bg:#f6f4ff;
+      --card:#ffffff;
+      --ink:#1f1636;
+      --sub:#5a4abf; /* 메인 보라 */
+      --sub-2:#8a7ff2; /* 보조 보라 */
+      --muted:#6b6780;
+      --pill:#efeafe;
+      --shadow:0 10px 24px rgba(45,33,120,.10);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Pretendard,Apple SD Gothic Neo,Arial,sans-serif}
+    header{
+      position:sticky;top:0;background:linear-gradient(180deg,#fff,rgba(255,255,255,.92));
+      backdrop-filter:saturate(1.2) blur(6px); border-bottom:1px solid #eee; z-index:2
+    }
+    .wrap{max-width:1024px;margin:0 auto;padding:18px 16px}
+    .title{display:flex;align-items:center;gap:10px}
+    .title .dot{width:36px;height:36px;border-radius:50%;background:var(--sub);box-shadow:0 0 0 5px var(--pill)}
+    .title h1{font-size:22px;line-height:1.2;margin:0}
+    .meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+    .pill{background:var(--pill);color:var(--sub);padding:8px 12px;border-radius:999px;font-weight:600;font-size:13px}
+    .xp{margin-top:12px}
+    .bar{height:12px;background:#e9e5ff;border-radius:999px;overflow:hidden}
+    .bar > span{display:block;height:100%;width:65%;background:linear-gradient(90deg,var(--sub),var(--sub-2))}
+    .xp small{display:block;color:var(--muted);margin-top:6px}
 
-  <!-- 송금 카드 -->
-  <article class="card c1" tabindex="0" role="button" aria-label="송금하기">
-    <div class="icon">💸</div>
-    <div>
-      <h3>송금 • Send</h3>
-      <p>
-        Pi 코인을 안전하고 빠르게 다른 사용자에게 전송할 수 있습니다.<br/>
-        Securely and instantly transfer your Pi coins to other users.
-      </p>
-      <p>
-        지갑 주소를 직접 입력하거나, 연락처 목록에서 수신자를 선택하여 송금할 수 있습니다.<br/>
-        Enter a wallet address manually or select a recipient from your contacts.
-      </p>
-      <p>
-        모든 송금 내역은 블록체인에 기록되며, 투명하고 변경 불가능하게 보존됩니다.<br/>
-        All transactions are recorded on the blockchain, ensuring transparency and immutability.
-      </p>
-      <p>
-        수수료는 최소화되어 있으며, 초보자도 쉽게 따라 할 수 있는 인터페이스를 제공합니다.<br/>
-        Fees are minimized and the interface is designed for beginners to use with ease.
-      </p>
+    /* 카드 그리드 */
+    .grid{display:grid;gap:18px;margin-top:18px}
+    @media (min-width:680px){ .grid{grid-template-columns:repeat(2,1fr)}}
+    @media (min-width:980px){ .grid{grid-template-columns:repeat(4,1fr)}}
+
+    .card{
+      background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
+      padding:18px;display:flex;flex-direction:column;gap:10px;min-height:340px
+    }
+    .badge{font-size:12px;color:var(--sub);font-weight:700;letter-spacing:.04em}
+    .card h2{font-size:18px;line-height:1.25;margin:2px 0 4px 0}
+    .subline{color:var(--muted);font-size:13px;line-height:1.4}
+    .stat{
+      display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 2px 0
+    }
+    .stat .chip{background:#f1efff;border:1px solid #e1ddff;color:#4b3bb0;padding:6px 10px;border-radius:999px;font-size:12px}
+    .desc{margin-top:6px;font-size:13.5px;line-height:1.6;color:#2c2549}
+    .desc p{margin:6px 0}
+    .hr{height:1px;background:#f0eff8;margin:8px 0}
+    .list{padding-left:16px;margin:0}
+    .list li{margin:4px 0}
+    footer{padding:22px 0 34px 0;color:var(--muted);font-size:12px;text-align:center}
+  </style>
+</head>
+<body>
+  <!-- 상단 헤더 : 레벨/보유파이/XP 표시 -->
+  <header>
+    <div class="wrap">
+      <div class="title">
+        <div class="dot" aria-hidden="true"></div>
+        <h1>🌐 Your PiTown · 나의 파이타운</h1>
+      </div>
+
+      <div class="meta">
+        <div class="pill">Level 7 · 레벨 7</div>
+        <div class="pill">Pi Balance 3,141π · 보유 파이 3,141π</div>
+      </div>
+
+      <div class="xp">
+        <div class="bar" aria-label="XP progress"><span></span></div>
+        <small>XP Progress · 진행도 : <b>650 / 1000</b></small>
+      </div>
     </div>
-  </article>
+  </header>
 
-  <!-- 결제 카드 -->
-  <article class="card c2" tabindex="0" role="button" aria-label="결제하기">
-    <div class="icon">🧾</div>
-    <div>
-      <h3>결제 • Payment</h3>
-      <p>
-        오프라인 상점과 온라인 플랫폼에서 Pi 코인을 결제 수단으로 사용할 수 있습니다.<br/>
-        Use Pi as a payment method at offline stores and online platforms.
-      </p>
-      <p>
-        복잡한 절차 없이 버튼 하나로 결제가 가능하며, 실시간 승인 시스템이 적용됩니다.<br/>
-        Complete payments with a single tap, supported by real-time approval systems.
-      </p>
-      <p>
-        사용자와 판매자 모두 결제 내역을 투명하게 확인할 수 있으며, 즉시 영수증이 발급됩니다.<br/>
-        Both users and merchants can verify payment history transparently with instant receipts.
-      </p>
-      <p>
-        추후에는 글로벌 가맹점 네트워크와 연동되어 어디서나 결제가 가능해집니다.<br/>
-        Future updates will integrate with global merchant networks for worldwide usage.
-      </p>
+  <!-- 카드 4개 (영문+한글 풍부한 설명) -->
+  <main class="wrap">
+    <div class="grid">
+      <!-- 1. Cozy Cottage -->
+      <article class="card">
+        <div class="badge">🏠 Cozy Cottage</div>
+        <h2>Warm start for steady growth / 작지만 단단한 출발</h2>
+        <div class="subline">Level 2 · 레벨 2 · Base income for early players / 초반 플레이어를 위한 기본 수익 거점</div>
+
+        <div class="stat">
+          <span class="chip">+15π/hr</span>
+          <span class="chip">Low upkeep</span>
+          <span class="chip">초보 친화</span>
+        </div>
+
+        <div class="desc">
+          <p><b>EN.</b> Cozy Cottage focuses on stability. Keep it running to maintain a reliable hourly yield while you prepare resources for bigger upgrades. Ideal for new towns seeking predictable cashflow.</p>
+          <p><b>KO.</b> 코지 코티지는 <u>안정성</u>에 초점을 둡니다. 큰 업그레이드를 준비하는 동안 꾸준한 시간당 수익을 보장해 주며, <i>초보 마을</i>이 예측 가능한 현금흐름을 만들기에 적합합니다.</p>
+        </div>
+
+        <div class="hr"></div>
+        <ul class="list">
+          <li><b>Tip EN.</b> Bundle with “Math Cafe” to widen entry productivity.</li>
+          <li><b>팁 KO.</b> “Math Cafe”와 함께 운영하면 <b>초기 생산성</b>이 안정적으로 넓어집니다.</li>
+        </ul>
+      </article>
+
+      <!-- 2. Pi Bakery -->
+      <article class="card">
+        <div class="badge">🏢 Pi Bakery</div>
+        <h2>Daily rush, sweet margins / 매일 붐비는 달콤한 마진</h2>
+        <div class="subline">Level 3 · 레벨 3 · Mid-tier engine for consistent boosts / 꾸준한 상승을 만드는 중위 엔진</div>
+
+        <div class="stat">
+          <span class="chip">+25π/hr</span>
+          <span class="chip">Combo-friendly</span>
+          <span class="chip">업그레이드 효율↑</span>
+        </div>
+
+        <div class="desc">
+          <p><b>EN.</b> Pi Bakery turns steady demand into scalable profit. Its upgrade path multiplies hourly output without heavy risk, making it the backbone of a balanced town portfolio.</p>
+          <p><b>KO.</b> 파이 베이커리는 <u>꾸준한 수요</u>를 <u>확장 가능한 이익</u>으로 전환합니다. 무리한 리스크 없이 시간당 생산을 키울 수 있어 <i>균형 잡힌 포트폴리오의 중추</i>가 됩니다.</p>
+        </div>
+
+        <div class="hr"></div>
+        <ul class="list">
+          <li><b>Synergy EN.</b> Pair with “Modern Villa” to offset maintenance with premium rent.</li>
+          <li><b>시너지 KO.</b> “Modern Villa”와 묶으면 <b>유지비</b>를 <b>프리미엄 임대수익</b>으로 상쇄할 수 있습니다.</li>
+        </ul>
+      </article>
+
+      <!-- 3. Math Cafe -->
+      <article class="card">
+        <div class="badge">☕ Math Cafe</div>
+        <h2>Learning hub, lean costs / 배우고 벌고, 비용은 가볍게</h2>
+        <div class="subline">Level 1 · 레벨 1 · Entry unit with skills bonus / 스킬 보너스를 주는 입문 유닛</div>
+
+        <div class="stat">
+          <span class="chip">+10π/hr</span>
+          <span class="chip">Skill boost</span>
+          <span class="chip">유지비 낮음</span>
+        </div>
+
+        <div class="desc">
+          <p><b>EN.</b> Math Cafe boosts worker efficiency, unlocking better yields across your town. It’s not just income—it’s a multiplier for the rest of your estate.</p>
+          <p><b>KO.</b> 매쓰 카페는 <u>작업 효율</u>을 끌어올려 마을 전반의 수익을 증폭합니다. 단순 수익원이 아니라 <i>전체 자산의 배율기</i> 역할을 합니다.</p>
+        </div>
+
+        <div class="hr"></div>
+        <ul class="list">
+          <li><b>Build EN.</b> Place early; the compounding benefit grows with time.</li>
+          <li><b>운용 KO.</b> 초기에 지을수록 <b>복리 효과</b>가 오래 누적됩니다.</li>
+        </ul>
+      </article>
+
+      <!-- 4. Modern Villa -->
+      <article class="card">
+        <div class="badge">🏡 Modern Villa</div>
+        <h2>Premium living, premium flow / 프리미엄 거주, 프리미엄 현금흐름</h2>
+        <div class="subline">Level 4 · 레벨 4 · High-yield anchor asset / 고수익 앵커 자산</div>
+
+        <div class="stat">
+          <span class="chip">+35π/hr</span>
+          <span class="chip">High demand</span>
+          <span class="chip">자본 효율 우수</span>
+        </div>
+
+        <div class="desc">
+          <p><b>EN.</b> The Villa attracts high-value residents and stabilizes your top line. When paired with mid-tier producers, it smooths volatility and accelerates upgrades.</p>
+          <p><b>KO.</b> 모던 빌라는 <u>고가치 거주 수요</u>를 끌어와 상단 매출을 안정화합니다. 중위 생산 유닛과 조합하면 변동을 줄이고 업그레이드를 더 빠르게 밀어줍니다.</p>
+        </div>
+
+        <div class="hr"></div>
+        <ul class="list">
+          <li><b>Route EN.</b> Upgrade after securing two stable mid-tier cards.</li>
+          <li><b>경로 KO.</b> <b>중위 카드 2개</b>로 안정성을 만든 뒤 단계 상승을 추천합니다.</li>
+        </ul>
+      </article>
     </div>
-  </article>
+  </main>
 
-  <!-- 보상 카드 -->
-  <article class="card c3" tabindex="0" role="button" aria-label="보상">
-    <div class="icon">🎁</div>
-    <div>
-      <h3>보상 • Reward</h3>
-      <p>
-        앱 사용, 설문 참여, 친구 초대 등 다양한 활동을 통해 리워드를 적립하세요.<br/>
-        Earn rewards through app usage, surveys, and inviting friends.
-      </p>
-      <p>
-        보상은 Pi 코인으로 환산되어 지갑에 직접 지급되며, 즉시 활용이 가능합니다.<br/>
-        Rewards are converted to Pi coins and deposited directly into your wallet.
-      </p>
-      <p>
-        보상 내역은 언제든 확인할 수 있고, 투명하게 관리됩니다.<br/>
-        You can review your reward history anytime, managed transparently.
-      </p>
-      <p>
-        특별 이벤트나 캠페인에 참여하면 추가 보상을 얻을 수 있습니다.<br/>
-        Participate in special events or campaigns to unlock bonus rewards.
-      </p>
-    </div>
-  </article>
-
-  <!-- UBI 카드 -->
-  <article class="card c4" tabindex="0" role="button" aria-label="기본소득">
-    <div class="icon">🌍</div>
-    <div>
-      <h3>UBI • Universal Basic Income</h3>
-      <p>
-        모든 사용자에게 매일 디지털 기본소득을 균등하게 제공합니다.<br/>
-        Provides every user with a fair share of digital basic income every day.
-      </p>
-      <p>
-        지급 내역은 자동으로 기록되어 언제든 확인할 수 있으며, 누적 현황도 표시됩니다.<br/>
-        Payout history is automatically recorded and can be reviewed anytime with cumulative status.
-      </p>
-      <p>
-        사회적 약자를 보호하고, 누구나 최소한의 디지털 자산을 보장받을 수 있도록 설계되었습니다.<br/>
-        Designed to protect vulnerable groups and guarantee a minimum digital asset for everyone.
-      </p>
-      <p>
-        Pi 생태계가 확장됨에 따라, UBI는 글로벌 디지털 경제의 중요한 기반이 됩니다.<br/>
-        As the Pi ecosystem expands, UBI will become a cornerstone of the global digital economy.
-      </p>
-    </div>
-  </article>
-
-</section>
+  <footer>
+    © PiTown-style UI preview. No login / QR / chat included. · 로그인/QR/채팅 미포함 미리보기 UI
+  </footer>
+</body>
+</html>
