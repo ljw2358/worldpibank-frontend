@@ -3,184 +3,171 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>PiTown Style – 4 Cards (KO/EN)</title>
+  <title>PiTown — 4 Cards (KO/EN, Long Copy)</title>
   <style>
     :root{
-      --bg:#f6f4ff;
-      --card:#ffffff;
-      --ink:#1f1636;
-      --sub:#5a4abf; /* 메인 보라 */
-      --sub-2:#8a7ff2; /* 보조 보라 */
-      --muted:#6b6780;
-      --pill:#efeafe;
-      --shadow:0 10px 24px rgba(45,33,120,.10);
-      --radius:18px;
+      --bg:#f6f4ff; --card:#fff; --ink:#1e1638;
+      --violet:#6d5af3; --violet-2:#8d82ff; --muted:#6f6a86;
+      --pill:#efeafe; --line:#eee9ff; --shadow:0 12px 28px rgba(40,25,120,.12);
+      --r:18px;
     }
     *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Pretendard,Apple SD Gothic Neo,Arial,sans-serif}
-    header{
-      position:sticky;top:0;background:linear-gradient(180deg,#fff,rgba(255,255,255,.92));
-      backdrop-filter:saturate(1.2) blur(6px); border-bottom:1px solid #eee; z-index:2
-    }
-    .wrap{max-width:1024px;margin:0 auto;padding:18px 16px}
-    .title{display:flex;align-items:center;gap:10px}
-    .title .dot{width:36px;height:36px;border-radius:50%;background:var(--sub);box-shadow:0 0 0 5px var(--pill)}
-    .title h1{font-size:22px;line-height:1.2;margin:0}
-    .meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
-    .pill{background:var(--pill);color:var(--sub);padding:8px 12px;border-radius:999px;font-weight:600;font-size:13px}
-    .xp{margin-top:12px}
-    .bar{height:12px;background:#e9e5ff;border-radius:999px;overflow:hidden}
-    .bar > span{display:block;height:100%;width:65%;background:linear-gradient(90deg,var(--sub),var(--sub-2))}
+    html,body{margin:0;background:var(--bg);color:var(--ink);
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Pretendard,Apple SD Gothic Neo,Arial,sans-serif}
+    /* header */
+    header{background:#fff;position:sticky;top:0;z-index:5;border-bottom:1px solid var(--line)}
+    .wrap{max-width:1100px;margin:0 auto;padding:20px 16px}
+    .row{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+    .logo{width:38px;height:38px;border-radius:50%;background:var(--violet);
+      box-shadow:0 0 0 6px var(--pill)}
+    h1{font-size:24px;margin:0}
+    .meta{display:flex;gap:10px;flex-wrap:wrap}
+    .pill{background:var(--pill);color:var(--violet);padding:8px 12px;border-radius:999px;font-weight:700;font-size:13px}
+    .xp{margin-top:10px}
+    .bar{height:12px;border-radius:999px;background:#e8e4ff;overflow:hidden}
+    .fill{height:100%;width:65%;background:linear-gradient(90deg,var(--violet),var(--violet-2))}
     .xp small{display:block;color:var(--muted);margin-top:6px}
 
-    /* 카드 그리드 */
-    .grid{display:grid;gap:18px;margin-top:18px}
-    @media (min-width:680px){ .grid{grid-template-columns:repeat(2,1fr)}}
-    @media (min-width:980px){ .grid{grid-template-columns:repeat(4,1fr)}}
+    /* section title */
+    .section-title{display:flex;align-items:center;justify-content:space-between;margin:16px 0 6px}
+    .section-title h2{font-size:18px;margin:0}
+    .caption{color:var(--muted);font-size:13px}
 
-    .card{
-      background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
-      padding:18px;display:flex;flex-direction:column;gap:10px;min-height:340px
-    }
-    .badge{font-size:12px;color:var(--sub);font-weight:700;letter-spacing:.04em}
-    .card h2{font-size:18px;line-height:1.25;margin:2px 0 4px 0}
-    .subline{color:var(--muted);font-size:13px;line-height:1.4}
-    .stat{
-      display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 2px 0
-    }
-    .stat .chip{background:#f1efff;border:1px solid #e1ddff;color:#4b3bb0;padding:6px 10px;border-radius:999px;font-size:12px}
-    .desc{margin-top:6px;font-size:13.5px;line-height:1.6;color:#2c2549}
+    /* grid */
+    .grid{display:grid;gap:18px}
+    @media(min-width:680px){.grid{grid-template-columns:repeat(2,1fr)}}
+    @media(min-width:980px){.grid{grid-template-columns:repeat(4,1fr)}}
+
+    /* card */
+    .card{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);padding:18px;min-height:380px;display:flex;flex-direction:column}
+    .badge{font-size:12px;color:var(--violet);font-weight:800;letter-spacing:.03em}
+    .card h3{margin:6px 0 2px 0;font-size:18px;line-height:1.25}
+    .sub{color:var(--muted);font-size:13px}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+    .chip{background:#f1efff;border:1px solid #e3e0ff;color:#4a3bb5;padding:6px 10px;border-radius:999px;font-size:12px}
+    .desc{font-size:13.6px;line-height:1.63;margin-top:4px}
     .desc p{margin:6px 0}
-    .hr{height:1px;background:#f0eff8;margin:8px 0}
+    .hr{height:1px;background:#f0effa;margin:10px 0}
     .list{padding-left:16px;margin:0}
-    .list li{margin:4px 0}
-    footer{padding:22px 0 34px 0;color:var(--muted);font-size:12px;text-align:center}
+    .list li{margin:5px 0}
+    footer{padding:26px 0 36px;text-align:center;color:var(--muted);font-size:12px}
   </style>
 </head>
 <body>
-  <!-- 상단 헤더 : 레벨/보유파이/XP 표시 -->
+  <!-- HEADER -->
   <header>
     <div class="wrap">
-      <div class="title">
-        <div class="dot" aria-hidden="true"></div>
+      <div class="row">
+        <div class="logo" aria-hidden="true"></div>
         <h1>🌐 Your PiTown · 나의 파이타운</h1>
       </div>
-
-      <div class="meta">
+      <div class="meta" style="margin-top:10px">
         <div class="pill">Level 7 · 레벨 7</div>
-        <div class="pill">Pi Balance 3,141π · 보유 파이 3,141π</div>
+        <div class="pill">Pi 3,141π · 보유 파이 3,141π</div>
+      </div>
+      <div class="xp">
+        <div class="bar"><div class="fill"></div></div>
+        <small>XP Progress · 진행도 : <b>650 / 1000</b> — Keep building to reach the next tier. / 다음 티어까지 꾸준히 건설하세요.</small>
       </div>
 
-      <div class="xp">
-        <div class="bar" aria-label="XP progress"><span></span></div>
-        <small>XP Progress · 진행도 : <b>650 / 1000</b></small>
+      <div class="section-title">
+        <h2>🏙️ Your PiTown · 나의 타운</h2>
+        <div class="caption">Four core assets with bilingual guidance / 영문+한글 상세 가이드 포함 4개 핵심 자산</div>
       </div>
     </div>
   </header>
 
-  <!-- 카드 4개 (영문+한글 풍부한 설명) -->
+  <!-- GRID -->
   <main class="wrap">
     <div class="grid">
-      <!-- 1. Cozy Cottage -->
+      <!-- Card 1 -->
       <article class="card">
-        <div class="badge">🏠 Cozy Cottage</div>
-        <h2>Warm start for steady growth / 작지만 단단한 출발</h2>
-        <div class="subline">Level 2 · 레벨 2 · Base income for early players / 초반 플레이어를 위한 기본 수익 거점</div>
-
-        <div class="stat">
+        <span class="badge">🏠 Cozy Cottage</span>
+        <h3>Reliable seed income / 흔들림 없는 씨앗 수익</h3>
+        <div class="sub">Level 2 · 레벨 2 · Low upkeep starter hub / 유지비 낮은 스타터 거점</div>
+        <div class="chips">
           <span class="chip">+15π/hr</span>
-          <span class="chip">Low upkeep</span>
+          <span class="chip">Risk-light</span>
           <span class="chip">초보 친화</span>
         </div>
-
         <div class="desc">
-          <p><b>EN.</b> Cozy Cottage focuses on stability. Keep it running to maintain a reliable hourly yield while you prepare resources for bigger upgrades. Ideal for new towns seeking predictable cashflow.</p>
-          <p><b>KO.</b> 코지 코티지는 <u>안정성</u>에 초점을 둡니다. 큰 업그레이드를 준비하는 동안 꾸준한 시간당 수익을 보장해 주며, <i>초보 마을</i>이 예측 가능한 현금흐름을 만들기에 적합합니다.</p>
+          <p><b>EN.</b> A compact home that converts early traffic into steady yield. Keep it active while you gather materials and unlock mid-tier units. Its purpose is predictability—so your upgrades never stall.</p>
+          <p><b>KO.</b> 초기 방문을 <u>꾸준한 수익</u>으로 바꾸는 소형 주택입니다. 자원을 모으고 중위 유닛을 해금하는 동안 안정적 현금흐름을 담당해 <i>업그레이드가 끊기지 않도록</i> 도와줍니다.</p>
         </div>
-
         <div class="hr"></div>
         <ul class="list">
-          <li><b>Tip EN.</b> Bundle with “Math Cafe” to widen entry productivity.</li>
-          <li><b>팁 KO.</b> “Math Cafe”와 함께 운영하면 <b>초기 생산성</b>이 안정적으로 넓어집니다.</li>
+          <li><b>EN Tip.</b> Double down early; two Cottages smooth variance before you add Bakery.</li>
+          <li><b>KO 팁.</b> 초반엔 <b>2채</b>를 먼저 깔아 변동성을 줄인 뒤 베이커리를 추가하세요.</li>
         </ul>
       </article>
 
-      <!-- 2. Pi Bakery -->
+      <!-- Card 2 -->
       <article class="card">
-        <div class="badge">🏢 Pi Bakery</div>
-        <h2>Daily rush, sweet margins / 매일 붐비는 달콤한 마진</h2>
-        <div class="subline">Level 3 · 레벨 3 · Mid-tier engine for consistent boosts / 꾸준한 상승을 만드는 중위 엔진</div>
-
-        <div class="stat">
+        <span class="badge">🏢 Pi Bakery</span>
+        <h3>Daily demand, scalable margins / 일일 수요, 확장형 마진</h3>
+        <div class="sub">Level 3 · 레벨 3 · Mid-tier throughput engine / 중위 구간 처리량 엔진</div>
+        <div class="chips">
           <span class="chip">+25π/hr</span>
-          <span class="chip">Combo-friendly</span>
-          <span class="chip">업그레이드 효율↑</span>
+          <span class="chip">Combo-ready</span>
+          <span class="chip">업그레이드 효율 ↑</span>
         </div>
-
         <div class="desc">
-          <p><b>EN.</b> Pi Bakery turns steady demand into scalable profit. Its upgrade path multiplies hourly output without heavy risk, making it the backbone of a balanced town portfolio.</p>
-          <p><b>KO.</b> 파이 베이커리는 <u>꾸준한 수요</u>를 <u>확장 가능한 이익</u>으로 전환합니다. 무리한 리스크 없이 시간당 생산을 키울 수 있어 <i>균형 잡힌 포트폴리오의 중추</i>가 됩니다.</p>
+          <p><b>EN.</b> Bakery translates constant footfall into compounding revenue. Upgrade steps add output without spiking costs, making it a safe ladder to your first premium property.</p>
+          <p><b>KO.</b> 베이커리는 끊임없는 유입을 <u>복리형 매출</u>로 전환합니다. 단계 업그레이드가 비용 급등 없이 생산을 키워 <i>첫 프리미엄 자산</i>으로 가는 <b>안전한 사다리</b>가 됩니다.</p>
         </div>
-
         <div class="hr"></div>
         <ul class="list">
-          <li><b>Synergy EN.</b> Pair with “Modern Villa” to offset maintenance with premium rent.</li>
-          <li><b>시너지 KO.</b> “Modern Villa”와 묶으면 <b>유지비</b>를 <b>프리미엄 임대수익</b>으로 상쇄할 수 있습니다.</li>
+          <li><b>EN Synergy.</b> Bakery + Villa balances upkeep via premium rent.</li>
+          <li><b>KO 시너지.</b> 베이커리 × 빌라 조합으로 <b>유지비</b>를 <b>프리미엄 임대</b>로 상쇄.</li>
         </ul>
       </article>
 
-      <!-- 3. Math Cafe -->
+      <!-- Card 3 -->
       <article class="card">
-        <div class="badge">☕ Math Cafe</div>
-        <h2>Learning hub, lean costs / 배우고 벌고, 비용은 가볍게</h2>
-        <div class="subline">Level 1 · 레벨 1 · Entry unit with skills bonus / 스킬 보너스를 주는 입문 유닛</div>
-
-        <div class="stat">
+        <span class="badge">☕ Math Cafe</span>
+        <h3>Skill boost, lean cost / 스킬 부스트, 가벼운 비용</h3>
+        <div class="sub">Level 1 · 레벨 1 · Team efficiency amplifier / 팀 효율 증폭기</div>
+        <div class="chips">
           <span class="chip">+10π/hr</span>
-          <span class="chip">Skill boost</span>
+          <span class="chip">Skill bonus</span>
           <span class="chip">유지비 낮음</span>
         </div>
-
         <div class="desc">
-          <p><b>EN.</b> Math Cafe boosts worker efficiency, unlocking better yields across your town. It’s not just income—it’s a multiplier for the rest of your estate.</p>
-          <p><b>KO.</b> 매쓰 카페는 <u>작업 효율</u>을 끌어올려 마을 전반의 수익을 증폭합니다. 단순 수익원이 아니라 <i>전체 자산의 배율기</i> 역할을 합니다.</p>
+          <p><b>EN.</b> Not just a café—this is an efficiency node. It unlocks better yields town-wide by improving worker performance, so every other card benefits over time.</p>
+          <p><b>KO.</b> 단순 카페가 아니라 <u>효율 노드</u>입니다. 작업 성능을 올려 마을 전체 수익률을 끌어올리므로 시간이 지날수록 <i>다른 카드의 효율</i>까지 함께 상승합니다.</p>
         </div>
-
         <div class="hr"></div>
         <ul class="list">
-          <li><b>Build EN.</b> Place early; the compounding benefit grows with time.</li>
-          <li><b>운용 KO.</b> 초기에 지을수록 <b>복리 효과</b>가 오래 누적됩니다.</li>
+          <li><b>EN Build.</b> Place early for compounding; delay hurts long-run output.</li>
+          <li><b>KO 운용.</b> <b>초기에 설치</b>해야 복리 효과가 최대화됩니다. 늦출수록 총산출이 감소합니다.</li>
         </ul>
       </article>
 
-      <!-- 4. Modern Villa -->
+      <!-- Card 4 -->
       <article class="card">
-        <div class="badge">🏡 Modern Villa</div>
-        <h2>Premium living, premium flow / 프리미엄 거주, 프리미엄 현금흐름</h2>
-        <div class="subline">Level 4 · 레벨 4 · High-yield anchor asset / 고수익 앵커 자산</div>
-
-        <div class="stat">
+        <span class="badge">🏡 Modern Villa</span>
+        <h3>Premium anchor asset / 프리미엄 앵커 자산</h3>
+        <div class="sub">Level 4 · 레벨 4 · High-yield stabilizer / 고수익 안정화 장치</div>
+        <div class="chips">
           <span class="chip">+35π/hr</span>
           <span class="chip">High demand</span>
           <span class="chip">자본 효율 우수</span>
         </div>
-
         <div class="desc">
-          <p><b>EN.</b> The Villa attracts high-value residents and stabilizes your top line. When paired with mid-tier producers, it smooths volatility and accelerates upgrades.</p>
-          <p><b>KO.</b> 모던 빌라는 <u>고가치 거주 수요</u>를 끌어와 상단 매출을 안정화합니다. 중위 생산 유닛과 조합하면 변동을 줄이고 업그레이드를 더 빠르게 밀어줍니다.</p>
+          <p><b>EN.</b> The Villa attracts high-value tenants, locks in top-line stability, and accelerates the pace of upgrades across the board. Treat it as your growth anchor.</p>
+          <p><b>KO.</b> 빌라는 <u>고가치 수요</u>를 흡수해 매출 상단을 고정시키고 전체 업그레이드 속도를 끌어올립니다. 성장의 <i>앵커</i>로 운용하세요.</p>
         </div>
-
         <div class="hr"></div>
         <ul class="list">
-          <li><b>Route EN.</b> Upgrade after securing two stable mid-tier cards.</li>
-          <li><b>경로 KO.</b> <b>중위 카드 2개</b>로 안정성을 만든 뒤 단계 상승을 추천합니다.</li>
+          <li><b>EN Route.</b> Secure 2 mid-tier cards first, then step into Villa to avoid cash dips.</li>
+          <li><b>KO 경로.</b> <b>중위 카드 2개</b>로 바닥을 다진 뒤 빌라로 진입하면 현금 낙폭을 피할 수 있습니다.</li>
         </ul>
       </article>
     </div>
   </main>
 
   <footer>
-    © PiTown-style UI preview. No login / QR / chat included. · 로그인/QR/채팅 미포함 미리보기 UI
+    PiTown-style UI preview (KO/EN). No login / QR / chat. · 로그인·QR·채팅 미포함 미리보기 UI
   </footer>
 </body>
 </html>
