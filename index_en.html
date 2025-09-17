@@ -1,47 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>World Pi Bank</title>
-  <meta name="description" content="Web3 · Pi Network · Digital Bank (Demo UI)" />
+  <meta name="description" content="World Pi Bank - Web3 Pi Network Digital Bank (Demo UI)" />
   <style>
-    body { font-family: Arial, sans-serif; background: #6a0dad; color: white; margin: 0; padding: 0; }
-    .container { max-width: 500px; margin: auto; padding: 20px; text-align: center; }
-    .card { background: white; color: black; border-radius: 12px; padding: 20px; margin: 15px 0; }
-    .btn { display: block; margin: 10px auto; padding: 15px; border-radius: 8px; background: #7d3cff; color: white; text-decoration: none; font-weight: bold; }
-    .lang { margin: 15px; }
+    :root {
+      --purple: #6c2bd9;
+      --purple2: #7d3aed;
+      --bg: #f5f6fb;
+      --card: #ffffff;
+      --text: #192937;
+      --muted: #6b7280;
+      --radius: 20px;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text);
+    }
+    header {
+      background: var(--purple);
+      color: #fff;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+      font-weight: bold;
+    }
+    header p {
+      margin: 8px 0 0;
+      font-size: 15px;
+      opacity: 0.9;
+    }
+    .balance {
+      text-align: center;
+      margin: 20px auto;
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+      max-width: 400px;
+      padding: 20px;
+    }
+    .balance h2 {
+      margin: 0;
+      font-size: 20px;
+      color: var(--muted);
+    }
+    .balance p {
+      margin: 10px 0 0;
+      font-size: 24px;
+      font-weight: bold;
+      color: var(--purple);
+    }
+    .menu {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      max-width: 600px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+    .menu button {
+      background: var(--purple2);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      padding: 20px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .menu button:hover {
+      background: var(--purple);
+    }
+    footer {
+      text-align: center;
+      padding: 30px 15px;
+      font-size: 13px;
+      color: var(--muted);
+    }
   </style>
 </head>
 <body>
-  <div class="container">
+  <header>
     <h1>World Pi Bank</h1>
     <p>Web3 · Pi Network · Digital Bank</p>
+  </header>
 
-    <div class="lang">
-      <a href="index.html" class="btn">KO</a>
-      <a href="index_en.html" class="btn">EN</a>
-      <a href="index_both.html" class="btn">BOTH</a>
-    </div>
-
-    <div class="card">
-      <h2>My Balance</h2>
-      <p>Pi: 0.0000</p>
-    </div>
-
-    <a href="#" class="btn">Pay / Send<br>Merchants / Individuals</a>
-    <a href="#" class="btn">Rewards<br>Participation Incentives</a>
-    <a href="#" class="btn">UBI<br>Basic Income</a>
-    <a href="mailto:ljw2358@gmail.com" class="btn">Support<br>My Email</a>
-
-    <div class="card">
-      <h3>Notice</h3>
-      <p>World Pi Bank is a Web3 demo app for the Pi ecosystem. Operates with AI automation system.</p>
-    </div>
-
-    <footer>
-      <p>© 2025 WorldPiBank · All Rights Reserved</p>
-    </footer>
+  <div class="balance">
+    <h2>My Balance</h2>
+    <p>Pi 0.0000</p>
   </div>
+
+  <div class="menu">
+    <button>Payment / Transfer</button>
+    <button>Rewards & Incentives</button>
+    <button>UBI · Basic Income</button>
+    <button>Support My Activities</button>
+  </div>
+
+  <footer>
+    © 2025 World Pi Bank. This demo UI is built for Web3 and Pi Network digital economy.
+  </footer>
 </body>
 </html>
