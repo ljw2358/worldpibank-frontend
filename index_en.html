@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WorldPiBank · 세계파이은행</title>
+  <meta name="description" content="Web3 · Pi Network · Digital Bank (Demo UI)" />
+  <style>
+    :root{
+      --purple:#6c2bd9; --purple2:#7c3aed; --bg:#f5f6fb; --card:#ffffff; --text:#1f2937;
+      --muted:#6b7280; --radius:20px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Apple SD Gothic Neo,Roboto,Helvetica,Arial,'Noto Sans KR',sans-serif}
+    .wrap{max-width:960px;margin:0 auto;padding:16px 16px 48px}
+    .hero{background:linear-gradient(135deg,var(--purple),var(--purple2));color:#fff;border-radius:0 0 var(--radius) var(--radius);padding:28px 16px}
+    .title{font-weight:800;font-size:28px;letter-spacing:-0.3px}
+    .subtitle{opacity:.9;margin-top:6px}
+    .lang{display:flex;gap:8px;margin-top:14px}
+    .chip{border:1px solid rgba(255,255,255,.7);color:#fff;background:transparent;padding:6px 10px;border-radius:999px;font-weight:700;cursor:pointer}
+    .chip.active{background:#fff;color:#4c1d95;border-color:#fff}
+    .card{background:var(--card);border-radius:var(--radius);box-shadow:0 8px 24px rgba(17,24,39,.06);padding:18px;margin-top:-22px}
+    .row{display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px}
+    @media(min-width:720px){.row{grid-template-columns:1fr 1fr}}
+    .btn{background:var(--purple);border:none;border-radius:16px;padding:18px 16px;color:#fff;font-weight:800;font-size:16px;cursor:pointer}
+    .btn small{display:block;font-weight:600;opacity:.9;margin-top:4px}
+    .muted{color:var(--muted);font-size:14px;line-height:1.6}
+    .section{background:var(--card);border-radius:var(--radius);box-shadow:0 8px 24px rgba(17,24,39,.06);padding:18px;margin-top:16px}
+    .footer{margin-top:28px;text-align:center;color:var(--muted);font-size:13px}
+    a{color:inherit}
+    .balance{display:flex;align-items:center;justify-content:space-between}
+    .balance strong{font-size:18px}
+    .eye{width:36px;height:36px;border-radius:12px;background:#eee;display:flex;align-items:center;justify-content:center}
+    .navlink{color:#4c1d95;text-decoration:underline;font-weight:800}
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <div class="wrap">
+      <div class="title" data-ko="세계파이은행" data-en="WorldPiBank">세계파이은행</div>
+      <div class="subtitle" data-ko="웹3 · 파이 네트워크 · 디지털 뱅크" data-en="Web3 · Pi Network · Digital Bank">
+        웹3 · 파이 네트워크 · 디지털 뱅크
+      </div>
+      <div class="lang">
+        <button class="chip active" id="btnKO">KO</button>
+        <button class="chip" id="btnEN">EN</button>
+        <button class="chip" id="btnBOTH">BOTH</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="card">
+      <div class="balance">
+        <div>
+          <div style="font-size:22px;font-weight:900" data-ko="내 잔액" data-en="Your Balance">내 잔액</div>
+          <div style="margin-top:8px"><strong>Pi : 0.0000</strong></div>
+        </div>
+        <div class="eye">👁️</div>
+      </div>
+
+      <div class="row" style="margin-top:18px">
+        <button class="btn" onclick="alert('Demo UI')" data-ko="결재/보내기\n상인/개인" data-en="Pay / Send\nMerchants / Individuals">
+          결재/보내기<small>상인/개인</small>
+        </button>
+
+        <button class="btn" onclick="alert('Demo UI')" data-ko="보상\n참여 인센티브" data-en="Rewards\nParticipation Incentives">
+          보상<small>참여 인센티브</small>
+        </button>
+
+        <button class="btn" onclick="alert('Demo UI')" data-ko="UBI\n기본소득" data-en="UBI\nBasic Income">
+          UBI<small>기본소득</small>
+        </button>
+
+        <a class="btn" href="mailto:ljw2358@naver.com" data-ko="고객센터\n내 메일" data-en="Support\nMy Email" style="text-align:left;display:block">
+          고객센터<small>내 메일</small>
+        </a>
+      </div>
+
+      <p class="muted" style="margin-top:16px"
+         data-ko="안내: 세계 파이 은행은 파이 생태계를 위한 Web3 데모 앱입니다. AI 자동 시스템에 의해 작동됩니다."
+         data-en="Note: WorldPiBank is a Web3 demo app for the Pi ecosystem. Operated by an AI automated system.">
+         안내: 세계 파이 은행은 파이 생태계를 위한 Web3 데모 앱입니다. AI 자동 시스템에 의해 작동됩니다.
+      </p>
+    </div>
+
+    <div class="section">
+      <div style="font-weight:900;font-size:20px" data-ko="안내" data-en="Info">안내</div>
+      <p class="muted" data-ko="UI 데모 전용입니다. Pi SDK 연동, 로그인/결제는 이후 단계에서 연결됩니다."
+         data-en="This is a UI demo only. Pi SDK login and payments will be connected in later steps.">
+         UI 데모 전용입니다. Pi SDK 연동, 로그인/결제는 이후 단계에서 연결됩니다.
+      </p>
+      <p class="muted">
+        <a class="navlink" href="개인정보_보호.html" data-ko="개인정보 보호" data-en="Privacy Policy">개인정보 보호</a>
+        &nbsp;·&nbsp;
+        <a class="navlink" href="약관.html" data-ko="약관" data-en="Terms">약관</a>
+      </p>
+    </div>
+
+    <div class="footer">© 2025 WorldPiBank · All Rights Reserved.</div>
+  </div>
+
+  <script>
+    const t = sel => document.querySelectorAll(sel);
+    const setLang = lang => {
+      // 버튼 상태
+      t('.chip').forEach(b=>b.classList.remove('active'));
+      if(lang==='KO') document.getElementById('btnKO').classList.add('active');
+      if(lang==='EN') document.getElementById('btnEN').classList.add('active');
+      if(lang==='BOTH') document.getElementById('btnBOTH').classList.add('active');
+
+      // 텍스트 교체
+      t('[data-ko]').forEach(el=>{
+        const ko = el.getAttribute('data-ko');
+        const en = el.getAttribute('data-en') || '';
+        if(lang==='KO') el.innerHTML = ko.replace(/\n/g,'<br/>');
+        else if(lang==='EN') el.innerHTML = en.replace(/\n/g,'<br/>');
+        else el.innerHTML = (ko + ' / ' + en).replace(/\n/g,'<br/>');
+      });
+      // html lang 속성
+      document.documentElement.lang = (lang==='EN'?'en':'ko');
+    };
+    // 버튼 이벤트
+    document.getElementById('btnKO').onclick = ()=>setLang('KO');
+    document.getElementById('btnEN').onclick = ()=>setLang('EN');
+    document.getElementById('btnBOTH').onclick = ()=>setLang('BOTH');
+    // 초기값
+    setLang('KO');
+  </script>
+</body>
+</html>
