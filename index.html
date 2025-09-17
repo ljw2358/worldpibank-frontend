@@ -1,155 +1,124 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>World Pi Bank</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>세계파이은행 · World Pi Bank</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #2a0a4a; /* 보라색 배경 */
-      color: #fff;
-      text-align: center;
+    :root{
+      --bg:#2b0b45; /* 전체 배경(진한 보라) */
+      --card:#4a1b7a; /* 박스 배경 */
+      --card-text:#ffffff; /* 박스 글자 */
+      --sub:#d3b3ff; /* 보조 텍스트 */
+      --login:#b9770e; /* 로그인(톤다운) */
+      --login-txt:#fff;
+      --chat:#6a1b9a; /* 채팅 버튼 */
     }
-    header {
-      padding: 20px;
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:#fff;font-family:Arial,Helvetica,sans-serif;}
+
+    header{padding:24px 16px 12px;text-align:center}
+    header h1{margin:0;font-size:28px;line-height:1.2}
+    header .en{display:block;font-size:16px;color:var(--sub);margin-top:6px}
+    header .sub{font-size:15px;color:var(--sub);margin-top:10px}
+
+    .grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:26px; /* ✅ 박스 간 간격 넓힘 */
+      max-width:420px;
+      margin:18px auto 8px;
+      padding:0 16px;
     }
-    #title {
-      font-size: 2em;
-      margin: 0;
+    .card{
+      background:var(--card);
+      color:var(--card-text);
+      border-radius:14px;
+      padding:18px 14px;
+      min-height:86px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:flex-start;
+      box-shadow:0 8px 20px rgba(0,0,0,.18);
     }
-    #subtitle {
-      font-size: 1.1em;
-      margin: 5px 0 15px 0;
-      color: #d1b3ff;
+    .card b{font-size:18px}
+    .card small{opacity:.9;color:#eadbff;margin-top:6px}
+
+    .login-wrap{display:flex;justify-content:center;margin:26px 0 90px}
+    .login{
+      background:var(--login); /* ✅ 너무 밝지 않게 톤다운 */
+      color:var(--login-txt);
+      border:none;border-radius:14px;
+      padding:12px 28px;font-size:18px;
+      box-shadow:0 6px 16px rgba(0,0,0,.25);
     }
-    .lang-switch {
-      position: absolute;
-      top: 15px;
-      right: 15px;
+
+    /* ✅ QR: 왼쪽 하단, 채팅보다 약간 크게 */
+    .qr{
+      position:fixed;left:14px;bottom:88px;
+      width:78px;height:78px;object-fit:contain;
+      background:rgba(0,0,0,.08);border-radius:12px;
     }
-    .lang-switch button {
-      background: #ffb703;
-      border: none;
-      color: #fff;
-      font-weight: bold;
-      margin-left: 5px;
-      padding: 5px 10px;
-      border-radius: 5px;
-      cursor: pointer;
+
+    /* ✅ 파이 로고: 정중앙 하단, 조금 크게 */
+    .pi-logo{
+      position:fixed;left:50%;bottom:20px;transform:translateX(-50%);
+      width:110px;height:auto;opacity:.95;
     }
-    .services {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 15px;
-      max-width: 500px;
-      margin: 20px auto;
+
+    /* 채팅 버튼 */
+    .chat{
+      position:fixed;right:18px;bottom:18px;
+      width:62px;height:62px;border-radius:50%;
+      background:var(--chat);display:flex;align-items:center;justify-content:center;
+      box-shadow:0 10px 22px rgba(0,0,0,.28);font-size:20px;
     }
-    .service {
-      background: #4b1d6b; /* 진한 보라색 */
-      padding: 15px;
-      border-radius: 12px;
-      color: #fff;
-    }
-    .service h3 {
-      margin: 0;
-      font-size: 1.1em;
-    }
-    .service p {
-      margin: 5px 0 0 0;
-      font-size: 0.85em;
-      color: #d1b3ff;
-    }
-    #loginBtn {
-      background: #ffb703;
-      color: #fff;
-      border: none;
-      padding: 10px 20px;
-      margin: 20px auto 10px auto;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-      display: block;
-    }
-    #qr {
-      position: fixed;
-      bottom: 70px;
-      right: 20px;
-      width: 60px; /* 아주 작게 */
-      height: 60px;
-    }
-    #chatBtn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #6a0dad;
-      color: #fff;
-      border-radius: 50%;
-      width: 55px;
-      height: 55px;
-      font-size: 22px;
-      border: none;
-    }
-    #chatLabel {
-      position: fixed;
-      bottom: 10px;
-      right: 85px;
-      font-size: 14px;
-      color: #d1b3ff;
+
+    /* 작은 화면 최적화 */
+    @media (max-width:360px){
+      .grid{gap:22px}
+      .qr{width:72px;height:72px}
+      .pi-logo{width:100px}
     }
   </style>
 </head>
 <body>
 
-  <!-- 언어 전환 -->
-  <div class="lang-switch">
-    <button>EN</button>
-    <button>KO</button>
-  </div>
-
-  <!-- 상단 -->
   <header>
-    <h1 id="title">World Pi Bank</h1>
-    <h2 id="subtitle">Pi Digital Bank</h2>
+    <h1>세계파이은행 <span class="en">World Pi Bank</span></h1>
+    <div class="sub">파이 디지털 은행 · Pi Digital Bank</div>
   </header>
 
-  <!-- 서비스 2줄 -->
-  <section class="services">
-    <div class="service">
-      <h3>✈️ Payments/Transfers</h3>
-      <p>Merchant / Personal</p>
+  <main class="grid">
+    <div class="card">
+      <b>✈️ 결제/보내기</b>
+      <small>Payment / Transfer (상인·개인)</small>
     </div>
-    <div class="service">
-      <h3>🎁 Rewards</h3>
-      <p>Participation Incentives</p>
+    <div class="card">
+      <b>🎁 보상</b>
+      <small>Rewards · Participation Incentives</small>
     </div>
-    <div class="service">
-      <h3>✋ UBI</h3>
-      <p>Universal Basic Income</p>
+    <div class="card">
+      <b>✋ UBI</b>
+      <small>Basic Income</small>
     </div>
-    <div class="service">
-      <h3>☎️ Customer Support</h3>
-      <p>📧 ljw2358@naver.com</p>
+    <div class="card">
+      <b>☎️ 고객센터</b>
+      <small>Customer Center · ljw2358@naver.com</small>
     </div>
-  </section>
+  </main>
 
-  <!-- 로그인 버튼 -->
-  <button id="loginBtn">🔑 Login</button>
+  <div class="login-wrap">
+    <button class="login">🔑 Login</button>
+  </div>
 
-  <!-- QR코드 (작게 모서리) -->
-  <img id="qr" src="qr.png" alt="QR Code">
+  <!-- ✅ 이미지 파일명/경로 확인: 같은 폴더에 qrcode.png, pi_logo.png 두 파일 필요 -->
+  <img src="qrcode.png" alt="QR Code" class="qr" />
+  <img src="pi_logo.png" alt="Pi Logo" class="pi-logo" />
 
-  <!-- 채팅 버튼 -->
-  <button id="chatBtn">💬</button>
-  <span id="chatLabel">채팅</span>
-
-  <script>
-    document.getElementById('loginBtn').addEventListener('click', function() {
-      alert("Pi Network Login (SDK 연동 예정)");
-    });
-  </script>
+  <div class="chat" aria-label="채팅">💬</div>
 
 </body>
 </html>
