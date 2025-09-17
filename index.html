@@ -1,215 +1,99 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>PiTown – App Studio</title>
-<style>
-  :root{
-    --purple:#6f42c1;
-    --purple-700:#5a34a3;
-    --purple-100:#efe7ff;
-    --pill:#f6f1ff;
-    --text:#1d1d1f;
-    --muted:#6b7280;
-    --border:#e6e6ef;
-    --like:#22c55e;
-    --dislike:#ef4444;
-    --stake:#10b981;
-  }
-  *{box-sizing:border-box}
-  body{
-    margin:0;
-    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Apple Color Emoji, Noto Color Emoji, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
-    color:var(--text);
-    background:linear-gradient(180deg,#fafafa,#f7f8ff);
-  }
-  /* Top bar */
-  .appbar{
-    position:sticky; top:0; z-index:5;
-    display:flex; align-items:center; gap:10px;
-    padding:14px 16px; background:var(--purple); color:#fff;
-  }
-  .appbar .title{font-weight:700}
-  .appbar .pi{margin-left:auto; opacity:.9}
-  .chip{
-    display:inline-flex; align-items:center; gap:6px;
-    padding:2px 8px; border-radius:999px; background:#fff2; font-size:.88rem;
-  }
+<section class="grid" aria-label="주요 기능">
 
-  /* banner */
-  .banner{
-    background:#fdeac4; color:#7a4a00; margin:10px 16px 0; border-radius:12px;
-    padding:10px 12px; font-size:.92rem;
-  }
-  /* header block */
-  .hdr{
-    margin:14px 16px 0; padding:14px; border-radius:14px; background:#fff; border:1px solid var(--border);
-  }
-  .hdr-top{display:flex; align-items:center; gap:12px}
-  .avatar{
-    width:42px; height:42px; border-radius:50%; background:var(--purple-100);
-    display:inline-flex; align-items:center; justify-content:center; color:var(--purple);
-    font-weight:700;
-  }
-  .title-row{display:flex; align-items:center; gap:8px; flex-wrap:wrap}
-  .level{color:var(--muted); font-weight:600}
-  .right{margin-left:auto; display:flex; align-items:center; gap:8px}
-  .pill{background:var(--pill); color:var(--purple-700); border:1px solid #e7ddff; border-radius:999px; padding:6px 10px; font-weight:700}
-  .gear{width:28px; height:28px; border-radius:8px; background:#f4f4fa; display:flex; align-items:center; justify-content:center}
-
-  .xp{margin-top:10px}
-  .xp label{font-size:.92rem; color:#111; font-weight:600}
-  .bar{height:8px; background:#eee; border-radius:999px; overflow:hidden; margin-top:6px}
-  .bar > i{display:block; height:100%; width:65%; background:var(--purple);}
-
-  /* section title */
-  h2{
-    margin:16px 16px 8px; font-size:1.25rem;
-  }
-
-  /* cards */
-  .cards{
-    display:grid; grid-template-columns:repeat(2,1fr); gap:14px;
-    padding:8px 16px 20px;
-  }
-  .card{
-    background:#fff; border:1px solid var(--border); border-radius:16px;
-    padding:16px; display:flex; flex-direction:column; gap:8px;
-    box-shadow:0 1px 0 rgba(17,24,39,.03);
-  }
-  .emoji{font-size:28px}
-  .name{font-weight:800}
-  .sub{color:var(--muted); font-weight:600}
-  .rate{
-    align-self:flex-start; margin-top:6px;
-    background:#fff; border:1px solid var(--border); border-radius:999px;
-    padding:6px 10px; font-weight:800; display:flex; align-items:center; gap:6px;
-  }
-  .rate .spin{font-size:1rem}
-
-  /* footer actions */
-  .actions{
-    position:sticky; bottom:0; background:linear-gradient(180deg,rgba(255,255,255,.6),#fff);
-    padding:12px 16px 18px; border-top:1px solid var(--border);
-  }
-  .row{
-    display:flex; justify-content:space-between; gap:14px;
-  }
-  .act{
-    flex:1; display:flex; flex-direction:column; align-items:center; text-decoration:none;
-    color:inherit; gap:8px;
-  }
-  .btn{
-    width:64px; height:64px; border-radius:50%; display:flex; align-items:center; justify-content:center;
-    background:#fff; border:2px solid var(--border); font-size:28px;
-  }
-  .act.dislike .btn{border-color:#fde3e3; background:#fff;}
-  .act.dislike .label{color:var(--dislike); font-weight:700}
-  .act.like .btn{border-color:#dff5e7}
-  .act.like .label{color:var(--like); font-weight:700}
-  .act.stake .btn{border-color:#d9faf1}
-  .act.stake .label{color:var(--stake); font-weight:700}
-  .act.next .btn{border-color:#e7ddff}
-  .act.next .label{color:var(--purple-700); font-weight:700}
-
-  @media (min-width:560px){
-    .cards{max-width:760px; margin:0 auto}
-    .hdr, .banner{max-width:760px; margin-left:auto; margin-right:auto}
-    h2{max-width:760px; margin-left:auto; margin-right:auto}
-    .actions .row{max-width:760px; margin:0 auto}
-  }
-</style>
-</head>
-<body>
-
-  <!-- Top app bar -->
-  <div class="appbar">
-    <div style="font-size:18px">←</div>
-    <div class="title">App Studio</div>
-    <span class="chip">✦ AI</span>
-    <div class="pi">π</div>
-  </div>
-
-  <!-- Test mode banner -->
-  <div class="banner">You are in test mode of this app to convince yourself if it's good or not.</div>
-
-  <!-- Header block -->
-  <section class="hdr">
-    <div class="hdr-top">
-      <div class="avatar">π</div>
-      <div class="title-row">
-        <div class="name" style="font-size:1.1rem">PiTown</div>
-        <div class="level">Level 7</div>
-      </div>
-      <div class="right">
-        <div class="pill">👁️ 3,141π</div>
-        <div class="gear">⚙️</div>
-      </div>
+  <!-- 송금 카드 -->
+  <article class="card c1" tabindex="0" role="button" aria-label="송금하기">
+    <div class="icon">💸</div>
+    <div>
+      <h3>송금 • Send</h3>
+      <p>
+        Pi 코인을 안전하고 빠르게 다른 사용자에게 전송할 수 있습니다.<br/>
+        Securely and instantly transfer your Pi coins to other users.
+      </p>
+      <p>
+        지갑 주소를 직접 입력하거나, 연락처 목록에서 수신자를 선택하여 송금할 수 있습니다.<br/>
+        Enter a wallet address manually or select a recipient from your contacts.
+      </p>
+      <p>
+        모든 송금 내역은 블록체인에 기록되며, 투명하고 변경 불가능하게 보존됩니다.<br/>
+        All transactions are recorded on the blockchain, ensuring transparency and immutability.
+      </p>
+      <p>
+        수수료는 최소화되어 있으며, 초보자도 쉽게 따라 할 수 있는 인터페이스를 제공합니다.<br/>
+        Fees are minimized and the interface is designed for beginners to use with ease.
+      </p>
     </div>
+  </article>
 
-    <div class="xp">
-      <label>XP Progress</label>
-      <!-- 650 / 1000 → 65% -->
-      <div class="bar"><i style="width:65%"></i></div>
-      <div style="margin-top:6px; color:var(--muted); font-weight:700;">650/1000</div>
+  <!-- 결제 카드 -->
+  <article class="card c2" tabindex="0" role="button" aria-label="결제하기">
+    <div class="icon">🧾</div>
+    <div>
+      <h3>결제 • Payment</h3>
+      <p>
+        오프라인 상점과 온라인 플랫폼에서 Pi 코인을 결제 수단으로 사용할 수 있습니다.<br/>
+        Use Pi as a payment method at offline stores and online platforms.
+      </p>
+      <p>
+        복잡한 절차 없이 버튼 하나로 결제가 가능하며, 실시간 승인 시스템이 적용됩니다.<br/>
+        Complete payments with a single tap, supported by real-time approval systems.
+      </p>
+      <p>
+        사용자와 판매자 모두 결제 내역을 투명하게 확인할 수 있으며, 즉시 영수증이 발급됩니다.<br/>
+        Both users and merchants can verify payment history transparently with instant receipts.
+      </p>
+      <p>
+        추후에는 글로벌 가맹점 네트워크와 연동되어 어디서나 결제가 가능해집니다.<br/>
+        Future updates will integrate with global merchant networks for worldwide usage.
+      </p>
     </div>
-  </section>
+  </article>
 
-  <h2>📍 Your PiTown</h2>
-
-  <!-- Cards -->
-  <section class="cards">
-    <article class="card">
-      <div class="emoji">🏠</div>
-      <div class="name">Cozy Cottage</div>
-      <div class="sub">★ Level 2</div>
-      <div class="rate"><span class="spin">🔗</span> +15π/hr</div>
-    </article>
-
-    <article class="card">
-      <div class="emoji">🏢</div>
-      <div class="name">Pi Bakery</div>
-      <div class="sub">★ Level 3</div>
-      <div class="rate"><span class="spin">🔗</span> +25π/hr</div>
-    </article>
-
-    <article class="card">
-      <div class="emoji">🏛️</div>
-      <div class="name">Math Cafe</div>
-      <div class="sub">★ Level 1</div>
-      <div class="rate"><span class="spin">🔗</span> +10π/hr</div>
-    </article>
-
-    <article class="card">
-      <div class="emoji">🏠</div>
-      <div class="name">Modern Villa</div>
-      <div class="sub">★ Level 4</div>
-      <div class="rate"><span class="spin">🔗</span> +35π/hr</div>
-    </article>
-  </section>
-
-  <!-- Bottom actions -->
-  <div class="actions">
-    <div class="row">
-      <a class="act dislike" href="#">
-        <div class="btn">👎</div>
-        <div class="label">Dislike</div>
-      </a>
-      <a class="act like" href="#">
-        <div class="btn">👍</div>
-        <div class="label">Like</div>
-      </a>
-      <a class="act stake" href="#">
-        <div class="btn">🤝</div>
-        <div class="label">Stake</div>
-      </a>
-      <a class="act next" href="#">
-        <div class="btn">➡️</div>
-        <div class="label">Next</div>
-      </a>
+  <!-- 보상 카드 -->
+  <article class="card c3" tabindex="0" role="button" aria-label="보상">
+    <div class="icon">🎁</div>
+    <div>
+      <h3>보상 • Reward</h3>
+      <p>
+        앱 사용, 설문 참여, 친구 초대 등 다양한 활동을 통해 리워드를 적립하세요.<br/>
+        Earn rewards through app usage, surveys, and inviting friends.
+      </p>
+      <p>
+        보상은 Pi 코인으로 환산되어 지갑에 직접 지급되며, 즉시 활용이 가능합니다.<br/>
+        Rewards are converted to Pi coins and deposited directly into your wallet.
+      </p>
+      <p>
+        보상 내역은 언제든 확인할 수 있고, 투명하게 관리됩니다.<br/>
+        You can review your reward history anytime, managed transparently.
+      </p>
+      <p>
+        특별 이벤트나 캠페인에 참여하면 추가 보상을 얻을 수 있습니다.<br/>
+        Participate in special events or campaigns to unlock bonus rewards.
+      </p>
     </div>
-  </div>
+  </article>
 
-</body>
-</html>
+  <!-- UBI 카드 -->
+  <article class="card c4" tabindex="0" role="button" aria-label="기본소득">
+    <div class="icon">🌍</div>
+    <div>
+      <h3>UBI • Universal Basic Income</h3>
+      <p>
+        모든 사용자에게 매일 디지털 기본소득을 균등하게 제공합니다.<br/>
+        Provides every user with a fair share of digital basic income every day.
+      </p>
+      <p>
+        지급 내역은 자동으로 기록되어 언제든 확인할 수 있으며, 누적 현황도 표시됩니다.<br/>
+        Payout history is automatically recorded and can be reviewed anytime with cumulative status.
+      </p>
+      <p>
+        사회적 약자를 보호하고, 누구나 최소한의 디지털 자산을 보장받을 수 있도록 설계되었습니다.<br/>
+        Designed to protect vulnerable groups and guarantee a minimum digital asset for everyone.
+      </p>
+      <p>
+        Pi 생태계가 확장됨에 따라, UBI는 글로벌 디지털 경제의 중요한 기반이 됩니다.<br/>
+        As the Pi ecosystem expands, UBI will become a cornerstone of the global digital economy.
+      </p>
+    </div>
+  </article>
+
+</section>
