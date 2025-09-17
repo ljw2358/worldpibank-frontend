@@ -3,16 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>세계파이은행 · World Pi Bank</title>
-  <meta name="description" content="세계파이은행 — 파이 디지털 은행. 결제/보내기, 보상, UBI, 고객센터" />
+  <title data-i18n="title">세계파이은행 · World Pi Bank</title>
+  <meta name="description" data-i18n="meta">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='32' fill='%235a1b80'/%3E%3Ctext x='50%25' y='56%25' text-anchor='middle' font-size='28' fill='white'%3E%CF%80%3C/text%3E%3C/svg%3E" />
   <style>
     :root{
-      --bg:#2a0b48; /* 보라 배경 */
-      --card:#401463; /* 카드 */
-      --ink:#ffffff; /* 텍스트 */
-      --muted:#d9c7ef; /* 서브텍스트 */
-      --accent:#ffb400; /* 아이콘 포인트 */
+      --bg:#2a0b48; --card:#401463; --ink:#ffffff; --muted:#d9c7ef; --accent:#ffb400;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
@@ -21,15 +17,20 @@
       color:var(--ink); background:linear-gradient(180deg,#2a0b48 0%, #21093a 100%);
       display:flex; min-height:100%; align-items:stretch; justify-content:center;
     }
-    .wrap{width:100%; max-width:900px; padding:28px 18px 80px}
-    header{ text-align:center; margin:18px 0 16px }
-    .ko-en{position:absolute; right:14px; top:10px; font-size:12px; opacity:.85}
+    .wrap{width:100%; max-width:900px; padding:28px 18px 90px; position:relative}
+    header{text-align:center; margin:18px 0 16px}
+    .lang{
+      position:absolute; right:14px; top:10px; display:flex; gap:8px; align-items:center;
+      font-size:12px; opacity:.9; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15);
+      padding:6px 8px; border-radius:12px;
+    }
+    .lang button{
+      all:unset; cursor:pointer; padding:2px 6px; border-radius:8px;
+    }
+    .lang button.active{ background:#ffb400; color:#2a0b48; font-weight:800 }
     h1{margin:.2rem 0 .4rem; font-size: clamp(28px, 5vw, 44px); letter-spacing:.5px; font-weight:800}
     .sub{opacity:.9; color:var(--muted); font-size:clamp(14px,2.7vw,18px)}
-    .grid{
-      display:grid; gap:14px; margin:22px 0 10px;
-      grid-template-columns: repeat(2, 1fr);
-    }
+    .grid{ display:grid; gap:14px; margin:22px 0 10px; grid-template-columns: repeat(2, 1fr); }
     .card{
       background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08);
       border-radius:18px; padding:18px 16px; backdrop-filter: blur(6px);
@@ -37,59 +38,50 @@
       transition:transform .15s ease, background .15s ease;
     }
     .card:hover{ transform:translateY(-2px); background:rgba(255,255,255,.1) }
-    .ico{font-size:28px; line-height:1; filter: drop-shadow(0 0 0 rgba(0,0,0,0));}
+    .ico{font-size:28px; line-height:1}
     .txt .title{font-size:18px; font-weight:700}
     .txt .desc{margin-top:6px; font-size:13px; color:var(--muted)}
     .email{word-break:break-all}
-    footer{
-      margin:26px auto 0; display:flex; gap:16px; align-items:center; justify-content:center; flex-wrap:wrap;
-    }
-    .qr{
-      width:132px; height:132px; border-radius:10px; background:#fff; display:grid; place-items:center;
-      overflow:hidden; border:0
-    }
+    .cta{ margin:14px auto 0; display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+    .btn{ background:#ffb400; color:#2a0b48; border:0; padding:10px 14px; border-radius:12px; font-weight:700; cursor:pointer; }
+    .ghost{background:transparent; color:#ffd27a; border:1px solid rgba(255,255,255,.25)}
+    footer{ margin:26px auto 0; display:flex; gap:16px; align-items:center; justify-content:center; flex-wrap:wrap; }
+    .qr{ width:132px; height:132px; border-radius:10px; background:#fff; display:grid; place-items:center; overflow:hidden; border:0 }
     .links{font-size:13px; opacity:.9}
     .links a{color:#cbb6ff; text-decoration:none}
     .links a:hover{text-decoration:underline}
-    .cta{
-      margin:14px auto 0; display:flex; gap:10px; justify-content:center; flex-wrap:wrap;
-    }
-    .btn{
-      background:#ffb400; color:#2a0b48; border:0; padding:10px 14px; border-radius:12px; font-weight:700; cursor:pointer;
-    }
-    .ghost{background:transparent; color:#ffd27a; border:1px solid rgba(255,255,255,.25)}
-    @media(min-width:860px){
-      .wrap{padding:40px 24px 100px}
-      .card{min-height:120px}
-    }
+    @media(min-width:860px){ .wrap{padding:40px 24px 110px} .card{min-height:120px} }
   </style>
-  <!-- Pi SDK (미리 로드해도 되고, 나중에 기능 붙일 때 사용) -->
   <script defer src="https://sdk.minepi.com/pi-sdk.js"></script>
 </head>
 <body>
   <div class="wrap">
-    <div class="ko-en">KO | EN BOTH</div>
+    <!-- 언어 토글 -->
+    <div class="lang" role="group" aria-label="language-toggle">
+      <span>Language</span>
+      <button id="btnKO" type="button">KO</button>
+      <button id="btnEN" type="button">EN</button>
+    </div>
 
     <header>
-      <h1>세계파이은행</h1>
-      <div class="sub">파이 디지털 은행</div>
+      <h1 data-i18n="h1">세계파이은행</h1>
+      <div class="sub" data-i18n="subtitle">파이 디지털 은행</div>
     </header>
 
-    <!-- 서비스 2줄 (아이콘 + 설명) -->
+    <!-- 서비스 2줄 -->
     <section class="grid" aria-label="services-row-1">
       <article class="card">
         <div class="ico">✈️</div>
         <div class="txt">
-          <div class="title">결제/보내기</div>
-          <div class="desc">상인/개인</div>
+          <div class="title" data-i18n="pay_title">결제/보내기</div>
+          <div class="desc" data-i18n="pay_desc">상인/개인</div>
         </div>
       </article>
-
       <article class="card">
         <div class="ico">🎁</div>
         <div class="txt">
-          <div class="title">보상</div>
-          <div class="desc">참여 인센티브</div>
+          <div class="title" data-i18n="rew_title">보상</div>
+          <div class="desc" data-i18n="rew_desc">참여 인센티브</div>
         </div>
       </article>
     </section>
@@ -98,60 +90,135 @@
       <article class="card">
         <div class="ico">✋</div>
         <div class="txt">
-          <div class="title">UBI</div>
-          <div class="desc">기본소득</div>
+          <div class="title" data-i18n="ubi_title">UBI</div>
+          <div class="desc" data-i18n="ubi_desc">기본소득</div>
         </div>
       </article>
-
       <article class="card">
         <div class="ico">☎️</div>
         <div class="txt">
-          <div class="title">고객센터</div>
-          <div class="desc email">📧 ljw2358@naver.com</div>
+          <div class="title" data-i18n="cs_title">고객센터</div>
+          <div class="desc email" data-i18n="cs_desc">📧 ljw2358@naver.com</div>
         </div>
       </article>
     </section>
 
-    <!-- 실행/연결 버튼(옵션) -->
+    <!-- (옵션) SDK 데모 버튼 -->
     <div class="cta">
-      <button class="btn" id="piLoginBtn" title="Pi 계정으로 인증">Pi 로그인</button>
-      <a class="btn ghost" href="mailto:ljw2358@naver.com">이메일 문의</a>
+      <button class="btn" id="piLoginBtn" data-i18n="login_btn">Pi 로그인</button>
+      <a class="btn ghost" href="mailto:ljw2358@naver.com" data-i18n="mail_btn">이메일 문의</a>
     </div>
 
-    <!-- 하단 QR + 정책 링크 -->
+    <!-- 하단 QR + 정책 -->
     <footer>
-      <!-- QR: 링크 주소를 원하는 랜딩으로 교체 -->
       <a class="qr" href="https://ljw2358.github.io/worldpibank/" aria-label="QR to World Pi Bank">
-        <!-- 간단 QR (data-URI) — 필요하면 실제 PNG로 교체 -->
         <img alt="QR" width="128" height="128"
              src="https://api.qrserver.com/v1/create-qr-code/?size=128x128&data=https%3A%2F%2Fljw2358.github.io%2Fworldpibank%2F"/>
       </a>
       <div class="links">
-        <a href="./terms.html">이용약관</a> ·
-        <a href="./privacy.html">개인정보처리방침</a>
+        <a href="./terms.html" data-i18n="terms">이용약관</a> ·
+        <a href="./privacy.html" data-i18n="privacy">개인정보처리방침</a>
       </div>
     </footer>
   </div>
 
   <script>
-    // Pi SDK 준비: 로그인(인증) 예시 훅
-    (function initPi(){
-      if (!window.Pi) return; // Pi 브라우저 외 환경 보호
-      Pi.init({ version: "2.0" });
+    // 다국어 리소스
+    const STR = {
+      ko: {
+        title: "세계파이은행 · World Pi Bank",
+        meta: "세계파이은행 — 파이 디지털 은행. 결제/보내기, 보상, UBI, 고객센터",
+        h1: "세계파이은행",
+        subtitle: "파이 디지털 은행",
+        pay_title: "결제/보내기",
+        pay_desc: "상인/개인",
+        rew_title: "보상",
+        rew_desc: "참여 인센티브",
+        ubi_title: "UBI",
+        ubi_desc: "기본소득",
+        cs_title: "고객센터",
+        cs_desc: "📧 ljw2358@naver.com",
+        login_btn: "Pi 로그인",
+        mail_btn: "이메일 문의",
+        terms: "이용약관",
+        privacy: "개인정보처리방침"
+      },
+      en: {
+        title: "World Pi Bank · Pi Digital Bank",
+        meta: "World Pi Bank — Pi Digital Bank. Payments/Transfers, Rewards, UBI, Customer Support",
+        h1: "World Pi Bank",
+        subtitle: "Pi Digital Bank",
+        pay_title: "Payments / Transfers",
+        pay_desc: "Merchant / Personal",
+        rew_title: "Rewards",
+        rew_desc: "Participation Incentives",
+        ubi_title: "UBI",
+        ubi_desc: "Universal Basic Income",
+        cs_title: "Customer Support",
+        cs_desc: "📧 ljw2358@naver.com",
+        login_btn: "Sign in with Pi",
+        mail_btn: "Email Support",
+        terms: "Terms of Service",
+        privacy: "Privacy Policy"
+      }
+    };
 
-      const btn = document.getElementById('piLoginBtn');
-      btn.addEventListener('click', async () => {
-        try{
-          const scopes = ['payments', 'username', 'wallet_address'];
-          const auth = await Pi.authenticate(scopes, (payment) => {
-            console.log('Incomplete payment found:', payment);
-          });
-          alert(`환영합니다, ${auth?.user?.username} 님!`);
-        }catch(err){
-          console.error(err);
-          alert('Pi 인증에 실패했습니다.');
-        }
+    // 언어 적용
+    function applyLang(lang) {
+      const dict = STR[lang] || STR.ko;
+      document.documentElement.lang = (lang === 'en' ? 'en' : 'ko');
+      // title + meta
+      const meta = document.querySelector('meta[name="description"]');
+      if (meta) meta.setAttribute('content', dict.meta || '');
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key] !== undefined) el.textContent = dict[key];
       });
+      // 버튼 상태
+      document.getElementById('btnKO').classList.toggle('active', lang==='ko');
+      document.getElementById('btnEN').classList.toggle('active', lang==='en');
+      // 저장
+      try { localStorage.setItem('wpb_lang', lang); } catch(e){}
+      // 탭 제목
+      document.title = dict.title || document.title;
+    }
+
+    function detectDefaultLang(){
+      try {
+        const saved = localStorage.getItem('wpb_lang');
+        if (saved) return saved;
+      } catch(e){}
+      const nav = (navigator.language || navigator.userLanguage || 'ko').toLowerCase();
+      return nav.startsWith('en') ? 'en' : 'ko';
+    }
+
+    // 초기화
+    (function init(){
+      const initLang = detectDefaultLang();
+      applyLang(initLang);
+
+      document.getElementById('btnKO').addEventListener('click', ()=>applyLang('ko'));
+      document.getElementById('btnEN').addEventListener('click', ()=>applyLang('en'));
+
+      // Pi SDK 데모
+      if (window.Pi){
+        Pi.init({ version: "2.0" });
+        const btn = document.getElementById('piLoginBtn');
+        btn.addEventListener('click', async () => {
+          try{
+            const scopes = ['payments', 'username', 'wallet_address'];
+            const auth = await Pi.authenticate(scopes, p => console.log('Incomplete payment:', p));
+            alert((document.documentElement.lang==='en'
+              ? `Welcome, ${auth?.user?.username}!`
+              : `환영합니다, ${auth?.user?.username} 님!`));
+          }catch(err){
+            console.error(err);
+            alert(document.documentElement.lang==='en'
+              ? 'Pi authentication failed.'
+              : 'Pi 인증에 실패했습니다.');
+          }
+        });
+      }
     })();
   </script>
 </body>
