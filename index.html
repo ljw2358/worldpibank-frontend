@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>세계파이은행</title>
+  <title>World Pi Bank</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -25,6 +25,21 @@
       margin: 5px 0 15px 0;
       color: #d1b3ff;
     }
+    .lang-switch {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+    }
+    .lang-switch button {
+      background: #ffb703;
+      border: none;
+      color: #fff;
+      font-weight: bold;
+      margin-left: 5px;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
     .services {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -33,7 +48,7 @@
       margin: 20px auto;
     }
     .service {
-      background: #3c1361; /* 진한 보라색 */
+      background: #4b1d6b; /* 진한 보라색 */
       padding: 15px;
       border-radius: 12px;
       color: #fff;
@@ -52,19 +67,18 @@
       color: #fff;
       border: none;
       padding: 10px 20px;
-      margin: 20px auto;
+      margin: 20px auto 10px auto;
       border-radius: 6px;
       font-weight: bold;
       cursor: pointer;
       display: block;
     }
-    footer {
-      margin: 20px auto;
-      padding: 10px;
-    }
-    footer img {
-      width: 100px; /* QR 크기 줄임 */
-      height: 100px;
+    #qr {
+      position: fixed;
+      bottom: 70px;
+      right: 20px;
+      width: 60px; /* 아주 작게 */
+      height: 60px;
     }
     #chatBtn {
       position: fixed;
@@ -89,37 +103,43 @@
 </head>
 <body>
 
+  <!-- 언어 전환 -->
+  <div class="lang-switch">
+    <button>EN</button>
+    <button>KO</button>
+  </div>
+
   <!-- 상단 -->
   <header>
-    <h1 id="title">세계파이은행</h1>
-    <h2 id="subtitle">파이 디지털 은행</h2>
+    <h1 id="title">World Pi Bank</h1>
+    <h2 id="subtitle">Pi Digital Bank</h2>
   </header>
 
   <!-- 서비스 2줄 -->
   <section class="services">
     <div class="service">
-      <h3>✈️ 결제/보내기</h3>
-      <p>상인/개인</p>
+      <h3>✈️ Payments/Transfers</h3>
+      <p>Merchant / Personal</p>
     </div>
     <div class="service">
-      <h3>🎁 보상</h3>
-      <p>참여 인센티브</p>
+      <h3>🎁 Rewards</h3>
+      <p>Participation Incentives</p>
     </div>
     <div class="service">
       <h3>✋ UBI</h3>
-      <p>기본소득</p>
+      <p>Universal Basic Income</p>
     </div>
     <div class="service">
-      <h3>☎️ 고객센터</h3>
+      <h3>☎️ Customer Support</h3>
       <p>📧 ljw2358@naver.com</p>
     </div>
   </section>
 
-  <!-- 로그인 버튼 + QR코드 -->
+  <!-- 로그인 버튼 -->
   <button id="loginBtn">🔑 Login</button>
-  <footer>
-    <img src="qr.png" alt="QR Code">
-  </footer>
+
+  <!-- QR코드 (작게 모서리) -->
+  <img id="qr" src="qr.png" alt="QR Code">
 
   <!-- 채팅 버튼 -->
   <button id="chatBtn">💬</button>
