@@ -1,266 +1,181 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>WorldPiBank</title>
-<style>
-  :root{
-    --brand:#7b4dff; --brand2:#5a2dff; --brand3:#00d4ff;
-    --bg:#0b0b12; --panel:#12121b; --card:#161626; --text:#e8e8f3; --muted:#a5a5c1;
-    --accent:#ffe173; --shadow:0 10px 30px rgba(0,0,0,.35); --r:16px; --maxw:980px;
-  }
-  *{box-sizing:border-box}
-  html,body{height:100%}
-  body{
-    margin:0; background:
-      radial-gradient(1200px 600px at 20% -20%, rgba(123,77,255,.30), transparent 60%),
-      radial-gradient(900px 500px at 90% 10%, rgba(0,212,255,.25), transparent 55%),
-      linear-gradient(180deg, #0b0b12 0%, #0e0e18 100%);
-    color:var(--text); font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Apple SD Gothic Neo, Pretendard, Arial, sans-serif;
-  }
-
-  /* Header */
-  header{
-    position:sticky; top:0; z-index:10;
-    background:
-      radial-gradient(1000px 500px at -10% 0%, rgba(255,225,115,.30), transparent 50%),
-      linear-gradient(135deg, var(--brand) 0%, #9f68ff 35%, var(--brand3) 100%);
-    box-shadow: 0 8px 40px rgba(0,0,0,.35);
-    padding:22px 18px; overflow:hidden;
-  }
-  .wrap{max-width:var(--maxw); margin:0 auto; display:flex; gap:16px; align-items:center; justify-content:space-between}
-  .brand{
-    display:flex; gap:12px; align-items:center
-  }
-  .logo{
-    width:38px; height:38px; border-radius:12px;
-    background: conic-gradient(from 0deg, #fff, #ffe173, #7b4dff, #00d4ff, #fff);
-    box-shadow: 0 0 30px rgba(255,225,115,.6), inset 0 0 18px rgba(255,255,255,.35);
-  }
-  h1{margin:0; font-size:22px; letter-spacing:.2px}
-  .tagline{margin:2px 0 0; font-size:12px; opacity:.95}
-
-  /* Toolbar (PC only) */
-  .toolbar{display:flex; gap:8px; flex-wrap:wrap}
-  .chip{
-    border:1px solid rgba(255,255,255,.2); background:rgba(255,255,255,.08);
-    color:#fff; padding:8px 12px; border-radius:12px; cursor:pointer; font-weight:700;
-    backdrop-filter: blur(6px) saturate(140%);
-  }
-  .chip:hover{background:rgba(255,255,255,.16)}
-  .chip.ghost{background:transparent}
-  .chip.active{box-shadow:0 0 0 2px rgba(255,225,115,.6) inset}
-
-  main{padding:22px 16px}
-  .container{max-width:var(--maxw); margin:0 auto}
-
-  /* Cards / layout */
-  .panel{
-    background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:var(--r); box-shadow:var(--shadow);
-    padding:20px;
-  }
-  .balance-head{display:flex; align-items:center; justify-content:space-between; gap:10px}
-  .balance-title{display:flex; align-items:center; gap:10px}
-  .badge{
-    font-size:12px; color:#111; background:var(--accent);
-    padding:4px 8px; border-radius:999px; font-weight:900; letter-spacing:.2px;
-  }
-  .value{font-weight:900; font-size:20px; margin:10px 0 0}
-  .eye{
-    border:1px solid rgba(255,255,255,.18); background:rgba(255,255,255,.10);
-    color:#fff; padding:8px 10px; border-radius:12px; cursor:pointer; font-weight:800;
-  }
-  .eye:hover{background:rgba(255,255,255,.18)}
-
-  .grid{display:grid; gap:14px; grid-template-columns:1fr 1fr}
-  .tile{
-    display:flex; flex-direction:column; align-items:flex-start; gap:8px;
-    border:1px solid rgba(255,255,255,.10); border-radius:18px; padding:18px;
-    background:
-      radial-gradient(500px 180px at 90% -10%, rgba(0,212,255,.12), transparent 50%),
-      linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-    box-shadow: var(--shadow); cursor:pointer;
-    transition: transform .14s ease, box-shadow .14s ease, background .14s ease;
-  }
-  .tile:hover{transform:translateY(-2px); box-shadow:0 12px 40px rgba(0,0,0,.45)}
-  .tile .main{font-weight:900; font-size:16px; display:flex; align-items:center; gap:8px}
-  .tile .sub{font-size:12px; color:var(--muted)}
-  .icon{width:26px; height:26px; display:inline-grid; place-items:center; border-radius:10px;
-    background:linear-gradient(135deg, var(--brand), var(--brand3)); color:#0c0c13; font-weight:900}
-
-  .notice{
-    margin-top:16px; padding:16px; border-radius:14px;
-    background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-    border:1px solid rgba(255,255,255,.08); color:var(--muted);
-    display:flex; gap:10px; align-items:flex-start;
-  }
-  .notice .i{font-weight:900; color:#111; background:var(--accent); border-radius:8px; padding:2px 8px}
-
-  footer{padding:28px 16px; text-align:center; color:var(--muted)}
-
-  @media (max-width:860px){
-    .wrap{flex-direction:column; align-items:flex-start}
-    .grid{grid-template-columns:1fr}
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>세계파이은행 · WorldPiBank</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #7b4dff, #00d4ff);
+      color: #fff;
+      text-align: center;
+    }
+    header {
+      padding: 20px;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 26px;
+    }
+    header p {
+      margin: 5px 0 15px;
+      font-size: 14px;
+    }
+    .lang-buttons button {
+      margin: 5px;
+      padding: 6px 14px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: #fff;
+      color: #333;
+      font-weight: bold;
+    }
+    .container {
+      background: #111827;
+      margin: 20px auto;
+      max-width: 420px;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .balance {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+    .tiles {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+    .tile {
+      background: #1f2937;
+      padding: 15px;
+      border-radius: 12px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.3s;
+      word-break: keep-all;
+      white-space: normal;
+      color: #ffffff; /* ✅ 흰색 글씨 고정 */
+    }
+    .tile strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 16px;
+      color: #ffffff; /* ✅ 버튼 큰 글씨도 흰색 */
+    }
+    .tile small {
+      display: block;
+      font-size: 12px;
+      color: #bbb; /* 설명글은 연한 회색 */
+    }
+    .tile:hover {
+      background: #374151;
+      transform: scale(1.05);
+    }
+    footer {
+      font-size: 12px;
+      color: #ddd;
+      margin: 20px 0;
+    }
+  </style>
 </head>
 <body>
   <header>
-    <div class="wrap">
-      <div class="brand">
-        <div class="logo"></div>
-        <div>
-          <h1 id="title">WorldPiBank</h1>
-          <p class="tagline" id="tagline">Web3 • Pi Network • Digital Bank</p>
-        </div>
-      </div>
-      <div class="toolbar" id="desktopToolbar">
-        <button class="chip" onclick="render('ko')" id="chipKO">KO</button>
-        <button class="chip" onclick="render('en')" id="chipEN">EN</button>
-        <button class="chip" onclick="render('both')" id="chipBOTH">BOTH</button>
-      </div>
+    <h1 id="title">세계파이은행</h1>
+    <p id="subtitle">웹3 · 파이 네트워크 · 디지털 뱅크</p>
+    <div class="lang-buttons">
+      <button onclick="setLang('ko')">KO</button>
+      <button onclick="setLang('en')">EN</button>
+      <button onclick="setLang('both')">BOTH</button>
     </div>
   </header>
 
-  <main>
-    <div class="container">
-      <section class="panel">
-        <div class="balance-head">
-          <div class="balance-title">
-            <span class="badge" id="badgeTxt">LIVE</span>
-            <h2 id="balanceTitle" style="margin:0">Your Balance</h2>
-          </div>
-          <button id="eyeBtn" class="eye" title="Hide/Show">👁</button>
-        </div>
-        <p class="value" id="balanceValue"><strong>Pi: <span id="piAmount">0.0000</span></strong></p>
-
-        <!-- Row 1 -->
-        <div class="grid" style="margin-top:14px">
-          <button class="tile" id="paySendBtn">
-            <span class="main" id="paySendMain"><span class="icon">💳</span> Pay / Send</span>
-            <span class="sub" id="paySendSub">Merchants / Individuals</span>
-          </button>
-          <button class="tile" id="rewardBtn">
-            <span class="main" id="rewardMain"><span class="icon">🎁</span> Rewards</span>
-            <span class="sub" id="rewardSub">Participation Incentives</span>
-          </button>
-        </div>
-
-        <!-- Row 2 -->
-        <div class="grid" style="margin-top:10px">
-          <button class="tile" id="ubiBtn">
-            <span class="main" id="ubiMain"><span class="icon">🏛️</span> UBI</span>
-            <span class="sub" id="ubiSub">Basic Income</span>
-          </button>
-          <a class="tile" id="supportBtn" href="mailto:ljw2358@naver.com">
-            <span class="main" id="supportMain"><span class="icon">🛟</span> Support</span>
-            <span class="sub" id="supportSub">My Email</span>
-          </a>
-        </div>
-
-        <div class="notice" id="notice">
-          <span class="i">ℹ️</span>
-          <span>안내: 세계 파이 은행은 파이 생태계를 위한 web3 앱 입니다. AI 자동 시스템에 의해 작동 됩니다</span>
-        </div>
-      </section>
+  <div class="container">
+    <div class="balance">
+      <span id="balanceTitle">내 잔액</span><br>
+      Pi: 0.0000
     </div>
-  </main>
+    <div class="tiles">
+      <div class="tile">
+        <strong id="payTitle">결제/보내기</strong>
+        <small id="payDesc">상인/개인</small>
+      </div>
+      <div class="tile">
+        <strong id="rewardsTitle">보상</strong>
+        <small id="rewardsDesc">참여 인센티브</small>
+      </div>
+      <div class="tile">
+        <strong id="ubiTitle">UBI</strong>
+        <small id="ubiDesc">기본소득</small>
+      </div>
+      <div class="tile">
+        <strong id="supportTitle">고객센터</strong>
+        <small id="supportDesc">내 메일</small>
+      </div>
+    </div>
+  </div>
 
-  <footer><span id="copyright">© 2025 WorldPiBank – All Rights Reserved</span></footer>
+  <footer id="footer">
+    안내: 세계 파이 은행은 파이 생태계를 위한 web3 앱 입니다. AI 자동 시스템에 의해 작동 됩니다
+  </footer>
 
-<script>
-  // i18n
-  const I18N={
-    ko:{
-      title:"세계파이은행",tagline:"웹3 • 파이 네트워크 • 디지털 뱅크",
-      badge:"LIVE", balanceTitle:"내 잔액",
-      paySendMain:"결재/보내기", paySendSub:"상인/개인",
-      rewardMain:"보상", rewardSub:"참여 인센티브",
-      ubiMain:"UBI", ubiSub:"기본소득",
-      supportMain:"고객센터", supportSub:"내 멜",
-      notice:"안내: 세계 파이 은행은 파이 생태계를 위한 web3 앱 입니다. AI 자동 시스템에 의해 작동 됩니다",
-      copyright:"© 2025 세계파이은행 – All Rights Reserved"
-    },
-    en:{
-      title:"WorldPiBank",tagline:"Web3 • Pi Network • Digital Bank",
-      badge:"LIVE", balanceTitle:"Your Balance",
-      paySendMain:"Pay / Send", paySendSub:"Merchants / Individuals",
-      rewardMain:"Rewards", rewardSub:"Participation Incentives",
-      ubiMain:"UBI", ubiSub:"Basic Income",
-      supportMain:"Support", supportSub:"My Email",
-      // About(Notice) is intentionally kept in Korean as requested
-      notice:"안내: 세계 파이 은행은 파이 생태계를 위한 web3 앱 입니다. AI 자동 시스템에 의해 작동 됩니다",
-      copyright:"© 2025 WorldPiBank – All Rights Reserved"
+  <script>
+    function setLang(lang) {
+      if (lang === 'ko') {
+        document.getElementById("title").innerText = "세계파이은행";
+        document.getElementById("subtitle").innerText = "웹3 · 파이 네트워크 · 디지털 뱅크";
+        document.getElementById("balanceTitle").innerText = "내 잔액";
+        document.getElementById("payTitle").innerText = "결제/보내기";
+        document.getElementById("payDesc").innerText = "상인/개인";
+        document.getElementById("rewardsTitle").innerText = "보상";
+        document.getElementById("rewardsDesc").innerText = "참여 인센티브";
+        document.getElementById("ubiTitle").innerText = "UBI";
+        document.getElementById("ubiDesc").innerText = "기본소득";
+        document.getElementById("supportTitle").innerText = "고객센터";
+        document.getElementById("supportDesc").innerText = "내 멜";
+        document.getElementById("footer").innerText = "안내: 세계 파이 은행은 파이 생태계를 위한 web3 앱 입니다. AI 자동 시스템에 의해 작동 됩니다";
+      } else if (lang === 'en') {
+        document.getElementById("title").innerText = "WorldPiBank";
+        document.getElementById("subtitle").innerText = "Web3 · Pi Network · Digital Bank";
+        document.getElementById("balanceTitle").innerText = "Your Balance";
+        document.getElementById("payTitle").innerText = "Pay / Send";
+        document.getElementById("payDesc").innerText = "Merchants / Individuals";
+        document.getElementById("rewardsTitle").innerText = "Rewards";
+        document.getElementById("rewardsDesc").innerText = "Participation Incentive";
+        document.getElementById("ubiTitle").innerText = "UBI";
+        document.getElementById("ubiDesc").innerText = "Basic Income";
+        document.getElementById("supportTitle").innerText = "Support";
+        document.getElementById("supportDesc").innerText = "My Email";
+        document.getElementById("footer").innerText = "Notice: World Pi Bank is a web3 app for the Pi ecosystem. Operated by AI automated system.";
+      } else if (lang === 'both') {
+        document.getElementById("title").innerText = "세계파이은행 · WorldPiBank";
+        document.getElementById("subtitle").innerText = "웹3 · 파이 네트워크 · 디지털 뱅크";
+        document.getElementById("balanceTitle").innerText = "내 잔액 · Your Balance";
+        document.getElementById("payTitle").innerText = "결제/보내기 · Pay / Send";
+        document.getElementById("payDesc").innerText = "상인/개인 · Merchants / Individuals";
+        document.getElementById("rewardsTitle").innerText = "보상 · Rewards";
+        document.getElementById("rewardsDesc").innerText = "참여 인센티브 · Participation Incentive";
+        document.getElementById("ubiTitle").innerText = "UBI";
+        document.getElementById("ubiDesc").innerText = "기본소득 · Basic Income";
+        document.getElementById("supportTitle").innerText = "고객센터 · Support";
+        document.getElementById("supportDesc").innerText = "내 멜 · My Email";
+        document.getElementById("footer").innerText = "안내: 세계 파이 은행은 파이 생태계를 위한 web3 앱 입니다. AI 자동 시스템에 의해 작동 됩니다";
+      }
     }
-  };
 
-  function setActiveChip(lang){
-    ["KO","EN","BOTH"].forEach(k=>{
-      document.getElementById("chip"+k).classList.toggle("active", (k.toLowerCase()===lang));
-    });
-  }
-
-  function render(lang){
-    const T = (lang==="ko")?I18N.ko:(lang==="both")?I18N.en:I18N.en; // EN default
-    setActiveChip(lang);
-
-    // Common fields
-    title.textContent = (lang==="ko") ? I18N.ko.title : I18N.en.title;
-    tagline.textContent = (lang==="ko") ? I18N.ko.tagline : I18N.en.tagline;
-    badgeTxt.textContent = (lang==="ko") ? I18N.ko.badge : I18N.en.badge;
-    balanceTitle.textContent = (lang==="ko") ? I18N.ko.balanceTitle : I18N.en.balanceTitle;
-
-    if(lang==="both"){
-      // show KO/EN mixed (Korean main words requested)
-      paySendMain.innerHTML = `<span class="icon">💳</span> ${I18N.ko.paySendMain}`;
-      paySendSub.textContent = I18N.ko.paySendSub;
-      rewardMain.innerHTML = `<span class="icon">🎁</span> ${I18N.ko.rewardMain}`;
-      rewardSub.textContent = I18N.ko.rewardSub;
-      ubiMain.innerHTML = `<span class="icon">🏛️</span> ${I18N.ko.ubiMain}`;
-      ubiSub.textContent = I18N.ko.ubiSub;
-      supportMain.innerHTML = `<span class="icon">🛟</span> ${I18N.ko.supportMain}`;
-      supportSub.textContent = I18N.ko.supportSub;
-      notice.querySelector("span:last-child").textContent = I18N.ko.notice;
-      copyright.textContent = I18N.en.copyright;
-    } else if(lang==="ko"){
-      paySendMain.innerHTML = `<span class="icon">💳</span> ${I18N.ko.paySendMain}`;
-      paySendSub.textContent= I18N.ko.paySendSub;
-      rewardMain.innerHTML = `<span class="icon">🎁</span> ${I18N.ko.rewardMain}`;
-      rewardSub.textContent = I18N.ko.rewardSub;
-      ubiMain.innerHTML = `<span class="icon">🏛️</span> ${I18N.ko.ubiMain}`;
-      ubiSub.textContent = I18N.ko.ubiSub;
-      supportMain.innerHTML = `<span class="icon">🛟</span> ${I18N.ko.supportMain}`;
-      supportSub.textContent= I18N.ko.supportSub;
-      notice.querySelector("span:last-child").textContent = I18N.ko.notice;
-      copyright.textContent = I18N.ko.copyright;
-    } else {
-      paySendMain.innerHTML = `<span class="icon">💳</span> ${I18N.en.paySendMain}`;
-      paySendSub.textContent= I18N.en.paySendSub;
-      rewardMain.innerHTML = `<span class="icon">🎁</span> ${I18N.en.rewardMain}`;
-      rewardSub.textContent = I18N.en.rewardSub;
-      ubiMain.innerHTML = `<span class="icon">🏛️</span> ${I18N.en.ubiMain}`;
-      ubiSub.textContent = I18N.en.ubiSub;
-      supportMain.innerHTML = `<span class="icon">🛟</span> ${I18N.en.supportMain}`;
-      supportSub.textContent= I18N.en.supportSub;
-      notice.querySelector("span:last-child").textContent = I18N.en.notice;
-      copyright.textContent = I18N.en.copyright;
-    }
-  }
-
-  // URL ?lang=ko|en|both (default en)
-  const qs = new URLSearchParams(location.search);
-  const urlLang = (qs.get("lang")||"en").toLowerCase();
-  render(["ko","en","both"].includes(urlLang)?urlLang:"en");
-
-  // Hide/Show balance
-  eyeBtn.onclick = ()=>{
-    const hidden = (balanceValue.style.visibility==="hidden");
-    balanceValue.style.visibility = hidden ? "visible" : "hidden";
-    eyeBtn.textContent = hidden ? "👁" : "🙈";
-  };
-</script>
+    // 🌐 자동 언어 감지
+    window.onload = function () {
+      const userLang = navigator.language || navigator.userLanguage;
+      if (userLang.startsWith('ko')) {
+        setLang('ko');
+      } else {
+        setLang('en');
+      }
+    };
+  </script>
 </body>
 </html>
