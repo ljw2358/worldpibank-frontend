@@ -1,148 +1,228 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>World Pi Bank</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f9f9f9;
-    }
-    header {
-      background: #5a1fa6; /* 보라색 */
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 26px;
-    }
-    header p {
-      margin: 5px 0 0;
-      font-size: 16px;
-    }
-    .lang-switch {
-      margin-top: 10px;
-    }
-    .lang-switch button {
-      margin: 0 5px;
-      padding: 5px 12px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .services {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-      padding: 20px;
-    }
-    .service-card {
-      background: white;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-    .service-card strong {
-      display: block;
-      margin-top: 8px;
-      font-size: 18px;
-    }
-    .service-card small {
-      color: #555;
-      font-size: 14px;
-    }
-    footer {
-      text-align: center;
-      margin: 30px 0;
-    }
-    footer img {
-      width: 120px;
-      height: auto;
-    }
-    /* 채팅버튼 */
-    .chat-btn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #5a1fa6;
-      color: white;
-      border-radius: 50%;
-      width: 55px;
-      height: 55px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 24px;
-      cursor: pointer;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-    }
-  </style>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<title>World Pi Bank</title>
+<meta name="description" content="World Pi Bank — Pi Digital Bank. Payments/Transfers, Rewards, UBI, Customer Support"/>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='32' fill='%235a1b80'/%3E%3Ctext x='50%25' y='56%25' text-anchor='middle' font-size='28' fill='white'%3E%CF%80%3C/text%3E%3C/svg%3E"/>
+
+<style>
+:root{
+  --bg1:#2b0b49; --bg2:#1f0838; --ink:#fff; --muted:#d9c7ef; --card:#ffffff;
+  --accent:#ffb400; --shadow:0 10px 28px rgba(0,0,0,.20);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Apple SD Gothic Neo,Malgun Gothic,sans-serif;
+  color:var(--ink); background:linear-gradient(180deg,var(--bg1) 0%, var(--bg2) 100%);
+  display:flex; justify-content:center; align-items:stretch;
+}
+.wrap{width:100%; max-width:960px; padding:26px 16px 96px; position:relative}
+
+/* 언어 토글 pill */
+.lang{
+  position:absolute; right:14px; top:12px; display:flex; gap:8px; align-items:center;
+  background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.16); padding:6px; border-radius:14px;
+}
+.lang button{all:unset; cursor:pointer; padding:4px 8px; border-radius:10px; font-weight:700; font-size:12px}
+.lang button.active{background:var(--accent); color:#2b0b49}
+
+/* 헤더 */
+header{ text-align:center; margin:8px 0 12px }
+h1{
+  margin:.2rem 0 .3rem; font-weight:900;
+  font-size: clamp(30px, 6vw, 44px);
+  letter-spacing:.2px; word-break:keep-all;
+}
+.sub{ color:var(--muted); opacity:.95; font-size:clamp(14px,2.8vw,18px); word-break:keep-all }
+
+/* 서비스 카드 2×2 */
+.services{
+  display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:16px;
+  margin:22px auto 8px; max-width:760px;
+}
+.card{
+  background:var(--card); color:#111; border-radius:18px; padding:18px 16px;
+  box-shadow:var(--shadow); display:flex; gap:12px; align-items:center; min-height:118px;
+}
+.emoji{font-size:30px; flex:0 0 34px; line-height:1; filter:saturate(1.1)}
+.txt{display:flex; flex-direction:column; gap:6px; min-width:0}
+.ttl{
+  font-size:clamp(17px,3.8vw,20px); font-weight:900; color:#111; line-height:1.15; word-break:keep-all;
+}
+.desc{
+  font-size:clamp(13px,3.2vw,15px); color:#555; line-height:1.2; word-break:keep-all;
+}
+.email{word-break:break-all}
+
+/* 하단 */
+footer{margin:28px auto 0; display:flex; gap:18px; align-items:center; justify-content:center; flex-wrap:wrap}
+.qr{width:140px; height:140px; border-radius:12px; background:#fff; display:grid; place-items:center; overflow:hidden; box-shadow:var(--shadow)}
+.links{font-size:13px; opacity:.9}
+.links a{color:#cbb6ff; text-decoration:none}
+.links a:hover{text-decoration:underline}
+
+/* 채팅 버튼(기능은 데모) */
+#chatButton{
+  position:fixed; right:18px; bottom:18px; width:60px; height:60px; border:0; border-radius:50%;
+  background:#6a0dad; color:#fff; font-size:24px; cursor:pointer; box-shadow:var(--shadow);
+}
+#chatBox{
+  position:fixed; right:18px; bottom:88px; width:300px; height:420px; display:none; flex-direction:column;
+  background:#fff; border-radius:12px; box-shadow:var(--shadow); overflow:hidden;
+}
+#chatHeader{background:#6a0dad; color:#fff; padding:10px; font-size:14px}
+#chatMessages{flex:1; padding:10px; overflow:auto; font-size:13px; color:#222}
+#chatInputArea{display:flex; border-top:1px solid #eee}
+#chatInputArea input{flex:1; padding:8px; border:0; outline:none}
+#chatInputArea button{padding:8px 12px; border:0; background:#6a0dad; color:#fff; cursor:pointer}
+
+/* 아주 좁은 폭에서 1열로 바꾸고 싶다면 아래 주석 해제
+@media(max-width:360px){
+  .services{ grid-template-columns:1fr; }
+}
+*/
+</style>
 </head>
 <body>
+<div class="wrap">
+  <!-- EN/KO toggle -->
+  <div class="lang" role="group" aria-label="language-toggle">
+    <button id="btnEN" type="button">EN</button>
+    <button id="btnKO" type="button">KO</button>
+  </div>
 
   <header>
-    <h1>World Pi Bank</h1>
-    <p>Pi Digital Bank</p>
-    <div class="lang-switch">
-      <button onclick="setLang('en')">English</button>
-      <button onclick="setLang('ko')">한국어</button>
-    </div>
+    <h1 id="title">World Pi Bank</h1>
+    <div class="sub" id="subtitle">Pi Digital Bank</div>
   </header>
 
-  <main>
-    <div class="services">
-      <div class="service-card" data-en="Payment/Send|Merchant / Personal" data-ko="결제/보내기|상인/개인">
-        ✈️
-        <strong>Payment/Send</strong>
-        <small>Merchant / Personal</small>
+  <!-- 2×2 서비스 -->
+  <main class="services">
+    <article class="card">
+      <div class="emoji">✈️</div>
+      <div class="txt">
+        <div class="ttl" id="s1">Payments / Transfers</div>
+        <div class="desc" id="s1d">Merchant / Personal</div>
       </div>
-      <div class="service-card" data-en="Reward|Participation Incentive" data-ko="보상|참여 인센티브">
-        🎁
-        <strong>Reward</strong>
-        <small>Participation Incentive</small>
+    </article>
+
+    <article class="card">
+      <div class="emoji">🎁</div>
+      <div class="txt">
+        <div class="ttl" id="s2">Rewards</div>
+        <div class="desc" id="s2d">Participation Incentives</div>
       </div>
-      <div class="service-card" data-en="UBI|Basic Income" data-ko="UBI|기본소득">
-        ✋
-        <strong>UBI</strong>
-        <small>Basic Income</small>
+    </article>
+
+    <article class="card">
+      <div class="emoji">✋</div>
+      <div class="txt">
+        <div class="ttl" id="s3">UBI</div>
+        <div class="desc" id="s3d">Universal Basic Income</div>
       </div>
-      <div class="service-card" data-en="Customer Service|📧 ljw2358@naver.com" data-ko="고객센터|📧 ljw2358@naver.com">
-        ☎️
-        <strong>Customer Service</strong>
-        <small>📧 ljw2358@naver.com</small>
+    </article>
+
+    <article class="card">
+      <div class="emoji">☎️</div>
+      <div class="txt">
+        <div class="ttl" id="s4">Customer Support</div>
+        <div class="desc email" id="s4d">📧 ljw2358@naver.com</div>
       </div>
-    </div>
+    </article>
   </main>
 
   <footer>
-    <!-- QR코드 이미지 파일 (qr.png) 넣으시면 됩니다 -->
-    <img src="qr.png" alt="QR Code">
+    <a class="qr" href="https://ljw2358.github.io/worldpibank/" aria-label="QR to World Pi Bank">
+      <img alt="QR" width="132" height="132"
+        src="https://api.qrserver.com/v1/create-qr-code/?size=132x132&data=https%3A%2F%2Fljw2358.github.io%2Fworldpibank%2F"/>
+    </a>
+    <div class="links">
+      <a id="lnkTerms" href="./terms.html">Terms of Service</a> ·
+      <a id="lnkPrivacy" href="./privacy.html">Privacy Policy</a>
+    </div>
   </footer>
+</div>
 
-  <!-- 채팅 버튼 -->
-  <div class="chat-btn">💬</div>
+<!-- Chat (demo) -->
+<button id="chatButton" aria-label="Open chat">💬</button>
+<div id="chatBox" role="dialog" aria-label="Chat window">
+  <div id="chatHeader">Chat with World Pi Bank</div>
+  <div id="chatMessages"></div>
+  <div id="chatInputArea">
+    <input id="chatInput" type="text" placeholder="Type a message…"/>
+    <button id="chatSend">Send</button>
+  </div>
+</div>
 
-  <script>
-    function setLang(lang) {
-      document.querySelectorAll('.service-card').forEach(card => {
-        const text = card.getAttribute(`data-${lang}`).split('|');
-        card.querySelector('strong').textContent = text[0];
-        card.querySelector('small').textContent = text[1];
-      });
-      localStorage.setItem('wpb_lang', lang);
-    }
-    function detectDefaultLang(){
-      const saved = localStorage.getItem('wpb_lang');
-      if(saved) return saved;
-      return 'en'; // 항상 영어 기본
-    }
-    window.onload = () => setLang(detectDefaultLang());
-  </script>
+<script>
+/* 다국어 리소스 */
+const STR = {
+  en: {
+    title:"World Pi Bank", subtitle:"Pi Digital Bank",
+    s1:"Payments / Transfers", s1d:"Merchant / Personal",
+    s2:"Rewards", s2d:"Participation Incentives",
+    s3:"UBI", s3d:"Universal Basic Income",
+    s4:"Customer Support", s4d:"📧 ljw2358@naver.com",
+    terms:"Terms of Service", privacy:"Privacy Policy",
+    chatTitle:"Chat with World Pi Bank", chatSend:"Send", chatPh:"Type a message…"
+  },
+  ko: {
+    title:"세계파이은행", subtitle:"파이 디지털 은행",
+    s1:"결제/보내기", s1d:"상인/개인",
+    s2:"보상", s2d:"참여 인센티브",
+    s3:"UBI", s3d:"기본소득",
+    s4:"고객센터", s4d:"📧 ljw2358@naver.com",
+    terms:"이용약관", privacy:"개인정보처리방침",
+    chatTitle:"세계파이은행 채팅", chatSend:"전송", chatPh:"메시지를 입력하세요…"
+  }
+};
+function applyLang(lang){
+  const t = STR[lang] || STR.en;
+  document.documentElement.lang = (lang==='ko'?'ko':'en');
+  // 버튼 상태
+  btnEN.classList.toggle('active', lang==='en');
+  btnKO.classList.toggle('active', lang==='ko');
+  // 텍스트 바인딩
+  title.textContent=t.title; subtitle.textContent=t.subtitle;
+  s1.textContent=t.s1; s1d.textContent=t.s1d;
+  s2.textContent=t.s2; s2d.textContent=t.s2d;
+  s3.textContent=t.s3; s3d.textContent=t.s3d;
+  s4.textContent=t.s4; s4d.textContent=t.s4d;
+  lnkTerms.textContent=t.terms; lnkPrivacy.textContent=t.privacy;
+  document.getElementById('chatHeader').textContent=t.chatTitle;
+  document.getElementById('chatSend').textContent=t.chatSend;
+  document.getElementById('chatInput').placeholder=t.chatPh;
+  try{ localStorage.setItem('wpb_lang', lang); }catch(e){}
+}
+function detectLang(){
+  try{ const saved=localStorage.getItem('wpb_lang'); if(saved) return saved; }catch(e){}
+  return 'en'; // 영문 기본
+}
+const btnEN=document.getElementById('btnEN');
+const btnKO=document.getElementById('btnKO');
+btnEN.onclick=()=>applyLang('en');
+btnKO.onclick=()=>applyLang('ko');
+applyLang(detectLang());
 
+/* 채팅 데모 */
+const chatBtn=document.getElementById('chatButton');
+const chatBox=document.getElementById('chatBox');
+const chatMsg=document.getElementById('chatMessages');
+const chatIn=document.getElementById('chatInput');
+const chatSend=document.getElementById('chatSend');
+
+chatBtn.onclick=()=>{ chatBox.style.display=(chatBox.style.display==='flex'?'none':'flex'); if(chatBox.style.display==='flex') chatIn.focus(); };
+chatSend.onclick=sendMessage;
+chatIn.addEventListener('keydown',e=>{ if(e.key==='Enter') sendMessage(); });
+function sendMessage(){
+  const v=chatIn.value.trim(); if(!v) return;
+  const line=document.createElement('div');
+  line.textContent=(document.documentElement.lang==='ko'?'나: ':'You: ')+v;
+  chatMsg.appendChild(line); chatIn.value=''; chatMsg.scrollTop=chatMsg.scrollHeight;
+}
+</script>
 </body>
+</html>
