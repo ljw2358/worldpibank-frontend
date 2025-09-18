@@ -1,4 +1,181 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>World PiBank</title>
+<style>
+  :root{--violet:#6c63ff;--blue:#4a90e2;--mint:#34a853;--amber:#f4b400;--coral:#ff6f61;--cyan:#23c4d9;--ink:#0f172a;--bg:#f7f8ff;--card:#fff;--soft:#eef2ff}
+  *{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:var(--bg);color:var(--ink)}
+  .hidden{display:none}
+  .topbar{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:12px 14px;background:linear-gradient(90deg,var(--violet),var(--blue));color:#fff}
+  .brand{font-weight:900;font-size:18px}
+  .right-controls{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+  .langs{display:flex;gap:6px}
+  .langs button{border:0;padding:6px 10px;border-radius:999px;background:#fff;color:#111;font-weight:800;cursor:pointer;box-shadow:0 2px 6px #0002}
+  .login{border:1px solid #ffffff66;border-radius:10px;padding:5px 10px;font-weight:800;font-size:12px;background:#ffffff22}
+  .titles{text-align:center;padding:18px 10px 6px}
+  .titles h1{margin:0;font-size:clamp(22px,5vw,34px);font-weight:900}
+  .titles h2{margin:6px 0 0;font-size:clamp(15px,3.6vw,22px);font-weight:700;opacity:.9}
+  .stage{position:relative;width:min(920px,94vw);margin:12px auto 8px;aspect-ratio:1/1}
+  .circle{position:absolute;inset:50% auto auto 50%;transform:translate(-50%,-50%);width:36%;aspect-ratio:1/1;border-radius:50%;background:var(--violet);color:#fff;display:flex;align-items:center;justify-content:center;font-size:clamp(36px,6.5vw,56px);font-weight:900;box-shadow:0 12px 28px #6c63ff55}
+  .node{position:absolute;width:36%;max-width:280px;min-width:160px;background:var(--card);border-radius:16px;padding:14px;text-align:center;font-weight:800;box-shadow:0 10px 22px #0001;border-top:4px solid transparent}
+  .node p{margin:6px 0 0;font-size:13px;opacity:.8;font-weight:600}
+  .ic{font-size:26px;display:block;margin-bottom:6px}
+  /* 배치: 상=송금, 우상=결제, 우중=예치, 하=고객센터, 좌중=UBI, 좌상=리워드 */
+  .top{left:50%;top:2%;transform:translateX(-50%);border-top-color:var(--coral)}
+  .tr{right:2%;top:12%;border-top-color:var(--amber)}
+  .mr{right:2%;top:50%;transform:translateY(-50%);border-top-color:var(--mint)}
+  .bottom{left:50%;bottom:2%;transform:translateX(-50%);border-top-color:var(--cyan)}
+  .ml{left:2%;top:50%;transform:translateY(-50%);border-top-color:var(--blue)}
+  .tl{left:2%;top:12%;border-top-color:var(--violet)}
+  .ribbon{max-width:980px;margin:8px auto 100px;padding:14px 16px;background:var(--soft);border-radius:16px;text-align:center;line-height:1.6;font-weight:800;box-shadow:0 10px 22px #0001}
+  .qr,.chat{position:fixed;z-index:20;width:74px;height:74px;border-radius:14px;background:#fff;box-shadow:0 12px 26px #0002;display:flex;align-items:center;justify-content:center;border:1px solid #0001}
+  .qr{left:12px;bottom:12px}
+  .chat{right:12px;bottom:12px;background:linear-gradient(135deg,var(--violet),var(--blue));color:#fff;cursor:pointer}
+  .chat .badge{position:absolute;top:-6px;right:-6px;width:22px;height:22px;border-radius:50%;background:#ff4d6d;color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center;font-weight:900;box-shadow:0 6px 12px #ff4d6d88}
+  .qr img{width:58px;height:58px}
+  @media (max-width:520px){.node{width:42%;min-width:140px}.tr,.mr{right:3%}.tl,.ml{left:3%}.top,.bottom{width:72%}}
+</style>
+</head>
+<body>
+
+  <!-- 상단바: 우측 상단 EN/KR/ZH + 바로 아래 로그인 -->
+  <div class="topbar">
+    <div class="brand">World PiBank</div>
+    <div class="right-controls">
+      <div class="langs">
+        <button onclick="setLang('en')">EN</button>
+        <button onclick="setLang('kr')">KR</button>
+        <button onclick="setLang('zh')">ZH</button>
+      </div>
+      <div class="login" id="login-label">Login</div>
+    </div>
+  </div>
+
+  <!-- 타이틀 두 줄 (기본 EN이 보이도록 설정) -->
+  <div class="titles">
+    <h1 class="t-title"></h1>
+    <h2 class="t-sub"></h2>
+  </div>
+
+  <!-- 원형 + 6개 네모 (그림 배치 그대로) -->
+  <main class="stage">
+    <div class="circle">π</div>
+
+    <div class="node top">
+      <span class="ic">🚀</span>
+      <div class="t-top"></div><p class="t-top-sub"></p>
+    </div>
+    <div class="node tr">
+      <span class="ic">💳</span>
+      <div class="t-tr"></div><p class="t-tr-sub"></p>
+    </div>
+    <div class="node mr">
+      <span class="ic">💰</span>
+      <div class="t-mr"></div><p class="t-mr-sub"></p>
+    </div>
+    <div class="node bottom">
+      <span class="ic">📞</span>
+      <div class="t-bottom"></div><p class="t-bottom-sub"></p>
+    </div>
+    <div class="node ml">
+      <span class="ic">🏦</span>
+      <div class="t-ml"></div><p class="t-ml-sub"></p>
+    </div>
+    <div class="node tl">
+      <span class="ic">🎁</span>
+      <div class="t-tl"></div><p class="t-tl-sub"></p>
+    </div>
+  </main>
+
+  <!-- 원형 아래 문구 -->
+  <div class="ribbon t-ribbon"></div>
+
+  <!-- 좌하단 QR / 우하단 채팅 -->
+  <a class="qr" href="#">
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=pi://worldpibank" alt="World PiBank QR">
+  </a>
+  <button class="chat" onclick="alert(currentLang==='kr'?'채팅 열기: 고객센터 연결':currentLang==='zh'?'打开聊天：联系客服':'Open chat: connect to support')">
+    💬 <span class="badge">1</span>
+  </button>
+
+<script>
+  const text = {
+    en:{
+      title:"World PiBank",
+      sub:"The First Global Digital Bank",
+      login:"Login",
+      top:["Transfer","Fast & Simple"],
+      tr:["Payment","In-store · Online"],
+      mr:["Deposit","Secure Asset Management"],
+      bottom:["Support","ID: ljw2358@mail.com"],
+      ml:["UBI","Fair Basic Income"],
+      tl:["Rewards","Daily Missions & Bonuses"],
+      ribbon:"On the Pi ecosystem — a beacon of hope for workers, small businesses, the disabled, and seniors."
+    },
+    kr:{
+      title:"세계파이은행",
+      sub:"세계최초의 디지털 은행",
+      login:"로그인",
+      top:["송금","빠르고 직관적"],
+      tr:["결제","매장 · 온라인"],
+      mr:["예치","안전한 자산 관리"],
+      bottom:["고객센터","ID: ljw2358@mail.com"],
+      ml:["UBI","정의로운 기본소득"],
+      tl:["리워드","데일리 미션 & 보너스"],
+      ribbon:"파이 생태계 위에서 노동자 · 소상공인 · 장애우 · 노년층의 희망의 등불"
+    },
+    zh:{
+      title:"世界派银行",
+      sub:"全球首个数字银行",
+      login:"登录",
+      top:["转账","快速直观"],
+      tr:["支付","商店 · 在线"],
+      mr:["存款","安全的资产管理"],
+      bottom:["客服中心","ID: ljw2358@mail.com"],
+      ml:["基本收入","公平的收入"],
+      tl:["奖励","每日任务与奖金"],
+      ribbon:"在派生态之上——为劳工、小商户、残疾人和老年人点亮希望之灯。"
+    }
+  };
+
+  let currentLang = 'en'; // 기본 = 영어
+  function render(lang){
+    currentLang = lang;
+    const t = text[lang];
+    document.documentElement.lang = lang==='kr'?'ko':lang;
+    document.querySelector('.t-title').textContent = t.title;
+    document.querySelector('.t-sub').textContent = t.sub;
+    document.getElementById('login-label').textContent = t.login;
+
+    document.querySelector('.t-top').textContent = t.top[0];
+    document.querySelector('.t-top-sub').textContent = t.top[1];
+
+    document.querySelector('.t-tr').textContent = t.tr[0];
+    document.querySelector('.t-tr-sub').textContent = t.tr[1];
+
+    document.querySelector('.t-mr').textContent = t.mr[0];
+    document.querySelector('.t-mr-sub').textContent = t.mr[1];
+
+    document.querySelector('.t-bottom').textContent = t.bottom[0];
+    document.querySelector('.t-bottom-sub').textContent = t.bottom[1];
+
+    document.querySelector('.t-ml').textContent = t.ml[0];
+    document.querySelector('.t-ml-sub').textContent = t.ml[1];
+
+    document.querySelector('.t-tl').textContent = t.tl[0];
+    document.querySelector('.t-tl-sub').textContent = t.tl[1];
+
+    document.querySelector('.t-ribbon').textContent = t.ribbon;
+    localStorage.setItem('wpb_lang', lang);
+  }
+  function setLang(lang){ render(lang); }
+  // 초기 언어: 저장값 → EN
+  render(localStorage.getItem('wpb_lang') || 'en');
+</script>
+</body>
+</html><!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="utf-8"/>
