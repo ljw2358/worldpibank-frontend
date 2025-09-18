@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -76,7 +76,7 @@
     /* responsive */
     @media(min-width:720px){
       .container{max-width:900px;margin:0 auto}
-      .grid{grid-template-columns:repeat(3,1fr)} /* 태블릿 이상에서는 3열도 보기 좋음 */
+      .grid{grid-template-columns:repeat(3,1fr)}
     }
   </style>
 </head>
@@ -97,9 +97,8 @@
       <p class="subtitle" data-i18n="tagline">세계최초의 디지털 은행</p>
     </section>
 
-    <!-- 2열 × 3행 (원형 로고 제거) -->
+    <!-- 2열 × 3행 -->
     <section class="grid">
-      <!-- 1행 -->
       <article class="card">
         <div class="emoji">🚀</div>
         <h3 data-i18n="send_title">송금</h3>
@@ -112,7 +111,6 @@
         <p data-i18n="pay_desc">매장 · 온라인</p>
       </article>
 
-      <!-- 2행 -->
       <article class="card">
         <div class="emoji">💰</div>
         <h3 data-i18n="stake_title">예치</h3>
@@ -125,7 +123,6 @@
         <p data-i18n="ubi_desc">정의로운 기본소득</p>
       </article>
 
-      <!-- 3행 -->
       <article class="card">
         <div class="emoji">☎️</div>
         <h3 data-i18n="cs_title">고객센터</h3>
@@ -140,9 +137,8 @@
     </section>
   </main>
 
-  <!-- 고정 QR (좌하단) -->
-  <div class="qr" aria-label="Donation / Support QR">
-    <!-- 필요시 실제 QR 이미지로 교체 -->
+  <!-- QR 코드 -->
+  <div class="qr">
     <img alt="QR" src="data:image/svg+xml;utf8,
       <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'>
         <rect width='120' height='120' fill='white'/>
@@ -156,14 +152,13 @@
       </svg>"/>
   </div>
 
-  <!-- 채팅 버튼 (우하단) -->
-  <div class="chat" role="button" aria-label="chat">
+  <!-- 채팅 버튼 -->
+  <div class="chat">
     💬
     <div class="badge">1</div>
   </div>
 
   <script>
-    // 간단 다국어 스위치 (기본: 한국어)
     const dict = {
       ko:{
         login:"로그인",
@@ -206,7 +201,6 @@
         if(dict[lang] && dict[lang][key]) el.textContent = dict[lang][key];
       });
       document.querySelectorAll(".chip").forEach(c=>c.classList.toggle("active", c.dataset.lang===lang));
-      // html lang 업데이트
       document.documentElement.lang = (lang==="ko"?"ko":lang);
     };
 
