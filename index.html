@@ -8,104 +8,102 @@
 <style>
   :root{
     --bg:#0f0a1f;
-    --card:#1b1336;
+    --layer:#171236;
+    --card:#1d1744;
     --accent:#7a5cff;
-    --accent-2:#b39cff;
-    --text:#f5f4ff;
+    --accent-2:#b8a6ff;
+    --text:#f6f4ff;
     --muted:#cfc9ffbb;
-    --ok:#2ecc71;
-    --warn:#ffcc00;
-    --danger:#ff5c7a;
-    --shadow: 0 10px 30px rgba(0,0,0,.35);
-    --radius: 22px;
+    --border:#ffffff18;
+    --radius:22px;
+    --shadow: 0 12px 34px rgba(0,0,0,.35);
   }
   *{box-sizing:border-box}
   html,body{height:100%}
   body{
     margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Apple SD Gothic Neo, "Noto Sans KR", "PingFang SC", "Microsoft Yahei", Helvetica, Arial, sans-serif;
-    background: radial-gradient(1200px 800px at 70% -10%, #2a1c5f 0%, #150f2c 40%, var(--bg) 80%) fixed, var(--bg);
+    background:
+      radial-gradient(1200px 800px at 70% -10%, #2a1c5f 0%, #150f2c 40%, var(--bg) 80%) fixed,
+      var(--bg);
     color:var(--text);
   }
+
+  /* header */
   .wrap{min-height:100%; display:flex; flex-direction:column; align-items:center}
   header{
-    width:100%; max-width:1100px; padding:22px 18px; margin:0 auto;
+    width:100%; max-width:1200px;
+    padding:14px 18px; margin:0 auto;
     display:flex; align-items:center; justify-content:space-between; gap:12px;
   }
-  .brand{
-    display:flex; align-items:center; gap:12px; font-weight:700; letter-spacing:.2px;
-  }
-  .brand .dot{width:10px; height:10px; border-radius:50%; background:var(--accent); box-shadow:0 0 20px var(--accent)}
-  .lang{
-    display:flex; gap:8px; align-items:center; flex-wrap:wrap;
-  }
+  .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.2px}
+  .brand .dot{width:8px; height:8px; border-radius:50%; background:var(--accent); box-shadow:0 0 16px var(--accent)}
+  .lang{display:flex; gap:8px; align-items:center}
   .lang button{
-    appearance:none; border:1px solid #ffffff22; background:#ffffff10; color:var(--text);
-    padding:8px 12px; border-radius:12px; cursor:pointer; backdrop-filter: blur(6px);
+    appearance:none; border:1px solid var(--border); background:#ffffff10; color:var(--text);
+    padding:6px 11px; border-radius:12px; cursor:pointer; font-size:13px;
   }
   .lang button[aria-pressed="true"]{border-color:var(--accent); box-shadow:0 0 0 2px #7a5cff40 inset}
+
+  /* hero */
   .hero{
-    width:100%; max-width:1100px; padding:16px; margin:6px auto 8px;
-    display:grid; grid-template-columns: 1fr; gap:18px; align-items:center;
+    width:100%; max-width:1200px; padding:4px 16px 8px; margin:16px auto 8px;
+    display:grid; grid-template-columns: 1fr; gap:22px; align-items:center;
   }
-  .title{
-    text-align:center; line-height:1.15;
-  }
+  @media (min-width:900px){ .hero{grid-template-columns: 1.05fr .95fr} }
+  .title{text-align:center; line-height:1.15; margin-top:8px}
   .title h1{
-    margin:.15em 0 6px; font-size: clamp(28px, 4.2vw, 46px);
-    font-weight:900;
-    background: linear-gradient(90deg, #fff, #d8d1ff, #b39cff);
+    margin:.1em 0 8px; font-size: clamp(32px, 5.2vw, 58px); font-weight:900;
+    background: linear-gradient(90deg, #fff, #e7e1ff, #c1b4ff);
     -webkit-background-clip:text; background-clip:text; color:transparent;
-    text-shadow: 0 8px 24px #7a5cff22;
+    text-shadow: 0 10px 26px #7a5cff22;
   }
-  .title p{
-    margin:0; font-size: clamp(14px, 2.2vw, 18px); color:var(--muted)
-  }
-  .centerpiece{
-    display:flex; align-items:center; justify-content:center; padding:4px;
-  }
+  .title p{margin:0; font-size: clamp(14px, 2.2vw, 18px); color:var(--muted)}
+
+  .centerpiece{display:flex; align-items:center; justify-content:center; padding:8px}
   .orb{
-    width:min(68vw, 340px); height:min(68vw, 340px);
-    border-radius:50%;
+    width:min(70vw, 360px); height:min(70vw, 360px); border-radius:50%;
     background: radial-gradient(60% 60% at 50% 40%, #2e1b66 0%, #1b1336 55%, #130e27 100%);
-    box-shadow: inset 0 12px 30px #7a5cff30, 0 30px 80px #00000080, 0 0 0 1px #ffffff10;
+    box-shadow: inset 0 14px 34px #7a5cff30, 0 34px 92px #00000080, 0 0 0 1px #ffffff12;
     display:grid; place-items:center; position:relative;
   }
   .orb::after{
     content:""; position:absolute; inset:-2px; border-radius:50%;
-    background: conic-gradient(from 200deg, #7a5cff, transparent 20%, transparent 60%, #b39cff, transparent 85%);
+    background: conic-gradient(from 200deg, #7a5cff, transparent 20%, transparent 62%, #b39cff, transparent 86%);
     filter: blur(18px); opacity:.35; z-index:0;
   }
-  .pi{
-    position:relative; z-index:1; width:58%; aspect-ratio:1/1; display:grid; place-items:center;
-  }
-  .pi svg{width:100%; height:100%; filter: drop-shadow(0 8px 14px #7a5cff50)}
-  .under-tag{
-    margin:14px auto 0; text-align:center; color:var(--muted); font-size:14px;
-  }
+  .pi{position:relative; z-index:1; width:60%; aspect-ratio:1/1; display:grid; place-items:center}
+  .pi svg{width:100%; height:100%; filter: drop-shadow(0 10px 16px #7a5cff50)}
+  .under-tag{margin:12px auto 0; text-align:center; color:var(--muted); font-size:14px}
+
+  /* grid */
   .grid{
-    width:100%; max-width:1100px; padding:8px 16px 28px;
-    display:grid; gap:14px; grid-template-columns: repeat(2, 1fr);
+    width:100%; max-width:1200px; padding:6px 16px 40px;
+    display:grid; gap:16px; grid-template-columns: repeat(2, 1fr);
   }
-  @media (min-width:760px){ .hero{grid-template-columns: 1.1fr .9fr} .grid{grid-template-columns: repeat(3, 1fr)} }
+  @media (min-width:760px){ .grid{grid-template-columns: repeat(3, 1fr)} }
   .card{
     background: linear-gradient(180deg, #211744 0%, #1b1336 60%);
-    border:1px solid #ffffff12;
+    border:1px solid var(--border);
     border-radius: var(--radius);
-    padding:16px; box-shadow: var(--shadow); min-height:104px;
+    padding:18px; box-shadow: var(--shadow); min-height:112px;
     display:flex; flex-direction:column; justify-content:center; gap:8px;
-    transition: transform .2s ease, border-color .2s ease;
+    transition: transform .18s ease, border-color .18s ease;
   }
   .card:hover{ transform: translateY(-4px); border-color:#7a5cff44 }
-  .card h3{margin:0; font-size:18px}
-  .card p{margin:0; font-size:13px; color:var(--muted)}
+  .card .top{display:flex; align-items:center; gap:8px}
   .badge{display:inline-block; font-size:12px; padding:2px 8px; border-radius:999px; background:#ffffff14; border:1px solid #ffffff22}
+  .ico{font-size:18px; opacity:.9}
+  .card h3{margin:0; font-size:18px; display:flex; align-items:baseline; gap:8px}
+  .note{font-size:12px; color:var(--muted)}
+  .card p{margin:0; font-size:13px; color:var(--muted)}
+
   footer{
-    width:100%; max-width:1100px; margin:8px auto 40px; padding:0 16px; color:#bfb8ff99; font-size:12px; text-align:center
+    width:100%; max-width:1200px; margin:6px auto 42px; padding:0 16px;
+    color:#bfb8ff99; font-size:12px; text-align:center
   }
-  /* Floating Chat / FAQ */
-  .chat{
-    position: fixed; right: 16px; bottom: 16px; z-index: 50;
-  }
+
+  /* Chat / FAQ floating */
+  .chat{position: fixed; right: 16px; bottom: 16px; z-index: 50;}
   .chat button.toggler{
     width:58px; height:58px; border-radius:50%; border:none; cursor:pointer;
     background: radial-gradient(100% 100% at 30% 20%, #8b74ff 0%, #7a5cff 45%, #5b3bff 100%);
@@ -130,8 +128,6 @@
   .content{padding:12px; overflow:auto; max-height:48vh}
   .faq-item{margin:0 0 12px; background:#ffffff07; border:1px solid #ffffff14; border-radius:12px; padding:10px}
   .faq-item summary{cursor:pointer; font-weight:700}
-  .note{font-size:12px; color:var(--muted)}
-  .row{display:flex; gap:8px; align-items:center; flex-wrap:wrap}
   .sr-only{position:absolute !important; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0}
   a.cta{
     display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:12px; border:1px solid #ffffff22; text-decoration:none; color:var(--text); background:#ffffff10
@@ -152,7 +148,7 @@
     </div>
   </header>
 
-  <section class="hero">
+  <section class="hero" aria-label="intro">
     <div class="title">
       <h1 id="t_main">World Pi Bank</h1>
       <p id="t_sub">The world’s first digital bank</p>
@@ -160,7 +156,7 @@
     <div class="centerpiece">
       <div class="orb" aria-label="Pi emblem">
         <div class="pi" title="Pi">
-          <!-- Pi logo (SVG, brand-safe, simple) -->
+          <!-- Pi logo SVG -->
           <svg viewBox="0 0 200 200" role="img" aria-labelledby="piTitle">
             <title id="piTitle">Pi Symbol</title>
             <defs>
@@ -170,8 +166,7 @@
               </linearGradient>
             </defs>
             <circle cx="100" cy="100" r="92" fill="#2a1c5f" stroke="url(#g)" stroke-width="4"/>
-            <path d="M70 68h-20a6 6 0 1 1 0-12h100a6 6 0 1 1 0 12h-20v72a18 18 0 0 1-36 0V92h-8v48a18 18 0 0 1-36 0V68Z"
-                  fill="url(#g)"/>
+            <path d="M70 68h-20a6 6 0 1 1 0-12h100a6 6 0 1 1 0 12h-20v72a18 18 0 0 1-36 0V92h-8v48a18 18 0 0 1-36 0V68Z" fill="url(#g)"/>
           </svg>
         </div>
       </div>
@@ -180,51 +175,38 @@
   </section>
 
   <section class="grid" aria-label="features">
-    <!-- Send -->
     <article class="card">
-      <div class="row">
-        <span class="badge" id="b1">Core</span>
-      </div>
+      <div class="top"><span class="badge" id="b1">Core</span><span class="ico">🚀</span></div>
       <h3 id="f1">Send</h3>
       <p id="d1">Fast peer-to-peer transfers with low friction.</p>
     </article>
-    <!-- Pay -->
+
     <article class="card">
-      <div class="row">
-        <span class="badge" id="b2">Commerce</span>
-      </div>
+      <div class="top"><span class="badge" id="b2">Commerce</span><span class="ico">🛒</span></div>
       <h3 id="f2">Pay</h3>
       <p id="d2">Simple in-store and online checkout flows.</p>
     </article>
-    <!-- Rewards -->
+
     <article class="card">
-      <div class="row">
-        <span class="badge" id="b3">Growth</span>
-      </div>
+      <div class="top"><span class="badge" id="b3">Growth</span><span class="ico">🎁</span></div>
       <h3 id="f3">Rewards</h3>
       <p id="d3">Earn points and bonuses for activity.</p>
     </article>
-    <!-- Staking / Deposit -->
+
     <article class="card">
-      <div class="row">
-        <span class="badge" id="b4">Yield</span>
-      </div>
-      <h3 id="f4">Staking <span class="note" id="f4_small">(Deposit · APY:%)</span></h3>
+      <div class="top"><span class="badge" id="b4">Yield</span><span class="ico">📈</span></div>
+      <h3 id="f4">Staking <span class="note" id="f4_small">· Deposit · APY:%</span></h3>
       <p id="d4">Flexible terms; clear, transparent rates.</p>
     </article>
-    <!-- UBI -->
+
     <article class="card">
-      <div class="row">
-        <span class="badge" id="b5">Equity</span>
-      </div>
+      <div class="top"><span class="badge" id="b5">Equity</span><span class="ico">👥</span></div>
       <h3 id="f5">UBI</h3>
       <p id="d5">Human-centric basic income experiences.</p>
     </article>
-    <!-- Support -->
+
     <article class="card">
-      <div class="row">
-        <span class="badge" id="b6">Care</span>
-      </div>
+      <div class="top"><span class="badge" id="b6">Care</span><span class="ico">💬</span></div>
       <h3 id="f6">Support</h3>
       <p id="d6">Multilingual help with real-time chat.</p>
     </article>
@@ -233,7 +215,7 @@
   <footer>
     <div id="footA">Priority: workers, seniors, small businesses, and people with disabilities.</div>
     <div id="footB" class="note" style="margin-top:6px">
-      No KYC screen is shown here. See FAQ (chat) for our verification approach & security guidelines.
+      No KYC screen is shown here. See FAQ (chat) for our verification approach &amp; security guidelines.
     </div>
   </footer>
 </div>
@@ -277,18 +259,16 @@
         <details class="faq-item" open>
           <summary id="s2_q1">How will KYC be verified without a KYC screen?</summary>
           <div id="s2_a1" class="note">
-            We don’t show a KYC screen here. Instead, verification follows a **phased approach**:<br/><br/>
-            1) **Lightweight checks**: device reputation, IP risk, duplicate account heuristics, velocity & sanctions name screening.<br/>
-            2) **Document + liveness (on-demand)**: when risk thresholds trigger, we request ID scan & selfie liveness via a secure flow (modular, replaceable provider).<br/>
-            3) **Periodic re-verification**: risk-based cadence; privacy-preserving data retention and deletion schedule.<br/><br/>
-            Result: users pass with minimal friction while high-risk sessions receive deeper checks.
+            Phased approach:<br/><br/>
+            1) Lightweight checks: device reputation, IP risk, duplicate account heuristics, velocity & sanctions name screening.<br/>
+            2) Document + liveness (on-demand): only when risk triggers; privacy-first flow with a modular provider.<br/>
+            3) Periodic re-verification: risk-based cadence; encrypted storage; time-bounded access and retention.
           </div>
         </details>
         <details class="faq-item">
           <summary id="s2_q2">What data is stored?</summary>
           <div id="s2_a2" class="note">
-            Only what’s necessary for compliance: hashed identifiers, risk scores, and audit logs.
-            Sensitive documents are encrypted at rest; access is least-privileged and time-bounded.
+            Minimum for compliance: hashed identifiers, risk scores, and audit logs. Sensitive docs encrypted at rest; least-privileged access.
           </div>
         </details>
       </section>
@@ -297,11 +277,11 @@
         <details class="faq-item" open>
           <summary id="s3_q1">Why English first?</summary>
           <div id="s3_a1" class="note">
-            Product defaults to English. You can switch to Korean (KR) or Chinese (中文) from the top-right.
+            Default is English; switch to Korean (KR) or Chinese (中文) from the top-right.
           </div>
         </details>
         <details class="faq-item">
-          <summary id="s3_q2">Which features are required to win a hackathon?</summary>
+          <summary id="s3_q2">What wins a hackathon?</summary>
           <div id="s3_a2" class="note">
             Clear UX, working demo, security-by-design, documented flows, and fast onboarding.
           </div>
@@ -312,95 +292,50 @@
 </div>
 
 <script>
-  // i18n dictionary
+  /* i18n dictionary */
   const L = {
-    en:{
-      brand:"WorldPiBank",
-      main:"World Pi Bank",
-      sub:"The world’s first digital bank",
-      tag:"Built on the Pi ecosystem",
-      b1:"Core", b2:"Commerce", b3:"Growth", b4:"Yield", b5:"Equity", b6:"Care",
-      f1:"Send", d1:"Fast peer-to-peer transfers with low friction.",
-      f2:"Pay", d2:"Simple in-store and online checkout flows.",
-      f3:"Rewards", d3:"Earn points and bonuses for activity.",
-      f4:"Staking", f4_small:"(Deposit · APY:%)", d4:"Flexible terms; clear, transparent rates.",
-      f5:"UBI", d5:"Human-centric basic income experiences.",
-      f6:"Support", d6:"Multilingual help with real-time chat.",
-      footA:"Priority: workers, seniors, small businesses, and people with disabilities.",
-      footB:"No KYC screen is shown here. See FAQ (chat) for our verification approach & security guidelines.",
-      faqTitle:"FAQ · Security",
-      s1_q1:"How do I protect my wallet from hacking?",
-      s1_a1:null, // long text is in HTML above
-      s1_q2:"What if my phone was hacked?",
-      s1_a2:null,
-      s2_q1:"How will KYC be verified without a KYC screen?",
-      s2_a1:null,
-      s2_q2:"What data is stored?",
-      s2_a2:null,
-      s3_q1:"Why English first?",
-      s3_a1:null,
-      s3_q2:"Which features are required to win a hackathon?",
-      s3_a2:null,
-      openChat:"Open Chat (demo)"
-    },
-    kr:{
-      brand:"세계파이은행",
-      main:"세계파이은행",
-      sub:"세계최초의 디지털 은행",
-      tag:"파이 생태계를 기반으로",
-      b1:"핵심", b2:"결제", b3:"성장", b4:"수익", b5:"형평", b6:"케어",
-      f1:"송금", d1:"낮은 비용으로 빠른 개인 간 이체.",
-      f2:"결제", d2:"매장/온라인 결제를 간편하게.",
-      f3:"리워드", d3:"활동에 따른 포인트와 보너스.",
-      f4:"예치", f4_small:"(예치 · 이율:%)", d4:"유연한 기간, 투명한 금리.",
-      f5:"UBI", d5:"사람 중심의 기본소득 경험.",
-      f6:"고객센터", d6:"다국어 실시간 상담 지원.",
-      footA:"노동자·노년층·소상공인·장애인 우선.",
-      footB:"여기서는 KYC 화면을 표시하지 않습니다. 검증 방식과 보안 가이드는 FAQ(채팅)를 확인하세요.",
-      faqTitle:"FAQ · 보안",
-      s1_q1:"지갑 해킹을 어떻게 예방하나요?",
-      s1_a1:null,
-      s1_q2:"휴대폰이 해킹되면 어떻게 하죠?",
-      s1_a2:null,
-      s2_q1:"KYC 화면 없이 어떻게 검증하나요?",
-      s2_a1:null,
-      s2_q2:"어떤 데이터가 저장되나요?",
-      s2_a2:null,
-      s3_q1:"왜 영어가 기본인가요?",
-      s3_a1:null,
-      s3_q2:"해커톤에서 중요한 요소는?",
-      s3_a2:null,
-      openChat:"채팅 열기(데모)"
-    },
-    zh:{
-      brand:"世界Pi银行",
-      main:"世界Pi银行",
-      sub:"全球首个数字银行",
-      tag:"基于 Pi 生态构建",
-      b1:"核心", b2:"支付", b3:"成长", b4:"收益", b5:"公平", b6:"服务",
-      f1:"转账", d1:"低摩擦的点对点转账。",
-      f2:"支付", d2:"门店与线上结算更简单。",
-      f3:"奖励", d3:"因参与而获得积分与奖励。",
-      f4:"质押", f4_small:"（存款 · 年化:%）", d4:"灵活期限，费率透明。",
-      f5:"UBI", d5:"以人为本的基本收入体验。",
-      f6:"客服", d6:"多语言实时客服。",
-      footA:"优先关注劳动者、老年人、小微商户与残障人士。",
-      footB:"此处不展示 KYC 页面。请查看 FAQ（聊天）了解验证与安全方案。",
-      faqTitle:"FAQ · 安全",
-      s1_q1:"如何保护钱包免受黑客攻击？",
-      s1_a1:null,
-      s1_q2:"手机被入侵时怎么办？",
-      s1_a2:null,
-      s2_q1:"没有 KYC 页面如何完成验证？",
-      s2_a1:null,
-      s2_q2:"会存储哪些数据？",
-      s2_a2:null,
-      s3_q1:"为何默认使用英文？",
-      s3_a1:null,
-      s3_q2:"夺冠黑客松的关键要素？",
-      s3_a2:null,
-      openChat:"打开聊天（演示）"
-    }
+    en:{brand:"WorldPiBank",main:"World Pi Bank",sub:"The world’s first digital bank",tag:"Built on the Pi ecosystem",
+        b1:"Core",b2:"Commerce",b3:"Growth",b4:"Yield",b5:"Equity",b6:"Care",
+        f1:"Send",d1:"Fast peer-to-peer transfers with low friction.",
+        f2:"Pay",d2:"Simple in-store and online checkout flows.",
+        f3:"Rewards",d3:"Earn points and bonuses for activity.",
+        f4:"Staking",f4_small:"· Deposit · APY:%",d4:"Flexible terms; clear, transparent rates.",
+        f5:"UBI",d5:"Human-centric basic income experiences.",
+        f6:"Support",d6:"Multilingual help with real-time chat.",
+        footA:"Priority: workers, seniors, small businesses, and people with disabilities.",
+        footB:"No KYC screen is shown here. See FAQ (chat) for our verification approach & security guidelines.",
+        faqTitle:"FAQ · Security",openChat:"Open Chat (demo)",
+        s1_q1:"How do I protect my wallet from hacking?", s1_q2:"What if my phone was hacked?",
+        s2_q1:"How will KYC be verified without a KYC screen?", s2_q2:"What data is stored?",
+        s3_q1:"Why English first?", s3_q2:"What wins a hackathon?"},
+    kr:{brand:"세계파이은행",main:"세계파이은행",sub:"세계최초의 디지털 은행",tag:"파이 생태계를 기반으로",
+        b1:"핵심",b2:"결제",b3:"성장",b4:"수익",b5:"형평",b6:"케어",
+        f1:"송금",d1:"낮은 비용으로 빠른 개인 간 이체.",
+        f2:"결제",d2:"매장/온라인 결제를 간편하게.",
+        f3:"리워드",d3:"활동에 따른 포인트와 보너스.",
+        f4:"예치",f4_small:"· 예치 · 이율:%",d4:"유연한 기간, 투명한 금리.",
+        f5:"UBI",d5:"사람 중심의 기본소득 경험.",
+        f6:"고객센터",d6:"다국어 실시간 상담 지원.",
+        footA:"노동자·노년층·소상공인·장애인 우선.",
+        footB:"여기서는 KYC 화면을 표시하지 않습니다. 검증 방식과 보안 가이드는 FAQ(채팅)를 확인하세요.",
+        faqTitle:"FAQ · 보안",openChat:"채팅 열기(데모)",
+        s1_q1:"지갑 해킹을 어떻게 예방하나요?", s1_q2:"휴대폰이 해킹되면 어떻게 하죠?",
+        s2_q1:"KYC 화면 없이 어떻게 검증하나요?", s2_q2:"어떤 데이터가 저장되나요?",
+        s3_q1:"왜 영어가 기본인가요?", s3_q2:"해커톤에서 중요한 요소는?"},
+    zh:{brand:"世界Pi银行",main:"世界Pi银行",sub:"全球首个数字银行",tag:"基于 Pi 生态构建",
+        b1:"核心",b2:"支付",b3:"成长",b4:"收益",b5:"公平",b6:"服务",
+        f1:"转账",d1:"低摩擦的点对点转账。",
+        f2:"支付",d2:"门店与线上结算更简单。",
+        f3:"奖励",d3:"因参与而获得积分与奖励。",
+        f4:"质押",f4_small:"· 存款 · 年化:%",d4:"灵活期限，费率透明。",
+        f5:"UBI",d5:"以人为本的基本收入体验。",
+        f6:"客服",d6:"多语言实时客服。",
+        footA:"优先关注劳动者、老年人、小微商户与残障人士。",
+        footB:"此处不展示 KYC 页面。请查看 FAQ（聊天）了解验证与安全方案。",
+        faqTitle:"FAQ · 安全",openChat:"打开聊天（演示）",
+        s1_q1:"如何保护钱包免受黑客攻击？", s1_q2:"手机被入侵时怎么办？",
+        s2_q1:"没有 KYC 页面如何完成验证？", s2_q2:"会存储哪些数据？",
+        s3_q1:"为何默认使用英文？", s3_q2:"夺冠黑客松的关键要素？"}
   };
 
   const $ = s=>document.querySelector(s);
@@ -420,35 +355,28 @@
     $('#f1').textContent=t.f1; $('#d1').textContent=t.d1;
     $('#f2').textContent=t.f2; $('#d2').textContent=t.d2;
     $('#f3').textContent=t.f3; $('#d3').textContent=t.d3;
-    $('#f4').childNodes[0].nodeValue = t.f4+" "; // keep small note span
+    $('#f4').childNodes[0].nodeValue = t.f4+" ";
     $('#f4_small').textContent=t.f4_small;
     $('#d4').textContent=t.d4;
     $('#f5').textContent=t.f5; $('#d5').textContent=t.d5;
     $('#f6').textContent=t.f6; $('#d6').textContent=t.d6;
-    // footer
-    $('#footA').textContent=t.footA;
-    $('#footB').textContent=t.footB;
-    // faq headers
-    $('#faqTitle').textContent=t.faqTitle;
+    // footer & faq
+    $('#footA').textContent=t.footA; $('#footB').textContent=t.footB;
+    $('#faqTitle').textContent=t.faqTitle; $('#openChatLink').textContent=t.openChat;
     $('#s1_q1').textContent=t.s1_q1; $('#s1_q2').textContent=t.s1_q2;
     $('#s2_q1').textContent=t.s2_q1; $('#s2_q2').textContent=t.s2_q2;
     $('#s3_q1').textContent=t.s3_q1; $('#s3_q2').textContent=t.s3_q2;
-    $('#openChatLink').textContent=t.openChat;
-
-    // Update active button
+    // active button
     $$('.lng').forEach(b=>b.setAttribute('aria-pressed', String(b.dataset.lng===code)));
+    localStorage.setItem('wpi.lang', code);
   }
 
-  // init lang to EN (as requested)
-  setLng('en');
-
-  // language switches
-  $$('.lng').forEach(btn=>{
-    btn.addEventListener('click', ()=> setLng(btn.dataset.lng));
-  });
+  // init
+  setLng(localStorage.getItem('wpi.lang') || 'en');
+  $$('.lng').forEach(btn=> btn.addEventListener('click', ()=> setLng(btn.dataset.lng)));
 
   // chat/faq toggler
-  const pan = $('#faqPanel');
+  const pan = document.getElementById('faqPanel');
   const tog = document.querySelector('.toggler');
   tog.addEventListener('click', ()=>{
     const open = pan.classList.toggle('open');
@@ -457,27 +385,19 @@
 
   // tabs
   const tabs = [{btn:'#tab1', sec:'#sect1'},{btn:'#tab2',sec:'#sect2'},{btn:'#tab3',sec:'#sect3'}];
-  tabs.forEach(({btn,sec},i)=>{
+  tabs.forEach(({btn,sec})=>{
     const b=$(btn), s=$(sec);
     b.addEventListener('click', ()=>{
-      tabs.forEach(({btn,sec})=>{
-        $(btn).setAttribute('aria-pressed','false');
-        $(sec).hidden=true;
-      });
+      tabs.forEach(({btn,sec})=>{ $(btn).setAttribute('aria-pressed','false'); $(sec).hidden=true; });
       b.setAttribute('aria-pressed','true'); s.hidden=false;
     });
   });
 
   // demo chat link
-  $('#openChatLink').addEventListener('click', (e)=>{
+  document.getElementById('openChatLink').addEventListener('click', (e)=>{
     e.preventDefault();
-    alert('Chat demo only (no backend). Security-first: QR disabled by design until device safety is guaranteed.');
+    alert('Chat demo only (no backend). Security-first: QR is disabled until device safety is guaranteed.');
   });
-
-  // Optional: Persist last language
-  const saved = localStorage.getItem('wpi.lang');
-  if(saved){ setLng(saved); }
-  $$('.lng').forEach(b=> b.addEventListener('click', ()=> localStorage.setItem('wpi.lang', b.dataset.lng)));
 </script>
 </body>
 </html>
