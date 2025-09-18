@@ -1,68 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>WorldPiBank · Global Digital Bank</title>
+<title>World Pi Bank · design4</title>
 <meta name="color-scheme" content="light dark" />
 <style>
   :root{
-    --bg:#0f0a1f;
-    --layer:#171236;
-    --card:#1d1744;
+    --bg:#0c0a1d;
+    --bg2:#150f2f;
+    --card:#1e1746;
     --accent:#7a5cff;
     --accent-2:#b8a6ff;
-    --text:#f6f4ff;
-    --muted:#cfc9ffbb;
-    --border:#ffffff18;
-    --radius:22px;
-    --shadow: 0 12px 34px rgba(0,0,0,.35);
+    --text:#f7f5ff;
+    --muted:#d7d2ffcc;
+    --border:#ffffff22;
+    --radius:24px;
+    --shadow:0 16px 40px rgba(0,0,0,.35);
   }
   *{box-sizing:border-box}
   html,body{height:100%}
   body{
-    margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Apple SD Gothic Neo, "Noto Sans KR", "PingFang SC", "Microsoft Yahei", Helvetica, Arial, sans-serif;
+    margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Apple SD Gothic Neo, "Noto Sans KR", "PingFang SC", Helvetica, Arial, sans-serif;
     background:
-      radial-gradient(1200px 800px at 70% -10%, #2a1c5f 0%, #150f2c 40%, var(--bg) 80%) fixed,
+      radial-gradient(1200px 800px at 70% -10%, #2a1c5f 0%, #1a1236 40%, var(--bg) 80%) fixed,
       var(--bg);
     color:var(--text);
   }
 
   .wrap{min-height:100%; display:flex; flex-direction:column; align-items:center}
+
+  /* Header */
   header{
-    width:100%; max-width:1200px;
-    padding:14px 18px; margin:0 auto;
+    width:100%; max-width:1240px;
+    padding:18px 20px; margin:0 auto;
     display:flex; align-items:center; justify-content:space-between; gap:12px;
   }
   .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.2px}
-  .brand .dot{width:8px; height:8px; border-radius:50%; background:var(--accent); box-shadow:0 0 16px var(--accent)}
-  .ver{font-size:12px;opacity:.8;border:1px solid #ffffff22;padding:2px 8px;border-radius:999px;background:#ffffff10;margin-left:8px}
+  .brand .dot{width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 18px var(--accent)}
+  .ver{font-size:12px;opacity:.9;border:1px solid var(--border);padding:3px 10px;border-radius:999px;background:#ffffff14;margin-left:10px}
   .lang{display:flex; gap:8px; align-items:center}
   .lang button{
-    appearance:none; border:1px solid var(--border); background:#ffffff10; color:var(--text);
-    padding:6px 11px; border-radius:12px; cursor:pointer; font-size:13px;
+    appearance:none; border:1px solid var(--border); background:#ffffff12; color:var(--text);
+    padding:8px 13px; border-radius:12px; cursor:pointer; font-size:14px;
   }
   .lang button[aria-pressed="true"]{border-color:var(--accent); box-shadow:0 0 0 2px #7a5cff40 inset}
 
+  /* Hero */
   .hero{
-    width:100%; max-width:1200px; padding:4px 16px 8px; margin:16px auto 8px;
-    display:grid; grid-template-columns: 1fr; gap:22px; align-items:center;
+    width:100%; max-width:1240px; padding:8px 20px 0; margin:10px auto 0;
+    display:grid; grid-template-columns: 1fr; gap:28px; align-items:center;
   }
   @media (min-width:900px){ .hero{grid-template-columns: 1.05fr .95fr} }
-  .title{text-align:center; line-height:1.15; margin-top:8px}
+  .title{text-align:center; line-height:1.1; margin-top:6px}
   .title h1{
-    margin:.1em 0 8px; font-size: clamp(32px, 5.2vw, 58px); font-weight:900;
-    background: linear-gradient(90deg, #fff, #e7e1ff, #c1b4ff);
+    margin:.05em 0 10px; font-size: clamp(36px, 6.2vw, 68px); font-weight:900;
+    background: linear-gradient(90deg, #fff, #ebe6ff, #c8bcff);
     -webkit-background-clip:text; background-clip:text; color:transparent;
-    text-shadow: 0 10px 26px #7a5cff22;
+    text-shadow: 0 12px 30px #7a5cff28;
   }
-  .title p{margin:0; font-size: clamp(14px, 2.2vw, 18px); color:var(--muted)}
+  .title p{margin:0; font-size: clamp(16px, 2.6vw, 20px); color:var(--muted)}
 
-  .centerpiece{display:flex; align-items:center; justify-content:center; padding:8px}
+  .centerpiece{display:flex; align-items:center; justify-content:center; padding:12px}
   .orb{
-    width:min(70vw, 360px); height:min(70vw, 360px); border-radius:50%;
+    width:min(72vw, 380px); height:min(72vw, 380px); border-radius:50%;
     background: radial-gradient(60% 60% at 50% 40%, #2e1b66 0%, #1b1336 55%, #130e27 100%);
-    box-shadow: inset 0 14px 34px #7a5cff30, 0 34px 92px #00000080, 0 0 0 1px #ffffff12;
+    box-shadow: inset 0 16px 38px #7a5cff30, 0 36px 100px #00000080, 0 0 0 1px #ffffff12;
     display:grid; place-items:center; position:relative;
   }
   .orb::after{
@@ -71,60 +74,62 @@
     filter: blur(18px); opacity:.35; z-index:0;
   }
   .pi{position:relative; z-index:1; width:60%; aspect-ratio:1/1; display:grid; place-items:center}
-  .pi svg{width:100%; height:100%; filter: drop-shadow(0 10px 16px #7a5cff50)}
-  .under-tag{margin:12px auto 0; text-align:center; color:var(--muted); font-size:14px}
+  .pi svg{width:100%; height:100%; filter: drop-shadow(0 12px 18px #7a5cff55)}
+  .under-tag{margin:14px auto 0; text-align:center; color:var(--muted); font-size:15px}
 
+  /* Grid */
   .grid{
-    width:100%; max-width:1200px; padding:6px 16px 40px;
-    display:grid; gap:16px; grid-template-columns: repeat(2, 1fr);
+    width:100%; max-width:1240px; padding:16px 20px 54px;
+    display:grid; gap:20px; grid-template-columns: repeat(2, 1fr);
   }
   @media (min-width:760px){ .grid{grid-template-columns: repeat(3, 1fr)} }
   .card{
-    background: linear-gradient(180deg, #211744 0%, #1b1336 60%);
+    background: linear-gradient(180deg, #221748 0%, #1b1336 60%);
     border:1px solid var(--border);
     border-radius: var(--radius);
-    padding:18px; box-shadow: var(--shadow); min-height:112px;
-    display:flex; flex-direction:column; justify-content:center; gap:8px;
+    padding:22px; box-shadow: var(--shadow); min-height:128px;
+    display:flex; flex-direction:column; justify-content:center; gap:10px;
     transition: transform .18s ease, border-color .18s ease;
   }
-  .card:hover{ transform: translateY(-4px); border-color:#7a5cff44 }
-  .card .top{display:flex; align-items:center; gap:8px}
-  .badge{display:inline-block; font-size:12px; padding:2px 8px; border-radius:999px; background:#ffffff14; border:1px solid #ffffff22}
+  .card:hover{ transform: translateY(-6px); border-color:#7a5cff44 }
+  .top{display:flex; align-items:center; gap:10px}
+  .badge{display:inline-block; font-size:13px; padding:4px 10px; border-radius:999px; background:#ffffff16; border:1px solid #ffffff28}
   .ico{font-size:18px; opacity:.9}
-  .card h3{margin:0; font-size:18px; display:flex; align-items:baseline; gap:8px}
-  .note{font-size:12px; color:var(--muted)}
-  .card p{margin:0; font-size:13px; color:var(--muted)}
+  .card h3{margin:0; font-size:20px; display:flex; align-items:baseline; gap:8px}
+  .note{font-size:13px; color:var(--muted)}
+  .card p{margin:0; font-size:15px; color:#dcd7ffdd}
 
   footer{
-    width:100%; max-width:1200px; margin:6px auto 42px; padding:0 16px;
-    color:#bfb8ff99; font-size:12px; text-align:center
+    width:100%; max-width:1240px; margin:6px auto 48px; padding:0 20px;
+    color:#cbc5ffcc; font-size:13px; text-align:center
   }
 
+  /* Floating Chat / FAQ */
   .chat{position: fixed; right: 16px; bottom: 16px; z-index: 50;}
   .chat button.toggler{
-    width:58px; height:58px; border-radius:50%; border:none; cursor:pointer;
+    width:62px; height:62px; border-radius:50%; border:none; cursor:pointer;
     background: radial-gradient(100% 100% at 30% 20%, #8b74ff 0%, #7a5cff 45%, #5b3bff 100%);
-    color:white; font-size:22px; box-shadow: var(--shadow);
+    color:white; font-size:24px; box-shadow: var(--shadow);
   }
   .panel{
-    position: absolute; right:0; bottom:72px; width:min(92vw, 420px);
-    background:#1a1434; border:1px solid #ffffff22; border-radius:18px;
-    box-shadow: var(--shadow); overflow:hidden; display:none; max-height:68vh
+    position: absolute; right:0; bottom:76px; width:min(92vw, 440px);
+    background:#1a1436; border:1px solid #ffffff22; border-radius:20px;
+    box-shadow: var(--shadow); overflow:hidden; display:none; max-height:70vh
   }
   .panel.open{display:block}
   .panel header{
     padding:12px 14px; background:#221949; border-bottom:1px solid #ffffff1a;
     display:flex; align-items:center; justify-content:space-between;
   }
-  .panel header h4{margin:0; font-size:14px}
+  .panel header h4{margin:0; font-size:15px}
   .tabs{display:flex; gap:6px; padding:10px 12px; border-bottom:1px solid #ffffff10; background:#1f1841}
   .tabs button{
-    border:none; background:#ffffff12; color:var(--text); padding:8px 10px; border-radius:10px; cursor:pointer; font-size:12px
+    border:none; background:#ffffff12; color:var(--text); padding:8px 12px; border-radius:10px; cursor:pointer; font-size:13px
   }
   .tabs button[aria-pressed="true"]{background:#7a5cff33; outline:1px solid #7a5cff66}
-  .content{padding:12px; overflow:auto; max-height:48vh}
-  .faq-item{margin:0 0 12px; background:#ffffff07; border:1px solid #ffffff14; border-radius:12px; padding:10px}
-  .faq-item summary{cursor:pointer; font-weight:700}
+  .content{padding:12px; overflow:auto; max-height:50vh}
+  .faq-item{margin:0 0 12px; background:#ffffff07; border:1px solid #ffffff14; border-radius:12px; padding:12px}
+  .faq-item summary{cursor:pointer; font-weight:800}
   a.cta{
     display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:12px; border:1px solid #ffffff22; text-decoration:none; color:var(--text); background:#ffffff10
   }
@@ -135,24 +140,25 @@
   <header>
     <div class="brand" aria-label="brand">
       <span class="dot" aria-hidden="true"></span>
-      <span id="brandName">WorldPiBank</span>
-      <span class="ver">design2</span>
+      <span id="brandName">세계파이은행</span>
+      <span class="ver">design4</span>
     </div>
     <div class="lang" role="group" aria-label="language">
-      <button class="lng" data-lng="en" aria-pressed="true">EN</button>
-      <button class="lng" data-lng="kr" aria-pressed="false">KR</button>
+      <button class="lng" data-lng="kr" aria-pressed="true">KR</button>
+      <button class="lng" data-lng="en" aria-pressed="false">EN</button>
       <button class="lng" data-lng="zh" aria-pressed="false">中文</button>
     </div>
   </header>
 
   <section class="hero" aria-label="intro">
     <div class="title">
-      <h1 id="t_main">World Pi Bank</h1>
-      <p id="t_sub">The world’s first digital bank</p>
+      <h1 id="t_main">세계파이은행</h1>
+      <p id="t_sub">세계최초의 디지털 은행</p>
     </div>
     <div class="centerpiece">
       <div class="orb" aria-label="Pi emblem">
         <div class="pi" title="Pi">
+          <!-- Pi logo SVG -->
           <svg viewBox="0 0 200 200" role="img" aria-labelledby="piTitle">
             <title id="piTitle">Pi Symbol</title>
             <defs>
@@ -167,118 +173,119 @@
         </div>
       </div>
     </div>
-    <div class="under-tag" id="t_tag">Built on the Pi ecosystem</div>
+    <div class="under-tag" id="t_tag">파이 생태계를 기반으로</div>
   </section>
 
   <section class="grid" aria-label="features">
     <article class="card">
-      <div class="top"><span class="badge" id="b1">Core</span><span class="ico">🚀</span></div>
-      <h3 id="f1">Send</h3>
-      <p id="d1">Fast peer-to-peer transfers with low friction.</p>
+      <div class="top"><span class="badge" id="b1">핵심</span><span class="ico">🚀</span></div>
+      <h3 id="f1">송금</h3>
+      <p id="d1">낮은 비용으로 빠른 개인 간 이체.</p>
     </article>
 
     <article class="card">
-      <div class="top"><span class="badge" id="b2">Commerce</span><span class="ico">🛒</span></div>
-      <h3 id="f2">Pay</h3>
-      <p id="d2">Simple in-store and online checkout flows.</p>
+      <div class="top"><span class="badge" id="b2">결제</span><span class="ico">🛒</span></div>
+      <h3 id="f2">결제</h3>
+      <p id="d2">매장/온라인 결제를 간편하게.</p>
     </article>
 
     <article class="card">
-      <div class="top"><span class="badge" id="b3">Growth</span><span class="ico">🎁</span></div>
-      <h3 id="f3">Rewards</h3>
-      <p id="d3">Earn points and bonuses for activity.</p>
+      <div class="top"><span class="badge" id="b3">성장</span><span class="ico">🎁</span></div>
+      <h3 id="f3">리워드</h3>
+      <p id="d3">활동에 따른 포인트와 보너스.</p>
     </article>
 
     <article class="card">
-      <div class="top"><span class="badge" id="b4">Yield</span><span class="ico">📈</span></div>
-      <h3 id="f4">Staking <span class="note" id="f4_small">· Deposit · APY:%</span></h3>
-      <p id="d4">Flexible terms; clear, transparent rates.</p>
+      <div class="top"><span class="badge" id="b4">수익</span><span class="ico">📈</span></div>
+      <h3 id="f4">예치 <span class="note" id="f4_small">· 이율:%</span></h3>
+      <p id="d4">유연한 기간, 투명한 금리.</p>
     </article>
 
     <article class="card">
-      <div class="top"><span class="badge" id="b5">Equity</span><span class="ico">👥</span></div>
+      <div class="top"><span class="badge" id="b5">형평</span><span class="ico">👥</span></div>
       <h3 id="f5">UBI</h3>
-      <p id="d5">Human-centric basic income experiences.</p>
+      <p id="d5">사람 중심의 기본소득 경험.</p>
     </article>
 
     <article class="card">
-      <div class="top"><span class="badge" id="b6">Care</span><span class="ico">💬</span></div>
-      <h3 id="f6">Support</h3>
-      <p id="d6">Multilingual help with real-time chat.</p>
+      <div class="top"><span class="badge" id="b6">케어</span><span class="ico">💬</span></div>
+      <h3 id="f6">고객센터</h3>
+      <p id="d6">다국어 실시간 상담 지원.</p>
     </article>
   </section>
 
   <footer>
-    <div id="footA">Priority: workers, seniors, small businesses, and people with disabilities.</div>
-    <div id="footB" class="note" style="margin-top:6px">
-      No KYC screen is shown here. See FAQ (chat) for our verification approach &amp; security guidelines.
+    <div id="footA">노동자·노년층·소상공인·장애인 우선.</div>
+    <div id="footB" class="note" style="margin-top:8px">
+      여기서는 KYC 화면을 표시하지 않습니다. 검증 방식과 보안 가이드는 FAQ(채팅)를 확인하세요.
     </div>
   </footer>
 </div>
 
+<!-- Floating Chat / FAQ -->
 <div class="chat">
   <button class="toggler" aria-expanded="false" aria-controls="faqPanel" title="FAQ / Chat">💬</button>
   <div class="panel" id="faqPanel" role="dialog" aria-modal="false" aria-label="FAQ and Chat">
     <header>
-      <h4 id="faqTitle">FAQ · Security</h4>
-      <a class="cta" href="#" id="openChatLink">Open Chat (demo)</a>
+      <h4 id="faqTitle">FAQ · 보안</h4>
+      <a class="cta" href="#" id="openChatLink">채팅 열기(데모)</a>
     </header>
     <div class="tabs" role="tablist">
-      <button role="tab" id="tab1" aria-controls="sect1" aria-pressed="true">Security</button>
+      <button role="tab" id="tab1" aria-controls="sect1" aria-pressed="true">보안</button>
       <button role="tab" id="tab2" aria-controls="sect2" aria-pressed="false">KYC</button>
-      <button role="tab" id="tab3" aria-controls="sect3" aria-pressed="false">General</button>
+      <button role="tab" id="tab3" aria-controls="sect3" aria-pressed="false">일반</button>
     </div>
     <div class="content">
       <section id="sect1" role="tabpanel" aria-labelledby="tab1">
         <details class="faq-item" open>
-          <summary id="s1_q1">How do I protect my wallet from hacking?</summary>
+          <summary id="s1_q1">지갑 해킹을 어떻게 예방하나요?</summary>
           <div id="s1_a1" class="note">
-            • Use a dedicated device for Pi and banking, with the latest OS and security patches.<br/>
-            • Disable screen overlays & unknown sources; install apps only from trusted stores.<br/>
-            • Avoid scanning arbitrary QR codes (feature is currently disabled by design).<br/>
-            • Use strong, unique passcodes; enable biometric lock. Never share seed phrases.<br/>
-            • On suspected compromise: migrate to a new wallet, revoke device sessions, rotate keys, and monitor chain explorers.
+            • 파이/뱅킹 전용 기기 사용, OS/보안 패치 최신 유지<br/>
+            • 화면 오버레이/알 수 없는 소스 금지, 신뢰된 스토어만 사용<br/>
+            • 임의 QR 스캔 금지(현재 설계상 비활성화)<br/>
+            • 강력한 잠금/생체인증 사용, 시드 문구 공유 금지<br/>
+            • 의심되면 새 지갑으로 마이그레이션·세션 회수·키 회전·체인 탐색기 모니터링
           </div>
         </details>
         <details class="faq-item">
-          <summary id="s1_q2">What if my phone was hacked?</summary>
+          <summary id="s1_q2">휴대폰이 해킹되면?</summary>
           <div id="s1_a2" class="note">
-            • Immediately stop using QR flows; operate via a clean device.<br/>
-            • Change all credentials from a trusted machine; backup & factory-reset the old device if needed.<br/>
-            • Create a fresh wallet; move funds in small test transfers; keep audit notes of TXIDs.
+            • QR 흐름 중단, 신뢰 기기에서만 작업<br/>
+            • 모든 비밀번호 교체, 필요 시 백업 후 공장초기화<br/>
+            • 새 지갑 생성 → 소액 테스트 이체 → TXID 기록 보관
           </div>
         </details>
       </section>
 
       <section id="sect2" role="tabpanel" aria-labelledby="tab2" hidden>
         <details class="faq-item" open>
-          <summary id="s2_q1">How will KYC be verified without a KYC screen?</summary>
+          <summary id="s2_q1">KYC 화면 없이 어떻게 검증하나요?</summary>
           <div id="s2_a1" class="note">
-            Phased approach:<br/><br/>
-            1) Lightweight checks: device reputation, IP risk, duplicate account heuristics, velocity & sanctions name screening.<br/>
-            2) Document + liveness (on-demand): only when risk triggers; privacy-first flow with a modular provider.<br/>
-            3) Periodic re-verification: risk-based cadence; encrypted storage; time-bounded access and retention.
+            **단계적 검증**<br/><br/>
+            1) 경량 점검: 기기 평판, IP 리스크, 중복계정/속도/제재 리스트 이름 스크리닝<br/>
+            2) 문서+라이브니스(조건부): 리스크 임계 초과 시 안전한 플로우로 요청<br/>
+            3) 주기적 재검증: 리스크 기반 주기, 암호화 저장, 최소권한·기한 기반 접근
           </div>
         </details>
         <details class="faq-item">
-          <summary id="s2_q2">What data is stored?</summary>
+          <summary id="s2_q2">어떤 데이터를 저장하나요?</summary>
           <div id="s2_a2" class="note">
-            Minimum for compliance: hashed identifiers, risk scores, and audit logs. Sensitive docs encrypted at rest; least-privileged access.
+            컴플라이언스 최소치: 해시된 식별자, 리스크 점수, 감사 로그. 민감 문서는 암호화 저장·최소권한 접근.
           </div>
         </details>
       </section>
 
       <section id="sect3" role="tabpanel" aria-labelledby="tab3" hidden>
         <details class="faq-item" open>
-          <summary id="s3_q1">Why English first?</summary>
+          <summary id="s3_q1">왜 영어가 기본인가요?</summary>
           <div id="s3_a1" class="note">
-            Default is English; switch to Korean (KR) or Chinese (中文) from the top-right.
+            글로벌 기본은 영어이나, 상단에서 한국어(KR)/중국어(中文)로 전환 가능합니다.
           </div>
         </details>
         <details class="faq-item">
-          <summary id="s3_q2">What wins a hackathon?</summary>
+          <summary id="s3_q2">해커톤에서 무엇이 중요하죠?</summary>
           <div id="s3_a2" class="note">
-            Clear UX, working demo, security-by-design, documented flows, and fast onboarding.
+            명확한 UX, 동작 데모, 보안 설계, 문서화된 흐름, 빠른 온보딩.
           </div>
         </details>
       </section>
@@ -287,13 +294,28 @@
 </div>
 
 <script>
+  /* 간단 i18n (KR 기본) */
   const L = {
+    kr:{brand:"세계파이은행",main:"세계파이은행",sub:"세계최초의 디지털 은행",tag:"파이 생태계를 기반으로",
+        b1:"핵심",b2:"결제",b3:"성장",b4:"수익",b5:"형평",b6:"케어",
+        f1:"송금",d1:"낮은 비용으로 빠른 개인 간 이체.",
+        f2:"결제",d2:"매장/온라인 결제를 간편하게.",
+        f3:"리워드",d3:"활동에 따른 포인트와 보너스.",
+        f4:"예치",f4_small:"· 이율:%",d4:"유연한 기간, 투명한 금리.",
+        f5:"UBI",d5:"사람 중심의 기본소득 경험.",
+        f6:"고객센터",d6:"다국어 실시간 상담 지원.",
+        footA:"노동자·노년층·소상공인·장애인 우선.",
+        footB:"여기서는 KYC 화면을 표시하지 않습니다. 검증 방식과 보안 가이드는 FAQ(채팅)를 확인하세요.",
+        faqTitle:"FAQ · 보안",openChat:"채팅 열기(데모)",
+        s1_q1:"지갑 해킹을 어떻게 예방하나요?", s1_q2:"휴대폰이 해킹되면?",
+        s2_q1:"KYC 화면 없이 어떻게 검증하나요?", s2_q2:"어떤 데이터를 저장하나요?",
+        s3_q1:"왜 영어가 기본인가요?", s3_q2:"해커톤에서 무엇이 중요하죠?"},
     en:{brand:"WorldPiBank",main:"World Pi Bank",sub:"The world’s first digital bank",tag:"Built on the Pi ecosystem",
         b1:"Core",b2:"Commerce",b3:"Growth",b4:"Yield",b5:"Equity",b6:"Care",
         f1:"Send",d1:"Fast peer-to-peer transfers with low friction.",
         f2:"Pay",d2:"Simple in-store and online checkout flows.",
         f3:"Rewards",d3:"Earn points and bonuses for activity.",
-        f4:"Staking",f4_small:"· Deposit · APY:%",d4:"Flexible terms; clear, transparent rates.",
+        f4:"Staking",f4_small:"· APY:%",d4:"Flexible terms; clear, transparent rates.",
         f5:"UBI",d5:"Human-centric basic income experiences.",
         f6:"Support",d6:"Multilingual help with real-time chat.",
         footA:"Priority: workers, seniors, small businesses, and people with disabilities.",
@@ -302,30 +324,12 @@
         s1_q1:"How do I protect my wallet from hacking?", s1_q2:"What if my phone was hacked?",
         s2_q1:"How will KYC be verified without a KYC screen?", s2_q2:"What data is stored?",
         s3_q1:"Why English first?", s3_q2:"What wins a hackathon?"},
-    kr:{brand:"세계파이은행",main:"세계파이은행",sub:"세계최초의 디지털 은행",tag:"파이 생태계를 기반으로",
-        b1:"핵심",b2:"결제",b3:"성장",b4:"수익",b5:"형평",b6:"케어",
-        f1:"송금",d1:"낮은 비용으로 빠른 개인 간 이체.",
-        f2:"결제",d2:"매장/온라인 결제를 간편하게.",
-        f3:"리워드",d3:"활동에 따른 포인트와 보너스.",
-        f4:"예치",f4_small:"· 예치 · 이율:%",d4:"유연한 기간, 투명한 금리.",
-        f5:"UBI",d5:"사람 중심의 기본소득 경험.",
-        f6:"고객센터",d6:"다국어 실시간 상담 지원.",
-        footA:"노동자·노년층·소상공인·장애인 우선.",
-        footB:"여기서는 KYC 화면을 표시하지 않습니다. 검증 방식과 보안 가이드는 FAQ(채팅)를 확인하세요.",
-        faqTitle:"FAQ · 보안",openChat:"채팅 열기(데모)",
-        s1_q1:"지갑 해킹을 어떻게 예방하나요?", s1_q2:"휴대폰이 해킹되면 어떻게 하죠?",
-        s2_q1:"KYC 화면 없이 어떻게 검증하나요?", s2_q2:"어떤 데이터가 저장되나요?",
-        s3_q1:"왜 영어가 기본인가요?", s3_q2:"해커톤에서 중요한 요소는?"},
     zh:{brand:"世界Pi银行",main:"世界Pi银行",sub:"全球首个数字银行",tag:"基于 Pi 生态构建",
         b1:"核心",b2:"支付",b3:"成长",b4:"收益",b5:"公平",b6:"服务",
-        f1:"转账",d1:"低摩擦的点对点转账。",
-        f2:"支付",d2:"门店与线上结算更简单。",
-        f3:"奖励",d3:"因参与而获得积分与奖励。",
-        f4:"质押",f4_small:"· 存款 · 年化:%",d4:"灵活期限，费率透明。",
-        f5:"UBI",d5:"以人为本的基本收入体验。",
-        f6:"客服",d6:"多语言实时客服。",
-        footA:"优先关注劳动者、老年人、小微商户与残障人士。",
-        footB:"此处不展示 KYC 页面。请查看 FAQ（聊天）了解验证与安全方案。",
+        f1:"转账",d1:"低摩擦的点对点转账。", f2:"支付",d2:"门店与线上结算更简单。",
+        f3:"奖励",d3:"因参与而获得积分与奖励。", f4:"质押",f4_small:"· 年化:%", d4:"灵活期限，费率透明。",
+        f5:"UBI",d5:"以人为本的基本收入体验。", f6:"客服",d6:"多语言实时客服。",
+        footA:"优先关注劳动者、老年人、小微商户与残障人士。", footB:"此处不展示 KYC 页面。请查看 FAQ（聊天）了解验证与安全方案。",
         faqTitle:"FAQ · 安全",openChat:"打开聊天（演示）",
         s1_q1:"如何保护钱包免受黑客攻击？", s1_q2:"手机被入侵时怎么办？",
         s2_q1:"没有 KYC 页面如何完成验证？", s2_q2:"会存储哪些数据？",
@@ -336,7 +340,7 @@
   const $$ = s=>document.querySelectorAll(s);
 
   function setLng(code){
-    const t = L[code] || L.en;
+    const t = L[code] || L.kr;
     document.documentElement.lang = (code==='kr'?'ko':code);
     $('#brandName').textContent = t.brand;
     $('#t_main').textContent = t.main;
@@ -360,8 +364,8 @@
     $$('.lng').forEach(b=>b.setAttribute('aria-pressed', String(b.dataset.lng===code)));
   }
 
-  // 항상 EN으로 시작 (저장/복원 없음)
-  setLng('en');
+  // 기본 KR
+  setLng('kr');
   $$('.lng').forEach(btn=> btn.addEventListener('click', ()=> setLng(btn.dataset.lng)));
 
   // chat/faq toggler
@@ -385,7 +389,7 @@
   // demo chat link
   document.getElementById('openChatLink').addEventListener('click', (e)=>{
     e.preventDefault();
-    alert('Chat demo only (no backend). Security-first: QR is disabled until device safety is guaranteed.');
+    alert('데모 채팅입니다(백엔드 없음). 보안 최우선: 기기 안전이 보장될 때까지 QR 기능은 비활성화되어 있습니다.');
   });
 </script>
 </body>
