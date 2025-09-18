@@ -1,135 +1,192 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>World Pi Bank · 세계 파이은행</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>World Pi Bank</title>
 <style>
   :root{
-    --bg:#16062b; --glow:#2b0a53;
-    --card:#3b1b6a; --card2:#48207f;
-    --txt:#fff; --sub:#cfbfff;
-    --gold:#8f6a13; --gold2:#a47b17;
-    --radius:16px; --shadow:0 8px 18px rgba(0,0,0,.35);
+    --brand:#4b2c82;
+    --text:#111;
+    --box-w:100px;  
+    --box-h:60px;   
+    --box-pad:6px;
+    --gap:10px;
   }
-  *{box-sizing:border-box}html,body{height:100%}
-  body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans KR",Arial,sans-serif;color:var(--txt);
-       background:radial-gradient(1200px 600px at 50% -120px,var(--glow),transparent),var(--bg);}
-  .wrap{max-width:900px;margin:0 auto;padding:24px 16px 90px}
-  header{text-align:center;margin-bottom:20px}
-  header h1{margin:0;font-size:32px;font-weight:900}
-  header h2{margin:6px 0;font-size:22px;font-weight:700}
-  .sub{color:var(--sub);font-size:15px}
-
-  /* 그리드: 2열×2행 */
-  .grid{display:grid;gap:14px;grid-template-columns:repeat(2,1fr)}
-  .card{
-    background:var(--card);border-radius:var(--radius);padding:14px;
-    min-height:120px;text-align:center;box-shadow:var(--shadow);
-    transition:.2s background,.2s transform;
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    background:#f9f9f9;
+    color:var(--text);
+    text-align:center;
+    min-height:100dvh;
   }
-  .card:hover{background:var(--card2)} .card:active{transform:translateY(2px)}
-  .title{font-size:18px;font-weight:800;margin:0 0 6px}
-  .desc{font-size:13px;color:#eadfff;margin:0}
 
-  a.card-link{color:inherit;text-decoration:none}
+  /* 상단 */
+  .topbar{
+    position:relative;
+    padding:12px 16px 0;
+  }
+  h1{
+    font-size:22px;
+    margin:4px 0 0;
+    font-weight:700;
+  }
+  h2{
+    font-size:16px;
+    margin:4px 0 12px;
+    font-weight:400;
+  }
+  .lang-switch{
+    position:absolute;
+    top:10px; right:88px;
+    font-size:13px;
+    user-select:none;
+  }
+  .lang-switch span{
+    cursor:pointer;
+  }
+  .login-btn{
+    position:absolute;
+    top:8px; right:16px;
+    font-size:14px;
+    padding:6px 12px;
+    border:none; border-radius:8px;
+    background:gold;
+  }
 
-  .loginbox{display:flex;justify-content:center;margin:20px 0 0}
-  .btn{display:inline-flex;gap:6px;align-items:center;padding:10px 18px;border-radius:14px;
-       background:var(--gold);color:#fff;text-decoration:none;font-weight:800;font-size:16px;
-       box-shadow:0 6px 14px rgba(143,106,19,.35)}
-  .btn:hover{background:var(--gold2)} .btn:active{transform:translateY(2px)}
+  /* 중앙 로고 */
+  .center-logo{
+    margin:10px auto 8px;
+    width:96px; height:96px;
+    border-radius:50%;
+    background:var(--brand);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .center-logo img{ width:58px; height:58px; }
 
-  /* 좌상단 QR */
-  .qr{position:fixed;left:10px;top:10px;width:60px;height:60px;border-radius:10px;background:#fff;
-      display:flex;align-items:center;justify-content:center;overflow:hidden;border:2px solid #4c1d95;
-      box-shadow:0 6px 14px rgba(0,0,0,.35);z-index:5}
-  .qr img{width:100%;height:100%;object-fit:cover}
+  /* 메뉴 */
+  .menu{
+    display:grid;
+    grid-template-columns: repeat(3, minmax(0,1fr));
+    justify-items:center;
+    gap:var(--gap);
+    padding:0 14px;
+    margin:10px 0 6px;
+  }
+  .menu-box{
+    width:var(--box-w);
+    height:var(--box-h);
+    padding:var(--box-pad);
+    border-radius:10px;
+    background:var(--brand);
+    color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    font-size:13px;
+    line-height:1.15;
+  }
 
-  /* 언어 전환 */
-  .lang{position:fixed;right:10px;top:10px;display:flex;gap:6px;background:#2a0d4e;border:1px solid #6b34c7;
-        padding:4px 8px;border-radius:999px;box-shadow:var(--shadow);z-index:5}
-  .lang button{background:transparent;border:0;color:#fff;font-weight:700;cursor:pointer;font-size:12px}
+  /* 하단 문구 */
+  .foot{
+    font-size:13px;
+    margin:10px 12px 80px;
+  }
 
-  /* 하단 로고 */
-  footer{position:fixed;left:0;right:0;bottom:10px;display:flex;justify-content:center}
-  .pi{background:#2a0d4e;border:1px solid #6b34c7;color:#fff;padding:6px 12px;border-radius:999px;
-      font-weight:800;font-size:13px;letter-spacing:.5px}
+  /* QR & 채팅 */
+  .qr{ position:fixed; left:16px; bottom:16px; width:50px; }
+  .qr img{ width:100%; height:auto; display:block; }
+  .chat{
+    position:fixed; right:16px; bottom:16px;
+    font-size:26px; cursor:pointer; line-height:1;
+  }
+
+  /* 채팅 설명 말풍선 */
+  #chat-desc{
+    position:fixed;
+    bottom:70px;
+    right:20px;
+    width:240px;
+    background:#fff;
+    border:1px solid #ccc;
+    border-radius:8px;
+    padding:10px;
+    font-size:12px;
+    text-align:left;
+    display:none;
+    box-shadow:0 2px 6px rgba(0,0,0,0.2);
+  }
+
+  @media (max-width:360px){
+    :root{ --box-w:92px; --box-h:56px; --gap:8px; }
+    h1{ font-size:21px }
+    h2{ font-size:15px }
+    .login-btn{ font-size:13px; padding:5px 10px }
+  }
 </style>
 </head>
 <body>
-  <!-- QR: 같은 폴더에 qr.png 있으면 표시 -->
-  <div class="qr"><img src="qr.png" alt="QR" onerror="this.parentElement.textContent='QR'"/></div>
 
-  <!-- 언어 -->
-  <div class="lang">
-    <button onclick="setLang('en')">EN</button>
-    <button onclick="setLang('ko')">KO</button>
-  </div>
-
-  <div class="wrap">
-    <header>
-      <h1 data-en="World Pi Bank" data-ko="세계 파이은행">World Pi Bank</h1>
-      <h2 data-en="Global Digital Bank" data-ko="글로벌 디지털 뱅크">Global Digital Bank</h2>
-      <p class="sub" data-en="Pi Digital Bank · Simple · Secure · For Everyone"
-                   data-ko="파이 디지털 은행 · 쉽고 안전하게 · 모두를 위해">
-        Pi Digital Bank · Simple · Secure · For Everyone
-      </p>
-    </header>
-
-    <main class="grid">
-      <a class="card-link" href="#payments">
-        <section class="card">
-          <h3 class="title">✈️ <span data-en="Payments/Transfers" data-ko="결제/보내기">Payments/Transfers</span></h3>
-          <p class="desc" data-en="Merchant · Personal · Fast & low-fee"
-                          data-ko="가맹점 · 개인 · 빠르고 낮은 수수료">Merchant · Personal · Fast & low-fee</p>
-        </section>
-      </a>
-
-      <a class="card-link" href="#rewards">
-        <section class="card">
-          <h3 class="title">🎁 <span data-en="Rewards" data-ko="리워드">Rewards</span></h3>
-          <p class="desc" data-en="Partners · Incentives · Missions"
-                          data-ko="파트너스 · 인센티브 · 미션">Partners · Incentives · Missions</p>
-        </section>
-      </a>
-
-      <a class="card-link" href="#ubi">
-        <section class="card">
-          <h3 class="title">✋ <span data-en="UBI" data-ko="기본소득">UBI</span> <span style="background:#58269b;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:700;margin-left:6px" data-en="Beta" data-ko="베타">Beta</span></h3>
-          <p class="desc" data-en="Universal Basic Income · Daily check-in"
-                          data-ko="보편적 기본소득 · 데일리 체크인">Universal Basic Income · Daily check-in</p>
-        </section>
-      </a>
-
-      <a class="card-link" href="#support">
-        <section class="card">
-          <h3 class="title">📞 <span data-en="Customer Support" data-ko="고객센터">Customer Support</span></h3>
-          <p class="desc" data-en="FAQ · Donations · Contact"
-                          data-ko="자주 묻는 질문 · 후원 · 문의">FAQ · Donations · Contact</p>
-        </section>
-      </a>
-    </main>
-
-    <div class="loginbox">
-      <a class="btn" id="loginBtn" href="javascript:void(0)">🔑 <span data-en="Login" data-ko="로그인">Login</span></a>
+  <div class="topbar">
+    <h1 data-en="World Pi Bank" data-kr="세계 파이은행" data-zh="世界派银行">World Pi Bank</h1>
+    <h2 data-en="The World's First Digital Bank" data-kr="세계 최초의 디지털 은행" data-zh="世界首个数字银行">
+      The World's First Digital Bank
+    </h2>
+    <div class="lang-switch">
+      <span onclick="switchLang('en')">EN</span> |
+      <span onclick="switchLang('kr')">KR</span> |
+      <span onclick="switchLang('zh')">ZH</span>
     </div>
+    <button class="login-btn" data-en="Login" data-kr="로그인" data-zh="登录">Login</button>
   </div>
 
-  <footer><div class="pi">π Pi · World</div></footer>
+  <div class="center-logo">
+    <img src="pi-logo.png" alt="Pi Logo" />
+  </div>
+
+  <div class="menu">
+    <div class="menu-box" data-en="Payments / Send" data-kr="결제 / 보내기" data-zh="支付 / 转账">Payments / Send</div>
+    <div class="menu-box" data-en="Deposit (Staking)" data-kr="예치 (스테이킹)" data-zh="存款（质押）">Deposit (Staking)</div>
+    <div class="menu-box" data-en="Rewards" data-kr="리워드" data-zh="奖励">Rewards</div>
+    <div class="menu-box" data-en="UBI" data-kr="UBI" data-zh="全民收入">UBI</div>
+    <div class="menu-box" data-en="Customer Support" data-kr="고객센터" data-zh="客服">Customer Support</div>
+    <div class="menu-box" data-en="More" data-kr="기타" data-zh="更多">More</div>
+  </div>
+
+  <div class="foot"
+       data-en="Bank of Hope for Workers · Small Businesses · People with Disabilities · Seniors"
+       data-kr="노동자 · 소상공인 · 장애우 · 노년층의 희망의 은행"
+       data-zh="为工人·小商户·残障人士·老年人带来希望的银行">
+    Bank of Hope for Workers · Small Businesses · People with Disabilities · Seniors
+  </div>
+
+  <!-- 좌하단 QR, 우하단 채팅 -->
+  <div class="qr"><img src="qrcode.png" alt="QR Code" /></div>
+  <div class="chat" title="Chat">💬</div>
+
+  <!-- 채팅 설명 말풍선 -->
+  <div id="chat-desc">
+    <b>System Info</b><br>
+    🌐 <b>Decentralization</b> is the foundation.<br>
+    🤖 All systems are fully powered by <b>AI</b>.<br><br>
+    📌 모든 시스템은 AI로 작동되며<br>
+    탈중앙화 구조 위에 세워져 있습니다.<br><br>
+    📌 所有系统由AI驱动，<br>
+    并在去中心化结构上运行。
+  </div>
 
 <script>
-  const defaultLang=(navigator.language||'en').toLowerCase().startsWith('ko')?'ko':'en';
-  function applyLang(lang){
-    document.querySelectorAll('[data-en]').forEach(el=>{
-      el.textContent=el.getAttribute('data-'+lang)||el.getAttribute('data-en');
+  function switchLang(lang){
+    document.querySelectorAll('[data-'+lang+']').forEach(el=>{
+      el.textContent = el.getAttribute('data-'+lang);
     });
+    document.documentElement.setAttribute('lang',
+      lang==='kr' ? 'ko' : (lang==='zh' ? 'zh' : 'en'));
   }
-  function setLang(lang){localStorage.setItem('wpb_lang',lang);applyLang(lang);}
-  applyLang(localStorage.getItem('wpb_lang')||defaultLang);
-
-  document.getElementById('loginBtn').addEventListener('click',()=>{
-    alert('Pi Login (mock) — Pi Browser 승인 연동 지점입니다.');
+  const chat = document.querySelector('.chat');
+  const desc = document.getElementById('chat-desc');
+  chat.addEventListener('click',()=>{
+    desc.style.display = (desc.style.display==='none'?'block':'none');
   });
 </script>
 </body>
