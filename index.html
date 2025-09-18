@@ -6,122 +6,99 @@
 <title>World Pi Bank</title>
 <style>
   :root{
-    --brand:#4b2c82;
-    --text:#111;
-    --box-w:100px;  
-    --box-h:60px;   
-    --box-pad:6px;
-    --gap:10px;
+    --brand:#5b2aa8; /* 보라 */
+    --brand-dark:#3b1e74;
+    --bg1:#120924; /* 배경 그라데이션 */
+    --bg2:#1f0d3d;
+    --white:#ffffff;
+
+    /* ▼ 네모 더 작게 + 원에 더 붙게 */
+    --boxW:80px;
+    --boxH:48px;
+    --boxFS:11px;
+    --r:min(34vw, 140px); /* 중심~네모 거리(작게) */
   }
   *{box-sizing:border-box}
   body{
-    margin:0;
-    font-family: Arial, sans-serif;
-    background:#f9f9f9;
-    color:var(--text);
-    text-align:center;
+    margin:0; font-family:Arial, sans-serif; color:#eee; text-align:center;
     min-height:100dvh;
+    background: radial-gradient(1200px 700px at 50% -200px, var(--brand) 0%, var(--bg2) 40%, var(--bg1) 100%);
   }
 
   /* 상단 */
-  .topbar{
-    position:relative;
-    padding:12px 16px 0;
-  }
-  h1{
-    font-size:22px;
-    margin:4px 0 0;
-    font-weight:700;
-  }
-  h2{
-    font-size:16px;
-    margin:4px 0 12px;
-    font-weight:400;
-  }
-  .lang-switch{
-    position:absolute;
-    top:10px; right:88px;
-    font-size:13px;
-    user-select:none;
-  }
-  .lang-switch span{
-    cursor:pointer;
-  }
-  .login-btn{
-    position:absolute;
-    top:8px; right:16px;
-    font-size:14px;
-    padding:6px 12px;
-    border:none; border-radius:8px;
-    background:gold;
+  .topbar{ position:relative; padding:12px 16px 0; }
+  h1{ font-size:22px; margin:4px 0 0; font-weight:800; letter-spacing:.2px; }
+  h2{ font-size:16px; margin:6px 0 8px; font-weight:400; opacity:.9; }
+  .lang{ position:absolute; top:10px; right:92px; font-size:13px; user-select:none; }
+  .lang span{ cursor:pointer }
+  .login{ position:absolute; top:8px; right:16px; font-size:14px; padding:6px 12px;
+          border:0; border-radius:10px; background:#ffd100; color:#111; box-shadow:0 2px 8px rgba(0,0,0,.25); }
+
+  /* 원형 무대 */
+  .stage{
+    position:relative; width:min(92vw, 420px); height:min(92vw, 420px);
+    margin:8px auto 4px;
   }
 
-  /* 중앙 로고 */
-  .center-logo{
-    margin:10px auto 8px;
-    width:96px; height:96px;
+  /* 중앙 원(로고) */
+  .core{
+    position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+    width:min(34vw, 150px); height:min(34vw, 150px);
     border-radius:50%;
-    background:var(--brand);
+    background: radial-gradient(circle at 30% 30%, var(--brand) 0%, var(--brand-dark) 70%);
     display:flex; align-items:center; justify-content:center;
+    box-shadow:0 10px 30px rgba(0,0,0,.35), inset 0 0 40px rgba(255,255,255,.05);
   }
-  .center-logo img{ width:58px; height:58px; }
+  .core img{ width:60%; height:auto; filter: drop-shadow(0 2px 6px rgba(0,0,0,.4)); }
 
-  /* 메뉴 */
-  .menu{
-    display:grid;
-    grid-template-columns: repeat(3, minmax(0,1fr));
-    justify-items:center;
-    gap:var(--gap);
-    padding:0 14px;
-    margin:10px 0 6px;
+  /* 둘레 네모(6개) */
+  .node{
+    position:absolute; width:var(--boxW); height:var(--boxH); border-radius:10px;
+    background:linear-gradient(180deg, var(--brand) 0%, var(--brand-dark) 100%);
+    display:flex; align-items:center; justify-content:center; text-align:center;
+    color:var(--white); font-size:var(--boxFS); padding:4px; line-height:1.1;
+    box-shadow:0 8px 14px rgba(0,0,0,.26);
   }
-  .menu-box{
-    width:var(--box-w);
-    height:var(--box-h);
-    padding:var(--box-pad);
-    border-radius:10px;
-    background:var(--brand);
-    color:#fff;
-    display:flex; align-items:center; justify-content:center;
-    font-size:13px;
-    line-height:1.15;
-  }
+
+  /* 각도별 위치 */
+  /* top(270°) */
+  .p0{ left:calc(50% - var(--boxW)/2); top:calc(50% - var(--r) - var(--boxH)/2); }
+  /* 330° */
+  .p1{ left:calc(50% + 0.866*var(--r) - var(--boxW)/2);
+       top: calc(50% - 0.5*var(--r) - var(--boxH)/2); }
+  /* 30° */
+  .p2{ left:calc(50% + 0.866*var(--r) - var(--boxW)/2);
+       top: calc(50% + 0.5*var(--r) - var(--boxH)/2); }
+  /* bottom(90°) */
+  .p3{ left:calc(50% - var(--boxW)/2); top:calc(50% + var(--r) - var(--boxH)/2); }
+  /* 150° */
+  .p4{ left:calc(50% - 0.866*var(--r) - var(--boxW)/2);
+       top: calc(50% + 0.5*var(--r) - var(--boxH)/2); }
+  /* 210° */
+  .p5{ left:calc(50% - 0.866*var(--r) - var(--boxW)/2);
+       top: calc(50% - 0.5*var(--r) - var(--boxH)/2); }
 
   /* 하단 문구 */
-  .foot{
-    font-size:13px;
-    margin:10px 12px 80px;
-  }
+  .foot{ font-size:13px; margin:8px 12px 84px; opacity:.9; }
 
-  /* QR & 채팅 */
-  .qr{ position:fixed; left:16px; bottom:16px; width:50px; }
-  .qr img{ width:100%; height:auto; display:block; }
-  .chat{
-    position:fixed; right:16px; bottom:16px;
-    font-size:26px; cursor:pointer; line-height:1;
-  }
+  /* 고정 아이콘 */
+  .qr{ position:fixed; left:14px; bottom:14px; width:52px; }
+  .qr img{ width:100%; height:auto; display:block; border-radius:6px; box-shadow:0 4px 10px rgba(0,0,0,.35); }
+  .chat{ position:fixed; right:14px; bottom:14px; width:44px; height:44px;
+         display:grid; place-items:center; border-radius:50%;
+         background:#eee; color:#222; font-size:20px; box-shadow:0 6px 16px rgba(0,0,0,.35); cursor:pointer; }
 
-  /* 채팅 설명 말풍선 */
+  /* 채팅 설명 */
   #chat-desc{
-    position:fixed;
-    bottom:70px;
-    right:20px;
-    width:240px;
-    background:#fff;
-    border:1px solid #ccc;
-    border-radius:8px;
-    padding:10px;
-    font-size:12px;
-    text-align:left;
-    display:none;
-    box-shadow:0 2px 6px rgba(0,0,0,0.2);
+    position:fixed; right:16px; bottom:66px; width:250px;
+    background:#16131d; color:#ddd; border:1px solid #3a3350; border-radius:10px;
+    padding:10px 12px; font-size:12px; text-align:left; display:none;
+    box-shadow:0 16px 28px rgba(0,0,0,.45);
   }
 
   @media (max-width:360px){
-    :root{ --box-w:92px; --box-h:56px; --gap:8px; }
-    h1{ font-size:21px }
-    h2{ font-size:15px }
-    .login-btn{ font-size:13px; padding:5px 10px }
+    :root{ --r:min(32vw, 128px); --boxW:72px; --boxH:44px; --boxFS:10px; }
+    h1{ font-size:21px } h2{ font-size:15px }
   }
 </style>
 </head>
@@ -132,25 +109,28 @@
     <h2 data-en="The World's First Digital Bank" data-kr="세계 최초의 디지털 은행" data-zh="世界首个数字银行">
       The World's First Digital Bank
     </h2>
-    <div class="lang-switch">
+    <div class="lang">
       <span onclick="switchLang('en')">EN</span> |
       <span onclick="switchLang('kr')">KR</span> |
       <span onclick="switchLang('zh')">ZH</span>
     </div>
-    <button class="login-btn" data-en="Login" data-kr="로그인" data-zh="登录">Login</button>
+    <button class="login" data-en="Login" data-kr="로그인" data-zh="登录">Login</button>
   </div>
 
-  <div class="center-logo">
-    <img src="pi-logo.png" alt="Pi Logo" />
-  </div>
+  <!-- 원형 무대 -->
+  <div class="stage">
+    <!-- 중앙 원 -->
+    <div class="core">
+      <img src="https://i.ibb.co/8Kd3n3k/pi-logo-white.png" alt="Pi Logo">
+    </div>
 
-  <div class="menu">
-    <div class="menu-box" data-en="Payments / Send" data-kr="결제 / 보내기" data-zh="支付 / 转账">Payments / Send</div>
-    <div class="menu-box" data-en="Deposit (Staking)" data-kr="예치 (스테이킹)" data-zh="存款（质押）">Deposit (Staking)</div>
-    <div class="menu-box" data-en="Rewards" data-kr="리워드" data-zh="奖励">Rewards</div>
-    <div class="menu-box" data-en="UBI" data-kr="UBI" data-zh="全民收入">UBI</div>
-    <div class="menu-box" data-en="Customer Support" data-kr="고객센터" data-zh="客服">Customer Support</div>
-    <div class="menu-box" data-en="More" data-kr="기타" data-zh="更多">More</div>
+    <!-- 원둘레 6개 네모 -->
+    <div class="node p0" data-en="Payments / Send" data-kr="결제 / 보내기" data-zh="支付 / 转账">Payments / Send</div>
+    <div class="node p1" data-en="Deposit (Staking)" data-kr="예치 (스테이킹)" data-zh="存款（质押）">Deposit (Staking)</div>
+    <div class="node p2" data-en="Rewards" data-kr="리워드" data-zh="奖励">Rewards</div>
+    <div class="node p3" data-en="Customer Support" data-kr="고객센터" data-zh="客服">Customer Support</div>
+    <div class="node p4" data-en="UBI" data-kr="UBI" data-zh="全民收入">UBI</div>
+    <div class="node p5" data-en="More" data-kr="기타" data-zh="更多">More</div>
   </div>
 
   <div class="foot"
@@ -161,10 +141,12 @@
   </div>
 
   <!-- 좌하단 QR, 우하단 채팅 -->
-  <div class="qr"><img src="qrcode.png" alt="QR Code" /></div>
+  <div class="qr">
+    <img src="https://i.ibb.co/2M3LkFj/sample-qr.png" alt="QR Code">
+  </div>
   <div class="chat" title="Chat">💬</div>
 
-  <!-- 채팅 설명 말풍선 -->
+  <!-- 채팅 설명: AI + 탈중앙화 -->
   <div id="chat-desc">
     <b>System Info</b><br>
     🌐 <b>Decentralization</b> is the foundation.<br>
@@ -183,11 +165,10 @@
     document.documentElement.setAttribute('lang',
       lang==='kr' ? 'ko' : (lang==='zh' ? 'zh' : 'en'));
   }
+  // 채팅 설명 토글
   const chat = document.querySelector('.chat');
   const desc = document.getElementById('chat-desc');
-  chat.addEventListener('click',()=>{
-    desc.style.display = (desc.style.display==='none'?'block':'none');
-  });
+  chat.addEventListener('click',()=>{ desc.style.display = (desc.style.display==='none'?'block':'none'); });
 </script>
 </body>
 </html>
