@@ -13,24 +13,20 @@
   html,body{height:100%}
   body{
     margin:0; font-family: ui-sans-serif,system-ui,AppleSDGothicNeo,"Noto Sans KR",Segoe UI,Roboto,Helvetica,Arial;
-    color:#fff;
-    background: radial-gradient(1200px 800px at 50% 0%, var(--bg2), var(--bg1));
+    color:#fff; background: radial-gradient(1200px 800px at 50% 0%, var(--bg2), var(--bg1));
   }
-  a{color:inherit; text-decoration:none}
+  a{color:inherit;text-decoration:none}
   .wrap{max-width:980px;margin:0 auto;padding:24px 16px 120px;position:relative}
 
-  /* Top bar */
+  /* Top */
   .bar{display:flex;align-items:center;gap:12px}
   .lang{letter-spacing:.08em;font-weight:600;opacity:.9}
-  .lang a{opacity:.85}
-  .lang a:hover{opacity:1}
   .spacer{flex:1}
   .pill{display:none} /* KYC 숨김 */
   .btn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);
        padding:10px 16px;border-radius:999px;backdrop-filter:blur(6px);font-weight:700}
   .btn:hover{background:rgba(255,255,255,.16)}
 
-  /* Headings */
   h1{font-size:42px;line-height:1.1;margin:18px 0 8px;font-weight:900}
   .sub{font-size:20px;color:#cbd5e1;margin:0 0 18px}
 
@@ -49,7 +45,7 @@
   .small{font-size:14px;font-weight:600;color:#64748b}
   .customer-tag{margin-top:6px;font-weight:800;color:#7c3aed}
 
-  /* Center orb with Pi logo */
+  /* Center orb */
   .orb{
     grid-row: span 2; grid-column:auto;
     width:280px;height:280px;margin:0 auto; border-radius:50%;
@@ -57,28 +53,30 @@
     box-shadow:0 20px 60px var(--ring), inset 0 0 40px rgba(255,255,255,.08);
     display:flex;align-items:center;justify-content:center; position:relative;
   }
-  .pi-svg{width:160px;height:160px;display:block}
-  .pi-svg .mark{fill:#fff}
+  .pi-mark{
+    font-size:150px; font-weight:900; line-height:1; filter:drop-shadow(0 8px 22px rgba(0,0,0,.45));
+    text-shadow:0 0 16px rgba(255,255,255,.35);
+  }
   .orb:after{
     content:""; position:absolute; inset:-6px; border-radius:50%;
     border:2px solid rgba(255,255,255,.15);
   }
 
-  /* QR + Chat FAB */
+  /* QR + Chat */
   .corner{
-    position:fixed; left:22px; bottom:26px; display:flex; flex-direction:column; align-items:center;
+    position:fixed; left:14px; bottom:16px; display:flex; flex-direction:column; align-items:center;
     gap:6px; z-index:30;
   }
-  #qrBox{background:#fff;border-radius:12px;padding:10px; box-shadow:0 8px 26px rgba(0,0,0,.3)}
-  .qr-lab{font-weight:800; letter-spacing:.02em}
+  #qrBox{background:#fff;border-radius:12px;padding:8px; box-shadow:0 8px 26px rgba(0,0,0,.3)}
+  .qr-lab{font-weight:800; letter-spacing:.02em; text-align:center}
   .fab{
-    position:fixed; right:22px; bottom:28px; z-index:31;
+    position:fixed; right:22px; bottom:22px; z-index:31;
     width:62px;height:62px;border-radius:50%; background:#ffffff;
     display:grid;place-items:center; box-shadow:0 12px 32px rgba(0,0,0,.35); cursor:pointer;
   }
   .fab svg{width:30px;height:30px}
   .fab-label{
-    position:fixed; right:22px; bottom:100px; font-weight:800; opacity:.95;
+    position:fixed; right:22px; bottom:94px; font-weight:800; opacity:.95;
   }
 
   /* Chat modal */
@@ -98,26 +96,20 @@
   .chat-input input{flex:1;padding:12px 14px;border-radius:12px;border:1px solid #ffffff26;background:#0b1120;color:#e5e7eb}
   .chat-input button{padding:12px 14px;border-radius:12px;border:1px solid #ffffff26;background:#1e293b;color:#fff;cursor:pointer}
   .hint{color:#94a3b8;font-size:13px;margin-top:6px}
-
-  /* Helpers */
-  .row{display:flex;gap:18px}
-  .center{text-align:center}
 </style>
 </head>
 <body>
   <div class="wrap">
-    <!-- top bar -->
     <div class="bar">
       <div class="lang">EN · KR · ZH</div>
       <div class="spacer"></div>
-      <div class="pill">KYC 시작</div> <!-- 화면에서 숨김 -->
+      <div class="pill">KYC 시작</div> <!-- 숨김 -->
       <a class="btn" href="#">로그인</a>
     </div>
 
     <h1>세계 파이은행</h1>
     <p class="sub">세계 최초의 디지털 은행</p>
 
-    <!-- feature zone -->
     <div class="zone" aria-label="features">
       <div class="card">
         <div style="font-size:32px">💳</div>
@@ -131,21 +123,9 @@
         <p class="small">예치(이율:4.8%)</p>
       </div>
 
-      <!-- Center orb with Pi logo -->
+      <!-- Center orb -->
       <div class="orb" role="img" aria-label="Pi 로고">
-        <!-- Simple Pi mark SVG -->
-        <svg class="pi-svg" viewBox="0 0 200 200" aria-hidden="true">
-          <defs>
-            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="6" result="b"/>
-              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
-          </defs>
-          <circle cx="100" cy="100" r="90" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="2"/>
-          <g filter="url(#glow)">
-            <path class="mark" d="M64 70c-5 0-9 4-9 9v10h22v56h20V89h16v56h20V89h12V79c0-5-4-9-9-9h-72z"/>
-          </g>
-        </svg>
+        <div class="pi-mark">π</div>
       </div>
 
       <div class="card">
@@ -195,33 +175,27 @@
       <button class="x" id="closeChat2">닫기</button>
       <h2 id="chatTitle">고객센터 · FAQ</h2>
 
-      <!-- FAQ Section -->
       <details open>
         <summary>① KYC는 필수인가요?</summary>
-        <div class="hint">네. 규정 준수와 보안 강화를 위해 **KYC(신원 확인)**은 필수입니다. 정부 발행 신분증과 셀피를 제출하면 됩니다. 데이터는 암호화되어 보호됩니다.</div>
+        <div class="hint">네. 규정 준수와 보안 강화를 위해 **KYC**는 필수입니다. 정부 신분증 + 셀피 제출. 데이터는 암호화 저장.</div>
       </details>
-
       <details>
         <summary>② 스테이킹(예치) 이율과 조건</summary>
-        <div class="hint">현재 표준 이율은 **연 4.8%**(예시)이며, 락업 기간과 조기 해지 수수료가 적용될 수 있습니다. 자세한 조건은 앱 내 약관에서 확인하세요.</div>
+        <div class="hint">표준 이율 **연 4.8%**(예시). 락업/조기해지 수수료 가능. 약관 참조.</div>
       </details>
-
       <details>
         <summary>③ 해킹 대비 및 보안 대책</summary>
-        <div class="hint">다중서명 지갑, 디바이스 바인딩, 로그인 경고, 지갑 승인 제한, 화이트리스트 출금, 실시간 리스크 모니터링을 적용합니다. 의심 활동 발생 시 즉시 동결·조사 절차가 시작됩니다.</div>
+        <div class="hint">다중서명, 디바이스 바인딩, 로그인 경고, 화이트리스트 출금, 이상탐지 시 즉시 동결·조사.</div>
       </details>
-
       <details>
         <summary>④ 송금/결제 수수료</summary>
-        <div class="hint">네트워크 상황에 따라 소액의 수수료가 발생할 수 있습니다. 결제 파트너와 제휴한 가맹점은 별도 우대 수수료가 적용될 수 있습니다.</div>
+        <div class="hint">네트워크 상황에 따라 소액 수수료. 제휴 가맹점 우대 수수료 적용 가능.</div>
       </details>
-
       <details>
         <summary>⑤ 고객지원 채널</summary>
-        <div class="hint">앱 내 채팅(본 창), 이메일: <strong>ljw2358@naver.com</strong>, 공지 채널을 운영합니다.</div>
+        <div class="hint">앱 채팅(본 창), 이메일: <strong>ljw2358@naver.com</strong></div>
       </details>
 
-      <!-- Quick chat input (mock) -->
       <div class="chat-input">
         <input id="chatField" placeholder="메시지를 입력하세요…(예: KYC 방법 알려줘)" />
         <button id="sendBtn">보내기</button>
@@ -230,31 +204,22 @@
     </div>
   </div>
 
-  <!-- Minimal QR generator (qrcode.js v1.0.0 trimmed) -->
+  <!-- REAL QR generator via CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
   <script>
-/*! qrcode.js (MIT) - trimmed minimal build */
-!function(o){function p(a,b){this._el=a;this._htOption=b}
-function q(a,b){this.typeNumber=4;this.errorCorrectLevel=b;this.modules=null;this.moduleCount=0;this.dataList=[];this.dataCache=null}
-q.prototype={addData:function(a){this.dataList.push({data:a})},isDark:function(a,b){return this.modules[a][b]},getModuleCount:function(){return this.moduleCount},
-make:function(){this.moduleCount=33;this.modules=Array(this.moduleCount);for(var a=0;a<this.moduleCount;a++){this.modules[a]=Array(this.moduleCount);for(var b=0;b<this.moduleCount;b++)this.modules[a][b]=Math.random()>.5} // fake finder
-}};
-p.prototype={makeCode:function(t){var s=6,n=this._htOption.size||128;
-var e=document.createElement("canvas"); e.width=n; e.height=n; var c=e.getContext("2d");
-c.fillStyle="#fff"; c.fillRect(0,0,n,n); c.fillStyle="#000";
-for(var y=0;y<n;y+=s){for(var x=0;x<n;x+=s){ if((x*y + y + x*3 + t.length)%11==0) c.fillRect(x,y,s,s); }}
-this._el.innerHTML=""; this._el.appendChild(e); }};
-o.QRCode=p;
-}(window);
-  </script>
-  <script>
-    // QR code target (원하는 링크로 변경 가능)
-    const QR_TARGET = "https://linktr.ee/hyekong";
-    new QRCode(document.getElementById("qrcode"), { size: 120 }).makeCode(QR_TARGET);
+    const QR_TARGET = "https://linktr.ee/hyekong"; // 필요시 변경
+    const qr = new QRCode(document.getElementById("qrcode"), {
+      width: 92, height: 92, colorDark: "#000000", colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.M
+    });
+    qr.makeCode(QR_TARGET);
 
-    // Chat modal controls
+    // Chat modal
     const modal = document.getElementById('chatModal');
     document.getElementById('openChat').onclick = ()=>{ modal.classList.add('show'); modal.setAttribute('aria-hidden','false'); };
-    document.getElementById('closeChat').onclick = document.getElementById('closeChat2').onclick = ()=>{ modal.classList.remove('show'); modal.setAttribute('aria-hidden','true'); };
+    const close = ()=>{ modal.classList.remove('show'); modal.setAttribute('aria-hidden','true'); };
+    document.getElementById('closeChat').onclick = close;
+    document.getElementById('closeChat2').onclick = close;
     document.getElementById('sendBtn').onclick = ()=>{ alert('데모입니다. 메시지: ' + document.getElementById('chatField').value); };
   </script>
 </body>
