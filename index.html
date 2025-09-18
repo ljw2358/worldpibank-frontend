@@ -1,273 +1,238 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>World PiBank — Mission Board</title>
-<meta name="theme-color" content="#f6f7fb"/>
-<style>
-  :root{
-    --page:#f6f7fb; /* 밝은 회색 배경 (App Studio 느낌) */
-    --card:#ffffff; /* 카드 흰색 */
-    --ink:#0f172a; /* 본문 글자 */
-    --muted:#667085; /* 보조 텍스트 */
-    --line:#e5e7eb; /* 얇은 테두리 */
-    --brand:#2563eb; /* 파랑 포인트 */
-    --accent:#7c3aed; /* 보라 보조 */
-    --r:16px; /* 라운드 */
-  }
-  *{box-sizing:border-box}
-  html,body{height:100%}
-  body{
-    margin:0; background:var(--page); color:var(--ink);
-    font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,
-      "Noto Sans KR","Malgun Gothic","Noto Sans SC",Arial,sans-serif;
-  }
-
-  /* 헤더 */
-  .header{
-    display:flex; align-items:center; justify-content:space-between;
-    padding:14px 16px; background:var(--card);
-    border-bottom:1px solid var(--line);
-    box-shadow:0 2px 6px rgba(0,0,0,.04);
-  }
-  .brand{display:flex;gap:10px;align-items:center;font-weight:900}
-  .pi-badge{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;
-            background:#eef2ff;color:#1e3a8a;font-weight:1000}
-  .lang{display:flex;gap:8px}
-  .lang button{
-    padding:6px 12px;border:1px solid var(--line);background:#fff;color:#334155;
-    border-radius:12px;font-weight:900;cursor:pointer
-  }
-  .lang button.active{border-color:var(--brand);background:var(--brand);color:#fff}
-
-  .wrap{width:min(1080px,96vw); margin:18px auto; padding:0 6px}
-
-  /* 히어로 */
-  .hero{
-    background:var(--card); border:1px solid var(--line); border-radius:var(--r);
-    padding:18px; text-align:center
-  }
-  .hero h1{margin:0 0 6px; font-size:clamp(22px,4.6vw,34px); letter-spacing:-.2px}
-  .hero p{margin:0; color:var(--muted); font-size:clamp(14px,2.2vw,16px)}
-  .social{margin-top:8px;font-weight:1000;
-    background:linear-gradient(90deg,#0f172a,var(--brand),var(--accent));
-    -webkit-background-clip:text; background-clip:text; color:transparent}
-
-  /* 미션 보드 - 그림 그대로 (가로 스크롤 컨테이너) */
-  .board-outer{
-    margin-top:14px; background:transparent; overflow-x:auto; /* 모바일에서 스와이프 */
-  }
-  .board{
-    min-width:760px; /* 모바일에서도 3열 배치 유지 */
-    margin:0 auto;
-    display:grid; gap:14px;
-    grid-template-columns: 1fr minmax(260px,320px) 1fr; /* 왼/중앙/오른쪽 */
-    grid-template-rows: repeat(3, 1fr);
-    align-items:stretch;
-  }
-
-  /* 중앙 원 */
-  .planet{
-    grid-column:2; grid-row:1 / span 3;
-    display:grid; place-items:center;
-    background:var(--card); border:1px solid var(--line); border-radius:var(--r);
-    position:relative; overflow:hidden;
-  }
-  .planet::before{
-    content:""; position:absolute; inset:16px;
-    border-radius:50%;
-    background:radial-gradient(circle at 40% 35%, #fff, #f3f4ff 58%, #eef2ff 95%);
-    border:1px solid #eef2ff;
-    box-shadow: inset 0 0 0 6px #ffffff, 0 10px 30px rgba(37,99,235,.10);
-  }
-  .planet .pi{
-    position:relative; z-index:1; width:120px; height:120px; border-radius:50%;
-    display:grid; place-items:center;
-    background:radial-gradient(circle at 35% 30%, #fff, #f1e8ff 55%, #e8ddff 95%);
-    color:#4b2e83; font-weight:1000; font-size:54px;
-    box-shadow:0 8px 22px rgba(124,58,237,.22), inset 0 0 0 2px #fff;
-  }
-
-  /* 좌우 세로 카드 */
-  .card{
-    background:var(--card); border:1px solid var(--line);
-    border-radius:var(--r); padding:14px; display:flex; gap:10px; align-items:flex-start;
-    box-shadow:0 2px 6px rgba(0,0,0,.04);
-  }
-  .icon{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;
-        background:#f2f4ff;color:#1e3a8a;font-weight:900;font-size:18px}
-  .card h3{margin:0; font-size:16px}
-  .card p{margin:2px 0 0; color:var(--muted); font-weight:700; font-size:13px}
-
-  /* 위치 고정 (그림처럼) */
-  .send { grid-column:1; grid-row:1 }
-  .rewards{ grid-column:1; grid-row:2 }
-  .ubi { grid-column:1; grid-row:3 }
-  .pay { grid-column:3; grid-row:1 }
-  .deposit{ grid-column:3; grid-row:2 }
-  .support{ grid-column:3; grid-row:3 }
-
-  /* 연락처 카드 */
-  .contact{
-    margin-top:14px; background:var(--card); border:1px solid var(--line);
-    border-radius:var(--r); padding:14px; text-align:center; color:#334155
-  }
-  .contact a{color:var(--brand); font-weight:900; text-decoration:none}
-</style>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>World PiBank</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: #f9fafb;
+      color: #111827;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+      background: #fff;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .logo span {
+      font-size: 18px;
+    }
+    .lang-switch button {
+      border: none;
+      background: #e5e7eb;
+      margin-left: 6px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+    .lang-switch button.active {
+      background: #2563eb;
+      color: #fff;
+    }
+    main {
+      padding: 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+    .intro {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+    .intro h1 {
+      font-size: 22px;
+      margin-bottom: 12px;
+    }
+    .intro p {
+      font-size: 14px;
+      margin: 4px 0;
+    }
+    .highlight {
+      font-weight: 700;
+      background: linear-gradient(90deg, #2563eb, #9333ea);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    /* 보드 */
+    .board-outer {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      display: flex;
+      justify-content: center;
+      scroll-behavior: smooth;
+      position: relative;
+    }
+    .board {
+      display: flex;
+      gap: 24px;
+      padding: 20px;
+      min-width: 720px;
+      justify-content: center;
+      align-items: center;
+    }
+    .card {
+      width: 140px;
+      height: 100px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: 14px;
+      text-align: center;
+      padding: 8px;
+    }
+    .card span {
+      font-size: 24px;
+      margin-bottom: 6px;
+    }
+    .planet {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: #2563eb;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      font-size: 28px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+    .hint {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 6px;
+      font-size: 12px;
+      color: #64748b;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 4px 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,.06);
+    }
+  </style>
 </head>
 <body>
-  <!-- 헤더 -->
-  <header class="header">
-    <div class="brand"><div class="pi-badge">π</div>World PiBank</div>
-    <div class="lang">
+  <header>
+    <div class="logo"><span>π</span> World PiBank</div>
+    <div class="lang-switch">
       <button id="btn-en">EN</button>
       <button id="btn-kr" class="active">KR</button>
       <button id="btn-zh">ZH</button>
     </div>
   </header>
-
-  <main class="wrap">
-    <!-- 히어로 -->
-    <section class="hero">
-      <h1 id="t-title">모두를 위한 글로벌 디지털 뱅크</h1>
-      <p id="t-desc">송금 · 결제 · 리워드 · 기본소득 · 예치 — 파이 생태계 위에서 서민과 노동자를 돕습니다.</p>
-      <div class="social" id="t-social">노동자 · 장애우 · 소상공인 · 노년층 — 모두가 존중받는 금융</div>
-    </section>
-
-    <!-- 미션 보드 (그림 그대로) -->
-    <div class="board-outer">
-      <section class="board" aria-label="Mission Board">
-        <!-- 왼쪽 3카드 -->
-        <article class="card send">
-          <div class="icon">✈️</div>
-          <div><h3 id="c-send-h">송금</h3><p id="c-send-p">빠르고 국경 없는 송금</p></div>
-        </article>
-
-        <article class="card rewards">
-          <div class="icon">🎁</div>
-          <div><h3 id="c-rew-h">리워드</h3><p id="c-rew-p">데일리 미션 & 보너스</p></div>
-        </article>
-
-        <article class="card ubi">
-          <div class="icon">🌍</div>
-          <div><h3 id="c-ubi-h">UBI</h3><p id="c-ubi-p">웹3 기반 기본소득</p></div>
-        </article>
-
-        <!-- 중앙 원 -->
-        <div class="planet" aria-hidden="true"><div class="pi">π</div></div>
-
-        <!-- 오른쪽 3카드 -->
-        <article class="card pay">
-          <div class="icon">📱</div>
-          <div><h3 id="c-pay-h">결제</h3><p id="c-pay-p">파이로 간편 결제</p></div>
-        </article>
-
-        <article class="card deposit">
-          <div class="icon">💰</div>
-          <div><h3 id="c-dep-h">예치</h3><p id="c-dep-p">이율 받기 (상세 이자 안내)</p></div>
-        </article>
-
-        <article class="card support">
-          <div class="icon">💬</div>
-          <div><h3 id="c-sup-h">고객센터</h3><p id="c-sup-p">문의·지원 (이메일 전용)</p></div>
-        </article>
-      </section>
+  <main>
+    <div class="intro" id="intro">
+      <h1>모두를 위한 글로벌 디지털 뱅크</h1>
+      <p>송금 · 결제 · 리워드 · 기본소득 · 예치 — 파이 생태계 위에서 서민과 노동자를 돕습니다.</p>
+      <p class="highlight">노동자 · 장애우 · 소상공인 · 노년층 — 모두가 존중받는 금융</p>
     </div>
-
-    <!-- 연락처 -->
-    <section class="contact">
-      <span id="t-contact-label">연락처</span> ·
-      <a id="t-contact-mail" href="mailto:ljw2358@naver.com">ljw2358@naver.com</a>
-    </section>
+    <div class="board-outer">
+      <div class="board">
+        <div class="card"><span>✈️</span><b id="send-title">송금</b><br><small id="send-desc">빠르고 국경 없는 송금</small></div>
+        <div class="card"><span>📱</span><b id="pay-title">결제</b><br><small id="pay-desc">파이로 간편 결제</small></div>
+        <div class="card"><span>🎁</span><b id="reward-title">리워드</b><br><small id="reward-desc">데일리 미션 & 보너스</small></div>
+        <div class="planet">π</div>
+        <div class="card"><span>💰</span><b id="deposit-title">예치</b><br><small id="deposit-desc">이율 받기 (상세 이자 안내)</small></div>
+        <div class="card"><span>🏦</span><b id="ubi-title">UBI</b><br><small id="ubi-desc">정의로운 기본소득</small></div>
+        <div class="card"><span>📞</span><b id="contact-title">Contact</b><br><small><a href="mailto:ljw2358@naver.com">ljw2358@naver.com</a></small></div>
+      </div>
+      <div class="hint">← 좌우로 스와이프 해서 보기 →</div>
+    </div>
   </main>
 
-<script>
-  /* 다국어: EN / KR / ZH */
-  const L = {
-    en:{
-      title:"Global Digital Bank for Everyone",
-      desc:"Send · Pay · Rewards · UBI · Deposit — built on the Pi ecosystem to empower workers, small businesses, people with disabilities, and seniors.",
-      social:"Workers · People with disabilities · Small businesses · Seniors — Dignity-first finance",
-      cards:{
-        send:["Send","Fast & borderless"],
-        rewards:["Rewards","Daily missions & bonuses"],
-        ubi:["UBI","Web3 basic income"],
-        pay:["Pay","Tap to pay in Pi"],
-        deposit:["Deposit","Earn interest (details)"],
-        support:["Customer Center","Help & support (email only)"]
+  <script>
+    const langData = {
+      kr: {
+        title: "모두를 위한 글로벌 디지털 뱅크",
+        desc: "송금 · 결제 · 리워드 · 기본소득 · 예치 — 파이 생태계 위에서 서민과 노동자를 돕습니다.",
+        highlight: "노동자 · 장애우 · 소상공인 · 노년층 — 모두가 존중받는 금융",
+        send: ["송금", "빠르고 국경 없는 송금"],
+        pay: ["결제", "파이로 간편 결제"],
+        reward: ["리워드", "데일리 미션 & 보너스"],
+        deposit: ["예치", "이율 받기 (상세 이자 안내)"],
+        ubi: ["UBI", "정의로운 기본소득"],
+        contact: "고객센터"
       },
-      contact:["Contact","ljw2358@naver.com"]
-    },
-    ko:{
-      title:"모두를 위한 글로벌 디지털 뱅크",
-      desc:"송금 · 결제 · 리워드 · 기본소득 · 예치 — 파이 생태계 위에서 서민과 노동자를 돕습니다.",
-      social:"노동자 · 장애우 · 소상공인 · 노년층 — 모두가 존중받는 금융",
-      cards:{
-        send:["송금","빠르고 국경 없는 송금"],
-        rewards:["리워드","데일리 미션 & 보너스"],
-        ubi:["UBI","웹3 기반 기본소득"],
-        pay:["결제","파이로 간편 결제"],
-        deposit:["예치","이율 받기 (상세 이자 안내)"],
-        support:["고객센터","문의·지원 (이메일 전용)"]
+      en: {
+        title: "Global Digital Bank for Everyone",
+        desc: "Send · Pay · Rewards · UBI · Deposit — built on the Pi ecosystem to empower workers, small businesses, people with disabilities, and the elderly.",
+        highlight: "Workers · People with disabilities · Small businesses · Seniors — Dignity-first finance for all",
+        send: ["Send", "Fast & borderless"],
+        pay: ["Pay", "Tap to pay in Pi"],
+        reward: ["Rewards", "Daily missions & bonuses"],
+        deposit: ["Deposit", "Earn interest (details)"],
+        ubi: ["UBI", "Universal Basic Income"],
+        contact: "Contact"
       },
-      contact:["연락처","ljw2358@naver.com"]
-    },
-    zh:{
-      title:"人人共享的全球数字银行",
-      desc:"转账 · 支付 · 奖励 · 基本收入 · 存款 —— 基于 Pi 生态，助力工人、小商户、残障人士与老年群体。",
-      social:"工人 · 残障人士 · 小商户 · 老年群体 —— 以尊严为先的普惠金融",
-      cards:{
-        send:["转账","快速无国界"],
-        rewards:["奖励","每日任务与奖励"],
-        ubi:["UBI","Web3 基本收入"],
-        pay:["支付","使用 Pi 便捷支付"],
-        deposit:["存款","赚取利息（详情）"],
-        support:["客服中心","咨询与帮助（仅邮箱）"]
-      },
-      contact:["联系","ljw2358@naver.com"]
+      zh: {
+        title: "全球数字银行 为所有人服务",
+        desc: "转账 · 支付 · 奖励 · 基本收入 · 存款 — 基于Pi生态，帮助工人、小商户、残障人士和老年人。",
+        highlight: "工人 · 残障人士 · 小商户 · 老年人 — 人人受尊重的金融",
+        send: ["转账", "快速无国界"],
+        pay: ["支付", "用Pi轻松支付"],
+        reward: ["奖励", "每日任务 & 奖金"],
+        deposit: ["存款", "获得利息 (详情)"],
+        ubi: ["UBI", "普惠基本收入"],
+        contact: "客服"
+      }
+    };
+
+    function setLanguage(lang){
+      const d = langData[lang];
+      document.querySelector("#intro h1").textContent = d.title;
+      document.querySelector("#intro p").textContent = d.desc;
+      document.querySelector("#intro .highlight").textContent = d.highlight;
+      document.getElementById("send-title").textContent = d.send[0];
+      document.getElementById("send-desc").textContent = d.send[1];
+      document.getElementById("pay-title").textContent = d.pay[0];
+      document.getElementById("pay-desc").textContent = d.pay[1];
+      document.getElementById("reward-title").textContent = d.reward[0];
+      document.getElementById("reward-desc").textContent = d.reward[1];
+      document.getElementById("deposit-title").textContent = d.deposit[0];
+      document.getElementById("deposit-desc").textContent = d.deposit[1];
+      document.getElementById("ubi-title").textContent = d.ubi[0];
+      document.getElementById("ubi-desc").textContent = d.ubi[1];
+      document.getElementById("contact-title").textContent = d.contact;
+      document.querySelectorAll(".lang-switch button").forEach(b=>b.classList.remove("active"));
+      document.getElementById("btn-"+lang).classList.add("active");
+      setTimeout(centerBoard, 50);
     }
-  };
 
-  function setLang(lang){
-    const t=L[lang]||L.ko;
-    document.documentElement.lang = lang==='zh' ? 'zh' : (lang==='en'?'en':'ko');
-    // 히어로
-    tEl('t-title',t.title); tEl('t-desc',t.desc); tEl('t-social',t.social);
-    // 카드
-    const c=t.cards;
-    tEl('c-send-h',c.send[0]); tEl('c-send-p',c.send[1]);
-    tEl('c-rew-h',c.rewards[0]); tEl('c-rew-p',c.rewards[1]);
-    tEl('c-ubi-h',c.ubi[0]); tEl('c-ubi-p',c.ubi[1]);
-    tEl('c-pay-h',c.pay[0]); tEl('c-pay-p',c.pay[1]);
-    tEl('c-dep-h',c.deposit[0]); tEl('c-dep-p',c.deposit[1]);
-    tEl('c-sup-h',c.support[0]); tEl('c-sup-p',c.support[1]);
-    // 연락처
-    tEl('t-contact-label',t.contact[0]); tEl('t-contact-mail',t.contact[1]);
-    // 버튼 상태
-    document.querySelectorAll('.lang button').forEach(b=>b.classList.remove('active'));
-    (lang==='en'?btnEn:lang==='zh'?btnZh:btnKr).classList.add('active');
-    localStorage.setItem('wpb_lang', lang);
-  }
-  function tEl(id,txt){ document.getElementById(id).textContent = txt; }
+    function centerBoard(){
+      const outer = document.querySelector('.board-outer');
+      if(!outer) return;
+      const mid = outer.querySelector('.planet');
+      if(!mid) return;
+      const midX = mid.offsetLeft + mid.offsetWidth/2;
+      const target = midX - outer.clientWidth/2;
+      outer.scrollLeft = Math.max(0, target);
+    }
 
-  // 버튼
-  const btnEn=document.getElementById('btn-en');
-  const btnKr=document.getElementById('btn-kr');
-  const btnZh=document.getElementById('btn-zh');
-  btnEn.onclick=()=>setLang('en');
-  btnKr.onclick=()=>setLang('ko');
-  btnZh.onclick=()=>setLang('zh');
-
-  // 최초 언어 자동 결정 (저장값 우선)
-  (function(){
-    const saved=localStorage.getItem('wpb_lang');
-    if(saved){ setLang(saved); return; }
-    const langs=(navigator.languages||[navigator.language||'']).join(',').toLowerCase();
-    if(langs.includes('zh')) setLang('zh');
-    else if(langs.includes('ko')) setLang('ko');
-    else setLang('en');
-  })();
-</script>
+    window.addEventListener('load', ()=>{ setLanguage('kr'); centerBoard(); });
+    document.getElementById("btn-en").addEventListener("click", ()=>setLanguage("en"));
+    document.getElementById("btn-kr").addEventListener("click", ()=>setLanguage("kr"));
+    document.getElementById("btn-zh").addEventListener("click", ()=>setLanguage("zh"));
+  </script>
 </body>
 </html>
