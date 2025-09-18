@@ -1,314 +1,264 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>World PiBank — Championship Cover</title>
+<title>World PiBank — Cover</title>
 <meta name="theme-color" content="#0ea5e9"/>
 <style>
   :root{
-    --bg1:#0f172a; /* deep navy */
-    --bg2:#0ea5e9; /* sky blue */
-    --bg3:#22d3ee; /* teal glow */
-    --ink:#0b1220; /* dark text */
-    --ink-soft:#415063; /* softer */
-    --line:#e6eef7;
-    --brand:#2563eb; /* blue */
-    --accent:#06b6d4; /* cyan */
-    --radius:18px;
+    --bg1:#0b1220; --bg2:#0ea5e9; --line:#e6eef7;
+    --card:#ffffff; --muted:#415063; --ink:#0b1220;
+    --brand:#2563eb; --accent:#06b6d4; --radius:18px;
   }
-  *{box-sizing:border-box}
-  html,body{height:100%}
+  *{box-sizing:border-box} html,body{height:100%}
   body{
-    margin:0; color:var(--ink);
-    font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans KR","Malgun Gothic",Arial,sans-serif;
-    background:
-      radial-gradient(1200px 800px at 80% -10%, #22d3ee33, transparent 60%),
-      radial-gradient(1200px 800px at -10% 10%, #60a5fa33, transparent 60%),
-      linear-gradient(160deg,#0b1220,#0f172a 35%, #0ea5e9 120%);
-    min-height:100%;
+    margin:0; font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans KR","Malgun Gothic",Arial,sans-serif;
+    background:radial-gradient(1200px 900px at 85% -10%, #22d3ee33, transparent 60%),
+               radial-gradient(1000px 800px at -10% 10%, #60a5fa33, transparent 60%),
+               linear-gradient(160deg,#0b1220 10%, #0f172a 45%, #0ea5e9 130%);
+    color:var(--ink);
   }
-  .frame{
-    width:min(1120px,94vw);
-    margin:32px auto;
-    background:linear-gradient(180deg,#ffffff,#f6fbff);
-    border:1px solid var(--line);
-    border-radius:22px;
-    box-shadow:0 18px 60px rgba(3,7,18,.35), 0 4px 0 #ffffff66 inset;
-    overflow:clip; position:relative;
-  }
-  /* top */
+  .frame{width:min(1120px,94vw);margin:28px auto;border:1px solid var(--line);border-radius:22px;overflow:hidden;
+         background:linear-gradient(180deg,#ffffff,#f7fbff);box-shadow:0 18px 60px rgba(3,7,18,.35)}
+  /* top bar */
   .top{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--line);background:#ffffffaa;backdrop-filter:saturate(1.2) blur(6px)}
   .brand{display:flex;align-items:center;gap:10px}
-  .mark{
-    width:30px;height:30px;border-radius:10px;display:grid;place-items:center;
-    background:radial-gradient(circle at 30% 30%, #fff,#e0f2fe 60%, #bae6fd 100%);
-    color:#1e293b;font-weight:1000;box-shadow:0 0 0 2px #fff inset, 0 4px 10px rgba(2,132,199,.25)
-  }
-  .brand h1{margin:0;font-size:16px;color:#0b1220}
-  nav{display:flex;gap:8px;flex-wrap:wrap;margin-left:8px}
-  .link{padding:8px 10px;border-radius:12px;font-weight:800;font-size:13px;background:#eef7ff;border:1px solid var(--line);color:#0b1220}
-  .lang{display:flex;gap:6px;margin-left:auto}
+  .mark{width:30px;height:30px;border-radius:10px;display:grid;place-items:center;
+        background:radial-gradient(circle at 30% 30%,#fff,#e0f2fe 60%,#bae6fd 100%);
+        color:#1e293b;font-weight:1000;box-shadow:0 0 0 2px #fff inset,0 4px 10px rgba(2,132,199,.25)}
+  .brand h1{margin:0;font-size:17px}
+  .right{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
   .chip{padding:7px 10px;border-radius:12px;font-weight:900;font-size:12px;cursor:pointer;background:#eef7ff;border:1px solid var(--line);color:#0b1220}
   .chip.active{background:var(--brand);color:#fff;border-color:var(--brand)}
-  .btn{border:none;border-radius:12px;padding:9px 14px;font-weight:900;background:var(--brand);color:#fff;box-shadow:0 6px 16px rgba(37,99,235,.25);cursor:pointer}
-  .btn.ghost{background:#fff;color:var(--brand);border:1px solid var(--line);box-shadow:none}
-
+  .link{padding:8px 12px;border-radius:12px;font-weight:900;font-size:12px;border:1px solid var(--line);background:#fff}
+  .link:hover{background:#f0f7ff}
   .wrap{padding:18px}
   /* hero */
-  .hero{display:grid;grid-template-columns:1.25fr .75fr;gap:16px;align-items:center}
-  @media (max-width:960px){.hero{grid-template-columns:1fr}}
-  .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:0 12px 28px rgba(15,23,42,.08)}
-  .headline h2{margin:0 0 6px;font-size:clamp(28px,5.2vw,46px);color:#0b1220;letter-spacing:-.2px}
-  .headline p{margin:0;color:var(--ink-soft)}
-  .slogan{
-    margin-top:10px;font-weight:1000;color:#0b1220;
-    background:linear-gradient(90deg,#0b1220,#2563eb,#06b6d4);-webkit-background-clip:text;background-clip:text;color:transparent
-  }
-
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:0 12px 28px rgba(15,23,42,.08)}
+  .headline h2{margin:0 0 8px;font-size:clamp(26px,5vw,44px);letter-spacing:-.2px}
+  .headline p{margin:0;color:var(--muted)}
+  .slogan{margin-top:10px;font-weight:1000;background:linear-gradient(90deg,#0b1220,#2563eb,#06b6d4);-webkit-background-clip:text;background-clip:text;color:transparent}
   /* feature grid */
   .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-  .tile{
-    display:flex;gap:12px;align-items:center;justify-content:flex-start;
-    padding:16px;border-radius:14px;border:1px solid var(--line);
-    background:linear-gradient(180deg,#ffffff,#f3f9ff);
-    box-shadow:0 8px 18px rgba(2,132,199,.08);
-    transition:transform .12s, box-shadow .12s;
-  }
-  .tile:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(2,132,199,.16)}
-  .ico{width:36px;height:36px;flex:0 0 36px;border-radius:10px;display:grid;place-items:center;background:radial-gradient(circle,#e0f2fe,#bae6fd);box-shadow:0 3px 8px rgba(2,132,199,.25)}
-  .tile b{font-size:16px;color:#0b1220}
-  .tile small{display:block;color:var(--ink-soft);font-weight:700;margin-top:2px}
-
-  /* micro QR + cute coin */
-  .qr{position:absolute;left:10px;bottom:10px;width:40px;height:40px;border-radius:8px;overflow:hidden;border:1px solid var(--line);background:#fff;box-shadow:0 6px 14px rgba(0,0,0,.12);z-index:2}
-  .qr img{width:100%;height:100%;object-fit:cover}
-  .coin{position:absolute;left:50%;transform:translateX(-50%);bottom:-8px;width:78px;height:78px;border-radius:50%;background:radial-gradient(circle at 30% 30%, #fff, #e0f2fe 60%, #bae6fd 100%);display:grid;place-items:center;border:2px solid #fff;box-shadow:0 10px 24px rgba(2,132,199,.22)}
-  .pi{font-size:36px;font-weight:1000;color:#0ea5e9}
-
+  .tile{display:flex;gap:12px;align-items:center;padding:16px;border-radius:14px;border:1px solid var(--line);
+        background:linear-gradient(180deg,#ffffff,#f3f9ff);box-shadow:0 8px 18px rgba(2,132,199,.08)}
+  .ico{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:radial-gradient(circle,#e0f2fe,#bae6fd)}
+  .tile b{font-size:16px}.tile small{display:block;color:var(--muted);font-weight:700;margin-top:2px}
   /* sections */
-  section{scroll-margin-top:74px}
-  .sec-title{margin:0 0 10px;font-size:18px;font-weight:1000;color:#0b1220}
-  .muted{color:var(--ink-soft)}
-  .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  @media (max-width:880px){.two{grid-template-columns:1fr}}
-
-  /* wallet rows */
+  section{scroll-margin-top:80px}
+  .sec-title{margin:0 0 10px;font-size:18px;font-weight:1000}
   .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-  .key{min-width:92px;font-weight:900;color:#0b1220}
+  .key{min-width:92px;font-weight:900}
   .code{font-family:ui-monospace,Menlo,Consolas,monospace;background:#f1f7ff;border:1px solid var(--line);padding:8px 10px;border-radius:10px}
   .copy{border:none;border-radius:10px;padding:8px 12px;font-weight:800;background:var(--brand);color:#fff;cursor:pointer}
-
-  /* footer */
-  .foot{padding:12px;text-align:center;color:#0b1220;font-size:12.5px;background:linear-gradient(180deg,#ffffff,#f6fbff);border-top:1px solid var(--line)}
-
-  /* svg icons color */
+  .foot{padding:12px;text-align:center;border-top:1px solid var(--line);background:linear-gradient(180deg,#ffffff,#f7fbff)}
   svg{stroke:#0ea5e9}
+  /* mini calc widget */
+  .mini{position:fixed;right:14px;bottom:14px;width:230px;background:#ffffff;border:1px solid var(--line);border-radius:14px;box-shadow:0 16px 36px rgba(0,0,0,.25);padding:10px;z-index:20}
+  .mini h4{margin:0 0 8px;font-size:13px}
+  .mini .row{gap:6px}
+  .mini input,.mini select{flex:1;padding:8px;border-radius:10px;border:1px solid var(--line);background:#f8fbff}
+  .mini .out{margin-top:6px;font-size:12px;color:#334155}
+  /* modal */
+  .modal{position:fixed;inset:0;display:none;place-items:center;background:rgba(0,0,0,.25);z-index:30}
+  .modal.show{display:grid}
+  .sheet{max-width:760px;width:92vw;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 48px rgba(0,0,0,.25);padding:18px}
+  .sheet h3{margin:0 0 10px}.close{float:right;border:none;background:var(--brand);color:#fff;font-weight:900;border-radius:10px;padding:6px 10px}
 </style>
 </head>
 <body>
-  <main class="frame" role="main" aria-label="World PiBank cover">
-    <!-- top bar -->
+  <main class="frame">
+    <!-- TOP: 왼쪽 로고만 / 오른쪽 KR·EN + 바로가기 -->
     <div class="top">
-      <div class="brand">
-        <div class="mark">π</div><h1>World PiBank</h1>
-        <nav>
-          <a class="link" href="#home" data-en="Home" data-ko="홈">Home</a>
-          <a class="link" href="#support" data-en="Support" data-ko="고객센터">Support</a>
-          <a class="link" href="#about" data-en="About" data-ko="소개">About</a>
-        </nav>
-      </div>
-      <div style="display:flex;gap:8px;align-items:center">
-        <div class="lang">
-          <span id="chip-en" class="chip active">EN</span>
-          <span id="chip-ko" class="chip">KR</span>
-        </div>
-        <button id="loginBtn" class="btn">Login</button>
+      <div class="brand"><div class="mark">π</div><h1>World PiBank</h1></div>
+      <div class="right">
+        <span id="chip-ko" class="chip active">KR</span>
+        <span id="chip-en" class="chip">EN</span>
+        <button class="link" onclick="scrollToId('pay')">결제</button>
+        <button class="link" onclick="scrollToId('send')">보내기</button>
+        <button class="link" onclick="scrollToId('rewards')">보상</button>
+        <button class="link" onclick="scrollToId('ubi')">UBI</button>
+        <button class="link" id="openStake">예치</button>
+        <button class="link" onclick="scrollToId('support')">고객센터</button>
+        <button class="link" id="openDonate">후원</button>
       </div>
     </div>
 
     <div class="wrap" id="home">
-      <!-- hero -->
-      <section class="hero">
-        <div class="card headline">
-          <h2>Global Digital Bank for Everyone</h2>
-          <p>Send · Pay · Rewards · UBI · Staking — built on the Pi ecosystem to empower everyday people.</p>
-          <div class="slogan">No Ads · People First · Global Citizens</div>
-        </div>
-        <div class="card">
-          <div class="grid">
-            <!-- SEND -->
-            <div class="tile">
-              <div class="ico" aria-hidden="true">
-                <!-- plane -->
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                  <path d="M10 14L21 3M3 10l8 1-1 8 2-5 5-2-14-2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
-              <div><b data-en="Send" data-ko="송금">Send</b><small data-en="Fast & borderless" data-ko="빠르고 국경 없음">Fast & borderless</small></div>
+      <!-- HEADLINE -->
+      <section class="card headline">
+        <h2>모두를 위한 글로벌 디지털 뱅크</h2>
+        <p>송금 · 결제 · 리워드 · 기본소득 · 예치 — 파이 생태계 위에서 서민과 노동자를 돕습니다.</p>
+        <div class="slogan">광고 없음 · 시민 우선 · 글로벌 시민</div>
+      </section>
+
+      <!-- FEATURES -->
+      <section class="card" style="margin-top:12px">
+        <div class="grid">
+          <div class="tile" id="send">
+            <div class="ico">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M10 14L21 3M3 10l8 1-1 8 2-5 5-2-14-2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
-            <!-- PAY -->
-            <div class="tile">
-              <div class="ico" aria-hidden="true">
-                <!-- phone tap -->
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                  <rect x="7" y="2" width="10" height="20" rx="2" stroke-width="2"/>
-                  <path d="M12 18h.01M17 8c2 0 4 2 4 4s-2 4-4 4" stroke-width="2" stroke-linecap="round"/>
-                </svg>
-              </div>
-              <div><b data-en="Pay" data-ko="결제">Pay</b><small data-en="Tap to pay in Pi" data-ko="파이로 간편 결제">Tap to pay in Pi</small></div>
+            <div><b>송금</b><small>빠르고 국경 없음</small></div>
+          </div>
+          <div class="tile" id="pay">
+            <div class="ico">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="7" y="2" width="10" height="20" rx="2" stroke-width="2"/><path d="M12 18h.01M17 8c2 0 4 2 4 4s-2 4-4 4" stroke-width="2" stroke-linecap="round"/></svg>
             </div>
-            <!-- REWARDS -->
-            <div class="tile">
-              <div class="ico" aria-hidden="true">
-                <!-- gift -->
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                  <path d="M20 12v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8m18-3H2m10 0v13M7 9c-1.657 0-3-1.343-3-3s1.5-2 3-1 3 2 3 4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
-              <div><b data-en="Rewards" data-ko="리워드">Rewards</b><small data-en="Daily bonuses" data-ko="데일리 보너스">Daily bonuses</small></div>
+            <div><b>결제</b><small>파이로 간편 결제</small></div>
+          </div>
+          <div class="tile" id="rewards">
+            <div class="ico">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M20 12v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8m18-3H2m10 0v13M7 9c-1.657 0-3-1.343-3-3s1.5-2 3-1 3 2 3 4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
-            <!-- STAKING -->
-            <div class="tile">
-              <div class="ico" aria-hidden="true">
-                <!-- lock -->
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                  <rect x="3" y="11" width="18" height="10" rx="2" stroke-width="2"/>
-                  <path d="M7 11V8a5 5 0 0 1 10 0v3" stroke-width="2"/>
-                </svg>
-              </div>
-              <div><b data-en="Staking" data-ko="예치">Staking</b><small data-en="Secure deposit" data-ko="안전한 예치">Secure deposit</small></div>
+            <div><b>보상</b><small>데일리 보너스</small></div>
+          </div>
+          <div class="tile" id="ubi">
+            <div class="ico">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 21h18M6 21V8m12 13V8M9 21V4m6 17V4" stroke-width="2" stroke-linecap="round"/></svg>
             </div>
-            <!-- SUPPORT -->
-            <div class="tile" style="grid-column:span 2">
-              <div class="ico" aria-hidden="true">
-                <!-- chat -->
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                  <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v8z" stroke-width="2" stroke-linejoin="round"/>
-                </svg>
-              </div>
-              <div><b data-en="Customer Center" data-ko="고객센터">Customer Center</b><small data-en="Chat & help inside" data-ko="채팅·문의 바로가기">Chat & help inside</small></div>
-            </div>
+            <div><b>UBI</b><small>웹3 기본소득 모델</small></div>
           </div>
         </div>
       </section>
 
-      <!-- tiny QR + cute coin -->
-      <div class="qr" title="Open in Pi Browser">
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=pi%3A%2F%2Fpiworldbank" alt="QR">
-      </div>
-      <div class="coin" aria-hidden="true"><div class="pi">π</div></div>
-
-      <!-- Support / Contacts -->
-      <section id="support" class="card" style="margin-top:16px">
-        <div class="sec-title" data-en="Support & Contacts" data-ko="고객센터 · 연락처">Support & Contacts</div>
-        <div class="two">
-          <div>
-            <div class="row"><span class="key">📞 Phone</span><a id="phoneLink" class="code" href="#"></a></div>
-            <div class="row" style="margin-top:8px"><span class="key">✉ Email</span><a id="emailLink" class="code" href="#"></a></div>
-            <div class="row" style="margin-top:8px"><span class="key">💬 Kakao</span><a id="kakaoLink" class="code" href="#" target="_blank" rel="noopener">Open</a></div>
-          </div>
-          <div>
-            <div class="row">
-              <span class="key">💠 Pi Wallet</span><code id="piWallet" class="code"></code>
-              <button class="copy" data-copy="#piWallet">Copy</button>
-            </div>
-            <div class="row" style="margin-top:8px">
-              <span class="key">🏦 KR Bank</span><code id="krBank" class="code"></code>
-              <button class="copy" data-copy="#krBank">Copy</button>
-            </div>
-            <div class="row" style="margin-top:8px">
-              <span class="key">🔗 Referral</span><code id="refCode" class="code"></code>
-              <button class="copy" data-copy="#refCode">Copy</button>
-            </div>
-          </div>
-        </div>
+      <!-- SUPPORT -->
+      <section id="support" class="card" style="margin-top:12px">
+        <div class="sec-title">고객센터 · 연락처</div>
+        <div class="row"><span class="key">📞 전화</span><a id="phoneLink" class="code" href="#"></a></div>
+        <div class="row" style="margin-top:6px"><span class="key">✉ 이메일</span><a id="emailLink" class="code" href="#"></a></div>
+        <div class="row" style="margin-top:6px"><span class="key">💬 카카오</span><a id="kakaoLink" class="code" href="#" target="_blank" rel="noopener">Open</a></div>
       </section>
 
-      <!-- About -->
-      <section id="about" class="card" style="margin-top:16px">
-        <div class="sec-title" data-en="About" data-ko="소개">About</div>
-        <p class="muted" data-en="A bright, people-first digital bank concept built on the Pi ecosystem."
-           data-ko="파이 생태계 위에 세운 밝고 사람 중심의 디지털 뱅크 컨셉입니다.">A bright, people-first digital bank concept built on the Pi ecosystem.</p>
-      </section>
-
-      <div class="foot">
-        © <span id="yr"></span> World PiBank · <span data-en="No ads. People first." data-ko="광고 없음. 시민 우선.">No ads. People first.</span>
-      </div>
+      <div class="foot">© <span id="yr"></span> World PiBank · 광고 없음 · 시민 우선</div>
     </div>
   </main>
 
+  <!-- 예치(이자 상세) 모달 -->
+  <div class="modal" id="stakeModal" aria-hidden="true">
+    <div class="sheet">
+      <button class="close" id="closeStake">×</button>
+      <h3>예치(스테이킹) 이자 상세</h3>
+      <p class="muted">유연한 예치 · 언제든 출금 가능 (데모)</p>
+      <ul>
+        <li>목표 APY: <b>12–18%</b> (변동)</li>
+        <li>기준: 온체인 수익 배분(베타)</li>
+        <li>이자는 매일 적립, 월 단위 정산(데모)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 후원 모달 -->
+  <div class="modal" id="donateModal" aria-hidden="true">
+    <div class="sheet">
+      <button class="close" id="closeDonate">×</button>
+      <h3>후원 안내</h3>
+      <div class="row"><span class="key">💠 Pi 지갑</span><code id="piWallet" class="code"></code><button class="copy" data-copy="#piWallet">Copy</button></div>
+      <div class="row" style="margin-top:8px"><span class="key">🏦 계좌</span><code id="krBank" class="code"></code><button class="copy" data-copy="#krBank">Copy</button></div>
+      <div class="row" style="margin-top:8px"><span class="key">🔗 추천ID</span><code id="refCode" class="code"></code><button class="copy" data-copy="#refCode">Copy</button></div>
+      <div class="row" style="margin-top:8px"><span class="key">🎫 컬쳐랜드</span><code id="culture" class="code">PIN 입력 후 전달</code></div>
+      <p class="muted" style="margin-top:8px">감사합니다. 후원은 운영·커뮤니티 성장에 사용됩니다.</p>
+    </div>
+  </div>
+
+  <!-- 실시간 이자 미니 계산기 -->
+  <div class="mini" id="miniCalc">
+    <h4>이자 계산기 (mini)</h4>
+    <div class="row">
+      <input id="amt" type="number" min="0" step="1" placeholder="예치 π"/>
+      <select id="apy">
+        <option value="0.12">12%</option>
+        <option value="0.15">15%</option>
+        <option value="0.18">18%</option>
+      </select>
+    </div>
+    <div class="out" id="out">π 입력 시 연/월 수익 표시</div>
+  </div>
+
 <script>
-  // CONTACT – your real data
+  // ========= CONTACT =========
   const CONTACT = {
     phone: "010-5808-0982",
     email: "ljw2358@naver.com",
-    kakao_url: "https://open.kakao.com/o/abc12345", // 실제 링크로 교체 가능
+    kakao_url: "https://open.kakao.com/o/abc12345",
     pi_wallet: "GCLU237U7XPKOCHNWLTVNISIC5I6A273VB5RVKHB5CS5Y7DM4XKFES2U",
     kr_bank: "국민 66910201596112",
     ref_code: "ljw2358"
   };
 
-  // Year & fill contacts
+  // year & contacts
   document.getElementById('yr').textContent = new Date().getFullYear();
   const phoneLink=document.getElementById('phoneLink');
   const emailLink=document.getElementById('emailLink');
-  document.getElementById('kakaoLink').href = CONTACT.kakao_url;
-  phoneLink.href = `tel:${CONTACT.phone.replace(/[^+0-9]/g,'')}`; phoneLink.textContent = CONTACT.phone;
-  emailLink.href = `mailto:${CONTACT.email}`; emailLink.textContent = CONTACT.email;
-  document.getElementById('piWallet').textContent = CONTACT.pi_wallet;
-  document.getElementById('krBank').textContent = CONTACT.kr_bank;
-  document.getElementById('refCode').textContent = CONTACT.ref_code;
+  phoneLink.href=`tel:${CONTACT.phone.replace(/[^+0-9]/g,'')}`; phoneLink.textContent=CONTACT.phone;
+  emailLink.href=`mailto:${CONTACT.email}`; emailLink.textContent=CONTACT.email;
+  document.getElementById('kakaoLink').href=CONTACT.kakao_url;
+  document.getElementById('piWallet').textContent=CONTACT.pi_wallet;
+  document.getElementById('krBank').textContent=CONTACT.kr_bank;
+  document.getElementById('refCode').textContent=CONTACT.ref_code;
 
-  // Language: detect + toggle + remember
+  // lang
   function setLang(lang){
-    const isEN = lang==='en';
-    document.documentElement.lang = isEN ? 'en' : 'ko';
-    document.getElementById('chip-en').classList.toggle('active', isEN);
-    document.getElementById('chip-ko').classList.toggle('active', !isEN);
-    document.querySelectorAll('[data-en]').forEach(el=>{
-      el.textContent = el.getAttribute(isEN?'data-en':'data-ko');
-    });
-    // hero text
-    document.querySelector('.headline h2').textContent = isEN ? 'Global Digital Bank for Everyone' : '모두를 위한 글로벌 디지털 뱅크';
-    document.querySelector('.headline p').textContent = isEN
-      ? 'Send · Pay · Rewards · UBI · Staking — built on the Pi ecosystem to empower everyday people.'
-      : '송금 · 결제 · 리워드 · 기본소득 · 예치 — 파이 생태계 위에서 서민과 노동자를 돕습니다.';
-    document.querySelector('.slogan').textContent = isEN ? 'No Ads · People First · Global Citizens' : '광고 없음 · 시민 우선 · 글로벌 시민';
-    localStorage.setItem('wpb_lang', lang);
+    const isKO = (lang==='ko');
+    document.getElementById('chip-ko').classList.toggle('active', isKO);
+    document.getElementById('chip-en').classList.toggle('active', !isKO);
+    document.documentElement.lang = isKO ? 'ko':'en';
+    localStorage.setItem('wpb_lang', isKO?'ko':'en');
+
+    // 텍스트 스왑 간단 버전
+    document.querySelector('.headline h2').textContent = isKO ? '모두를 위한 글로벌 디지털 뱅크' : 'Global Digital Bank for Everyone';
+    document.querySelector('.headline p').textContent = isKO ? '송금 · 결제 · 리워드 · 기본소득 · 예치 — 파이 생태계 위에서 서민과 노동자를 돕습니다.'
+                                                             : 'Send · Pay · Rewards · UBI · Staking — built on the Pi ecosystem to empower everyday people.';
+    document.querySelector('.slogan').textContent = isKO ? '광고 없음 · 시민 우선 · 글로벌 시민' : 'No Ads · People First · Global Citizens';
   }
   function detectLang(){
-    try{
-      const saved=localStorage.getItem('wpb_lang'); if(saved) return saved;
-      const url=new URLSearchParams(location.search).get('lang'); if(url) return url;
-      const langs=navigator.languages?.length ? navigator.languages : [navigator.language||''];
-      const hasKo=langs.some(l=>(l||'').toLowerCase().startsWith('ko'));
-      const tz=Intl.DateTimeFormat().resolvedOptions().timeZone||'';
-      return (hasKo || tz==='Asia/Seoul') ? 'ko' : 'en';
-    }catch(e){return 'en'}
+    const saved=localStorage.getItem('wpb_lang'); if(saved) return saved;
+    const hasKo=(navigator.languages||[navigator.language]).some(l=>(l||'').toLowerCase().startsWith('ko'));
+    const tz=Intl.DateTimeFormat().resolvedOptions().timeZone||'';
+    return (hasKo||tz==='Asia/Seoul')?'ko':'en';
   }
   setLang(detectLang());
-  document.getElementById('chip-en').onclick=()=>setLang('en');
   document.getElementById('chip-ko').onclick=()=>setLang('ko');
+  document.getElementById('chip-en').onclick=()=>setLang('en');
 
-  // Copy helpers
+  // scroll helper
+  function scrollToId(id){const el=document.getElementById(id); if(el) el.scrollIntoView({behavior:'smooth'});}
+
+  // stake modal
+  const stakeModal=document.getElementById('stakeModal');
+  document.getElementById('openStake').onclick=()=>{stakeModal.classList.add('show');stakeModal.setAttribute('aria-hidden','false');};
+  document.getElementById('closeStake').onclick=()=>{stakeModal.classList.remove('show');stakeModal.setAttribute('aria-hidden','true');};
+  stakeModal.addEventListener('click',e=>{if(e.target===stakeModal){stakeModal.classList.remove('show');}});
+
+  // donate modal
+  const donateModal=document.getElementById('donateModal');
+  document.getElementById('openDonate').onclick=()=>{donateModal.classList.add('show');donateModal.setAttribute('aria-hidden','false');};
+  document.getElementById('closeDonate').onclick=()=>{donateModal.classList.remove('show');donateModal.setAttribute('aria-hidden','true');});
+  donateModal.addEventListener('click',e=>{if(e.target===donateModal){donateModal.classList.remove('show');}});
+
+  // copy buttons
   document.querySelectorAll('.copy[data-copy]').forEach(btn=>{
     btn.addEventListener('click', async ()=>{
-      const sel = btn.getAttribute('data-copy');
-      const el = document.querySelector(sel);
+      const el=document.querySelector(btn.getAttribute('data-copy'));
       if(!el) return;
       try{
         await navigator.clipboard.writeText(el.textContent.trim());
-        const isEN = document.documentElement.lang !== 'ko';
-        const old = btn.textContent;
-        btn.textContent = isEN ? 'Copied!' : '복사됨!';
-        setTimeout(()=>btn.textContent=old, 900);
-      }catch{ alert('Copy failed.'); }
+        const old=btn.textContent; btn.textContent='Copied!'; setTimeout(()=>btn.textContent=old,900);
+      }catch{ alert('Copy failed');}
     });
   });
 
-  // Demo
-  document.getElementById('loginBtn').onclick=()=>alert('Login → (TODO) Pi SDK Approve');
+  // mini calc (realtime)
+  const amt=document.getElementById('amt'); const apy=document.getElementById('apy'); const out=document.getElementById('out');
+  function calc(){
+    const a=parseFloat(amt.value||'0'); const r=parseFloat(apy.value||'0');
+    if(!a){ out.textContent='π 입력 시 연/월 수익 표시'; return; }
+    const yearly=a*r, monthly=yearly/12, daily=yearly/365;
+    out.textContent=`연≈ ${yearly.toFixed(2)}π · 월≈ ${monthly.toFixed(2)}π · 일≈ ${daily.toFixed(2)}π`;
+  }
+  amt.addEventListener('input',calc); apy.addEventListener('change',calc);
+  calc();
 </script>
 </body>
 </html>
