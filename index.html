@@ -13,7 +13,7 @@
   *{box-sizing:border-box}
   html,body{height:100%}
   body{
-    margin:0; font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans KR","PingFang SC",sans-serif;
+    margin:0; font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans KR","PingFang SC",sans-serif;
     background:
       radial-gradient(1100px 800px at 70% -10%, #2b1d63 0%, #1b123e 45%, #0c0820 78%),
       var(--bg);
@@ -22,17 +22,12 @@
   .wrap{min-height:100%; display:flex; flex-direction:column}
 
   /* Top bar */
-  .top{
-    display:flex; align-items:center; justify-content:space-between;
-    padding:14px 16px;
-  }
+  .top{display:flex; align-items:center; justify-content:space-between; padding:14px 16px}
   .langs{font-weight:900; letter-spacing:.25px}
   .langs a{color:#eee; text-decoration:none; padding:4px 8px; border-radius:8px}
   .langs a.active{background:#ffffff17}
   .actions{display:flex; gap:10px}
-  .btn{
-    border:none; cursor:pointer; font-weight:900; padding:10px 14px; border-radius:14px
-  }
+  .btn{border:none; cursor:pointer; font-weight:900; padding:10px 14px; border-radius:14px}
   .kyc{background:#ffd451; color:#3a2b00; box-shadow:0 2px 0 #d9c27a}
   .login{background:#ffffff22; color:#fff; border:1px solid #ffffff33}
 
@@ -41,40 +36,29 @@
   .sub{margin:8px 16px 18px; color:#dcd6ff; font-size: clamp(14px, 3.6vw, 18px)}
 
   /* Orbit area */
-  .orbit{
-    position:relative; margin:0 auto; width:min(92vw, 680px); aspect-ratio:1/1;
-  }
+  .orbit{position:relative; margin:0 auto; width:min(92vw, 680px); aspect-ratio:1/1}
 
-  /* center orb */
-  .center{
-    position:absolute; inset:0; display:grid; place-items:center;
-  }
+  /* Center orb */
+  .center{position:absolute; inset:0; display:grid; place-items:center}
   .orb{
     width:min(46vw, 320px); height:min(46vw, 320px); border-radius:50%;
-    background: radial-gradient(60% 60% at 50% 42%, #4326a1 0%, #35207c 60%, #28165f 100%);
-    box-shadow: inset 0 18px 40px #7a5cff44, 0 28px 80px rgba(0,0,0,.55), 0 0 0 1px #ffffff18;
+    background:radial-gradient(60% 60% at 50% 42%, #4326a1 0%, #35207c 60%, #28165f 100%);
+    box-shadow:inset 0 18px 40px #7a5cff44, 0 28px 80px rgba(0,0,0,.55), 0 0 0 1px #ffffff18;
     display:grid; place-items:center; font-weight:900; color:#ffd34d; font-size:44px;
   }
 
-  /* ring cards */
-  .node{
-    position:absolute; width:min(40vw, 260px); max-width:220px;
-    transform:translate(-50%,-50%);
-  }
+  /* Ring cards */
+  .node{position:absolute; width:min(40vw, 260px); max-width:220px; transform:translate(-50%,-50%)}
   .card{
-    background:var(--card); color:var(--ink);
-    border-radius:22px; padding:16px 14px; box-shadow:0 10px 28px rgba(0,0,0,.25);
-    display:flex; flex-direction:column; gap:8px;
+    background:var(--card); color:var(--ink); border-radius:22px; padding:16px 14px;
+    box-shadow:0 10px 28px rgba(0,0,0,.25); display:flex; flex-direction:column; gap:8px;
   }
   .card .icon{height:34px}
   .card h3{margin:0; font-size:22px}
   .card p{margin:0; color:var(--muted); font-size:14px; line-height:1.35}
 
   /* Bottom helpers */
-  .bottom{
-    position:fixed; left:14px; right:14px; bottom:16px;
-    display:flex; justify-content:space-between; align-items:center;
-  }
+  .bottom{position:fixed; left:14px; right:14px; bottom:16px; display:flex; justify-content:space-between; align-items:center}
   .qr{display:flex; flex-direction:column; align-items:flex-start; gap:8px}
   .qr .box{width:70px; height:70px; border-radius:12px; background:#1a1338; border:1px dashed #ffffff40; display:grid; place-items:center; font-size:26px}
   .qr label{font-size:18px; color:#efeaff}
@@ -84,16 +68,13 @@
     color:#fff; font-size:26px; box-shadow:var(--shadow)
   }
 
-  /* responsive card width on small screens */
-  @media (max-width:520px){
-    .node{max-width:200px}
-  }
+  @media (max-width:520px){ .node{max-width:200px} }
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <!-- top -->
+  <!-- TOP -->
   <div class="top">
     <div class="langs" id="langBar">
       <a href="#" data-lng="en">EN</a> ·
@@ -106,99 +87,88 @@
     </div>
   </div>
 
-  <!-- title -->
+  <!-- TITLES -->
   <h1 id="title">세계 파이 은행</h1>
   <div class="sub" id="subtitle">세계 최초의 디지털 은행</div>
 
-  <!-- orbit layout -->
+  <!-- ORBIT -->
   <section class="orbit" id="orbit">
-    <!-- center -->
-    <div class="center">
-      <div class="orb">Pi<br/>Logo</div>
-    </div>
+    <div class="center"><div class="orb">Pi<br/>Logo</div></div>
 
-    <!-- six nodes: angles are 90(top), 30, 150, 210, 330, 270(bottom) -->
+    <!-- 결제 (위) -->
     <div class="node" data-angle="90">
       <article class="card">
         <img class="icon" src="https://img.icons8.com/fluency/48/bank-card-front-side.png" alt="">
-        <h3 id="c1t">결제</h3>
-        <p id="c1d">가맹점과 개인</p>
+        <h3 id="c1t">결제</h3><p id="c1d">가맹점과 개인</p>
       </article>
     </div>
 
+    <!-- 송금 (오른쪽) -->
     <div class="node" data-angle="30">
       <article class="card">
         <img class="icon" src="https://img.icons8.com/fluency/48/send.png" alt="">
-        <h3 id="c2t">송금</h3>
-        <p id="c2d">빠르고, 국경 없음</p>
+        <h3 id="c2t">송금</h3><p id="c2d">빠르고, 국경 없음</p>
       </article>
     </div>
 
+    <!-- 스테이킹 (왼쪽위) -->
     <div class="node" data-angle="150">
       <article class="card">
         <img class="icon" src="https://img.icons8.com/fluency/48/bank.png" alt="">
-        <h3 id="c3t">스테이킹</h3>
-        <p id="c3d">예치(이율:4.8%)</p>
+        <h3 id="c3t">스테이킹</h3><p id="c3d">예치(이율:4.8%)</p>
       </article>
     </div>
 
+    <!-- UBI (왼쪽아래) -->
     <div class="node" data-angle="210">
       <article class="card">
         <img class="icon" src="https://img.icons8.com/fluency/48/hand.png" alt="">
-        <h3 id="c5t">UBI</h3>
-        <p id="c5d">기본소득</p>
+        <h3 id="c5t">UBI</h3><p id="c5d">기본소득</p>
       </article>
     </div>
 
+    <!-- 리워드 (오른쪽위) -->
     <div class="node" data-angle="330">
       <article class="card">
         <img class="icon" src="https://img.icons8.com/fluency/48/gift.png" alt="">
-        <h3 id="c4t">리워드</h3>
-        <p id="c4d">참여하기</p>
+        <h3 id="c4t">리워드</h3><p id="c4d">참여하기</p>
       </article>
     </div>
 
+    <!-- 고객센터 (아래) -->
     <div class="node" data-angle="270">
       <article class="card">
         <img class="icon" src="https://img.icons8.com/fluency/48/phone.png" alt="">
-        <h3 id="c6t">고객센터</h3>
-        <p id="c6d">ljw2358</p>
+        <h3 id="c6t">고객센터</h3><p id="c6d">ljw2358</p>
       </article>
     </div>
   </section>
 
-  <!-- bottom helpers -->
+  <!-- BOTTOM -->
   <div class="bottom">
-    <div class="qr">
-      <div class="box">▦</div>
-      <label id="qrLabel">QR Code</label>
-    </div>
+    <div class="qr"><div class="box">▦</div><label id="qrLabel">QR Code</label></div>
     <div class="chat"><button title="chat">💬</button></div>
   </div>
 
 </div>
 
 <script>
-  /* Position six nodes around the center orb */
+  /* 원형 배치 */
   function layoutOrbit(){
-    const wrap = document.getElementById('orbit');
-    const rect = wrap.getBoundingClientRect();
-    const cx = rect.width/2, cy = rect.height/2;
-    const r = Math.min(rect.width, rect.height)*0.38; // radius for nodes
-
-    document.querySelectorAll('.node').forEach(node=>{
-      const deg = +node.dataset.angle; const rad = deg * Math.PI/180;
-      const x = cx + r * Math.cos(rad);
-      const y = cy - r * Math.sin(rad);
-      node.style.left = x + 'px';
-      node.style.top = y + 'px';
+    const wrap=document.getElementById('orbit');
+    const rbox=wrap.getBoundingClientRect();
+    const cx=rbox.width/2, cy=rbox.height/2;
+    const r=Math.min(rbox.width,rbox.height)*0.38;
+    document.querySelectorAll('.node').forEach(n=>{
+      const rad=(+n.dataset.angle)*Math.PI/180;
+      n.style.left=(cx + r*Math.cos(rad))+'px';
+      n.style.top =(cy - r*Math.sin(rad))+'px';
     });
   }
-  window.addEventListener('resize', layoutOrbit);
-  window.addEventListener('load', layoutOrbit);
+  addEventListener('load',layoutOrbit); addEventListener('resize',layoutOrbit);
 
-  /* i18n */
-  const T = {
+  /* 다국어 */
+  const T={
     kr:{title:"세계 파이 은행", subtitle:"세계 최초의 디지털 은행",
         c1t:"결제", c1d:"가맹점과 개인",
         c2t:"송금", c2d:"빠르고, 국경 없음",
@@ -224,8 +194,7 @@
         c6t:"客服中心", c6d:"ljw2358",
         kyc:"开始 KYC", login:"登录", qr:"QR 码"}
   };
-  const $ = s=>document.querySelector(s); const $$=s=>document.querySelectorAll(s);
-
+  const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
   function apply(l){
     const t=T[l]||T.kr;
     $('#title').textContent=t.title; $('#subtitle').textContent=t.subtitle;
@@ -237,16 +206,13 @@
     $('#c6t').textContent=t.c6t; $('#c6d').textContent=t.c6d;
     $('#btnKyc').textContent=t.kyc; $('#btnLogin').textContent=t.login; $('#qrLabel').textContent=t.qr;
     $$('#langBar a').forEach(a=>a.classList.toggle('active', a.dataset.lng===l));
-    document.documentElement.lang = (l==='kr'?'ko':l);
+    document.documentElement.lang=(l==='kr'?'ko':l);
   }
   apply('kr');
-  $$('#langBar a').forEach(a=>a.addEventListener('click', e=>{
-    e.preventDefault(); apply(a.dataset.lng);
-  }));
+  $$('#langBar a').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();apply(a.dataset.lng);} ));
 
-  // demo actions
-  document.getElementById('btnKyc').addEventListener('click',()=>alert('KYC 데모입니다.'));
-  document.getElementById('btnLogin').addEventListener('click',()=>alert('로그인 데모입니다.'));
+  /* 데모 버튼 */
+  $('#btnKyc').addEventListener('click',()=>alert('KYC 데모입니다.'));
+  $('#btnLogin').addEventListener('click',()=>alert('로그인 데모입니다.'));
 </script>
 </body>
-</html>
