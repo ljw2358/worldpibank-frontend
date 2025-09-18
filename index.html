@@ -7,33 +7,24 @@
 <meta name="color-scheme" content="light dark" />
 <style>
   :root{
-    --bg:#0c0a1d;
-    --bg2:#150f2f;
-    --card:#1e1746;
-    --accent:#7a5cff;
-    --accent-2:#b8a6ff;
-    --text:#f7f5ff;
-    --muted:#d7d2ffcc;
-    --border:#ffffff22;
-    --radius:24px;
-    --shadow:0 16px 40px rgba(0,0,0,.35);
+    --bg:#0c0a1d; --card:#1e1746;
+    --accent:#7a5cff; --text:#f7f5ff; --muted:#d7d2ffcc;
+    --border:#ffffff22; --radius:24px; --shadow:0 16px 40px rgba(0,0,0,.35);
   }
   *{box-sizing:border-box}
   html,body{height:100%}
   body{
-    margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Apple SD Gothic Neo, "Noto Sans KR", "PingFang SC", Helvetica, Arial, sans-serif;
+    margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
     background:
       radial-gradient(1200px 800px at 70% -10%, #2a1c5f 0%, #1a1236 40%, var(--bg) 80%) fixed,
-      var(--bg);
-    color:var(--text);
+      var(--bg); color:var(--text);
   }
 
   .wrap{min-height:100%; display:flex; flex-direction:column; align-items:center}
 
   /* Header */
   header{
-    width:100%; max-width:1240px;
-    padding:18px 20px; margin:0 auto;
+    width:100%; max-width:1240px; padding:18px 20px; margin:0 auto;
     display:flex; align-items:center; justify-content:space-between; gap:12px;
   }
   .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.2px}
@@ -294,7 +285,7 @@
 </div>
 
 <script>
-  /* 간단 i18n (KR 기본) */
+  /* KR 기본 + 간단 i18n */
   const L = {
     kr:{brand:"세계파이은행",main:"세계파이은행",sub:"세계최초의 디지털 은행",tag:"파이 생태계를 기반으로",
         b1:"핵심",b2:"결제",b3:"성장",b4:"수익",b5:"형평",b6:"케어",
@@ -320,20 +311,13 @@
         f6:"Support",d6:"Multilingual help with real-time chat.",
         footA:"Priority: workers, seniors, small businesses, and people with disabilities.",
         footB:"No KYC screen is shown here. See FAQ (chat) for our verification approach & security guidelines.",
-        faqTitle:"FAQ · Security",openChat:"Open Chat (demo)",
-        s1_q1:"How do I protect my wallet from hacking?", s1_q2:"What if my phone was hacked?",
-        s2_q1:"How will KYC be verified without a KYC screen?", s2_q2:"What data is stored?",
-        s3_q1:"Why English first?", s3_q2:"What wins a hackathon?"},
+        faqTitle:"FAQ · Security",openChat:"Open Chat (demo)"},
     zh:{brand:"世界Pi银行",main:"世界Pi银行",sub:"全球首个数字银行",tag:"基于 Pi 生态构建",
         b1:"核心",b2:"支付",b3:"成长",b4:"收益",b5:"公平",b6:"服务",
         f1:"转账",d1:"低摩擦的点对点转账。", f2:"支付",d2:"门店与线上结算更简单。",
         f3:"奖励",d3:"因参与而获得积分与奖励。", f4:"质押",f4_small:"· 年化:%", d4:"灵活期限，费率透明。",
-        f5:"UBI",d5:"以人为本的基本收入体验。", f6:"客服",d6:"多语言实时客服。",
-        footA:"优先关注劳动者、老年人、小微商户与残障人士。", footB:"此处不展示 KYC 页面。请查看 FAQ（聊天）了解验证与安全方案。",
-        faqTitle:"FAQ · 安全",openChat:"打开聊天（演示）",
-        s1_q1:"如何保护钱包免受黑客攻击？", s1_q2:"手机被入侵时怎么办？",
-        s2_q1:"没有 KYC 页面如何完成验证？", s2_q2:"会存储哪些数据？",
-        s3_q1:"为何默认使用英文？", s3_q2:"夺冠黑客松的关键要素？"}
+        f5:"UBI",d5:"以人为本的基本收入体验。", f6:"客服",d6:"多语言实时客服。", 
+        faqTitle:"FAQ · 安全",openChat:"打开聊天（演示）"}
   };
 
   const $ = s=>document.querySelector(s);
@@ -358,9 +342,6 @@
     $('#f6').textContent=t.f6; $('#d6').textContent=t.d6;
     $('#footA').textContent=t.footA; $('#footB').textContent=t.footB;
     $('#faqTitle').textContent=t.faqTitle; $('#openChatLink').textContent=t.openChat;
-    $('#s1_q1').textContent=t.s1_q1; $('#s1_q2').textContent=t.s1_q2;
-    $('#s2_q1').textContent=t.s2_q1; $('#s2_q2').textContent=t.s2_q2;
-    $('#s3_q1').textContent=t.s3_q1; $('#s3_q2').textContent=t.s3_q2;
     $$('.lng').forEach(b=>b.setAttribute('aria-pressed', String(b.dataset.lng===code)));
   }
 
