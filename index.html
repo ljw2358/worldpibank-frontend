@@ -1,208 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>World PiBank — Global Digital Bank</title>
-  <meta name="description" content="World PiBank — Send · Pay · Rewards · UBI · Staking (Deposit) on the Pi ecosystem." />
-  <meta name="theme-color" content="#6d28d9" />
-  <style>
-    :root{
-      --bg1:#2d0a63; --bg2:#7e22ce; --ink:#ffffff; --ink-d:#e9ddff;
-      --glass:rgba(255,255,255,.10); --line:#ffffff2a; --shadow:0 24px 60px rgba(0,0,0,.45);
-      --card:#4b1a93ee; --radius:22px;
-    }
-    *{box-sizing:border-box} html,body{height:100%}
-    body{
-      margin:0; color:var(--ink);
-      font-family:ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", Arial, "Malgun Gothic", sans-serif;
-      background:
-        radial-gradient(1200px 800px at 10% 10%, #9b5cff1a, transparent 60%),
-        radial-gradient(1200px 900px at 85% 0%, #ff71ff14, transparent 60%),
-        linear-gradient(155deg, var(--bg1), var(--bg2));
-      display:flex; align-items:center; justify-content:center; min-height:100%;
-    }
-    .wrap{
-      width:min(1120px, 94vw); padding:28px; position:relative; overflow:hidden;
-      border-radius:calc(var(--radius) + 8px);
-      background:linear-gradient(180deg, #ffffff10, #ffffff06);
-      border:1px solid var(--line); box-shadow:var(--shadow); backdrop-filter: blur(8px);
-    }
-    /* Top bar */
-    .top{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:4px 4px 18px}
-    .brand{display:flex; align-items:center; gap:12px}
-    .mark{
-      width:38px; height:38px; border-radius:50%; display:grid; place-items:center; font-weight:900; color:#3b0c7a;
-      background:conic-gradient(from 200deg,#ffeaff,#e9d5ff,#c4b5fd,#7c3aed,#c4b5fd,#ffeaff);
-      box-shadow:inset 0 0 0 3px #ffffff33, 0 10px 28px rgba(0,0,0,.35);
-    }
-    .brand h1{margin:0; font-size:18px; letter-spacing:.2px}
-    .lang{display:flex; gap:8px; margin-left:8px}
-    .chip{
-      padding:8px 12px; border-radius:14px; background:var(--glass); border:1px solid var(--line);
-      font-weight:700; cursor:pointer; user-select:none; opacity:.95; transition:.15s ease;
-    }
-    .chip.active{background:#fff; color:#3b0c7a; border-color:#ffffff}
-    .btn{
-      border:none; outline:none; cursor:pointer; border-radius:14px; padding:10px 16px; font-weight:800; letter-spacing:.2px;
-      background:#ffffff; color:#3b0c7a; box-shadow:0 10px 28px rgba(0,0,0,.35); transition:.12s ease;
-    }
-    .btn:hover{transform:translateY(-1px)}
-    .btn.ghost{background:var(--glass); color:#fff; border:1px solid var(--line); box-shadow:none}
-
-    /* Hero */
-    .hero{display:grid; grid-template-columns:1.25fr .75fr; gap:20px; align-items:center}
-    @media (max-width:940px){.hero{grid-template-columns:1fr}}
-    .headline{
-      padding:26px; border-radius:var(--radius);
-      background:linear-gradient(180deg, #ffffff10, #ffffff08);
-      border:1px solid var(--line);
-    }
-    .headline h2{margin:0 0 10px 0; font-size:clamp(28px,4.8vw,48px); line-height:1.08}
-    .headline p{margin:0; font-size:clamp(14px,2.1vw,18px); color:var(--ink-d)}
-    .sub{margin-top:10px; font-size:13px; color:#efe6ff; opacity:.9}
-
-    .grid{display:grid; grid-template-columns:repeat(2,1fr); gap:14px}
-    .card{
-      padding:18px; border-radius:18px; text-align:center; min-height:84px;
-      background:var(--card); border:1px solid var(--line); box-shadow:0 12px 28px rgba(0,0,0,.35);
-      font-weight:900; letter-spacing:.3px; display:flex; align-items:center; justify-content:center; flex-direction:column;
-      transition:.12s ease;
-    }
-    .card small{margin-top:6px; font-weight:600; opacity:.88}
-    .card:hover{transform:translateY(-1px)}
-
-    /* QR & Pi badge */
-    .qr{
-      position:absolute; left:16px; bottom:16px; width:86px; height:86px; border-radius:12px;
-      overflow:hidden; border:1px solid var(--line); background:#fff; box-shadow:0 10px 26px rgba(0,0,0,.38);
-    }
-    .qr img{width:100%; height:100%; object-fit:cover}
-
-    .pi-badge{
-      position:absolute; left:50%; transform:translateX(-50%); bottom:-24px;
-      width:min(240px, 38vw); height:min(240px, 38vw); border-radius:50%;
-      background:radial-gradient(circle at 30% 30%, #ffffff, #f3e8ff 40%, #d9c4ff 70%, #b48cff 100%);
-      display:grid; place-items:center;
-      border:2px solid #fff; box-shadow:0 28px 64px rgba(0,0,0,.48), inset 0 0 0 10px #3b0c7a22;
-    }
-    .pi{font-size:clamp(72px, 11vw, 128px); font-weight:1000; color:#3b0c7a; filter:drop-shadow(0 6px 12px rgba(0,0,0,.28)); line-height:1}
-
-    .foot{margin-top:18px; text-align:center; font-size:12.5px; color:#efe6ff; opacity:.95}
-    a.inline{color:#fff; text-decoration:underline dotted}
-    /* nice focus */
-    :focus-visible{outline:3px solid #fff6; outline-offset:2px; border-radius:12px}
-  </style>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>World PiBank — Global Digital Bank</title>
+<meta name="theme-color" content="#6d28d9"/>
+<style>
+  :root{
+    --ink:#fff; --ink-d:#efe6ff;
+    --line:#ffffff2b; --radius:22px;
+    --btn:#7c3aed; --btn2:#a78bfa;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; color:var(--ink);
+    font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans KR","Malgun Gothic",Arial,sans-serif;
+    background:#2d0a63;
+    overflow-x:hidden;
+  }
+  /* Animated bg */
+  .bg{position:fixed;inset:0;z-index:-2;
+    background:radial-gradient(1200px 900px at 80% -10%,#ff71ff22,transparent 50%),
+               radial-gradient(1000px 800px at -10% 10%,#8b5cff22,transparent 55%),
+               linear-gradient(155deg,#2d0a63,#7e22ce 55%,#5126cc);
+    animation:bgShift 16s ease-in-out infinite alternate;}
+  @keyframes bgShift{0%{filter:hue-rotate(0deg)}100%{filter:hue-rotate(20deg)}}
+  .wrap{max-width:1120px;width:94vw;margin:40px auto;position:relative;
+    border:1px solid var(--line);border-radius:28px;overflow:hidden;
+    background:linear-gradient(180deg,#ffffff18,#ffffff0a);
+    backdrop-filter:blur(8px);box-shadow:0 24px 70px rgba(0,0,0,.55);padding:26px;}
+  .top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:14px}
+  .brand{display:flex;align-items:center;gap:12px}
+  .mark{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;
+    background:conic-gradient(from 210deg,#ffeaff,#e9d5ff,#c4b5fd,#7c3aed,#c4b5fd,#ffeaff);
+    color:#2d0a63;font-weight:1000;}
+  .lang{display:flex;gap:8px}
+  .chip{padding:8px 12px;border-radius:14px;background:#ffffff12;border:1px solid var(--line);
+    font-weight:800;cursor:pointer;user-select:none;transition:.15s;}
+  .chip.active{background:#fff;color:#3b0c7a}
+  .btn{border:none;cursor:pointer;border-radius:14px;padding:10px 16px;font-weight:900;
+    background:#fff;color:#3b0c7a;box-shadow:0 12px 28px rgba(0,0,0,.35);}
+  .btn.ghost{background:#ffffff18;color:#fff;border:1px solid var(--line);box-shadow:none;}
+  .hero{display:grid;grid-template-columns:1.25fr .75fr;gap:20px;align-items:center}
+  @media(max-width:940px){.hero{grid-template-columns:1fr}}
+  .card-glass{padding:26px;border-radius:22px;border:1px solid var(--line);
+    background:linear-gradient(180deg,#ffffff20,#ffffff0f);}
+  .headline h2{margin:0 0 6px;font-size:clamp(30px,5vw,56px)}
+  .headline p{margin:0;color:var(--ink-d);font-size:clamp(14px,2vw,18px)}
+  .slogan{margin-top:10px;font-size:clamp(14px,2vw,17px);font-weight:800;
+    background:linear-gradient(90deg,#fff,#d4b8ff);-webkit-background-clip:text;
+    background-clip:text;color:transparent;}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .tile{padding:20px;min-height:92px;border-radius:18px;text-align:center;font-weight:1000;
+    background:linear-gradient(180deg,#4b1a93,#3e1681);border:1px solid var(--line);
+    box-shadow:0 14px 34px rgba(0,0,0,.45);transition:.12s;}
+  .tile small{display:block;margin-top:6px;font-weight:700;opacity:.92}
+  .tile:hover{transform:translateY(-2px)}
+  .qr{position:absolute;left:16px;bottom:16px;width:90px;height:90px;border-radius:12px;
+    overflow:hidden;border:1px solid var(--line);background:#fff}
+  .qr img{width:100%;height:100%;object-fit:cover}
+  .pi-badge{position:absolute;left:50%;transform:translateX(-50%);bottom:-26px;
+    width:min(250px,40vw);height:min(250px,40vw);border-radius:50%;
+    background:radial-gradient(circle at 30% 30%,#fff,#f4eaff 40%,#d9c4ff 70%,#b48cff 100%);
+    display:grid;place-items:center;box-shadow:0 34px 72px rgba(0,0,0,.58);}
+  .pi{font-size:clamp(80px,12vw,132px);font-weight:1000;color:#34106e}
+  .foot{margin-top:18px;text-align:center;font-size:12.5px;color:#eadbff}
+</style>
 </head>
 <body>
-  <main class="wrap" role="main">
-    <!-- TOP BAR -->
-    <div class="top" aria-label="Top bar">
-      <div class="brand" aria-label="Brand and language">
-        <div class="mark" aria-hidden="true">π</div>
+  <div class="bg"></div>
+
+  <main class="wrap">
+    <!-- Top bar -->
+    <div class="top">
+      <div class="brand">
+        <div class="mark">π</div>
         <h1>World PiBank</h1>
-        <div class="lang" role="group" aria-label="Language switch">
-          <span id="chip-en" class="chip active" tabindex="0">EN</span>
-          <span id="chip-ko" class="chip" tabindex="0">KR</span>
+        <div class="lang">
+          <span id="chip-en" class="chip active">EN</span>
+          <span id="chip-ko" class="chip">KR</span>
         </div>
       </div>
-      <div class="actions">
-        <button id="stake" class="btn ghost" title="Staking = Deposit(예치)">Staking</button>
-        <button id="login" class="btn" title="Login / Approve">Login</button>
+      <div>
+        <button id="stakeBtn" class="btn ghost">Staking</button>
+        <button id="loginBtn" class="btn">Login</button>
       </div>
     </div>
 
-    <!-- HERO -->
-    <section class="hero" aria-label="Hero section">
-      <div class="headline">
-        <!-- English default -->
+    <!-- Hero -->
+    <section class="hero">
+      <div class="headline card-glass">
         <div id="blurb-en">
           <h2>Global Digital Bank for Everyone</h2>
           <p>Send · Pay · Rewards · UBI · Staking — built on the Pi ecosystem to empower everyday people.</p>
+          <div class="slogan">No Ads. People First.</div>
         </div>
-        <!-- Korean -->
         <div id="blurb-ko" hidden>
           <h2>모두를 위한 글로벌 디지털 뱅크</h2>
           <p>송금 · 결제 · 리워드 · 기본소득 · 예치 — 파이 생태계 위에서 서민과 노동자를 돕습니다.</p>
+          <div class="slogan">광고 없음, 시민 우선.</div>
         </div>
-        <div class="sub" id="subhint">English is default • 언어 전환은 EN/KR 버튼</div>
       </div>
-
-      <div>
-        <div class="grid" aria-label="Primary features">
-          <button class="card" id="card-send">
-            SEND
-            <small data-en="Fast & borderless transfers" data-ko="빠르고 국경 없는 송금">Fast & borderless transfers</small>
-          </button>
-          <button class="card" id="card-pay">
-            PAY
-            <small data-en="Tap to pay in Pi" data-ko="파이로 간편 결제">Tap to pay in Pi</small>
-          </button>
-          <button class="card" id="card-rewards">
-            REWARDS
-            <small data-en="Daily missions & bonuses" data-ko="데일리 미션과 보너스">Daily missions & bonuses</small>
-          </button>
-          <button class="card" id="card-ubi">
-            UBI
-            <small data-en="Web3 basic income model" data-ko="웹3 기반 기본소득">Web3 basic income model</small>
-          </button>
+      <div class="card-glass">
+        <div class="grid">
+          <button class="tile" id="send">SEND<small data-en="Fast & borderless transfers" data-ko="빠르고 국경 없는 송금"></small></button>
+          <button class="tile" id="pay">PAY<small data-en="Tap to pay in Pi" data-ko="파이로 간편 결제"></small></button>
+          <button class="tile" id="rewards">REWARDS<small data-en="Daily missions & bonuses" data-ko="데일리 미션과 보너스"></small></button>
+          <button class="tile" id="ubi">UBI<small data-en="Web3 basic income model" data-ko="웹3 기반 기본소득"></small></button>
         </div>
-        <div class="sub" id="cta-sub">Start with Login → then Send or Pay in Pi.</div>
       </div>
     </section>
 
-    <!-- QR bottom-left (replace with your image if needed) -->
-    <div class="qr" title="Scan to open in Pi Browser">
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=pi%3A%2F%2Fpiworldbank" alt="QR to World PiBank">
-    </div>
+    <!-- QR + big π -->
+    <div class="qr"><img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=pi%3A%2F%2Fpiworldbank" alt="QR"/></div>
+    <div class="pi-badge"><div class="pi">π</div></div>
 
-    <!-- Big Pi badge -->
-    <div class="pi-badge" aria-hidden="true"><div class="pi">π</div></div>
-
-    <div class="foot">
-      © <span id="yr"></span> World PiBank · <span data-en="No ads. People first." data-ko="광고 없음. 시민 우선.">No ads. People first.</span>
-      · <a id="policy" class="inline" href="#">Policy</a>
-    </div>
+    <div class="foot">© <span id="yr"></span> World PiBank</div>
   </main>
 
-  <script>
-    // Year
-    document.getElementById('yr').textContent = new Date().getFullYear();
+<script>
+  // year
+  document.getElementById('yr').textContent=new Date().getFullYear();
 
-    // Language toggle (EN default)
-    const chipEN = document.getElementById('chip-en');
-    const chipKO = document.getElementById('chip-ko');
-    const blurbEN = document.getElementById('blurb-en');
-    const blurbKO = document.getElementById('blurb-ko');
-    const transElems = document.querySelectorAll('[data-en]');
-    function setLang(lang){
-      const isEN = lang === 'en';
-      document.documentElement.lang = isEN ? 'en' : 'ko';
-      chipEN.classList.toggle('active', isEN);
-      chipKO.classList.toggle('active', !isEN);
-      blurbEN.hidden = !isEN;
-      blurbKO.hidden = isEN;
-      transElems.forEach(el=>{
-        el.textContent = el.getAttribute(isEN ? 'data-en' : 'data-ko');
-      });
-    }
-    chipEN.addEventListener('click', ()=>setLang('en'));
-    chipKO.addEventListener('click', ()=>setLang('ko'));
-    chipEN.addEventListener('keydown', (e)=>{ if(e.key==='Enter'||e.key===' ') setLang('en'); });
-    chipKO.addEventListener('keydown', (e)=>{ if(e.key==='Enter'||e.key===' ') setLang('ko'); });
-    setLang('en');
+  // setLang function
+  function setLang(lang){
+    const isEN=lang==='en';
+    document.documentElement.lang=isEN?'en':'ko';
+    document.getElementById('chip-en').classList.toggle('active',isEN);
+    document.getElementById('chip-ko').classList.toggle('active',!isEN);
+    document.getElementById('blurb-en').hidden=!isEN;
+    document.getElementById('blurb-ko').hidden=isEN;
+    document.querySelectorAll('[data-en]').forEach(el=>{
+      el.textContent=el.getAttribute(isEN?'data-en':'data-ko');
+    });
+    localStorage.setItem('wpb_lang',lang);
+  }
 
-    // Buttons (wire later with Pi SDK)
-    document.getElementById('login').addEventListener('click', ()=>{
-      alert('Login → (TODO) Connect Pi SDK / Approve flow.');
-    });
-    document.getElementById('stake').addEventListener('click', ()=>{
-      alert('Staking(예치) — Coming soon.');
-    });
-    ['card-send','card-pay','card-rewards','card-ubi'].forEach(id=>{
-      document.getElementById(id).addEventListener('click', ()=>alert(id.replace('card-','').toUpperCase()+' — Coming soon.'));
-    });
-    document.getElementById('policy').addEventListener('click', (e)=>{ e.preventDefault(); alert('Policy page — Coming soon.'); });
-  </script>
+  // auto detect
+  function detectPreferredLang(){
+    try{
+      const saved=localStorage.getItem('wpb_lang');
+      if(saved) return saved;
+      const url=new URLSearchParams(location.search).get('lang');
+      if(url) return url;
+      const langs=navigator.languages||[navigator.language];
+      if(langs.some(l=>l.toLowerCase().startsWith('ko'))) return 'ko';
+      const tz=Intl.DateTimeFormat().resolvedOptions().timeZone;
+      if(tz==='Asia/Seoul') return 'ko';
+      return 'en';
+    }catch(e){return'en'}
+  }
+  setLang(detectPreferredLang());
+
+  // toggle events
+  document.getElementById('chip-en').onclick=()=>setLang('en');
+  document.getElementById('chip-ko').onclick=()=>setLang('ko');
+
+  // demo buttons
+  document.getElementById('loginBtn').onclick=()=>alert('Login → (TODO) Pi SDK Approve');
+  document.getElementById('stakeBtn').onclick=()=>alert('Staking(예치) — Coming soon.');
+  ['send','pay','rewards','ubi'].forEach(id=>{
+    document.getElementById(id).onclick=()=>alert(id.toUpperCase()+' — Coming soon.');
+  });
+</script>
 </body>
 </html>
