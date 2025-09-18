@@ -1,240 +1,236 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>세계 파이은행 · World Pi Bank</title>
-<style>
-  :root{
-    --bg1:#120924; --bg2:#1f0d3d; --brand:#5b2aa8;
-    --card:#ffffff; --line:#e9e6f2; --title:#111; --sub:#666;
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>세계 파이은행 · WorldPiBank</title>
 
-    --r:min(38vw,175px); /* 중심~카드 거리 (화면을 아래로 보이게 stage 높이도 크게) */
-    --w:112px; --h:82px; /* 카드 크기 */
-    --fsT:13px; --fsS:10px; /* 제목/보조 */
-  }
-  *{box-sizing:border-box}
-  body{
-    margin:0; font-family:system-ui, -apple-system, Arial, sans-serif; text-align:center; color:#eee;
-    background: radial-gradient(1100px 720px at 50% -200px, var(--brand) 0%, var(--bg2) 40%, var(--bg1) 100%);
-    min-height:100dvh;
-  }
+  <!-- 캐시 무력화 -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
 
-  /* 상단 */
-  .top{position:relative; padding:18px 16px 0}
-  h1{margin:6px 0 0; font-size:28px; font-weight:800} /* 더 크게 */
-  h2{margin:10px 0 16px; font-size:16px; font-weight:400; opacity:.9}
-  .lang{position:absolute; top:14px; left:12px; font-size:13px}
-  .lang span{cursor:pointer}
-  .login{position:absolute; top:12px; right:12px; font-size:13px; padding:5px 10px;
-         background:transparent; color:#e7def8; border:1px solid rgba(231,222,248,.5); border-radius:10px}
-  #kycBtn{position:absolute; top:12px; right:92px; font-size:12px; padding:4px 8px;
-          border:1px solid #ffc107; background:#fff3cd; color:#8a6d3b; border-radius:8px; display:none}
+  <style>
+    :root{
+      --bg1:#0f0824; --bg2:#1b0f3b; --card:#fff; --ring:rgba(123,97,255,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; color:#fff;
+      font-family:ui-sans-serif,system-ui,AppleSDGothicNeo,"Noto Sans KR",Segoe UI,Roboto,Helvetica,Arial;
+      background:radial-gradient(1200px 800px at 50% 0%, var(--bg2), var(--bg1));
+    }
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:980px;margin:0 auto;padding:24px 16px 120px;position:relative}
 
-  /* 무대(화면을 아래로: 큰 마진/높이) */
-  .stage{position:relative; width:min(92vw,500px); height:min(92vw,540px); margin:30px auto 0}
+    /* Top */
+    .bar{display:flex;align-items:center;gap:12px}
+    .lang{letter-spacing:.08em;font-weight:600;opacity:.9}
+    .spacer{flex:1}
+    .pill{display:none} /* KYC 표시 숨김 */
+    .btn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);
+         padding:10px 16px;border-radius:999px;backdrop-filter:blur(6px);font-weight:700}
+    .btn:hover{background:rgba(255,255,255,.16)}
 
-  /* 중앙 원 + 로고 */
-  .core{
-    position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
-    width:min(34vw,160px); height:min(34vw,160px); border-radius:50%;
-    background: radial-gradient(circle at 30% 30%, #6b35d4 0%, #3b1e74 70%);
-    display:flex; align-items:center; justify-content:center; box-shadow:0 12px 30px rgba(0,0,0,.35)
-  }
-  .core img{width:64%; height:auto; display:block} /* 원 안 파이 로고 */
+    h1{font-size:42px;line-height:1.1;margin:18px 0 8px;font-weight:900}
+    .sub{font-size:20px;color:#cbd5e1;margin:0 0 18px}
 
-  /* 카드(밝은 스타일) */
-  .card{
-    position:absolute; width:var(--w); height:var(--h); border-radius:12px;
-    background:var(--card); border:1px solid var(--line);
-    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px;
-    box-shadow:0 6px 12px rgba(0,0,0,.18); cursor:pointer;
-  }
-  .ico{font-size:18px; line-height:1}
-  .t{font-size:var(--fsT); font-weight:800; color:var(--title)}
-  .s{font-size:var(--fsS); color:var(--sub); line-height:1.05}
+    /* Grid */
+    .zone{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;align-items:center}
+    @media (max-width:740px){ .zone{grid-template-columns:1fr 1fr} }
+    @media (max-width:480px){ h1{font-size:34px} .sub{font-size:18px} }
 
-  /* 6개 배치(육각형, 기타 제거) — 결제/송금/리워드/고객센터/UBI/스테이킹 */
-  .p0{ left:calc(50% - var(--w)/2); top:calc(50% - var(--r) - var(--h)/2);} /* 위: 결제 */
-  .p1{ left:calc(50% + 0.86*var(--r) - var(--w)/2); top:calc(50% - 0.50*var(--r) - var(--h)/2);} /* 우상: 송금 */
-  .p2{ left:calc(50% + 0.86*var(--r) - var(--w)/2); top:calc(50% + 0.50*var(--r) - var(--h)/2);} /* 우하: 리워드 */
-  .p3{ left:calc(50% - var(--w)/2); top:calc(50% + var(--r) - var(--h)/2);} /* 아래: 고객센터 */
-  .p4{ left:calc(50% - 0.86*var(--r) - var(--w)/2); top:calc(50% + 0.50*var(--r) - var(--h)/2);} /* 좌하: UBI */
-  .p5{ left:calc(50% - 0.86*var(--r) - var(--w)/2); top:calc(50% - 0.50*var(--r) - var(--h)/2);} /* 좌상: 스테이킹 */
+    /* Feature cards */
+    .card{
+      background:var(--card); color:#0f172a; border-radius:18px; padding:18px 16px;
+      box-shadow:0 10px 30px rgba(0,0,0,.24); text-align:center; border:1px solid #eee;
+    }
+    .card h3{margin:8px 0 6px;font-size:22px}
+    .card p{margin:0;color:#64748b;font-weight:700}
+    .small{font-size:14px;font-weight:600;color:#64748b}
+    .customer-tag{margin-top:6px;font-weight:800;color:#7c3aed}
 
-  /* 중앙 하단: QR + 채팅 */
-  .quick{position:fixed; left:50%; transform:translateX(-50%); bottom:22px; display:flex; gap:14px; align-items:center; z-index:20}
-  .qr{width:56px}
-  .qr img{width:100%; display:block; border-radius:10px; box-shadow:0 6px 16px rgba(0,0,0,.35)}
-  .chat{width:48px; height:48px; display:grid; place-items:center; border-radius:50%; background:#eee; color:#222;
-        font-size:22px; box-shadow:0 8px 20px rgba(0,0,0,.35); cursor:pointer}
+    /* Center orb with Pi mark */
+    .orb{
+      grid-row: span 2;
+      width:280px;height:280px;margin:0 auto; border-radius:50%;
+      background:radial-gradient(120px 120px at 38% 30%, #7c5cff, #4b22ff 50%, #2a136b 100%);
+      box-shadow:0 20px 60px var(--ring), inset 0 0 40px rgba(255,255,255,.08);
+      display:flex;align-items:center;justify-content:center; position:relative;
+    }
+    .pi-mark{
+      font-size:150px; font-weight:900; line-height:1;
+      filter:drop-shadow(0 8px 22px rgba(0,0,0,.45));
+      text-shadow:0 0 16px rgba(255,255,255,.35);
+    }
+    .orb:after{
+      content:""; position:absolute; inset:-6px; border-radius:50%;
+      border:2px solid rgba(255,255,255,.15);
+    }
 
-  /* 모달 공통 */
-  .modal{position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:30}
-  .backdrop{position:absolute; inset:0; background:rgba(0,0,0,.45)}
-  .sheet{position:relative; max-width:760px; width:92%; background:#fff; color:#111; border-radius:12px; padding:16px}
-  .close{position:absolute; right:10px; top:8px; font-size:20px; cursor:pointer}
+    /* Chat FAB */
+    .fab{
+      position:fixed; right:22px; bottom:22px; z-index:31;
+      width:62px;height:62px;border-radius:50%; background:#ffffff;
+      display:grid;place-items:center; box-shadow:0 12px 32px rgba(0,0,0,.35); cursor:pointer;
+    }
+    .fab svg{width:30px;height:30px}
+    .fab-label{ position:fixed; right:22px; bottom:94px; font-weight:800; opacity:.95; }
 
-  /* 채팅 설명 */
-  #chat-desc{position:fixed; left:50%; transform:translateX(-50%); bottom:86px; width:272px; background:#16131d; color:#ddd;
-             border:1px solid #3a3350; border-radius:10px; padding:10px 12px; font-size:12px; text-align:left; display:none; z-index:25}
-</style>
+    /* Chat / FAQ Modal */
+    .modal{position:fixed; inset:0; display:none; align-items:flex-end; justify-content:center; z-index:40}
+    .modal.show{display:flex}
+    .shade{position:absolute; inset:0; background:rgba(0,0,0,.55)}
+    .sheet{
+      position:relative; width:min(720px,92vw); max-height:80vh; overflow:auto;
+      background:#0b1021; color:#e5e7eb; border:1px solid rgba(255,255,255,.08);
+      border-radius:20px 20px 0 0; padding:18px 16px 22px; box-shadow:0 -14px 40px rgba(0,0,0,.5);
+    }
+    .sheet h2{margin:4px 0 8px; font-size:22px}
+    details{background:#0f1530;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:12px 14px;margin:10px 0}
+    summary{cursor:pointer; font-weight:800}
+    .x{position:absolute;right:10px;top:10px;background:#ffffff12;border:1px solid #ffffff2e;border-radius:10px;padding:6px 10px;cursor:pointer}
+    .chat-input{display:flex;gap:8px;margin-top:12px}
+    .chat-input input{flex:1;padding:12px 14px;border-radius:12px;border:1px solid #ffffff26;background:#0b1120;color:#e5e7eb}
+    .chat-input button{padding:12px 14px;border-radius:12px;border:1px solid #ffffff26;background:#1e293b;color:#fff;cursor:pointer}
+
+    /* version badge */
+    .ver{position:fixed;left:10px;bottom:10px;opacity:.45;font-size:12px;letter-spacing:.02em}
+  </style>
 </head>
 <body>
-
-  <div class="top">
-    <div class="lang">
-      <span onclick="switchLang('en')">EN</span> ·
-      <span onclick="switchLang('kr')">KR</span> ·
-      <span onclick="switchLang('zh')">ZH</span>
-    </div>
-    <button id="kycBtn">KYC 시작</button>
-    <button class="login" data-en="Login" data-kr="로그인" data-zh="登录">로그인</button>
-    <h1 data-en="World Pi Bank" data-kr="세계 파이은행" data-zh="世界派银行">세계 파이은행</h1>
-    <h2 data-en="The World's First Digital Bank" data-kr="세계 최초의 디지털 은행" data-zh="世界首个数字银行">세계 최초의 디지털 은행</h2>
-  </div>
-
-  <!-- 중앙 원 + 6카드 -->
-  <div class="stage">
-    <div class="core"><img src="pi-logo.png" alt="Pi Logo"></div>
-
-    <!-- 결제 -->
-    <div class="card p0" onclick="guard('payment')">
-      <div class="ico">💳</div>
-      <div class="t" data-en="Payment" data-kr="결제" data-zh="支付">결제</div>
-      <div class="s" data-en="Merchant & Personal" data-kr="가맹점과 개인" data-zh="商户与个人">가맹점과 개인</div>
+  <div class="wrap">
+    <div class="bar">
+      <div class="lang">EN · KR · ZH</div>
+      <div class="spacer"></div>
+      <div class="pill">KYC 시작</div> <!-- 숨김 -->
+      <a class="btn" href="#">로그인</a>
     </div>
 
-    <!-- 송금 -->
-    <div class="card p1" onclick="guard('remittance')">
-      <div class="ico">✈️</div>
-      <div class="t" data-en="Remittance" data-kr="송금" data-zh="转账">송금</div>
-      <div class="s" data-en="Fast, borderless" data-kr="빠르고, 국경 없음" data-zh="快速 · 无国界">빠르고, 국경 없음</div>
-    </div>
+    <h1>세계 파이은행</h1>
+    <p class="sub">세계 최초의 디지털 은행</p>
 
-    <!-- 리워드 -->
-    <div class="card p2">
-      <div class="ico">🎁</div>
-      <div class="t" data-en="Rewards" data-kr="리워드" data-zh="奖励">리워드</div>
-      <div class="s" data-en="Join" data-kr="참여하기" data-zh="参与">참여하기</div>
-      <div class="s" style="position:absolute; bottom:-14px; white-space:nowrap; opacity:.85"
-           data-en="Participation incentive" data-kr="참여 인센티브" data-zh="参与激励">참여 인센티브</div>
-    </div>
+    <div class="zone" aria-label="features">
+      <div class="card">
+        <div style="font-size:32px">💳</div>
+        <h3>결제</h3>
+        <p>가맹점과 개인</p>
+      </div>
 
-    <!-- 고객센터 -->
-    <div class="card p3" onclick="openFAQ()">
-      <div class="ico">☎️</div>
-      <div class="t" data-en="Customer Support" data-kr="고객센터" data-zh="客服">고객센터</div>
-      <div class="s" data-en="ljw2358" data-kr="ljw2358" data-zh="ljw2358">ljw2358</div>
-    </div>
+      <div class="card">
+        <div style="font-size:32px">🏦</div>
+        <h3>스테이킹</h3>
+        <p class="small">예치(이율:4.8%)</p>
+      </div>
 
-    <!-- UBI -->
-    <div class="card p4">
-      <div class="ico">✋</div>
-      <div class="t" data-en="UBI" data-kr="UBI" data-zh="全民收入">UBI</div>
-      <div class="s" data-en="Basic income" data-kr="기본소득" data-zh="基本收入">기본소득</div>
-    </div>
+      <!-- Center orb with Pi logo -->
+      <div class="orb" role="img" aria-label="Pi 로고">
+        <div class="pi-mark">π</div>
+      </div>
 
-    <!-- 스테이킹(주제) + 작은 글씨 예치(이율:%) -->
-    <div class="card p5" onclick="guard('staking')">
-      <div class="ico">🏦</div>
-      <div class="t" data-en="Staking" data-kr="스테이킹" data-zh="质押">스테이킹</div>
-      <div class="s" id="staking-sub"
-           data-en="Deposit (Rate: %)" data-kr="예치(이율:%)" data-zh="存款(利率:%)">예치(이율:%)</div>
+      <div class="card">
+        <div style="font-size:32px">✈️</div>
+        <h3>송금</h3>
+        <p>빠르고, 국경 없음</p>
+      </div>
+
+      <div class="card">
+        <div style="font-size:32px">✋</div>
+        <h3>UBI</h3>
+        <p>기본소득</p>
+      </div>
+
+      <div class="card">
+        <div style="font-size:32px">🎁</div>
+        <h3>리워드</h3>
+        <p>참여하기</p>
+      </div>
+
+      <div class="card">
+        <div style="font-size:32px">☎️</div>
+        <h3>고객센터</h3>
+        <div class="customer-tag">ljw2358</div>
+      </div>
     </div>
   </div>
 
-  <!-- 중앙 하단: QR + 채팅 -->
-  <div class="quick">
-    <div class="qr"><img src="qrcode.png" alt="QR Code"></div>
-    <div class="chat" title="Chat" onclick="toggleChat()">💬</div>
+  <!-- 채팅 FAB -->
+  <div class="fab" id="openChat" title="채팅 열기">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#0b1021" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15a4 4 0 0 1-4 4H7l-4 4V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/>
+    </svg>
   </div>
+  <div class="fab-label">채팅</div>
 
-  <!-- 채팅 설명(언어 연동: 선택된 언어만 보임) -->
-  <div id="chat-desc"
-       data-en="<b>System Info</b><br>🌐 Decentralization is the foundation.<br>🤖 All systems are powered by AI."
-       data-kr="<b>시스템 안내</b><br>🌐 탈중앙화 기반입니다.<br>🤖 모든 시스템은 AI로 작동합니다."
-       data-zh="<b>系统信息</b><br>🌐 基于去中心化。<br>🤖 所有系统由AI驱动。">
-    <b>시스템 안내</b><br>🌐 탈중앙화 기반입니다.<br>🤖 모든 시스템은 AI로 작동합니다.
-  </div>
+  <!-- 채팅/FAQ 모달 -->
+  <div class="modal" id="chatModal" aria-hidden="true">
+    <div class="shade" id="closeChat"></div>
+    <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="chatTitle">
+      <button class="x" id="closeChat2">닫기</button>
+      <h2 id="chatTitle">고객센터 · FAQ</h2>
 
-  <!-- FAQ 모달 -->
-  <div id="faqModal" class="modal" aria-hidden="true">
-    <div class="backdrop" onclick="closeFAQ()"></div>
-    <div class="sheet">
-      <div class="close" onclick="closeFAQ()">✖</div>
-      <h3 style="margin:4px 0 12px">FAQ</h3>
-      <details open><summary><b>KYC는 왜 필요한가요?</b></summary>
-        <p>자금세탁방지(AML) 및 국제규정 준수를 위해 필수입니다. KYC 완료 시 송금/결제/스테이킹 기능이 활성화됩니다.</p>
+      <details open>
+        <summary>① 해킹 방지 대책은 어떻게 되나요?</summary>
+        <div class="hint">
+          • <b>디바이스 바인딩</b>: 등록 기기 외 접근은 쿨다운 + 메일/문자 인증 후 허용.<br>
+          • <b>2단계 인증(OTP/생체)</b>: 로그인·송금·설정 변경 시 필수.<br>
+          • <b>출금 화이트리스트</b>: 지정 주소로만 출금(24h 지연 옵션).<br>
+          • <b>이상거래 탐지</b>: 고액/이상 패턴은 추가 인증·지연, 일일 한도·속도 제한.<br>
+          • <b>세션·위치 탐지</b>: 새 IP/국가 접속 시 알림 및 자동 잠금 옵션.<br>
+          • <b>멀티시그/콜드 보관</b>: 금고 지갑은 다중서명·오프라인 보관.<br>
+          • <b>긴급 동결</b>: 본인 신고 또는 위험점수 초과 시 계정 임시 동결 및 조사.<br>
+          • <b>복구 절차</b>: 비상 복구 키 + 본인 인증으로 계정 복구 채널 운영.
+        </div>
       </details>
-      <details><summary><b>국경 간 송금이 가능한가요?</b></summary>
-        <p>가능합니다. 파이 네트워크로 빠르고 낮은 수수료로 처리됩니다. 일부 국가는 현지 규정에 따라 제한될 수 있습니다.</p>
+
+      <details>
+        <summary>② KYC는 어떤 방식으로 검증하나요?</summary>
+        <div class="hint">
+          • <b>신분증 OCR</b>: 여권/주민등록증/면허증 OCR + 위변조(홀로그램·MRZ) 검사.<br>
+          • <b>라이브니스 셀피</b>: 동작/깜박임 테스트로 얼굴 진위 확인.<br>
+          • <b>얼굴 매칭</b>: 셀피 ↔ 신분증 사진 비교, 임계치 미달은 수동 심사.<br>
+          • <b>제재/PEP 조회</b>: 국제 제재·PEP·테러자금 리스트 교차조회.<br>
+          • <b>주소/연락처 검증</b>: 필요 시 청구서/문자 인증, 장치 지문(Device ID) 연계.<br>
+          • <b>수동 리뷰</b>: 자동 심사 보류 건 전문 심사원 재검토.<br>
+          • <b>개인정보 보호</b>: 암호화 저장, 최소보관기간 후 파기 요청 가능.
+        </div>
       </details>
-      <details><summary><b>스테이킹 이율은 어디서 확인하나요?</b></summary>
-        <p>실시간 이율은 화면 하단의 💬 채팅 말풍선에 공지됩니다.</p>
+
+      <details>
+        <summary>③ 스테이킹(예치) 이율과 조건</summary>
+        <div class="hint">표준 이율 <b>연 4.8%</b>(예시). 락업/조기해지 수수료 가능. 약관에서 상세 확인.</div>
       </details>
+
+      <details>
+        <summary>④ 송금/결제 수수료</summary>
+        <div class="hint">네트워크 상황에 따라 소액 수수료. 제휴 가맹점은 우대 수수료 적용 가능.</div>
+      </details>
+
+      <details>
+        <summary>⑤ 고객지원 채널</summary>
+        <div class="hint">앱 채팅(본 창) · 이메일: <b>ljw2358@naver.com</b></div>
+      </details>
+
+      <div class="chat-input">
+        <input id="chatField" placeholder="메시지를 입력하세요…(예: 계정 잠금 해제 요청)" />
+        <button id="sendBtn">보내기</button>
+      </div>
+      <div class="hint">※ 현재는 데모 채팅 UI입니다.</div>
     </div>
   </div>
 
-<script>
-  /* ====== 상태/설정 ====== */
-  let KYC_STATUS = 'unverified'; // 'pending' | 'verified'
-  const STAKING_RATE = '4.8%'; // 이율 값만 바꾸면 자동 반영
+  <!-- 버전 표시(보이면 최신 소스가 맞음) -->
+  <div class="ver">v.0918-π2</div>
 
-  // 이율 문구 반영
-  const stakingSub = document.getElementById('staking-sub');
-  if (stakingSub) {
-    stakingSub.setAttribute('data-kr', `예치(이율:${STAKING_RATE})`);
-    stakingSub.setAttribute('data-en', `Deposit (Rate: ${STAKING_RATE})`);
-    stakingSub.setAttribute('data-zh', `存款(利率:${STAKING_RATE})`);
-    stakingSub.innerHTML = `예치(이율:${STAKING_RATE})`;
-  }
-
-  // KYC 버튼 노출
-  function refreshKYC(){
-    document.getElementById('kycBtn').style.display = (KYC_STATUS==='verified') ? 'none' : 'inline-block';
-  }
-  refreshKYC();
-
-  /* ====== 기능 가드 ====== */
-  function guard(feature){
-    if (KYC_STATUS !== 'verified'){
-      // KYC 유도 메시지(현재 언어로)
-      const desc = document.getElementById('chat-desc');
-      // 현재 내용 유지 + 안내 추가
-      desc.innerHTML += '<br><br><b>KYC 필요</b><br>해당 기능은 KYC 완료 후 이용할 수 있습니다.';
-      desc.style.display = 'block';
-      return false;
-    }
-    console.log('open feature:', feature);
-    return true;
-  }
-
-  /* ====== 언어 전환(말풍선까지 동기화) ====== */
-  function switchLang(lang){
-    document.querySelectorAll('[data-'+lang+']').forEach(el=>{
-      el.innerHTML = el.getAttribute('data-'+lang);
-    });
-    const desc = document.getElementById('chat-desc');
-    const key = 'data-'+lang;
-    if (desc.hasAttribute(key)) desc.innerHTML = desc.getAttribute(key);
-    document.documentElement.setAttribute('lang', lang==='kr'?'ko':(lang==='zh'?'zh':'en'));
-  }
-
-  /* ====== 채팅 말풍선 토글 ====== */
-  function toggleChat(){
-    const d = document.getElementById('chat-desc');
-    d.style.display = (d.style.display==='none' || !d.style.display) ? 'block' : 'none';
-  }
-
-  /* ====== FAQ 모달 ====== */
-  function openFAQ(){ document.getElementById('faqModal').style.display='flex'; }
-  function closeFAQ(){ document.getElementById('faqModal').style.display='none'; }
-
-  // KYC 버튼 클릭(데모)
-  document.getElementById('kycBtn').addEventListener('click', ()=>{
-    openFAQ();
-  });
-</script>
+  <script>
+    // 채팅 모달 컨트롤
+    const modal = document.getElementById('chatModal');
+    document.getElementById('openChat').onclick = ()=>{ modal.classList.add('show'); modal.setAttribute('aria-hidden','false'); };
+    const close = ()=>{ modal.classList.remove('show'); modal.setAttribute('aria-hidden','true'); };
+    document.getElementById('closeChat').onclick = close;
+    document.getElementById('closeChat2').onclick = close;
+    document.getElementById('sendBtn').onclick = ()=>{ alert('데모입니다. 메시지: ' + document.getElementById('chatField').value); };
+  </script>
 </body>
 </html>
