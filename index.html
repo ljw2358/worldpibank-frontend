@@ -8,196 +8,274 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: #120028;
+      background: linear-gradient(180deg, #1a0033, #0d001a);
       color: white;
       text-align: center;
     }
     header {
-      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
     }
-    .lang-btns {
-      margin-bottom: 15px;
+    .lang {
+      display: flex;
+      gap: 8px;
     }
-    .lang-btns button {
-      margin: 0 5px;
-      padding: 6px 12px;
+    .lang button {
+      background: #fff;
       border: none;
+      padding: 5px 12px;
       border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .auth {
+      display: flex;
+      gap: 10px;
+    }
+    .auth button {
+      background: gold;
+      border: none;
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-weight: bold;
       cursor: pointer;
     }
     h1 {
+      margin: 10px 0 0;
       font-size: 28px;
-      margin: 10px 0;
     }
     h2 {
-      font-size: 18px;
       margin: 5px 0 20px;
+      font-size: 16px;
+      font-weight: normal;
+      color: #ddd;
     }
-    .center-logo {
-      margin: 20px auto;
-      width: 100px;
-      height: 100px;
+    .pi-logo {
+      width: 90px;
+      height: 90px;
       border-radius: 50%;
-      background: #3b0073;
+      background: #4b0082;
+      margin: 15px auto;
       display: flex;
-      align-items: center;
       justify-content: center;
-      font-size: 22px;
+      align-items: center;
+      font-size: 40px;
       font-weight: bold;
       color: gold;
     }
     .grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      max-width: 400px;
-      margin: 20px auto;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      max-width: 600px;
+      margin: 0 auto 25px;
+      padding: 0 10px;
     }
     .card {
-      background: #2b0060;
+      background: #2a004d;
+      padding: 14px;
       border-radius: 12px;
-      padding: 15px;
-      min-height: 80px;
+      min-height: 90px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
-    .faq {
-      margin: 40px auto;
-      max-width: 600px;
-      text-align: left;
-      background: #1e0045;
+    .card h3 {
+      margin: 0;
+      font-size: 16px;
+    }
+    .card p {
+      margin: 6px 0 0;
+      font-size: 13px;
+      color: #ccc;
+    }
+    footer {
+      margin: 25px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+    }
+    footer img {
+      width: 50px;
+    }
+    .chat {
+      background: #a64dff;
+      color: white;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      cursor: pointer;
+    }
+    /* FAQ 영역 */
+    #faq {
+      background: #140022;
       padding: 20px;
-      border-radius: 12px;
+      text-align: left;
+      max-width: 700px;
+      margin: 0 auto 40px;
+      border-radius: 10px;
     }
-    .faq h3 {
-      margin-top: 0;
+    #faq h2 {
+      text-align: center;
+      margin-bottom: 15px;
     }
-    .footer {
-      margin: 40px 0 20px;
-      font-size: 14px;
-      color: #bbb;
+    #faq details {
+      margin: 10px 0;
+      background: #220044;
+      padding: 10px;
+      border-radius: 8px;
+    }
+    #faq summary {
+      cursor: pointer;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="lang-btns">
+    <div class="lang">
       <button onclick="setLang('en')">EN</button>
       <button onclick="setLang('kr')">KR</button>
       <button onclick="setLang('zh')">中文</button>
     </div>
-    <h1 id="title">World Pi Bank</h1>
-    <h2 id="subtitle">The world's first digital bank</h2>
+    <div class="auth">
+      <button id="kyc"></button>
+      <button id="login"></button>
+    </div>
   </header>
 
-  <div class="center-logo">π</div>
+  <main>
+    <h1 id="title"></h1>
+    <h2 id="subtitle"></h2>
 
-  <div class="grid">
-    <div class="card"><b id="sendTitle">Send</b><br><span id="sendDesc">Fast peer-to-peer transfers with low friction.</span></div>
-    <div class="card"><b id="payTitle">Pay</b><br><span id="payDesc">Simple in-store and online checkout flows.</span></div>
-    <div class="card"><b id="stakeTitle">Staking</b><br><span id="stakeDesc">Flexible terms, transparent rates.</span></div>
-    <div class="card"><b id="rewardTitle">Rewards</b><br><span id="rewardDesc">Earn points and bonuses for activity.</span></div>
-    <div class="card"><b id="ubiTitle">UBI</b><br><span id="ubiDesc">Human-centric basic income experiences.</span></div>
-    <div class="card"><b id="supportTitle">Support</b><br><span id="supportDesc">Multilingual help with real-time chat.</span></div>
-  </div>
+    <div class="pi-logo">π</div>
 
-  <div class="faq">
-    <h3 id="faqTitle">FAQ</h3>
-    <p><b id="q1">Q: How do you prevent hacking?</b><br><span id="a1">A: We use multi-layer security, encryption, and continuous monitoring.</span></p>
-    <p><b id="q2">Q: How is KYC verified?</b><br><span id="a2">A: Verification is performed via secure ID checks in compliance with Pi Network policies.</span></p>
-    <p><b id="q3">Q: How is UBI provided?</b><br><span id="a3">A: UBI is distributed periodically to verified users through Pi blockchain mechanisms.</span></p>
-    <p><b id="q4">Q: How is multilingual support handled?</b><br><span id="a4">A: Language switching is provided directly within the app with EN/KR/ZH options.</span></p>
-  </div>
+    <div class="grid">
+      <div class="card"><h3 id="send"></h3><p id="sendDesc"></p></div>
+      <div class="card"><h3 id="pay"></h3><p id="payDesc"></p></div>
+      <div class="card"><h3 id="staking"></h3><p id="stakingDesc"></p></div>
+      <div class="card"><h3 id="rewards"></h3><p id="rewardsDesc"></p></div>
+      <div class="card"><h3 id="ubi"></h3><p id="ubiDesc"></p></div>
+      <div class="card"><h3 id="support"></h3><p id="supportDesc"></p></div>
+    </div>
+  </main>
 
-  <div class="footer" id="footer">
-    Priority service for workers, seniors, small businesses, and people with disabilities.
-  </div>
+  <footer>
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=pi" alt="QR Code" />
+    <div class="chat">💬</div>
+  </footer>
+
+  <section id="faq">
+    <h2 id="faqTitle"></h2>
+    <details>
+      <summary id="faqQ1"></summary>
+      <p id="faqA1"></p>
+    </details>
+    <details>
+      <summary id="faqQ2"></summary>
+      <p id="faqA2"></p>
+    </details>
+    <details>
+      <summary id="faqQ3"></summary>
+      <p id="faqA3"></p>
+    </details>
+  </section>
 
   <script>
-    const text = {
+    const content = {
       en: {
         title: "World Pi Bank",
         subtitle: "The world's first digital bank",
-        sendTitle: "Send",
-        sendDesc: "Fast peer-to-peer transfers with low friction.",
-        payTitle: "Pay",
-        payDesc: "Simple in-store and online checkout flows.",
-        stakeTitle: "Staking",
-        stakeDesc: "Flexible terms, transparent rates.",
-        rewardTitle: "Rewards",
-        rewardDesc: "Earn points and bonuses for activity.",
-        ubiTitle: "UBI",
-        ubiDesc: "Human-centric basic income experiences.",
-        supportTitle: "Support",
-        supportDesc: "Multilingual help with real-time chat.",
+        kyc: "Start KYC",
+        login: "Login",
+        send: "Send", sendDesc: "Fast peer-to-peer transfers with low friction.",
+        pay: "Pay", payDesc: "Simple in-store and online checkout flows.",
+        staking: "Staking", stakingDesc: "Flexible terms, transparent rates.",
+        rewards: "Rewards", rewardsDesc: "Earn points and bonuses for activity.",
+        ubi: "UBI", ubiDesc: "Human-centric basic income experience.",
+        support: "Support", supportDesc: "Multilingual real-time assistance.",
         faqTitle: "FAQ",
-        q1: "Q: How do you prevent hacking?",
-        a1: "A: We use multi-layer security, encryption, and continuous monitoring.",
-        q2: "Q: How is KYC verified?",
-        a2: "A: Verification is performed via secure ID checks in compliance with Pi Network policies.",
-        q3: "Q: How is UBI provided?",
-        a3: "A: UBI is distributed periodically to verified users through Pi blockchain mechanisms.",
-        q4: "Q: How is multilingual support handled?",
-        a4: "A: Language switching is provided directly within the app with EN/KR/ZH options.",
-        footer: "Priority service for workers, seniors, small businesses, and people with disabilities."
+        faqQ1: "How is KYC verified?",
+        faqA1: "KYC is verified through secure Pi Network identity checks.",
+        faqQ2: "How can I protect against hacking?",
+        faqA2: "Use strong passwords, enable 2FA, and never share your passphrase.",
+        faqQ3: "Is KYC mandatory?",
+        faqA3: "Yes, to ensure compliance and trust in the ecosystem."
       },
       kr: {
         title: "세계 파이 은행",
         subtitle: "세계 최초의 디지털 은행",
-        sendTitle: "송금",
-        sendDesc: "낮은 비용으로 빠른 개인 간 이체.",
-        payTitle: "결제",
-        payDesc: "매장/온라인 결제를 간편하게.",
-        stakeTitle: "스테이킹",
-        stakeDesc: "유연한 기간, 투명한 금리.",
-        rewardTitle: "리워드",
-        rewardDesc: "활동에 따른 포인트와 보너스.",
-        ubiTitle: "UBI",
-        ubiDesc: "사람 중심의 기본소득 경험.",
-        supportTitle: "고객센터",
-        supportDesc: "다국어 실시간 상담 지원.",
+        kyc: "KYC 시작",
+        login: "로그인",
+        send: "송금", sendDesc: "낮은 비용으로 빠른 개인 간 이체.",
+        pay: "결제", payDesc: "매장/온라인 결제를 간편하게.",
+        staking: "스테이킹", stakingDesc: "유연한 기간, 투명한 금리.",
+        rewards: "리워드", rewardsDesc: "활동에 따른 포인트와 보너스.",
+        ubi: "UBI", ubiDesc: "사람 중심의 기본소득 경험.",
+        support: "고객센터", supportDesc: "다국어 실시간 상담 지원.",
         faqTitle: "자주 묻는 질문",
-        q1: "Q: 해킹은 어떻게 방지하나요?",
-        a1: "A: 다중 보안 계층, 암호화, 상시 모니터링을 통해 안전성을 확보합니다.",
-        q2: "Q: KYC는 어떤 방식으로 검증하나요?",
-        a2: "A: Pi Network 정책에 따라 안전한 신분 확인 절차를 거칩니다.",
-        q3: "Q: UBI는 어떻게 제공되나요?",
-        a3: "A: 검증된 사용자에게 Pi 블록체인을 통해 주기적으로 지급됩니다.",
-        q4: "Q: 다국어 지원은 어떻게 하나요?",
-        a4: "A: 앱 내에서 EN/KR/ZH 버튼으로 언어를 전환할 수 있습니다.",
-        footer: "노동자·노년층·소상공인·장애인 우선."
+        faqQ1: "KYC는 어떻게 검증되나요?",
+        faqA1: "안전한 파이 네트워크 신원 확인 절차를 통해 검증됩니다.",
+        faqQ2: "해킹을 방지하려면?",
+        faqA2: "강력한 비밀번호, 2단계 인증, 비밀구절 공유 금지를 실천하세요.",
+        faqQ3: "KYC는 필수인가요?",
+        faqA3: "네, 생태계의 신뢰와 규정을 지키기 위해 필수입니다."
       },
       zh: {
         title: "世界派银行",
-        subtitle: "全球首个数字银行",
-        sendTitle: "转账",
-        sendDesc: "低成本快速点对点转账。",
-        payTitle: "支付",
-        payDesc: "简化的商店和在线结算流程。",
-        stakeTitle: "质押",
-        stakeDesc: "灵活期限，透明利率。",
-        rewardTitle: "奖励",
-        rewardDesc: "根据活动赚取积分和奖励。",
-        ubiTitle: "基本收入",
-        ubiDesc: "以人为本的基本收入体验。",
-        supportTitle: "客服中心",
-        supportDesc: "多语言实时聊天支持。",
+        subtitle: "世界上第一家数字银行",
+        kyc: "开始KYC",
+        login: "登录",
+        send: "转账", sendDesc: "低成本的快速点对点转账。",
+        pay: "支付", payDesc: "简便的门店和在线支付流程。",
+        staking: "质押", stakingDesc: "灵活期限，透明利率。",
+        rewards: "奖励", rewardsDesc: "通过活动赚取积分和奖金。",
+        ubi: "UBI", ubiDesc: "以人为本的基本收入体验。",
+        support: "客服中心", supportDesc: "多语言实时协助。",
         faqTitle: "常见问题",
-        q1: "问: 如何防止黑客攻击？",
-        a1: "答: 我们采用多层安全、加密和持续监控。",
-        q2: "问: KYC 如何验证？",
-        a2: "答: 按照 Pi Network 政策进行安全的身份验证。",
-        q3: "问: 基本收入如何提供？",
-        a3: "答: 通过 Pi 区块链机制，定期向已验证用户发放。",
-        q4: "问: 如何进行多语言支持？",
-        a4: "答: 应用内提供 EN/KR/ZH 切换功能。",
-        footer: "优先服务：工人、老年人、小商户和残疾人。"
+        faqQ1: "KYC如何验证？",
+        faqA1: "KYC通过安全的Pi网络身份验证进行。",
+        faqQ2: "如何防止黑客攻击？",
+        faqA2: "使用强密码，启用双重认证，切勿分享助记词。",
+        faqQ3: "KYC是必须的吗？",
+        faqA3: "是的，为了确保生态系统的信任与合规。"
       }
     };
 
     function setLang(lang) {
-      for (let key in text[lang]) {
-        document.getElementById(key).innerText = text[lang][key];
-      }
+      const t = content[lang];
+      document.getElementById("title").innerText = t.title;
+      document.getElementById("subtitle").innerText = t.subtitle;
+      document.getElementById("kyc").innerText = t.kyc;
+      document.getElementById("login").innerText = t.login;
+      document.getElementById("send").innerText = t.send;
+      document.getElementById("sendDesc").innerText = t.sendDesc;
+      document.getElementById("pay").innerText = t.pay;
+      document.getElementById("payDesc").innerText = t.payDesc;
+      document.getElementById("staking").innerText = t.staking;
+      document.getElementById("stakingDesc").innerText = t.stakingDesc;
+      document.getElementById("rewards").innerText = t.rewards;
+      document.getElementById("rewardsDesc").innerText = t.rewardsDesc;
+      document.getElementById("ubi").innerText = t.ubi;
+      document.getElementById("ubiDesc").innerText = t.ubiDesc;
+      document.getElementById("support").innerText = t.support;
+      document.getElementById("supportDesc").innerText = t.supportDesc;
+      document.getElementById("faqTitle").innerText = t.faqTitle;
+      document.getElementById("faqQ1").innerText = t.faqQ1;
+      document.getElementById("faqA1").innerText = t.faqA1;
+      document.getElementById("faqQ2").innerText = t.faqQ2;
+      document.getElementById("faqA2").innerText = t.faqA2;
+      document.getElementById("faqQ3").innerText = t.faqQ3;
+      document.getElementById("faqA3").innerText = t.faqA3;
     }
+    setLang('kr'); // 기본 한국어
   </script>
 </body>
 </html>
