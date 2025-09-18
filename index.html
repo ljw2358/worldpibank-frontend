@@ -6,70 +6,87 @@
 <title>World Pi Bank</title>
 <style>
   :root{
-    --bg:#0b0720; --panel:#1b1340; --card:#ffffff;
-    --ink:#221a43; --muted:#5b4f87; --accent:#7a5cff;
-    --border:#e9e6ff; --radius:18px;
+    --bg:#0c0820; --panel:#1a1240; --ring:#2b1d63;
+    --card:#fff; --ink:#201a3d; --muted:#5e5383;
+    --shadow:0 16px 40px rgba(0,0,0,.45);
   }
   *{box-sizing:border-box}
   html,body{height:100%}
   body{
-    margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans KR","PingFang SC",sans-serif;
+    margin:0; font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans KR","PingFang SC",sans-serif;
     background:
-      radial-gradient(1100px 800px at 70% -10%, #2b1d63 0%, #1b123e 45%, var(--bg) 78%),
+      radial-gradient(1100px 800px at 70% -10%, #2b1d63 0%, #1b123e 45%, #0c0820 78%),
       var(--bg);
     color:#fff; -webkit-font-smoothing:antialiased;
   }
   .wrap{min-height:100%; display:flex; flex-direction:column}
 
-  /* TOP */
-  .top{display:flex; align-items:center; justify-content:space-between; padding:14px 16px}
-  .langs{font-weight:800; letter-spacing:.2px}
-  .langs a{color:#eee; text-decoration:none; padding:3px 6px; border-radius:6px}
-  .langs a.active{background:#ffffff18}
+  /* Top bar */
+  .top{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 16px;
+  }
+  .langs{font-weight:900; letter-spacing:.25px}
+  .langs a{color:#eee; text-decoration:none; padding:4px 8px; border-radius:8px}
+  .langs a.active{background:#ffffff17}
   .actions{display:flex; gap:10px}
-  .btn{border:none; cursor:pointer; font-weight:900; padding:10px 14px; border-radius:14px}
-  .btn-kyc{background:#ffd150; color:#3a2b00}
-  .btn-login{background:#ffffff22; color:#fff; border:1px solid #ffffff33}
+  .btn{
+    border:none; cursor:pointer; font-weight:900; padding:10px 14px; border-radius:14px
+  }
+  .kyc{background:#ffd451; color:#3a2b00; box-shadow:0 2px 0 #d9c27a}
+  .login{background:#ffffff22; color:#fff; border:1px solid #ffffff33}
 
   /* Title */
-  h1{margin:6px 16px 0; font-size: clamp(30px, 7vw, 56px); line-height:1.06; font-weight:900}
-  .sub{margin:8px 16px 6px; color:#ddd6ff; font-size: clamp(14px, 3.6vw, 18px)}
+  h1{margin:8px 16px 0; font-size: clamp(30px, 7vw, 56px); line-height:1.06; font-weight:900}
+  .sub{margin:8px 16px 18px; color:#dcd6ff; font-size: clamp(14px, 3.6vw, 18px)}
 
-  /* Center orb */
-  .center{display:grid; place-items:center; padding:8px 16px 18px}
+  /* Orbit area */
+  .orbit{
+    position:relative; margin:0 auto; width:min(92vw, 680px); aspect-ratio:1/1;
+  }
+
+  /* center orb */
+  .center{
+    position:absolute; inset:0; display:grid; place-items:center;
+  }
   .orb{
-    width:min(64vw, 240px); height:min(64vw, 240px); border-radius:50%;
-    background: radial-gradient(60% 60% at 50% 42%, #45239f 0%, #35207c 60%, #28165f 100%);
+    width:min(46vw, 320px); height:min(46vw, 320px); border-radius:50%;
+    background: radial-gradient(60% 60% at 50% 42%, #4326a1 0%, #35207c 60%, #28165f 100%);
     box-shadow: inset 0 18px 40px #7a5cff44, 0 28px 80px rgba(0,0,0,.55), 0 0 0 1px #ffffff18;
-    display:grid; place-items:center; font-weight:900; color:#ffd34d; font-size:42px;
+    display:grid; place-items:center; font-weight:900; color:#ffd34d; font-size:44px;
   }
 
-  /* Grid cards */
-  .grid{padding:10px 12px 120px; display:grid; gap:14px; grid-template-columns:repeat(2,1fr)}
-  @media (min-width:860px){ .grid{grid-template-columns:repeat(3,1fr); max-width:980px; margin:0 auto} }
-  .card{
-    background:var(--card); color:var(--ink); border-radius:20px; padding:16px 14px;
-    box-shadow:0 10px 26px rgba(0,0,0,.25);
-    display:flex; flex-direction:column; gap:8px; min-height:126px;
+  /* ring cards */
+  .node{
+    position:absolute; width:min(40vw, 260px); max-width:220px;
+    transform:translate(-50%,-50%);
   }
-  .card .icon{height:32px}
+  .card{
+    background:var(--card); color:var(--ink);
+    border-radius:22px; padding:16px 14px; box-shadow:0 10px 28px rgba(0,0,0,.25);
+    display:flex; flex-direction:column; gap:8px;
+  }
+  .card .icon{height:34px}
   .card h3{margin:0; font-size:22px}
   .card p{margin:0; color:var(--muted); font-size:14px; line-height:1.35}
 
   /* Bottom helpers */
   .bottom{
-    position:fixed; left:14px; right:14px; bottom:16px; display:flex; justify-content:space-between; align-items:center;
+    position:fixed; left:14px; right:14px; bottom:16px;
+    display:flex; justify-content:space-between; align-items:center;
   }
   .qr{display:flex; flex-direction:column; align-items:flex-start; gap:8px}
-  .qr .box{
-    width:68px; height:68px; border-radius:10px; background:#1a1338; border:1px dashed #ffffff40;
-    display:grid; place-items:center; font-size:24px
-  }
+  .qr .box{width:70px; height:70px; border-radius:12px; background:#1a1338; border:1px dashed #ffffff40; display:grid; place-items:center; font-size:26px}
   .qr label{font-size:18px; color:#efeaff}
   .chat button{
     width:64px; height:64px; border-radius:50%; border:none; cursor:pointer;
     background:radial-gradient(100% 100% at 32% 20%, #8c79ff 0%, #6f57ff 52%, #5338ff 100%);
-    color:#fff; font-size:26px; box-shadow:0 16px 40px rgba(0,0,0,.45)
+    color:#fff; font-size:26px; box-shadow:var(--shadow)
+  }
+
+  /* responsive card width on small screens */
+  @media (max-width:520px){
+    .node{max-width:200px}
   }
 </style>
 </head>
@@ -84,8 +101,8 @@
       <a href="#" data-lng="zh">ZH</a>
     </div>
     <div class="actions">
-      <button class="btn btn-kyc" id="btnKyc">KYC 시작</button>
-      <button class="btn btn-login" id="btnLogin">로그인</button>
+      <button class="btn kyc" id="btnKyc">KYC 시작</button>
+      <button class="btn login" id="btnLogin">로그인</button>
     </div>
   </div>
 
@@ -93,65 +110,94 @@
   <h1 id="title">세계 파이 은행</h1>
   <div class="sub" id="subtitle">세계 최초의 디지털 은행</div>
 
-  <!-- center -->
-  <div class="center">
-    <div class="orb">π</div>
-  </div>
+  <!-- orbit layout -->
+  <section class="orbit" id="orbit">
+    <!-- center -->
+    <div class="center">
+      <div class="orb">Pi<br/>Logo</div>
+    </div>
 
-  <!-- cards -->
-  <section class="grid">
-    <article class="card">
-      <img class="icon" src="https://img.icons8.com/fluency/48/bank-card-front-side.png" alt="">
-      <h3 id="c1t">결제</h3>
-      <p id="c1d">가맹점과 개인</p>
-    </article>
+    <!-- six nodes: angles are 90(top), 30, 150, 210, 330, 270(bottom) -->
+    <div class="node" data-angle="90">
+      <article class="card">
+        <img class="icon" src="https://img.icons8.com/fluency/48/bank-card-front-side.png" alt="">
+        <h3 id="c1t">결제</h3>
+        <p id="c1d">가맹점과 개인</p>
+      </article>
+    </div>
 
-    <article class="card">
-      <img class="icon" src="https://img.icons8.com/fluency/48/send.png" alt="">
-      <h3 id="c2t">송금</h3>
-      <p id="c2d">빠르고, 국경 없음</p>
-    </article>
+    <div class="node" data-angle="30">
+      <article class="card">
+        <img class="icon" src="https://img.icons8.com/fluency/48/send.png" alt="">
+        <h3 id="c2t">송금</h3>
+        <p id="c2d">빠르고, 국경 없음</p>
+      </article>
+    </div>
 
-    <article class="card">
-      <img class="icon" src="https://img.icons8.com/fluency/48/bank.png" alt="">
-      <h3 id="c3t">스테이킹</h3>
-      <p id="c3d">예치(이율:4.8%)</p>
-    </article>
+    <div class="node" data-angle="150">
+      <article class="card">
+        <img class="icon" src="https://img.icons8.com/fluency/48/bank.png" alt="">
+        <h3 id="c3t">스테이킹</h3>
+        <p id="c3d">예치(이율:4.8%)</p>
+      </article>
+    </div>
 
-    <article class="card">
-      <img class="icon" src="https://img.icons8.com/fluency/48/gift.png" alt="">
-      <h3 id="c4t">리워드</h3>
-      <p id="c4d">참여하기</p>
-    </article>
+    <div class="node" data-angle="210">
+      <article class="card">
+        <img class="icon" src="https://img.icons8.com/fluency/48/hand.png" alt="">
+        <h3 id="c5t">UBI</h3>
+        <p id="c5d">기본소득</p>
+      </article>
+    </div>
 
-    <article class="card">
-      <img class="icon" src="https://img.icons8.com/fluency/48/hand.png" alt="">
-      <h3 id="c5t">UBI</h3>
-      <p id="c5d">기본소득</p>
-    </article>
+    <div class="node" data-angle="330">
+      <article class="card">
+        <img class="icon" src="https://img.icons8.com/fluency/48/gift.png" alt="">
+        <h3 id="c4t">리워드</h3>
+        <p id="c4d">참여하기</p>
+      </article>
+    </div>
 
-    <article class="card">
-      <img class="icon" src="https://img.icons8.com/fluency/48/phone.png" alt="">
-      <h3 id="c6t">고객센터</h3>
-      <p id="c6d">ljw2358</p>
-    </article>
+    <div class="node" data-angle="270">
+      <article class="card">
+        <img class="icon" src="https://img.icons8.com/fluency/48/phone.png" alt="">
+        <h3 id="c6t">고객센터</h3>
+        <p id="c6d">ljw2358</p>
+      </article>
+    </div>
   </section>
 
-  <!-- bottom -->
+  <!-- bottom helpers -->
   <div class="bottom">
     <div class="qr">
       <div class="box">▦</div>
       <label id="qrLabel">QR Code</label>
     </div>
-    <div class="chat">
-      <button title="chat">💬</button>
-    </div>
+    <div class="chat"><button title="chat">💬</button></div>
   </div>
 
 </div>
 
 <script>
-  // 텍스트 리소스 (EN/KR/ZH)
+  /* Position six nodes around the center orb */
+  function layoutOrbit(){
+    const wrap = document.getElementById('orbit');
+    const rect = wrap.getBoundingClientRect();
+    const cx = rect.width/2, cy = rect.height/2;
+    const r = Math.min(rect.width, rect.height)*0.38; // radius for nodes
+
+    document.querySelectorAll('.node').forEach(node=>{
+      const deg = +node.dataset.angle; const rad = deg * Math.PI/180;
+      const x = cx + r * Math.cos(rad);
+      const y = cy - r * Math.sin(rad);
+      node.style.left = x + 'px';
+      node.style.top = y + 'px';
+    });
+  }
+  window.addEventListener('resize', layoutOrbit);
+  window.addEventListener('load', layoutOrbit);
+
+  /* i18n */
   const T = {
     kr:{title:"세계 파이 은행", subtitle:"세계 최초의 디지털 은행",
         c1t:"결제", c1d:"가맹점과 개인",
@@ -178,16 +224,12 @@
         c6t:"客服中心", c6d:"ljw2358",
         kyc:"开始 KYC", login:"登录", qr:"QR 码"}
   };
-
   const $ = s=>document.querySelector(s); const $$=s=>document.querySelectorAll(s);
 
   function apply(l){
     const t=T[l]||T.kr;
     $('#title').textContent=t.title; $('#subtitle').textContent=t.subtitle;
     $('#c1t').textContent=t.c1t; $('#c1d').textContent=t.c1d;
-    '#c2t #c2d #c3t #c3d #c4t #c4d #c5t #c5d #c6t #c6d'.split(' ').forEach(id=>{
-      if(!id) return;
-    });
     $('#c2t').textContent=t.c2t; $('#c2d').textContent=t.c2d;
     $('#c3t').textContent=t.c3t; $('#c3d').textContent=t.c3d;
     $('#c4t').textContent=t.c4t; $('#c4d').textContent=t.c4d;
@@ -197,21 +239,14 @@
     $$('#langBar a').forEach(a=>a.classList.toggle('active', a.dataset.lng===l));
     document.documentElement.lang = (l==='kr'?'ko':l);
   }
-
-  // 초기: KR
   apply('kr');
+  $$('#langBar a').forEach(a=>a.addEventListener('click', e=>{
+    e.preventDefault(); apply(a.dataset.lng);
+  }));
 
-  // 언어 전환
-  $$('#langBar a').forEach(a=>{
-    a.addEventListener('click', e=>{
-      e.preventDefault();
-      apply(a.dataset.lng);
-    });
-  });
-
-  // 데모 동작
-  $('#btnKyc').addEventListener('click', ()=>alert('KYC 데모입니다.'));
-  $('#btnLogin').addEventListener('click', ()=>alert('로그인 데모입니다.'));
+  // demo actions
+  document.getElementById('btnKyc').addEventListener('click',()=>alert('KYC 데모입니다.'));
+  document.getElementById('btnLogin').addEventListener('click',()=>alert('로그인 데모입니다.'));
 </script>
 </body>
 </html>
