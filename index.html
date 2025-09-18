@@ -7,161 +7,334 @@
 <meta name="theme-color" content="#6d28d9"/>
 <style>
   :root{
-    --ink:#fff; --ink-d:#efe6ff;
-    --line:#ffffff2b; --radius:22px;
-    --btn:#7c3aed; --btn2:#a78bfa;
+    --ink:#fff; --ink-d:#efe6ff; --line:#ffffff2b; --radius:22px;
+    --primary:#7c3aed; --primary2:#a78bfa; --bg1:#2d0a63; --bg2:#7e22ce; --bg3:#5228d1;
+    --card:linear-gradient(180deg,#ffffff1f,#ffffff0f);
   }
   *{box-sizing:border-box}
   html,body{height:100%}
-  body{
-    margin:0; color:var(--ink);
-    font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans KR","Malgun Gothic",Arial,sans-serif;
-    background:#2d0a63;
-    overflow-x:hidden;
-  }
-  /* Animated bg */
-  .bg{position:fixed;inset:0;z-index:-2;
-    background:radial-gradient(1200px 900px at 80% -10%,#ff71ff22,transparent 50%),
-               radial-gradient(1000px 800px at -10% 10%,#8b5cff22,transparent 55%),
-               linear-gradient(155deg,#2d0a63,#7e22ce 55%,#5126cc);
-    animation:bgShift 16s ease-in-out infinite alternate;}
-  @keyframes bgShift{0%{filter:hue-rotate(0deg)}100%{filter:hue-rotate(20deg)}}
-  .wrap{max-width:1120px;width:94vw;margin:40px auto;position:relative;
-    border:1px solid var(--line);border-radius:28px;overflow:hidden;
-    background:linear-gradient(180deg,#ffffff18,#ffffff0a);
-    backdrop-filter:blur(8px);box-shadow:0 24px 70px rgba(0,0,0,.55);padding:26px;}
-  .top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:14px}
+  html{scroll-behavior:smooth}
+  body{margin:0;color:var(--ink);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans KR","Malgun Gothic",Arial,sans-serif;background:#12062b;overflow-x:hidden}
+
+  /* Background */
+  .bg{position:fixed;inset:0;z-index:-3;background:
+      radial-gradient(1000px 800px at 85% -10%, #ff71ff2a, transparent 55%),
+      radial-gradient(1200px 900px at -10% 20%, #8b5cff2a, transparent 60%),
+      linear-gradient(155deg,var(--bg1),var(--bg2) 60%, var(--bg3));
+      animation:bgHue 18s ease-in-out infinite alternate}
+  @keyframes bgHue{from{filter:hue-rotate(0)}to{filter:hue-rotate(14deg)}}
+  .stars,.stars2{position:fixed;inset:-10%;z-index:-2;pointer-events:none;opacity:.6;background:
+      radial-gradient(2px 2px at 10% 20%, #ffffff66, transparent 60%),
+      radial-gradient(2px 2px at 40% 60%, #ffffff55, transparent 60%),
+      radial-gradient(2px 2px at 70% 30%, #ffffff55, transparent 60%),
+      radial-gradient(2px 2px at 85% 75%, #ffffff66, transparent 60%),
+      radial-gradient(2px 2px at 25% 80%, #ffffff44, transparent 60%);animation:float 40s linear infinite}
+  .stars2{animation-duration:56s;opacity:.4;filter:blur(.6px)}
+  @keyframes float{from{transform:translateY(0)}to{transform:translateY(-8%)}}
+
+  /* Frame */
+  .wrap{max-width:1160px;width:94vw;margin:54px auto 28px;position:relative;border:1px solid var(--line);border-radius:28px;overflow:clip;background:linear-gradient(180deg,#ffffff18,#ffffff0c);backdrop-filter:blur(8px);box-shadow:0 24px 70px rgba(0,0,0,.55)}
+  .inner{padding:22px 22px 34px}
+
+  /* Ticker */
+  .ticker{height:38px;display:flex;align-items:center;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#ffffff13,#ffffff08)}
+  .tick-label{flex:0 0 auto;padding:0 12px;margin-right:8px;font-weight:900;letter-spacing:.2px;font-size:13px;background:#ffffff1a;height:24px;border-radius:10px;display:grid;place-items:center}
+  .tick-track{flex:1 1 auto;overflow:hidden}
+  .tick-scroll{white-space:nowrap;display:inline-block;padding-left:100%;animation:marquee 18s linear infinite;font-size:13px;opacity:.92}
+  @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-100%)}}
+
+  /* Top bar + nav */
+  .top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 18px}
   .brand{display:flex;align-items:center;gap:12px}
-  .mark{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;
-    background:conic-gradient(from 210deg,#ffeaff,#e9d5ff,#c4b5fd,#7c3aed,#c4b5fd,#ffeaff);
-    color:#2d0a63;font-weight:1000;}
-  .lang{display:flex;gap:8px}
-  .chip{padding:8px 12px;border-radius:14px;background:#ffffff12;border:1px solid var(--line);
-    font-weight:800;cursor:pointer;user-select:none;transition:.15s;}
-  .chip.active{background:#fff;color:#3b0c7a}
-  .btn{border:none;cursor:pointer;border-radius:14px;padding:10px 16px;font-weight:900;
-    background:#fff;color:#3b0c7a;box-shadow:0 12px 28px rgba(0,0,0,.35);}
-  .btn.ghost{background:#ffffff18;color:#fff;border:1px solid var(--line);box-shadow:none;}
+  .mark{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;color:#2d0a63;font-weight:1000;background:conic-gradient(from 210deg,#ffeaff,#e9d5ff,#c4b5fd,#7c3aed,#c4b5fd,#ffeaff);box-shadow:inset 0 0 0 3px #ffffff44,0 8px 24px #00000055}
+  .brand h1{margin:0;font-size:18px}
+  .lang{display:flex;gap:8px;margin-left:6px}
+  .chip{padding:8px 12px;border-radius:14px;background:#ffffff14;border:1px solid var(--line);font-weight:800;cursor:pointer;user-select:none;transition:.15s}
+  .chip.active{background:#fff;color:#3b0c7a;border-color:#fff}
+  nav{display:flex;gap:10px;margin-left:10px}
+  .link{padding:8px 12px;border-radius:12px;background:#ffffff14;border:1px solid var(--line);font-weight:800}
+  .link:hover{background:#ffffff22}
+  .btn{border:none;cursor:pointer;border-radius:14px;padding:10px 16px;font-weight:900;background:#fff;color:#3b0c7a;box-shadow:0 12px 28px rgba(0,0,0,.35)}
+  .btn.ghost{background:#ffffff18;color:#fff;border:1px solid var(--line);box-shadow:none}
+
+  /* Hero */
   .hero{display:grid;grid-template-columns:1.25fr .75fr;gap:20px;align-items:center}
-  @media(max-width:940px){.hero{grid-template-columns:1fr}}
-  .card-glass{padding:26px;border-radius:22px;border:1px solid var(--line);
-    background:linear-gradient(180deg,#ffffff20,#ffffff0f);}
-  .headline h2{margin:0 0 6px;font-size:clamp(30px,5vw,56px)}
-  .headline p{margin:0;color:var(--ink-d);font-size:clamp(14px,2vw,18px)}
-  .slogan{margin-top:10px;font-size:clamp(14px,2vw,17px);font-weight:800;
-    background:linear-gradient(90deg,#fff,#d4b8ff);-webkit-background-clip:text;
-    background-clip:text;color:transparent;}
+  @media(max-width:980px){.hero{grid-template-columns:1fr}}
+  .glass{padding:26px;border-radius:22px;border:1px solid var(--line);background:var(--card);box-shadow:0 10px 28px rgba(0,0,0,.35)}
+  .headline h2{margin:0 0 6px;font-size:clamp(30px,5.2vw,56px);line-height:1.05}
+  .headline p{margin:0;color:var(--ink-d);font-size:clamp(14px,2.1vw,18px)}
+  .slogan{margin-top:10px;font-size:clamp(14px,2vw,17px);font-weight:900;letter-spacing:.2px;background:linear-gradient(90deg,#fff,#d4b8ff);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 2px 18px rgba(212,184,255,.25)}
+
   .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-  .tile{padding:20px;min-height:92px;border-radius:18px;text-align:center;font-weight:1000;
-    background:linear-gradient(180deg,#4b1a93,#3e1681);border:1px solid var(--line);
-    box-shadow:0 14px 34px rgba(0,0,0,.45);transition:.12s;}
-  .tile small{display:block;margin-top:6px;font-weight:700;opacity:.92}
-  .tile:hover{transform:translateY(-2px)}
-  .qr{position:absolute;left:16px;bottom:16px;width:90px;height:90px;border-radius:12px;
-    overflow:hidden;border:1px solid var(--line);background:#fff}
+  .tile{position:relative;padding:20px;min-height:96px;border-radius:18px;text-align:center;font-weight:1000;letter-spacing:.35px;background:linear-gradient(180deg,#4b1a93,#3e1681);border:1px solid var(--line);box-shadow:0 16px 36px rgba(0,0,0,.48), inset 0 0 0 1px #ffffff12;transition:transform .14s, box-shadow .14s, filter .14s}
+  .tile small{display:block;margin-top:6px;font-weight:700;opacity:.95}
+  .tile:hover{transform:translateY(-3px);box-shadow:0 22px 52px rgba(0,0,0,.6);filter:saturate(1.1)}
+
+  /* QR & big Pi */
+  .qr{position:absolute;left:16px;bottom:18px;width:92px;height:92px;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#fff;box-shadow:0 10px 28px rgba(0,0,0,.45);z-index:2}
   .qr img{width:100%;height:100%;object-fit:cover}
-  .pi-badge{position:absolute;left:50%;transform:translateX(-50%);bottom:-26px;
-    width:min(250px,40vw);height:min(250px,40vw);border-radius:50%;
-    background:radial-gradient(circle at 30% 30%,#fff,#f4eaff 40%,#d9c4ff 70%,#b48cff 100%);
-    display:grid;place-items:center;box-shadow:0 34px 72px rgba(0,0,0,.58);}
-  .pi{font-size:clamp(80px,12vw,132px);font-weight:1000;color:#34106e}
-  .foot{margin-top:18px;text-align:center;font-size:12.5px;color:#eadbff}
+  .badge{position:absolute;left:50%;transform:translateX(-50%);bottom:-18px;width:min(240px,42vw);height:min(240px,42vw);border-radius:50%;background:radial-gradient(circle at 30% 30%, #ffffff, #f3e8ff 40%, #d9c4ff 70%, #b48cff 100%);display:grid;place-items:center;border:2px solid #fff;box-shadow:0 34px 72px rgba(0,0,0,.58), inset 0 0 0 12px #2d0a6322, 0 0 44px 12px #a78bfa55;z-index:1}
+  .pi{font-size:clamp(80px,12vw,132px);font-weight:1000;color:#34106e;filter:drop-shadow(0 6px 14px rgba(0,0,0,.35))}
+  .badge::after{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(12px 12px at 80% 50%, #ffffffaa, transparent 70%);animation:orbit 6.8s linear infinite}
+  @keyframes orbit{to{transform:rotate(360deg)}}
+
+  /* Sections */
+  section{scroll-margin-top:72px}
+  .sec-title{margin:8px 0 16px;font-size:22px;font-weight:1000;letter-spacing:.3px}
+  .muted{color:#eadbff;opacity:.95}
+  .columns{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:880px){.columns{grid-template-columns:1fr}}
+
+  /* Support cards */
+  .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  @media(max-width:620px){.cards{grid-template-columns:1fr}}
+  .card{padding:16px;border-radius:16px;border:1px solid var(--line);background:var(--card)}
+  .card h4{margin:0 0 8px;font-size:16px}
+  .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .code{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;background:#0000003b;border:1px solid #ffffff2d;padding:8px 10px;border-radius:10px}
+  .copy{border:none;border-radius:10px;padding:8px 12px;font-weight:800;background:#fff;color:#3b0c7a;cursor:pointer}
+
+  /* Footer */
+  .foot{position:relative;z-index:2;margin:18px 0 8px;text-align:center;font-size:12.5px;color:#eadbff;padding-bottom:8px}
 </style>
 </head>
 <body>
-  <div class="bg"></div>
+  <div class="bg"></div><div class="stars"></div><div class="stars2"></div>
 
-  <main class="wrap">
+  <main class="wrap" role="main" aria-label="World PiBank cover">
+    <!-- Ticker -->
+    <div class="ticker" aria-label="Announcement">
+      <div class="tick-label" data-en="NEWS" data-ko="공지">NEWS</div>
+      <div class="tick-track"><div class="tick-scroll" id="tickerText">
+        No Ads. People First. • Global Digital Bank for Everyone • Send · Pay · Rewards · UBI · Staking • pi://piworldbank
+      </div></div>
+    </div>
+
     <!-- Top bar -->
     <div class="top">
       <div class="brand">
         <div class="mark">π</div>
         <h1>World PiBank</h1>
-        <div class="lang">
-          <span id="chip-en" class="chip active">EN</span>
-          <span id="chip-ko" class="chip">KR</span>
+        <div class="lang" role="group" aria-label="Language">
+          <span id="chip-en" class="chip active" tabindex="0">EN</span>
+          <span id="chip-ko" class="chip" tabindex="0">KR</span>
         </div>
+        <nav>
+          <a class="link" href="#staking" data-en="Staking" data-ko="예치">Staking</a>
+          <a class="link" href="#support" data-en="Support" data-ko="후원">Support</a>
+          <a class="link" href="#about" data-en="About" data-ko="소개">About</a>
+        </nav>
       </div>
-      <div>
-        <button id="stakeBtn" class="btn ghost">Staking</button>
-        <button id="loginBtn" class="btn">Login</button>
+      <div class="right">
+        <button id="stakeBtn" class="btn ghost" title="Staking = Deposit(예치)">Staking</button>
+        <button id="loginBtn" class="btn" title="Login / Approve">Login</button>
       </div>
     </div>
 
-    <!-- Hero -->
-    <section class="hero">
-      <div class="headline card-glass">
-        <div id="blurb-en">
-          <h2>Global Digital Bank for Everyone</h2>
-          <p>Send · Pay · Rewards · UBI · Staking — built on the Pi ecosystem to empower everyday people.</p>
-          <div class="slogan">No Ads. People First.</div>
+    <!-- HERO -->
+    <div class="inner">
+      <section class="hero" id="home">
+        <div class="headline glass">
+          <div id="blurb-en">
+            <h2>Global Digital Bank for Everyone</h2>
+            <p>Send · Pay · Rewards · UBI · Staking — built on the Pi ecosystem to empower everyday people.</p>
+            <div class="slogan">No Ads. People First. | Built for Global Citizens.</div>
+          </div>
+          <div id="blurb-ko" hidden>
+            <h2>모두를 위한 글로벌 디지털 뱅크</h2>
+            <p>송금 · 결제 · 리워드 · 기본소득 · 예치 — 파이 생태계 위에서 서민과 노동자를 돕습니다.</p>
+            <div class="slogan">광고 없음, 시민 우선 | 글로벌 시민을 위한 은행</div>
+          </div>
         </div>
-        <div id="blurb-ko" hidden>
-          <h2>모두를 위한 글로벌 디지털 뱅크</h2>
-          <p>송금 · 결제 · 리워드 · 기본소득 · 예치 — 파이 생태계 위에서 서민과 노동자를 돕습니다.</p>
-          <div class="slogan">광고 없음, 시민 우선.</div>
+        <div class="glass">
+          <div class="grid" aria-label="Primary actions">
+            <button class="tile" id="send">SEND<small data-en="Fast & borderless transfers" data-ko="빠르고 국경 없는 송금">Fast & borderless transfers</small></button>
+            <button class="tile" id="pay">PAY<small data-en="Tap to pay in Pi" data-ko="파이로 간편 결제">Tap to pay in Pi</small></button>
+            <button class="tile" id="rewards">REWARDS<small data-en="Daily missions & bonuses" data-ko="데일리 미션과 보너스">Daily missions & bonuses</small></button>
+            <button class="tile" id="ubi">UBI<small data-en="Web3 basic income model" data-ko="웹3 기반 기본소득">Web3 basic income model</small></button>
+          </div>
         </div>
-      </div>
-      <div class="card-glass">
-        <div class="grid">
-          <button class="tile" id="send">SEND<small data-en="Fast & borderless transfers" data-ko="빠르고 국경 없는 송금"></small></button>
-          <button class="tile" id="pay">PAY<small data-en="Tap to pay in Pi" data-ko="파이로 간편 결제"></small></button>
-          <button class="tile" id="rewards">REWARDS<small data-en="Daily missions & bonuses" data-ko="데일리 미션과 보너스"></small></button>
-          <button class="tile" id="ubi">UBI<small data-en="Web3 basic income model" data-ko="웹3 기반 기본소득"></small></button>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- QR + big π -->
-    <div class="qr"><img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=pi%3A%2F%2Fpiworldbank" alt="QR"/></div>
-    <div class="pi-badge"><div class="pi">π</div></div>
+      <!-- QR + Big π -->
+      <div class="qr" title="Scan to open in Pi Browser">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=pi%3A%2F%2Fpiworldbank" alt="QR to World PiBank"/>
+      </div>
+      <div class="badge" aria-hidden="true"><div class="pi">π</div></div>
 
-    <div class="foot">© <span id="yr"></span> World PiBank</div>
+      <!-- ===== Staking Preview ===== -->
+      <section id="staking" class="glass" style="margin-top:28px">
+        <div class="sec-title" data-en="Staking Preview" data-ko="예치 미리보기">Staking Preview</div>
+        <div class="columns">
+          <div>
+            <p class="muted" data-en="Grow your Pi by depositing into a flexible pool. Withdraw anytime."
+               data-ko="유연한 풀에 예치하여 파이를 늘리세요. 언제든 출금 가능합니다.">
+              Grow your Pi by depositing into a flexible pool. Withdraw anytime.
+            </p>
+            <div class="card" style="margin-top:10px">
+              <h4 data-en="Current APY (target)" data-ko="현재 APY (목표)">Current APY (target)</h4>
+              <div style="font-size:28px;font-weight:1000">12–18% <span class="muted">APR</span></div>
+              <div class="muted" style="margin-top:6px" data-en="Backed by on-chain revenue share (beta)"
+                   data-ko="온체인 수익 공유 기반 (베타)">Backed by on-chain revenue share (beta)</div>
+            </div>
+          </div>
+          <div>
+            <div class="card">
+              <h4 data-en="Deposit simulator" data-ko="예치 시뮬레이터">Deposit simulator</h4>
+              <div class="row">
+                <input id="amt" type="number" min="0" step="1" placeholder="100" style="flex:1;padding:10px;border-radius:10px;border:1px solid var(--line);background:#ffffff10;color:#fff"/>
+                <select id="apy" style="padding:10px;border-radius:10px;border:1px solid var(--line);background:#ffffff10;color:#fff">
+                  <option value="0.12">12%</option><option value="0.15">15%</option><option value="0.18">18%</option>
+                </select>
+                <button class="copy" id="calc" data-en="Calc" data-ko="계산">Calc</button>
+              </div>
+              <div style="margin-top:10px" class="muted" id="out">—</div>
+            </div>
+            <div class="row" style="margin-top:10px">
+              <button class="btn" id="stakeCTA" data-en="Start Staking" data-ko="예치 시작">Start Staking</button>
+              <button class="btn ghost" id="policyStake" data-en="Policy" data-ko="정책">Policy</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Support (donations) ===== -->
+      <section id="support" class="glass" style="margin-top:28px">
+        <div class="sec-title" data-en="Support World PiBank" data-ko="세계파이은행 후원하기">Support World PiBank</div>
+        <p class="muted" data-en="Choose a method. Tap a copy button to paste easily."
+           data-ko="원하는 방법을 선택하세요. 'Copy' 버튼으로 쉽게 복사할 수 있습니다.">
+           Choose a method. Tap a copy button to paste easily.
+        </p>
+        <div class="cards" style="margin-top:10px">
+          <div class="card">
+            <h4>Pi Wallet</h4>
+            <div class="row">
+              <code id="piWallet" class="code">GCXT-XXXX-XXXX-XXXX-XXXX (example)</code>
+              <button class="copy" data-copy="#piWallet">Copy</button>
+            </div>
+          </div>
+          <div class="card">
+            <h4 data-en="Bank Account (KR)" data-ko="국내 계좌">Bank Account (KR)</h4>
+            <div class="row">
+              <code id="krBank" class="code">00은행 123-4567-890123 예금주: 홍길동</code>
+              <button class="copy" data-copy="#krBank">Copy</button>
+            </div>
+          </div>
+          <div class="card">
+            <h4 data-en="Cultureland Gift" data-ko="컬쳐랜드 상품권">Cultureland Gift</h4>
+            <div class="row">
+              <code id="culture" class="code">PIN 0000-0000-0000 / ID: worldpibank</code>
+              <button class="copy" data-copy="#culture">Copy</button>
+            </div>
+          </div>
+          <div class="card">
+            <h4 data-en="Referral Code" data-ko="추천 코드">Referral Code</h4>
+            <div class="row">
+              <code id="ref" class="code">PI-WORLD-2025</code>
+              <button class="copy" data-copy="#ref">Copy</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== About ===== -->
+      <section id="about" class="glass" style="margin-top:28px">
+        <div class="sec-title" data-en="About World PiBank" data-ko="세계파이은행 소개">About World PiBank</div>
+        <p class="muted" data-en="A global, community-first digital bank concept built on the Pi ecosystem. We prioritize access, transparency, and people over ads."
+           data-ko="파이 생태계를 기반으로 한 글로벌 커뮤니티-우선 디지털 뱅크 컨셉입니다. 접근성과 투명성, 그리고 광고보다 '사람'을 우선합니다.">
+           A global, community-first digital bank concept built on the Pi ecosystem. We prioritize access, transparency, and people over ads.
+        </p>
+      </section>
+
+      <!-- Footer -->
+      <div class="foot">
+        © <span id="yr"></span> World PiBank · <span data-en="No ads. People first." data-ko="광고 없음. 시민 우선.">No ads. People first.</span>
+        · <a href="#" id="policy" style="color:#fff;text-decoration:underline dotted">Policy</a>
+      </div>
+    </div>
   </main>
 
 <script>
-  // year
-  document.getElementById('yr').textContent=new Date().getFullYear();
+  // Year
+  document.getElementById('yr').textContent = new Date().getFullYear();
 
-  // setLang function
+  // Language toggle + auto detect + save
   function setLang(lang){
-    const isEN=lang==='en';
-    document.documentElement.lang=isEN?'en':'ko';
-    document.getElementById('chip-en').classList.toggle('active',isEN);
-    document.getElementById('chip-ko').classList.toggle('active',!isEN);
-    document.getElementById('blurb-en').hidden=!isEN;
-    document.getElementById('blurb-ko').hidden=isEN;
+    const isEN = lang==='en';
+    document.documentElement.lang = isEN ? 'en' : 'ko';
+    document.getElementById('chip-en').classList.toggle('active', isEN);
+    document.getElementById('chip-ko').classList.toggle('active', !isEN);
+    document.getElementById('blurb-en').hidden = !isEN;
+    document.getElementById('blurb-ko').hidden = isEN;
     document.querySelectorAll('[data-en]').forEach(el=>{
-      el.textContent=el.getAttribute(isEN?'data-en':'data-ko');
+      el.textContent = el.getAttribute(isEN ? 'data-en' : 'data-ko');
     });
-    localStorage.setItem('wpb_lang',lang);
+    localStorage.setItem('wpb_lang', lang);
+    // update ticker text
+    const tk = document.getElementById('tickerText');
+    tk.textContent = isEN
+      ? 'No Ads. People First. • Global Digital Bank for Everyone • Send · Pay · Rewards · UBI · Staking • pi://piworldbank'
+      : '광고 없음, 시민 우선 • 모두를 위한 글로벌 디지털 뱅크 • 송금 · 결제 · 리워드 · 기본소득 · 예치 • pi://piworldbank';
   }
-
-  // auto detect
-  function detectPreferredLang(){
+  function detectLang(){
     try{
-      const saved=localStorage.getItem('wpb_lang');
-      if(saved) return saved;
-      const url=new URLSearchParams(location.search).get('lang');
-      if(url) return url;
-      const langs=navigator.languages||[navigator.language];
-      if(langs.some(l=>l.toLowerCase().startsWith('ko'))) return 'ko';
-      const tz=Intl.DateTimeFormat().resolvedOptions().timeZone;
-      if(tz==='Asia/Seoul') return 'ko';
-      return 'en';
-    }catch(e){return'en'}
+      const saved = localStorage.getItem('wpb_lang');
+      if (saved) return saved;
+      const url = new URLSearchParams(location.search).get('lang');
+      if (url) return url;
+      const langs = navigator.languages?.length ? navigator.languages : [navigator.language || ''];
+      const hasKo = langs.some(l=>(l||'').toLowerCase().startsWith('ko'));
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+      return (hasKo || tz==='Asia/Seoul') ? 'ko' : 'en';
+    }catch(e){return 'en'}
   }
-  setLang(detectPreferredLang());
+  setLang(detectLang());
+  document.getElementById('chip-en').addEventListener('click', ()=>setLang('en'));
+  document.getElementById('chip-ko').addEventListener('click', ()=>setLang('ko'));
 
-  // toggle events
-  document.getElementById('chip-en').onclick=()=>setLang('en');
-  document.getElementById('chip-ko').onclick=()=>setLang('ko');
-
-  // demo buttons
-  document.getElementById('loginBtn').onclick=()=>alert('Login → (TODO) Pi SDK Approve');
-  document.getElementById('stakeBtn').onclick=()=>alert('Staking(예치) — Coming soon.');
+  // Demo actions (wire to Pi SDK later)
+  const soon = name => ()=>alert(name+' — Coming soon.');
   ['send','pay','rewards','ubi'].forEach(id=>{
-    document.getElementById(id).onclick=()=>alert(id.toUpperCase()+' — Coming soon.');
+    const el=document.getElementById(id); if(el) el.addEventListener('click', soon(id.toUpperCase()));
+  });
+  document.getElementById('loginBtn').addEventListener('click', ()=>alert('Login → (TODO) Pi SDK Approve'));
+  document.getElementById('stakeBtn').addEventListener('click', ()=>document.querySelector('#staking').scrollIntoView({behavior:'smooth'}));
+  document.getElementById('policy').addEventListener('click', e=>{e.preventDefault(); alert('Policy page — Coming soon.')});
+  document.getElementById('policyStake').addEventListener('click', e=>{e.preventDefault(); alert('Staking Policy — Coming soon.')});
+  document.getElementById('stakeCTA').addEventListener('click', ()=>alert('Start Staking — (TODO) connect Pi SDK'));
+
+  // Deposit simulator
+  document.getElementById('calc').addEventListener('click', ()=>{
+    const amt = parseFloat(document.getElementById('amt').value||'0');
+    const apy = parseFloat(document.getElementById('apy').value||'0');
+    if (!amt || amt<=0) { document.getElementById('out').textContent = (document.documentElement.lang==='ko')?'예치 금액을 입력하세요.':'Enter a deposit amount.'; return; }
+    const yearly = amt * apy;
+    const monthly = yearly / 12;
+    const isEN = document.documentElement.lang!=='ko';
+    document.getElementById('out').textContent = isEN
+      ? `≈ ${yearly.toFixed(2)}π / year • ${monthly.toFixed(2)}π / month`
+      : `연 약 ${yearly.toFixed(2)}π • 월 약 ${monthly.toFixed(2)}π`;
+  });
+
+  // Copy buttons in Support
+  document.querySelectorAll('.copy[data-copy]').forEach(btn=>{
+    btn.addEventListener('click', async ()=>{
+      const sel = btn.getAttribute('data-copy');
+      const el = document.querySelector(sel);
+      if (!el) return;
+      const txt = el.textContent.trim();
+      try {
+        await navigator.clipboard.writeText(txt);
+        const labelEN = 'Copied!';
+        const labelKO = '복사됨!';
+        const isEN = document.documentElement.lang!=='ko';
+        const old = btn.textContent;
+        btn.textContent = isEN ? labelEN : labelKO;
+        setTimeout(()=>btn.textContent=old, 900);
+      } catch {
+        alert('Copy failed. Please select & copy manually.');
+      }
+    });
   });
 </script>
 </body>
