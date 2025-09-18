@@ -1,129 +1,158 @@
+출발 언어영어도착 언어한국어번역하기
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>World Pi Bank</title>
-<style>
-  body{
-    margin:0; font-family:sans-serif; color:#fff;
-    background:radial-gradient(1100px 800px at 70% -10%, #2b1d63 0%, #1b123e 45%, #0c0820 78%);
-    overflow-x:hidden;
-  }
-  .top{display:flex; justify-content:space-between; padding:12px 16px; align-items:center}
-  .langs a{margin:0 4px; color:#fff; text-decoration:none; padding:4px 8px; border-radius:6px}
-  .langs a.active{background:#ffffff33}
-  .btn{border:none; padding:8px 12px; border-radius:10px; font-weight:bold; cursor:pointer}
-  .kyc{background:#ffd451; color:#000}
-  .login{background:#ffffff22; color:#fff}
-  h1{text-align:center; margin:10px 0 4px; font-size:26px}
-  .sub{text-align:center; color:#ccc; margin-bottom:16px}
-
-  .orbit{position:relative; margin:0 auto; width:min(92vw,600px); aspect-ratio:1/1}
-  .center{position:absolute; inset:0; display:flex; align-items:center; justify-content:center}
-  .orb{width:160px; height:160px; border-radius:50%; background:#4326a1;
-       display:flex; align-items:center; justify-content:center; font-size:28px; font-weight:bold; color:#ffd34d}
-
-  .node{position:absolute; transform:translate(-50%,-50%)}
-  .card{background:#fff; color:#000; border-radius:16px; padding:10px; width:120px; text-align:center;
-        box-shadow:0 4px 12px rgba(0,0,0,0.3)}
-  .card img{height:30px}
-  .card h3{margin:6px 0 4px}
-  .card p{margin:0; font-size:13px; color:#444}
-
-  .bottom{position:fixed; left:14px; right:14px; bottom:16px; display:flex; justify-content:space-between; align-items:center}
-  .qr .box{width:60px; height:60px; background:#222; display:flex; align-items:center; justify-content:center; border-radius:10px}
-  .qr label{font-size:14px}
-  .chat button{width:50px; height:50px; border-radius:50%; border:none; background:#6f57ff; color:#fff; font-size:22px}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>세계파이은행 - Global Digital Bank</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: radial-gradient(circle at center, #1a1a2e, #0f0f1f);
+      color: #fff;
+      text-align: center;
+    }
+    header {
+      padding: 20px;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    .lang-switch {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+    .lang-switch button {
+      background: #222;
+      border: 1px solid #555;
+      color: #fff;
+      margin-left: 5px;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .logo {
+      margin: 30px auto;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: #222;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 60px;
+      color: #ffcc00;
+      box-shadow: 0 0 30px rgba(255, 204, 0, 0.6);
+    }
+    h1 {
+      font-size: 2.2rem;
+      margin: 10px 0;
+    }
+    h2 {
+      font-size: 1.2rem;
+      margin: 10px 0 30px;
+      font-weight: 300;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 20px;
+      font-size: 1rem;
+      transition: transform 0.2s, background 0.2s;
+      cursor: pointer;
+    }
+    .card:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateY(-5px);
+    }
+    footer {
+      margin-top: 30px;
+      font-size: 0.8rem;
+      opacity: 0.7;
+    }
+  </style>
 </head>
 <body>
-  <div class="top">
-    <div class="langs" id="langBar">
-      <a href="#" data-lng="en">EN</a>
-      <a href="#" data-lng="kr" class="active">KR</a>
-      <a href="#" data-lng="zh">ZH</a>
-    </div>
-    <div>
-      <button class="btn kyc" id="btnKyc">KYC 시작</button>
-      <button class="btn login" id="btnLogin">로그인</button>
-    </div>
+
+  <header>세계파이은행</header>
+
+  <div class="lang-switch">
+    <button onclick="setLang('en')">EN</button>
+    <button onclick="setLang('kr')">KR</button>
+    <button onclick="setLang('zh')">中文</button>
   </div>
 
-  <h1 id="title">세계 파이 은행</h1>
-  <div class="sub" id="subtitle">세계 최초의 디지털 은행</div>
+  <div class="logo">π</div>
 
-  <div class="orbit" id="orbit">
-    <div class="center"><div class="orb">Pi Logo</div></div>
+  <h1 id="title">세계파이은행</h1>
+  <h2 id="subtitle">세계최초의 디지털 은행</h2>
 
-    <div class="node" data-angle="90"><div class="card"><img src="https://img.icons8.com/fluency/48/bank-card-front-side.png"><h3 id="c1t">결제</h3><p id="c1d">가맹점과 개인</p></div></div>
-    <div class="node" data-angle="30"><div class="card"><img src="https://img.icons8.com/fluency/48/send.png"><h3 id="c2t">송금</h3><p id="c2d">빠르고, 국경 없음</p></div></div>
-    <div class="node" data-angle="150"><div class="card"><img src="https://img.icons8.com/fluency/48/bank.png"><h3 id="c3t">스테이킹</h3><p id="c3d">예치(이율:4.8%)</p></div></div>
-    <div class="node" data-angle="330"><div class="card"><img src="https://img.icons8.com/fluency/48/gift.png"><h3 id="c4t">리워드</h3><p id="c4d">참여하기</p></div></div>
-    <div class="node" data-angle="210"><div class="card"><img src="https://img.icons8.com/fluency/48/hand.png"><h3 id="c5t">UBI</h3><p id="c5d">기본소득</p></div></div>
-    <div class="node" data-angle="270"><div class="card"><img src="https://img.icons8.com/fluency/48/phone.png"><h3 id="c6t">고객센터</h3><p id="c6d">ljw2358</p></div></div>
+  <div class="grid">
+    <div class="card" id="send">송금<br><small>낮은 비용으로 빠른 개인 간 이체</small></div>
+    <div class="card" id="pay">결제<br><small>상점/온라인 결제 연결</small></div>
+    <div class="card" id="reward">리워드<br><small>참여와 활동에 따른 보상</small></div>
+    <div class="card" id="stake">예치<br><small>안정적 이자율 제공</small></div>
+    <div class="card" id="ubi">UBI<br><small>시민을 위한 기본소득</small></div>
+    <div class="card" id="support">고객센터<br><small>문의와 상담 지원</small></div>
   </div>
 
-  <div class="bottom">
-    <div class="qr"><div class="box">▦</div><label id="qrLabel">QR Code</label></div>
-    <div class="chat"><button>💬</button></div>
-  </div>
+  <footer>
+    © 2025 WorldPiBank. All rights reserved.<br>
+    Pi 생태계를 기반으로 한 세계 최초의 글로벌 디지털 은행.
+  </footer>
 
-<script>
-function layoutOrbit(){
-  const wrap=document.getElementById('orbit');
-  const r=Math.min(wrap.offsetWidth, wrap.offsetHeight)*0.38;
-  const cx=wrap.offsetWidth/2, cy=wrap.offsetHeight/2;
-  document.querySelectorAll('.node').forEach(n=>{
-    const rad=+n.dataset.angle*Math.PI/180;
-    n.style.left=(cx+r*Math.cos(rad))+'px';
-    n.style.top =(cy-r*Math.sin(rad))+'px';
-  });
-}
-window.addEventListener('load',layoutOrbit);
-window.addEventListener('resize',layoutOrbit);
+  <script>
+    const texts = {
+      kr: {
+        title: "세계파이은행",
+        subtitle: "세계최초의 디지털 은행",
+        send: "송금\n낮은 비용으로 빠른 개인 간 이체",
+        pay: "결제\n상점/온라인 결제 연결",
+        reward: "리워드\n참여와 활동에 따른 보상",
+        stake: "예치\n안정적 이자율 제공",
+        ubi: "UBI\n시민을 위한 기본소득",
+        support: "고객센터\n문의와 상담 지원"
+      },
+      en: {
+        title: "World Pi Bank",
+        subtitle: "The World's First Digital Bank",
+        send: "Send\nLow-cost, fast peer-to-peer transfers",
+        pay: "Pay\nSeamless in-store & online payments",
+        reward: "Rewards\nEarn rewards through participation",
+        stake: "Staking\nSecure deposits with stable yield",
+        ubi: "UBI\nUniversal Basic Income for citizens",
+        support: "Support\nCustomer service & inquiries"
+      },
+      zh: {
+        title: "世界派银行",
+        subtitle: "全球首个数字银行",
+        send: "转账\n低成本快速点对点转账",
+        pay: "支付\n商店/在线支付",
+        reward: "奖励\n参与和活动奖励",
+        stake: "存款\n提供稳定利率",
+        ubi: "UBI\n公民的基本收入",
+        support: "客户服务\n咨询与支持"
+      }
+    };
 
-const T={
-  kr:{title:"세계 파이 은행",subtitle:"세계 최초의 디지털 은행",
-      c1t:"결제",c1d:"가맹점과 개인",
-      c2t:"송금",c2d:"빠르고, 국경 없음",
-      c3t:"스테이킹",c3d:"예치(이율:4.8%)",
-      c4t:"리워드",c4d:"참여하기",
-      c5t:"UBI",c5d:"기본소득",
-      c6t:"고객센터",c6d:"ljw2358",
-      kyc:"KYC 시작",login:"로그인",qr:"QR Code"},
-  en:{title:"World Pi Bank",subtitle:"The world's first digital bank",
-      c1t:"Pay",c1d:"Merchants & peer",
-      c2t:"Send",c2d:"Fast, borderless",
-      c3t:"Staking",c3d:"Deposit (APY:4.8%)",
-      c4t:"Rewards",c4d:"Join & earn",
-      c5t:"UBI",c5d:"Basic income",
-      c6t:"Support",c6d:"ljw2358",
-      kyc:"Start KYC",login:"Log in",qr:"QR Code"},
-  zh:{title:"世界派银行",subtitle:"全球首个数字银行",
-      c1t:"支付",c1d:"商户与个人",
-      c2t:"转账",c2d:"快速且无国界",
-      c3t:"质押",c3d:"存款（年化4.8%）",
-      c4t:"奖励",c4d:"参与领取",
-      c5t:"基本收入",c5d:"UBI",
-      c6t:"客服中心",c6d:"ljw2358",
-      kyc:"开始 KYC",login:"登录",qr:"QR 码"}
-};
-function apply(l){
-  const t=T[l];
-  document.getElementById('title').textContent=t.title;
-  document.getElementById('subtitle').textContent=t.subtitle;
-  ['c1','c2','c3','c4','c5','c6'].forEach(i=>{
-    document.getElementById(i+'t').textContent=t[i+'t'];
-    document.getElementById(i+'d').textContent=t[i+'d'];
-  });
-  document.getElementById('btnKyc').textContent=t.kyc;
-  document.getElementById('btnLogin').textContent=t.login;
-  document.getElementById('qrLabel').textContent=t.qr;
-  document.querySelectorAll('#langBar a').forEach(a=>a.classList.toggle('active',a.dataset.lng===l));
-}
-apply('kr');
-document.querySelectorAll('#langBar a').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();apply(a.dataset.lng);} ));
-</script>
+    function setLang(lang) {
+      document.getElementById("title").innerText = texts[lang].title;
+      document.getElementById("subtitle").innerText = texts[lang].subtitle;
+      document.getElementById("send").innerText = texts[lang].send;
+      document.getElementById("pay").innerText = texts[lang].pay;
+      document.getElementById("reward").innerText = texts[lang].reward;
+      document.getElementById("stake").innerText = texts[lang].stake;
+      document.getElementById("ubi").innerText = texts[lang].ubi;
+      document.getElementById("support").innerText = texts[lang].support;
+    }
+  </script>
+
 </body>
-</html>
