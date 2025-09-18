@@ -1,250 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>World PiBank</title>
-<style>
-  :root{
-    --violet:#6c63ff; --blue:#4a90e2; --mint:#34a853; --amber:#f4b400;
-    --coral:#ff6f61; --cyan:#23c4d9; --ink:#0f172a;
-    --bg:#f7f8ff; --card:#ffffff; --soft:#eef2ff;
-  }
-  *{box-sizing:border-box}
-  body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:var(--bg);color:var(--ink)}
-  a{color:inherit;text-decoration:none}
-
-  /* ===== Header ===== */
-  .topbar{
-    position:sticky; top:0; z-index:20;
-    display:flex; align-items:center; justify-content:space-between;
-    padding:12px 14px; color:#fff;
-    background:linear-gradient(90deg,var(--violet),var(--blue));
-  }
-  .brand{font-weight:900;font-size:18px}
-  .right-controls{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
-  .langs{display:flex;gap:6px}
-  .langs button{
-    border:0; padding:6px 10px; border-radius:999px; background:#fff; color:#111;
-    font-weight:800; cursor:pointer; box-shadow:0 2px 6px #0002
-  }
-  .langs button.active{background:#111827;color:#fff}
-  .login{border:1px solid #ffffff66;border-radius:10px;padding:5px 10px;font-weight:800;font-size:12px;background:#ffffff22}
-
-  /* ===== Titles ===== */
-  .titles{ text-align:center; padding:18px 10px 6px }
-  .titles h1{margin:0;font-size:clamp(22px,5vw,34px);font-weight:900}
-  .titles h2{margin:6px 0 0;font-size:clamp(15px,3.6vw,22px);font-weight:700;opacity:.9}
-
-  /* ===== Stage: circle + 6 nodes ===== */
-  .stage{ position:relative; width:min(920px,94vw); margin:12px auto 8px; aspect-ratio:1/1 }
-  .circle{
-    position:absolute; inset:50% auto auto 50%; transform:translate(-50%,-50%);
-    width:36%; aspect-ratio:1/1; border-radius:50%;
-    background:var(--violet); color:#fff; display:flex; align-items:center; justify-content:center;
-    font-size:clamp(36px,6.5vw,56px); font-weight:900; box-shadow:0 12px 28px #6c63ff55
-  }
-  .node{
-    width:36%; max-width:280px; min-width:160px;
-    background:var(--card); border-radius:16px; padding:14px; text-align:center; font-weight:800;
-    box-shadow:0 10px 22px #0001; border-top:4px solid transparent
-  }
-  .node p{margin:6px 0 0; font-size:13px; opacity:.8; font-weight:600}
-  .ic{font-size:26px; display:block; margin-bottom:6px}
-
-  /* ---- Desktop/tablet absolute ring layout ---- */
-  @media (min-width: 600px){
-    .node{position:absolute}
-    /* order matches sketch: top -> top-right -> mid-right -> bottom -> mid-left -> top-left */
-    .top {left:50%; top:2%; transform:translateX(-50%); border-top-color:var(--coral)}
-    .tr {right:2%; top:12%; border-top-color:var(--amber)}
-    .mr {right:2%; top:50%; transform:translateY(-50%); border-top-color:var(--mint)}
-    .bottom{left:50%; bottom:2%; transform:translateX(-50%); border-top-color:var(--cyan)}
-    .ml {left:2%; top:50%; transform:translateY(-50%); border-top-color:var(--blue)}
-    .tl {left:2%; top:12%; border-top-color:var(--violet)}
-  }
-
-  /* ---- Mobile fallback: grid (no overlap) ---- */
-  @media (max-width: 599px){
-    .stage{display:grid; grid-template-columns:1fr 1fr; gap:12px; aspect-ratio:auto}
-    .circle{position:static; transform:none; width:50%; margin:0 auto 6px}
-    .node{position:static; width:100%}
-  }
-
-  /* ===== Ribbon ===== */
-  .ribbon{
-    max-width:980px; margin:8px auto 100px; padding:14px 16px;
-    background:var(--soft); border-radius:16px; text-align:center;
-    line-height:1.6; font-weight:800; box-shadow:0 10px 22px #0001
-  }
-
-  /* ===== Corners ===== */
-  .qr,.chat{
-    position:fixed; z-index:30; width:74px; height:74px; border-radius:14px; background:#fff;
-    box-shadow:0 12px 26px #0002; display:flex; align-items:center; justify-content:center; border:1px solid #0001
-  }
-  .qr{ left:12px; bottom:12px }
-  .qr img{ width:58px; height:58px }
-  .chat{ right:12px; bottom:12px; background:linear-gradient(135deg,var(--violet),var(--blue)); color:#fff; cursor:pointer }
-  .chat .badge{ position:absolute; top:-6px; right:-6px; width:22px; height:22px; border-radius:50%; background:#ff4d6d; color:#fff; font-size:12px; display:flex; align-items:center; justify-content:center; font-weight:900; box-shadow:0 6px 12px #ff4d6d88 }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>World PiBank</title>
+  <style>
+    :root{
+      --brand1:#5b7bff;
+      --brand2:#6bd1ff;
+      --ink:#0e1320;
+      --muted:#6b7280;
+      --card:#ffffff;
+      --bg:#f6f7fb;
+      --shadow:0 8px 24px rgba(25,41,89,.12);
+      --radius:20px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Pretendard,Apple SD Gothic Neo,Noto Sans KR,sans-serif}
+    a{text-decoration:none;color:inherit}
+    /* header */
+    .header{
+      position:sticky; top:0; z-index:10;
+      background:linear-gradient(90deg,var(--brand1),var(--brand2));
+      color:#fff;
+      padding:18px 16px;
+      display:flex; align-items:center; justify-content:space-between;
+    }
+    .brand{font-weight:800;font-size:24px;letter-spacing:.2px}
+    .actions{display:flex;gap:10px;align-items:center}
+    .chip{
+      padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.28);
+      font-weight:700; font-size:14px; backdrop-filter: blur(6px);
+    }
+    .chip.active{background:#0e1320;color:#fff}
+    .btn{
+      padding:10px 14px;border-radius:14px;background:rgba(255,255,255,.22);
+      color:#fff;font-weight:700;border:2px solid rgba(255,255,255,.4)
+    }
+    /* hero */
+    .hero{padding:26px 16px 10px}
+    .title{font-size:34px;line-height:1.15;margin:0 0 8px;font-weight:900}
+    .subtitle{margin:0;color:var(--muted);font-size:18px}
+    /* grid */
+    .grid{
+      padding:14px 16px 120px;
+      display:grid; grid-template-columns:1fr 1fr; gap:16px;
+    }
+    .card{
+      background:var(--card); border-radius:var(--radius); padding:22px;
+      box-shadow:var(--shadow);
+      display:flex; flex-direction:column; justify-content:center; align-items:flex-start;
+      min-height:130px;
+    }
+    .card h3{margin:0 0 8px; font-size:28px; font-weight:900}
+    .card p{margin:0;color:var(--muted);font-weight:700}
+    .card .emoji{font-size:34px; margin-bottom:10px}
+    /* fixed widgets */
+    .qr{
+      position:fixed; left:16px; bottom:16px; width:90px; height:90px;
+      background:#fff; border-radius:14px; box-shadow:var(--shadow);
+      display:flex; align-items:center; justify-content:center; overflow:hidden;
+    }
+    .qr img{width:100%;height:100%;object-fit:cover}
+    .chat{
+      position:fixed; right:16px; bottom:16px;
+      width:88px; height:88px; border-radius:22px;
+      background:linear-gradient(135deg,var(--brand1),var(--brand2));
+      box-shadow:var(--shadow); display:grid; place-items:center; color:#fff; font-size:28px;
+    }
+    .badge{
+      position:absolute; right:-6px; top:-6px;
+      width:24px;height:24px;border-radius:999px;background:#ff3b5c;color:#fff;
+      display:grid;place-items:center;font-weight:800;font-size:12px;border:3px solid #fff;
+    }
+    /* responsive */
+    @media(min-width:720px){
+      .container{max-width:900px;margin:0 auto}
+      .grid{grid-template-columns:repeat(3,1fr)} /* 태블릿 이상에서는 3열도 보기 좋음 */
+    }
+  </style>
 </head>
 <body>
-
-  <!-- Header -->
-  <div class="topbar">
+  <header class="header">
     <div class="brand">World PiBank</div>
-    <div class="right-controls">
-      <div class="langs">
-        <button id="b-en" class="active" onclick="setLang('en')">EN</button>
-        <button id="b-kr" onclick="setLang('kr')">KR</button>
-        <button id="b-zh" onclick="setLang('zh')">ZH</button>
-      </div>
-      <div class="login" id="login-label">Login</div>
+    <div class="actions">
+      <button class="chip" data-lang="en">EN</button>
+      <button class="chip active" data-lang="ko">KR</button>
+      <button class="chip" data-lang="zh">ZH</button>
+      <a href="#" class="btn" id="loginBtn" data-i18n="login">로그인</a>
     </div>
-  </div>
+  </header>
 
-  <!-- Titles (filled by JS) -->
-  <div class="titles">
-    <h1 id="t-title"></h1>
-    <h2 id="t-sub"></h2>
-  </div>
+  <main class="container">
+    <section class="hero">
+      <h1 class="title" data-i18n="headline">세계파이은행</h1>
+      <p class="subtitle" data-i18n="tagline">세계최초의 디지털 은행</p>
+    </section>
 
-  <!-- Stage -->
-  <main class="stage" aria-label="main services">
-    <div class="circle">π</div>
+    <!-- 2열 × 3행 (원형 로고 제거) -->
+    <section class="grid">
+      <!-- 1행 -->
+      <article class="card">
+        <div class="emoji">🚀</div>
+        <h3 data-i18n="send_title">송금</h3>
+        <p data-i18n="send_desc">빠르고 직관적</p>
+      </article>
 
-    <!-- top: Transfer/송금 -->
-    <div class="node top">
-      <span class="ic">🚀</span>
-      <div id="t-top"></div>
-      <p id="t-top-sub"></p>
-    </div>
+      <article class="card">
+        <div class="emoji">💳</div>
+        <h3 data-i18n="pay_title">결제</h3>
+        <p data-i18n="pay_desc">매장 · 온라인</p>
+      </article>
 
-    <!-- top-right: Payment/결제 -->
-    <div class="node tr">
-      <span class="ic">💳</span>
-      <div id="t-tr"></div>
-      <p id="t-tr-sub"></p>
-    </div>
+      <!-- 2행 -->
+      <article class="card">
+        <div class="emoji">💰</div>
+        <h3 data-i18n="stake_title">예치</h3>
+        <p data-i18n="stake_desc">안전한 자산 관리</p>
+      </article>
 
-    <!-- mid-right: Deposit/예치 -->
-    <div class="node mr">
-      <span class="ic">💰</span>
-      <div id="t-mr"></div>
-      <p id="t-mr-sub"></p>
-    </div>
+      <article class="card">
+        <div class="emoji">🏦</div>
+        <h3 data-i18n="ubi_title">UBI</h3>
+        <p data-i18n="ubi_desc">정의로운 기본소득</p>
+      </article>
 
-    <!-- bottom: Support/고객센터 -->
-    <div class="node bottom">
-      <span class="ic">📞</span>
-      <div id="t-bottom"></div>
-      <p id="t-bottom-sub"></p>
-    </div>
+      <!-- 3행 -->
+      <article class="card">
+        <div class="emoji">☎️</div>
+        <h3 data-i18n="cs_title">고객센터</h3>
+        <p><span data-i18n="id">ID</span>: ljw2358@naver.com</p>
+      </article>
 
-    <!-- mid-left: UBI -->
-    <div class="node ml">
-      <span class="ic">🏦</span>
-      <div id="t-ml"></div>
-      <p id="t-ml-sub"></p>
-    </div>
-
-    <!-- top-left: Rewards/리워드 -->
-    <div class="node tl">
-      <span class="ic">🎁</span>
-      <div id="t-tl"></div>
-      <p id="t-tl-sub"></p>
-    </div>
+      <article class="card">
+        <div class="emoji">🎁</div>
+        <h3 data-i18n="reward_title">리워드</h3>
+        <p data-i18n="reward_desc">참여할수록 커지는 혜택</p>
+      </article>
+    </section>
   </main>
 
-  <!-- Ribbon -->
-  <div class="ribbon" id="t-ribbon"></div>
+  <!-- 고정 QR (좌하단) -->
+  <div class="qr" aria-label="Donation / Support QR">
+    <!-- 필요시 실제 QR 이미지로 교체 -->
+    <img alt="QR" src="data:image/svg+xml;utf8,
+      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'>
+        <rect width='120' height='120' fill='white'/>
+        <rect x='8' y='8' width='40' height='40' fill='black'/>
+        <rect x='72' y='8' width='40' height='40' fill='black'/>
+        <rect x='8' y='72' width='40' height='40' fill='black'/>
+        <rect x='56' y='56' width='8' height='8' fill='black'/>
+        <rect x='80' y='80' width='8' height='8' fill='black'/>
+        <rect x='96' y='56' width='8' height='8' fill='black'/>
+        <rect x='56' y='96' width='8' height='8' fill='black'/>
+      </svg>"/>
+  </div>
 
-  <!-- Corners -->
-  <a class="qr" href="#" title="QR">
-    <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=pi://worldpibank" alt="World PiBank QR">
-  </a>
-  <button class="chat" title="chat" onclick="alert(alertMsg[currentLang])">
-    💬 <span class="badge">1</span>
-  </button>
+  <!-- 채팅 버튼 (우하단) -->
+  <div class="chat" role="button" aria-label="chat">
+    💬
+    <div class="badge">1</div>
+  </div>
 
-<script>
-  const text = {
-    en:{
-      title:"World PiBank",
-      sub:"The First Global Digital Bank",
-      login:"Login",
-      top:["Transfer","Fast & Simple"],
-      tr:["Payment","In-store · Online"],
-      mr:["Deposit","Secure Asset Management"],
-      bottom:["Support","ID: ljw2358@mail.com"],
-      ml:["UBI","Fair Basic Income"],
-      tl:["Rewards","Daily Missions & Bonuses"],
-      ribbon:"On the Pi ecosystem — a beacon of hope for workers, small businesses, the disabled, and seniors."
-    },
-    kr:{
-      title:"세계파이은행",
-      sub:"세계최초의 디지털 은행",
-      login:"로그인",
-      top:["송금","빠르고 직관적"],
-      tr:["결제","매장 · 온라인"],
-      mr:["예치","안전한 자산 관리"],
-      bottom:["고객센터","ID: ljw2358@mail.com"],
-      ml:["UBI","정의로운 기본소득"],
-      tl:["리워드","데일리 미션 & 보너스"],
-      ribbon:"파이 생태계 위에서 노동자 · 소상공인 · 장애우 · 노년층의 희망의 등불"
-    },
-    zh:{
-      title:"世界派银行",
-      sub:"全球首个数字银行",
-      login:"登录",
-      top:["转账","快速直观"],
-      tr:["支付","商店 · 在线"],
-      mr:["存款","安全的资产管理"],
-      bottom:["客服中心","ID: ljw2358@mail.com"],
-      ml:["基本收入","公平的收入"],
-      tl:["奖励","每日任务与奖金"],
-      ribbon:"在派生态之上——为劳工、小商户、残疾人和老年人点亮希望之灯。"
-    }
-  };
+  <script>
+    // 간단 다국어 스위치 (기본: 한국어)
+    const dict = {
+      ko:{
+        login:"로그인",
+        headline:"세계파이은행",
+        tagline:"세계최초의 디지털 은행",
+        send_title:"송금", send_desc:"빠르고 직관적",
+        pay_title:"결제", pay_desc:"매장 · 온라인",
+        stake_title:"예치", stake_desc:"안전한 자산 관리",
+        ubi_title:"UBI", ubi_desc:"정의로운 기본소득",
+        cs_title:"고객센터", id:"ID",
+        reward_title:"리워드", reward_desc:"참여할수록 커지는 혜택",
+      },
+      en:{
+        login:"Log in",
+        headline:"World Pi Bank",
+        tagline:"The world's first digital bank",
+        send_title:"Transfer", send_desc:"Fast & intuitive",
+        pay_title:"Pay", pay_desc:"In-store · Online",
+        stake_title:"Stake", stake_desc:"Secure asset management",
+        ubi_title:"UBI", ubi_desc:"Fair basic income",
+        cs_title:"Support", id:"ID",
+        reward_title:"Rewards", reward_desc:"More you join, more you earn",
+      },
+      zh:{
+        login:"登录",
+        headline:"世界派银行",
+        tagline:"全球首家数字银行",
+        send_title:"转账", send_desc:"快速直观",
+        pay_title:"支付", pay_desc:"门店 · 在线",
+        stake_title:"存入", stake_desc:"资产安全管理",
+        ubi_title:"UBI", ubi_desc:"公平的基本收入",
+        cs_title:"客服中心", id:"ID",
+        reward_title:"奖励", reward_desc:"参与越多 回馈越大",
+      }
+    };
 
-  const alertMsg = {
-    en:"Open chat: connect to support",
-    kr:"채팅 열기: 고객센터 연결",
-    zh:"打开聊天：联系客服"
-  };
+    const applyLang = (lang) => {
+      document.querySelectorAll("[data-i18n]").forEach(el=>{
+        const key = el.getAttribute("data-i18n");
+        if(dict[lang] && dict[lang][key]) el.textContent = dict[lang][key];
+      });
+      document.querySelectorAll(".chip").forEach(c=>c.classList.toggle("active", c.dataset.lang===lang));
+      // html lang 업데이트
+      document.documentElement.lang = (lang==="ko"?"ko":lang);
+    };
 
-  const $ = id => document.getElementById(id);
-  let currentLang = 'en';
-
-  function render(lang){
-    currentLang = lang;
-    const t = text[lang];
-    document.documentElement.lang = lang==='kr'?'ko':lang;
-
-    $('t-title').textContent = t.title;
-    $('t-sub').textContent = t.sub;
-    $('login-label').textContent = t.login;
-
-    $('t-top').textContent = t.top[0]; $('t-top-sub').textContent = t.top[1];
-    $('t-tr').textContent = t.tr[0]; $('t-tr-sub').textContent = t.tr[1];
-    $('t-mr').textContent = t.mr[0]; $('t-mr-sub').textContent = t.mr[1];
-    $('t-bottom').textContent = t.bottom[0];$('t-bottom-sub').textContent = t.bottom[1];
-    $('t-ml').textContent = t.ml[0]; $('t-ml-sub').textContent = t.ml[1];
-    $('t-tl').textContent = t.tl[0]; $('t-tl-sub').textContent = t.tl[1];
-
-    $('t-ribbon').textContent = t.ribbon;
-
-    // 버튼 active
-    ['b-en','b-kr','b-zh'].forEach(id=>document.getElementById(id).classList.remove('active'));
-    document.getElementById('b-'+lang).classList.add('active');
-
-    localStorage.setItem('wpb_lang', lang);
-  }
-  function setLang(lang){ render(lang); }
-
-  // init: saved → EN default
-  render(localStorage.getItem('wpb_lang') || 'en');
-</script>
+    document.querySelectorAll(".chip").forEach(btn=>{
+      btn.addEventListener("click", ()=>applyLang(btn.dataset.lang));
+    });
+  </script>
 </body>
 </html>
