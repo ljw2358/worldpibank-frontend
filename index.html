@@ -1,281 +1,217 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>World Pi Bank</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(180deg, #1a0033, #0d001a);
-      color: white;
-      text-align: center;
-    }
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 20px;
-    }
-    .lang {
-      display: flex;
-      gap: 8px;
-    }
-    .lang button {
-      background: #fff;
-      border: none;
-      padding: 5px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    .auth {
-      display: flex;
-      gap: 10px;
-    }
-    .auth button {
-      background: gold;
-      border: none;
-      padding: 5px 12px;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    h1 {
-      margin: 10px 0 0;
-      font-size: 28px;
-    }
-    h2 {
-      margin: 5px 0 20px;
-      font-size: 16px;
-      font-weight: normal;
-      color: #ddd;
-    }
-    .pi-logo {
-      width: 90px;
-      height: 90px;
-      border-radius: 50%;
-      background: #4b0082;
-      margin: 15px auto;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 40px;
-      font-weight: bold;
-      color: gold;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      max-width: 600px;
-      margin: 0 auto 25px;
-      padding: 0 10px;
-    }
-    .card {
-      background: #2a004d;
-      padding: 14px;
-      border-radius: 12px;
-      min-height: 90px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    .card h3 {
-      margin: 0;
-      font-size: 16px;
-    }
-    .card p {
-      margin: 6px 0 0;
-      font-size: 13px;
-      color: #ccc;
-    }
-    footer {
-      margin: 25px 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 20px;
-    }
-    footer img {
-      width: 50px;
-    }
-    .chat {
-      background: #a64dff;
-      color: white;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 24px;
-      cursor: pointer;
-    }
-    /* FAQ 영역 */
-    #faq {
-      background: #140022;
-      padding: 20px;
-      text-align: left;
-      max-width: 700px;
-      margin: 0 auto 40px;
-      border-radius: 10px;
-    }
-    #faq h2 {
-      text-align: center;
-      margin-bottom: 15px;
-    }
-    #faq details {
-      margin: 10px 0;
-      background: #220044;
-      padding: 10px;
-      border-radius: 8px;
-    }
-    #faq summary {
-      cursor: pointer;
-      font-weight: bold;
-    }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>World Pi Bank</title>
+<style>
+  :root{
+    --bg:#0b0720; --panel:#1b1340; --card:#ffffff;
+    --ink:#221a43; --muted:#5b4f87; --accent:#7a5cff;
+    --border:#e9e6ff; --radius:18px;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans KR","PingFang SC",sans-serif;
+    background:
+      radial-gradient(1100px 800px at 70% -10%, #2b1d63 0%, #1b123e 45%, var(--bg) 78%),
+      var(--bg);
+    color:#fff; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{min-height:100%; display:flex; flex-direction:column}
+
+  /* TOP */
+  .top{display:flex; align-items:center; justify-content:space-between; padding:14px 16px}
+  .langs{font-weight:800; letter-spacing:.2px}
+  .langs a{color:#eee; text-decoration:none; padding:3px 6px; border-radius:6px}
+  .langs a.active{background:#ffffff18}
+  .actions{display:flex; gap:10px}
+  .btn{border:none; cursor:pointer; font-weight:900; padding:10px 14px; border-radius:14px}
+  .btn-kyc{background:#ffd150; color:#3a2b00}
+  .btn-login{background:#ffffff22; color:#fff; border:1px solid #ffffff33}
+
+  /* Title */
+  h1{margin:6px 16px 0; font-size: clamp(30px, 7vw, 56px); line-height:1.06; font-weight:900}
+  .sub{margin:8px 16px 6px; color:#ddd6ff; font-size: clamp(14px, 3.6vw, 18px)}
+
+  /* Center orb */
+  .center{display:grid; place-items:center; padding:8px 16px 18px}
+  .orb{
+    width:min(64vw, 240px); height:min(64vw, 240px); border-radius:50%;
+    background: radial-gradient(60% 60% at 50% 42%, #45239f 0%, #35207c 60%, #28165f 100%);
+    box-shadow: inset 0 18px 40px #7a5cff44, 0 28px 80px rgba(0,0,0,.55), 0 0 0 1px #ffffff18;
+    display:grid; place-items:center; font-weight:900; color:#ffd34d; font-size:42px;
+  }
+
+  /* Grid cards */
+  .grid{padding:10px 12px 120px; display:grid; gap:14px; grid-template-columns:repeat(2,1fr)}
+  @media (min-width:860px){ .grid{grid-template-columns:repeat(3,1fr); max-width:980px; margin:0 auto} }
+  .card{
+    background:var(--card); color:var(--ink); border-radius:20px; padding:16px 14px;
+    box-shadow:0 10px 26px rgba(0,0,0,.25);
+    display:flex; flex-direction:column; gap:8px; min-height:126px;
+  }
+  .card .icon{height:32px}
+  .card h3{margin:0; font-size:22px}
+  .card p{margin:0; color:var(--muted); font-size:14px; line-height:1.35}
+
+  /* Bottom helpers */
+  .bottom{
+    position:fixed; left:14px; right:14px; bottom:16px; display:flex; justify-content:space-between; align-items:center;
+  }
+  .qr{display:flex; flex-direction:column; align-items:flex-start; gap:8px}
+  .qr .box{
+    width:68px; height:68px; border-radius:10px; background:#1a1338; border:1px dashed #ffffff40;
+    display:grid; place-items:center; font-size:24px
+  }
+  .qr label{font-size:18px; color:#efeaff}
+  .chat button{
+    width:64px; height:64px; border-radius:50%; border:none; cursor:pointer;
+    background:radial-gradient(100% 100% at 32% 20%, #8c79ff 0%, #6f57ff 52%, #5338ff 100%);
+    color:#fff; font-size:26px; box-shadow:0 16px 40px rgba(0,0,0,.45)
+  }
+</style>
 </head>
 <body>
-  <header>
-    <div class="lang">
-      <button onclick="setLang('en')">EN</button>
-      <button onclick="setLang('kr')">KR</button>
-      <button onclick="setLang('zh')">中文</button>
+<div class="wrap">
+
+  <!-- top -->
+  <div class="top">
+    <div class="langs" id="langBar">
+      <a href="#" data-lng="en">EN</a> ·
+      <a href="#" data-lng="kr" class="active">KR</a> ·
+      <a href="#" data-lng="zh">ZH</a>
     </div>
-    <div class="auth">
-      <button id="kyc"></button>
-      <button id="login"></button>
+    <div class="actions">
+      <button class="btn btn-kyc" id="btnKyc">KYC 시작</button>
+      <button class="btn btn-login" id="btnLogin">로그인</button>
     </div>
-  </header>
+  </div>
 
-  <main>
-    <h1 id="title"></h1>
-    <h2 id="subtitle"></h2>
+  <!-- title -->
+  <h1 id="title">세계 파이 은행</h1>
+  <div class="sub" id="subtitle">세계 최초의 디지털 은행</div>
 
-    <div class="pi-logo">π</div>
+  <!-- center -->
+  <div class="center">
+    <div class="orb">π</div>
+  </div>
 
-    <div class="grid">
-      <div class="card"><h3 id="send"></h3><p id="sendDesc"></p></div>
-      <div class="card"><h3 id="pay"></h3><p id="payDesc"></p></div>
-      <div class="card"><h3 id="staking"></h3><p id="stakingDesc"></p></div>
-      <div class="card"><h3 id="rewards"></h3><p id="rewardsDesc"></p></div>
-      <div class="card"><h3 id="ubi"></h3><p id="ubiDesc"></p></div>
-      <div class="card"><h3 id="support"></h3><p id="supportDesc"></p></div>
-    </div>
-  </main>
+  <!-- cards -->
+  <section class="grid">
+    <article class="card">
+      <img class="icon" src="https://img.icons8.com/fluency/48/bank-card-front-side.png" alt="">
+      <h3 id="c1t">결제</h3>
+      <p id="c1d">가맹점과 개인</p>
+    </article>
 
-  <footer>
-    <img src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=pi" alt="QR Code" />
-    <div class="chat">💬</div>
-  </footer>
+    <article class="card">
+      <img class="icon" src="https://img.icons8.com/fluency/48/send.png" alt="">
+      <h3 id="c2t">송금</h3>
+      <p id="c2d">빠르고, 국경 없음</p>
+    </article>
 
-  <section id="faq">
-    <h2 id="faqTitle"></h2>
-    <details>
-      <summary id="faqQ1"></summary>
-      <p id="faqA1"></p>
-    </details>
-    <details>
-      <summary id="faqQ2"></summary>
-      <p id="faqA2"></p>
-    </details>
-    <details>
-      <summary id="faqQ3"></summary>
-      <p id="faqA3"></p>
-    </details>
+    <article class="card">
+      <img class="icon" src="https://img.icons8.com/fluency/48/bank.png" alt="">
+      <h3 id="c3t">스테이킹</h3>
+      <p id="c3d">예치(이율:4.8%)</p>
+    </article>
+
+    <article class="card">
+      <img class="icon" src="https://img.icons8.com/fluency/48/gift.png" alt="">
+      <h3 id="c4t">리워드</h3>
+      <p id="c4d">참여하기</p>
+    </article>
+
+    <article class="card">
+      <img class="icon" src="https://img.icons8.com/fluency/48/hand.png" alt="">
+      <h3 id="c5t">UBI</h3>
+      <p id="c5d">기본소득</p>
+    </article>
+
+    <article class="card">
+      <img class="icon" src="https://img.icons8.com/fluency/48/phone.png" alt="">
+      <h3 id="c6t">고객센터</h3>
+      <p id="c6d">ljw2358</p>
+    </article>
   </section>
 
-  <script>
-    const content = {
-      en: {
-        title: "World Pi Bank",
-        subtitle: "The world's first digital bank",
-        kyc: "Start KYC",
-        login: "Login",
-        send: "Send", sendDesc: "Fast peer-to-peer transfers with low friction.",
-        pay: "Pay", payDesc: "Simple in-store and online checkout flows.",
-        staking: "Staking", stakingDesc: "Flexible terms, transparent rates.",
-        rewards: "Rewards", rewardsDesc: "Earn points and bonuses for activity.",
-        ubi: "UBI", ubiDesc: "Human-centric basic income experience.",
-        support: "Support", supportDesc: "Multilingual real-time assistance.",
-        faqTitle: "FAQ",
-        faqQ1: "How is KYC verified?",
-        faqA1: "KYC is verified through secure Pi Network identity checks.",
-        faqQ2: "How can I protect against hacking?",
-        faqA2: "Use strong passwords, enable 2FA, and never share your passphrase.",
-        faqQ3: "Is KYC mandatory?",
-        faqA3: "Yes, to ensure compliance and trust in the ecosystem."
-      },
-      kr: {
-        title: "세계 파이 은행",
-        subtitle: "세계 최초의 디지털 은행",
-        kyc: "KYC 시작",
-        login: "로그인",
-        send: "송금", sendDesc: "낮은 비용으로 빠른 개인 간 이체.",
-        pay: "결제", payDesc: "매장/온라인 결제를 간편하게.",
-        staking: "스테이킹", stakingDesc: "유연한 기간, 투명한 금리.",
-        rewards: "리워드", rewardsDesc: "활동에 따른 포인트와 보너스.",
-        ubi: "UBI", ubiDesc: "사람 중심의 기본소득 경험.",
-        support: "고객센터", supportDesc: "다국어 실시간 상담 지원.",
-        faqTitle: "자주 묻는 질문",
-        faqQ1: "KYC는 어떻게 검증되나요?",
-        faqA1: "안전한 파이 네트워크 신원 확인 절차를 통해 검증됩니다.",
-        faqQ2: "해킹을 방지하려면?",
-        faqA2: "강력한 비밀번호, 2단계 인증, 비밀구절 공유 금지를 실천하세요.",
-        faqQ3: "KYC는 필수인가요?",
-        faqA3: "네, 생태계의 신뢰와 규정을 지키기 위해 필수입니다."
-      },
-      zh: {
-        title: "世界派银行",
-        subtitle: "世界上第一家数字银行",
-        kyc: "开始KYC",
-        login: "登录",
-        send: "转账", sendDesc: "低成本的快速点对点转账。",
-        pay: "支付", payDesc: "简便的门店和在线支付流程。",
-        staking: "质押", stakingDesc: "灵活期限，透明利率。",
-        rewards: "奖励", rewardsDesc: "通过活动赚取积分和奖金。",
-        ubi: "UBI", ubiDesc: "以人为本的基本收入体验。",
-        support: "客服中心", supportDesc: "多语言实时协助。",
-        faqTitle: "常见问题",
-        faqQ1: "KYC如何验证？",
-        faqA1: "KYC通过安全的Pi网络身份验证进行。",
-        faqQ2: "如何防止黑客攻击？",
-        faqA2: "使用强密码，启用双重认证，切勿分享助记词。",
-        faqQ3: "KYC是必须的吗？",
-        faqA3: "是的，为了确保生态系统的信任与合规。"
-      }
-    };
+  <!-- bottom -->
+  <div class="bottom">
+    <div class="qr">
+      <div class="box">▦</div>
+      <label id="qrLabel">QR Code</label>
+    </div>
+    <div class="chat">
+      <button title="chat">💬</button>
+    </div>
+  </div>
 
-    function setLang(lang) {
-      const t = content[lang];
-      document.getElementById("title").innerText = t.title;
-      document.getElementById("subtitle").innerText = t.subtitle;
-      document.getElementById("kyc").innerText = t.kyc;
-      document.getElementById("login").innerText = t.login;
-      document.getElementById("send").innerText = t.send;
-      document.getElementById("sendDesc").innerText = t.sendDesc;
-      document.getElementById("pay").innerText = t.pay;
-      document.getElementById("payDesc").innerText = t.payDesc;
-      document.getElementById("staking").innerText = t.staking;
-      document.getElementById("stakingDesc").innerText = t.stakingDesc;
-      document.getElementById("rewards").innerText = t.rewards;
-      document.getElementById("rewardsDesc").innerText = t.rewardsDesc;
-      document.getElementById("ubi").innerText = t.ubi;
-      document.getElementById("ubiDesc").innerText = t.ubiDesc;
-      document.getElementById("support").innerText = t.support;
-      document.getElementById("supportDesc").innerText = t.supportDesc;
-      document.getElementById("faqTitle").innerText = t.faqTitle;
-      document.getElementById("faqQ1").innerText = t.faqQ1;
-      document.getElementById("faqA1").innerText = t.faqA1;
-      document.getElementById("faqQ2").innerText = t.faqQ2;
-      document.getElementById("faqA2").innerText = t.faqA2;
-      document.getElementById("faqQ3").innerText = t.faqQ3;
-      document.getElementById("faqA3").innerText = t.faqA3;
-    }
-    setLang('kr'); // 기본 한국어
-  </script>
+</div>
+
+<script>
+  // 텍스트 리소스 (EN/KR/ZH)
+  const T = {
+    kr:{title:"세계 파이 은행", subtitle:"세계 최초의 디지털 은행",
+        c1t:"결제", c1d:"가맹점과 개인",
+        c2t:"송금", c2d:"빠르고, 국경 없음",
+        c3t:"스테이킹", c3d:"예치(이율:4.8%)",
+        c4t:"리워드", c4d:"참여하기",
+        c5t:"UBI", c5d:"기본소득",
+        c6t:"고객센터", c6d:"ljw2358",
+        kyc:"KYC 시작", login:"로그인", qr:"QR Code"},
+    en:{title:"World Pi Bank", subtitle:"The world's first digital bank",
+        c1t:"Pay", c1d:"Merchants & peer payments",
+        c2t:"Send", c2d:"Fast, borderless transfers",
+        c3t:"Staking", c3d:"Deposit (APY: 4.8%)",
+        c4t:"Rewards", c4d:"Join & earn",
+        c5t:"UBI", c5d:"Basic income",
+        c6t:"Support", c6d:"ljw2358",
+        kyc:"Start KYC", login:"Log in", qr:"QR Code"},
+    zh:{title:"世界派银行", subtitle:"全球首个数字银行",
+        c1t:"支付", c1d:"商户与个人",
+        c2t:"转账", c2d:"快速且无国界",
+        c3t:"质押", c3d:"存款（年化4.8%）",
+        c4t:"奖励", c4d:"参与领取",
+        c5t:"基本收入", c5d:"UBI",
+        c6t:"客服中心", c6d:"ljw2358",
+        kyc:"开始 KYC", login:"登录", qr:"QR 码"}
+  };
+
+  const $ = s=>document.querySelector(s); const $$=s=>document.querySelectorAll(s);
+
+  function apply(l){
+    const t=T[l]||T.kr;
+    $('#title').textContent=t.title; $('#subtitle').textContent=t.subtitle;
+    $('#c1t').textContent=t.c1t; $('#c1d').textContent=t.c1d;
+    '#c2t #c2d #c3t #c3d #c4t #c4d #c5t #c5d #c6t #c6d'.split(' ').forEach(id=>{
+      if(!id) return;
+    });
+    $('#c2t').textContent=t.c2t; $('#c2d').textContent=t.c2d;
+    $('#c3t').textContent=t.c3t; $('#c3d').textContent=t.c3d;
+    $('#c4t').textContent=t.c4t; $('#c4d').textContent=t.c4d;
+    $('#c5t').textContent=t.c5t; $('#c5d').textContent=t.c5d;
+    $('#c6t').textContent=t.c6t; $('#c6d').textContent=t.c6d;
+    $('#btnKyc').textContent=t.kyc; $('#btnLogin').textContent=t.login; $('#qrLabel').textContent=t.qr;
+    $$('#langBar a').forEach(a=>a.classList.toggle('active', a.dataset.lng===l));
+    document.documentElement.lang = (l==='kr'?'ko':l);
+  }
+
+  // 초기: KR
+  apply('kr');
+
+  // 언어 전환
+  $$('#langBar a').forEach(a=>{
+    a.addEventListener('click', e=>{
+      e.preventDefault();
+      apply(a.dataset.lng);
+    });
+  });
+
+  // 데모 동작
+  $('#btnKyc').addEventListener('click', ()=>alert('KYC 데모입니다.'));
+  $('#btnLogin').addEventListener('click', ()=>alert('로그인 데모입니다.'));
+</script>
 </body>
 </html>
