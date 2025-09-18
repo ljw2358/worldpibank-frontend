@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -24,9 +24,8 @@
       background:linear-gradient(90deg,var(--brand1),var(--brand2));
       color:#fff;
       padding:18px 16px;
-      display:flex; align-items:center; justify-content:space-between;
+      display:flex; align-items:center; justify-content:flex-end;
     }
-    .brand{font-weight:800;font-size:24px;letter-spacing:.2px}
     .actions{display:flex;gap:10px;align-items:center}
     .chip{
       padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.28);
@@ -39,8 +38,8 @@
     }
     /* hero */
     .hero{padding:26px 16px 10px}
-    .title{font-size:34px;line-height:1.15;margin:0 0 8px;font-weight:900}
-    .subtitle{margin:0;color:var(--muted);font-size:18px}
+    .title{font-size:34px;line-height:1.15;margin:0 0 8px;font-weight:900;text-align:center}
+    .subtitle{margin:0;color:var(--muted);font-size:18px;text-align:center}
     /* grid */
     .grid{
       padding:14px 16px 120px;
@@ -82,57 +81,56 @@
 </head>
 <body>
   <header class="header">
-    <div class="brand">World PiBank</div>
     <div class="actions">
-      <button class="chip" data-lang="en">EN</button>
-      <button class="chip active" data-lang="ko">KR</button>
+      <button class="chip active" data-lang="en">EN</button>
+      <button class="chip" data-lang="ko">KR</button>
       <button class="chip" data-lang="zh">ZH</button>
-      <a href="#" class="btn" id="loginBtn" data-i18n="login">로그인</a>
+      <a href="#" class="btn" id="loginBtn" data-i18n="login">Log in</a>
     </div>
   </header>
 
   <main class="container">
     <section class="hero">
-      <h1 class="title" data-i18n="headline">세계파이은행</h1>
-      <p class="subtitle" data-i18n="tagline">세계최초의 디지털 은행</p>
+      <h1 class="title" data-i18n="headline">World Pi Bank</h1>
+      <p class="subtitle" data-i18n="tagline">The world's first digital bank</p>
     </section>
 
     <!-- 2열 × 3행 -->
     <section class="grid">
       <article class="card">
         <div class="emoji">🚀</div>
-        <h3 data-i18n="send_title">송금</h3>
-        <p data-i18n="send_desc">빠르고 직관적</p>
+        <h3 data-i18n="send_title">Transfer</h3>
+        <p data-i18n="send_desc">Fast & intuitive</p>
       </article>
 
       <article class="card">
         <div class="emoji">💳</div>
-        <h3 data-i18n="pay_title">결제</h3>
-        <p data-i18n="pay_desc">매장 · 온라인</p>
+        <h3 data-i18n="pay_title">Pay</h3>
+        <p data-i18n="pay_desc">In-store · Online</p>
       </article>
 
       <article class="card">
         <div class="emoji">💰</div>
-        <h3 data-i18n="stake_title">예치</h3>
-        <p data-i18n="stake_desc">안전한 자산 관리</p>
+        <h3 data-i18n="stake_title">Stake</h3>
+        <p data-i18n="stake_desc">Secure asset management</p>
       </article>
 
       <article class="card">
         <div class="emoji">🏦</div>
         <h3 data-i18n="ubi_title">UBI</h3>
-        <p data-i18n="ubi_desc">정의로운 기본소득</p>
+        <p data-i18n="ubi_desc">Fair basic income</p>
       </article>
 
       <article class="card">
         <div class="emoji">☎️</div>
-        <h3 data-i18n="cs_title">고객센터</h3>
+        <h3 data-i18n="cs_title">Support</h3>
         <p><span data-i18n="id">ID</span>: ljw2358@naver.com</p>
       </article>
 
       <article class="card">
         <div class="emoji">🎁</div>
-        <h3 data-i18n="reward_title">리워드</h3>
-        <p data-i18n="reward_desc">참여할수록 커지는 혜택</p>
+        <h3 data-i18n="reward_title">Rewards</h3>
+        <p data-i18n="reward_desc">More you join, more you earn</p>
       </article>
     </section>
   </main>
@@ -160,17 +158,6 @@
 
   <script>
     const dict = {
-      ko:{
-        login:"로그인",
-        headline:"세계파이은행",
-        tagline:"세계최초의 디지털 은행",
-        send_title:"송금", send_desc:"빠르고 직관적",
-        pay_title:"결제", pay_desc:"매장 · 온라인",
-        stake_title:"예치", stake_desc:"안전한 자산 관리",
-        ubi_title:"UBI", ubi_desc:"정의로운 기본소득",
-        cs_title:"고객센터", id:"ID",
-        reward_title:"리워드", reward_desc:"참여할수록 커지는 혜택",
-      },
       en:{
         login:"Log in",
         headline:"World Pi Bank",
@@ -181,6 +168,17 @@
         ubi_title:"UBI", ubi_desc:"Fair basic income",
         cs_title:"Support", id:"ID",
         reward_title:"Rewards", reward_desc:"More you join, more you earn",
+      },
+      ko:{
+        login:"로그인",
+        headline:"세계파이은행",
+        tagline:"세계최초의 디지털 은행",
+        send_title:"송금", send_desc:"빠르고 직관적",
+        pay_title:"결제", pay_desc:"매장 · 온라인",
+        stake_title:"예치", stake_desc:"안전한 자산 관리",
+        ubi_title:"UBI", ubi_desc:"정의로운 기본소득",
+        cs_title:"고객센터", id:"ID",
+        reward_title:"리워드", reward_desc:"참여할수록 커지는 혜택",
       },
       zh:{
         login:"登录",
@@ -201,8 +199,11 @@
         if(dict[lang] && dict[lang][key]) el.textContent = dict[lang][key];
       });
       document.querySelectorAll(".chip").forEach(c=>c.classList.toggle("active", c.dataset.lang===lang));
-      document.documentElement.lang = (lang==="ko"?"ko":lang);
+      document.documentElement.lang = lang;
     };
+
+    // 처음 로딩 시 영어 적용
+    window.addEventListener("DOMContentLoaded", ()=>applyLang("en"));
 
     document.querySelectorAll(".chip").forEach(btn=>{
       btn.addEventListener("click", ()=>applyLang(btn.dataset.lang));
