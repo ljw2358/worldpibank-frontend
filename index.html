@@ -28,7 +28,6 @@
     color:var(--text);
   }
 
-  /* header */
   .wrap{min-height:100%; display:flex; flex-direction:column; align-items:center}
   header{
     width:100%; max-width:1200px;
@@ -37,6 +36,7 @@
   }
   .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.2px}
   .brand .dot{width:8px; height:8px; border-radius:50%; background:var(--accent); box-shadow:0 0 16px var(--accent)}
+  .ver{font-size:12px;opacity:.8;border:1px solid #ffffff22;padding:2px 8px;border-radius:999px;background:#ffffff10;margin-left:8px}
   .lang{display:flex; gap:8px; align-items:center}
   .lang button{
     appearance:none; border:1px solid var(--border); background:#ffffff10; color:var(--text);
@@ -44,7 +44,6 @@
   }
   .lang button[aria-pressed="true"]{border-color:var(--accent); box-shadow:0 0 0 2px #7a5cff40 inset}
 
-  /* hero */
   .hero{
     width:100%; max-width:1200px; padding:4px 16px 8px; margin:16px auto 8px;
     display:grid; grid-template-columns: 1fr; gap:22px; align-items:center;
@@ -75,7 +74,6 @@
   .pi svg{width:100%; height:100%; filter: drop-shadow(0 10px 16px #7a5cff50)}
   .under-tag{margin:12px auto 0; text-align:center; color:var(--muted); font-size:14px}
 
-  /* grid */
   .grid{
     width:100%; max-width:1200px; padding:6px 16px 40px;
     display:grid; gap:16px; grid-template-columns: repeat(2, 1fr);
@@ -102,7 +100,6 @@
     color:#bfb8ff99; font-size:12px; text-align:center
   }
 
-  /* Chat / FAQ floating */
   .chat{position: fixed; right: 16px; bottom: 16px; z-index: 50;}
   .chat button.toggler{
     width:58px; height:58px; border-radius:50%; border:none; cursor:pointer;
@@ -128,7 +125,6 @@
   .content{padding:12px; overflow:auto; max-height:48vh}
   .faq-item{margin:0 0 12px; background:#ffffff07; border:1px solid #ffffff14; border-radius:12px; padding:10px}
   .faq-item summary{cursor:pointer; font-weight:700}
-  .sr-only{position:absolute !important; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0}
   a.cta{
     display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:12px; border:1px solid #ffffff22; text-decoration:none; color:var(--text); background:#ffffff10
   }
@@ -140,6 +136,7 @@
     <div class="brand" aria-label="brand">
       <span class="dot" aria-hidden="true"></span>
       <span id="brandName">WorldPiBank</span>
+      <span class="ver">design2</span>
     </div>
     <div class="lang" role="group" aria-label="language">
       <button class="lng" data-lng="en" aria-pressed="true">EN</button>
@@ -156,7 +153,6 @@
     <div class="centerpiece">
       <div class="orb" aria-label="Pi emblem">
         <div class="pi" title="Pi">
-          <!-- Pi logo SVG -->
           <svg viewBox="0 0 200 200" role="img" aria-labelledby="piTitle">
             <title id="piTitle">Pi Symbol</title>
             <defs>
@@ -220,7 +216,6 @@
   </footer>
 </div>
 
-<!-- Floating Chat / FAQ -->
 <div class="chat">
   <button class="toggler" aria-expanded="false" aria-controls="faqPanel" title="FAQ / Chat">💬</button>
   <div class="panel" id="faqPanel" role="dialog" aria-modal="false" aria-label="FAQ and Chat">
@@ -292,7 +287,6 @@
 </div>
 
 <script>
-  /* i18n dictionary */
   const L = {
     en:{brand:"WorldPiBank",main:"World Pi Bank",sub:"The world’s first digital bank",tag:"Built on the Pi ecosystem",
         b1:"Core",b2:"Commerce",b3:"Growth",b4:"Yield",b5:"Equity",b6:"Care",
@@ -344,12 +338,10 @@
   function setLng(code){
     const t = L[code] || L.en;
     document.documentElement.lang = (code==='kr'?'ko':code);
-    // header / hero
     $('#brandName').textContent = t.brand;
     $('#t_main').textContent = t.main;
     $('#t_sub').textContent = t.sub;
     $('#t_tag').textContent = t.tag;
-    // features
     $('#b1').textContent=t.b1; $('#b2').textContent=t.b2; $('#b3').textContent=t.b3;
     $('#b4').textContent=t.b4; $('#b5').textContent=t.b5; $('#b6').textContent=t.b6;
     $('#f1').textContent=t.f1; $('#d1').textContent=t.d1;
@@ -360,19 +352,16 @@
     $('#d4').textContent=t.d4;
     $('#f5').textContent=t.f5; $('#d5').textContent=t.d5;
     $('#f6').textContent=t.f6; $('#d6').textContent=t.d6;
-    // footer & faq
     $('#footA').textContent=t.footA; $('#footB').textContent=t.footB;
     $('#faqTitle').textContent=t.faqTitle; $('#openChatLink').textContent=t.openChat;
     $('#s1_q1').textContent=t.s1_q1; $('#s1_q2').textContent=t.s1_q2;
     $('#s2_q1').textContent=t.s2_q1; $('#s2_q2').textContent=t.s2_q2;
     $('#s3_q1').textContent=t.s3_q1; $('#s3_q2').textContent=t.s3_q2;
-    // active button
     $$('.lng').forEach(b=>b.setAttribute('aria-pressed', String(b.dataset.lng===code)));
-    localStorage.setItem('wpi.lang', code);
   }
 
-  // init
-  setLng(localStorage.getItem('wpi.lang') || 'en');
+  // 항상 EN으로 시작 (저장/복원 없음)
+  setLng('en');
   $$('.lng').forEach(btn=> btn.addEventListener('click', ()=> setLng(btn.dataset.lng)));
 
   // chat/faq toggler
