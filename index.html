@@ -1,173 +1,274 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>PiTown — 4 Cards (KO/EN, Long Copy)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pi Korea Bank — Global Digital Bank</title>
+  <meta name="description" content="Pi Korea Bank — Global Digital Bank. Send • Pay • Rewards • UBI" />
   <style>
     :root{
-      --bg:#f6f4ff; --card:#fff; --ink:#1e1638;
-      --violet:#6d5af3; --violet-2:#8d82ff; --muted:#6f6a86;
-      --pill:#efeafe; --line:#eee9ff; --shadow:0 12px 28px rgba(40,25,120,.12);
-      --r:18px;
+      --bg1:#3b0c7a; /* deep purple */
+      --bg2:#7a2ecc; /* vivid purple */
+      --ink:#ffffff;
+      --ink-dim:#e6d8ff;
+      --card:#4b1a93ee;
+      --glass:rgba(255,255,255,.08);
+      --accent:#f3e8ff;
+      --shadow:0 20px 60px rgba(0,0,0,.35);
+      --radius:22px;
     }
     *{box-sizing:border-box}
-    html,body{margin:0;background:var(--bg);color:var(--ink);
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Pretendard,Apple SD Gothic Neo,Arial,sans-serif}
-    /* header */
-    header{background:#fff;position:sticky;top:0;z-index:5;border-bottom:1px solid var(--line)}
-    .wrap{max-width:1100px;margin:0 auto;padding:20px 16px}
-    .row{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-    .logo{width:38px;height:38px;border-radius:50%;background:var(--violet);
-      box-shadow:0 0 0 6px var(--pill)}
-    h1{font-size:24px;margin:0}
-    .meta{display:flex;gap:10px;flex-wrap:wrap}
-    .pill{background:var(--pill);color:var(--violet);padding:8px 12px;border-radius:999px;font-weight:700;font-size:13px}
-    .xp{margin-top:10px}
-    .bar{height:12px;border-radius:999px;background:#e8e4ff;overflow:hidden}
-    .fill{height:100%;width:65%;background:linear-gradient(90deg,var(--violet),var(--violet-2))}
-    .xp small{display:block;color:var(--muted);margin-top:6px}
+    html,body{height:100%}
+    body{
+      margin:0; color:var(--ink); font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", Arial, Apple SD Gothic Neo, "Malgun Gothic", sans-serif;
+      background: radial-gradient(1200px 800px at 10% 20%, #8b4dff22, transparent 60%),
+                  radial-gradient(1200px 900px at 80% 10%, #ff71ff1a, transparent 60%),
+                  linear-gradient(160deg, var(--bg1), var(--bg2));
+      min-height:100%;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .wrap{
+      width:min(1100px, 92vw);
+      position:relative;
+      padding:28px;
+      border-radius:calc(var(--radius) + 6px);
+      background:linear-gradient(180deg, #ffffff12, #ffffff06);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      backdrop-filter: blur(8px);
+      border:1px solid #ffffff1f;
+    }
+    /* Top bar */
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px; padding:6px 6px 18px 6px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+    }
+    .mark{
+      width:36px; height:36px; border-radius:50%;
+      background:conic-gradient(from 210deg, #ffd6ff, #d8b4ff, #a78bfa, #7c3aed, #a78bfa, #ffd6ff);
+      display:grid; place-items:center;
+      box-shadow:0 8px 24px rgba(0,0,0,.35), inset 0 0 0 3px #ffffff33;
+      font-weight:800; color:#3b0c7a;
+    }
+    .brand h1{
+      margin:0; font-size:18px; letter-spacing:.2px; color:var(--ink);
+    }
+    .controls{display:flex; align-items:center; gap:8px;}
+    .btn, .chip{
+      border:none; outline:none; cursor:pointer;
+      padding:10px 14px; border-radius:14px; font-weight:700; letter-spacing:.2px;
+      background:var(--glass); color:var(--ink); backdrop-filter: blur(6px);
+      transition: transform .08s ease, background .2s ease, opacity .2s ease;
+    }
+    .btn:hover{transform:translateY(-1px); background:#ffffff14}
+    .btn.primary{
+      background:#ffffff; color:#3b0c7a; box-shadow:0 10px 28px #00000033;
+    }
+    .btn.primary:hover{transform:translateY(-1px) scale(1.01)}
+    .chip{padding:8px 12px; font-weight:600; opacity:.9}
+    .chip.active{background:#ffffff; color:#3b0c7a}
 
-    /* section title */
-    .section-title{display:flex;align-items:center;justify-content:space-between;margin:16px 0 6px}
-    .section-title h2{font-size:18px;margin:0}
-    .caption{color:var(--muted);font-size:13px}
+    /* Hero */
+    .hero{
+      display:grid; grid-template-columns: 1.2fr .8fr; gap:20px;
+      align-items:center; padding:12px;
+    }
+    @media (max-width:900px){
+      .hero{grid-template-columns:1fr}
+    }
 
-    /* grid */
-    .grid{display:grid;gap:18px}
-    @media(min-width:680px){.grid{grid-template-columns:repeat(2,1fr)}}
-    @media(min-width:980px){.grid{grid-template-columns:repeat(4,1fr)}}
+    .headline{
+      padding:26px; border-radius:var(--radius);
+      background:linear-gradient(180deg, #ffffff10, #ffffff06);
+      border:1px solid #ffffff1a;
+    }
+    .headline h2{
+      margin:0 0 10px 0; font-size: clamp(28px, 4.6vw, 48px); line-height:1.08;
+    }
+    .headline p{
+      margin:0; font-size: clamp(14px, 2.2vw, 18px); color:var(--ink-dim);
+    }
 
-    /* card */
-    .card{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);padding:18px;min-height:380px;display:flex;flex-direction:column}
-    .badge{font-size:12px;color:var(--violet);font-weight:800;letter-spacing:.03em}
-    .card h3{margin:6px 0 2px 0;font-size:18px;line-height:1.25}
-    .sub{color:var(--muted);font-size:13px}
-    .chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
-    .chip{background:#f1efff;border:1px solid #e3e0ff;color:#4a3bb5;padding:6px 10px;border-radius:999px;font-size:12px}
-    .desc{font-size:13.6px;line-height:1.63;margin-top:4px}
-    .desc p{margin:6px 0}
-    .hr{height:1px;background:#f0effa;margin:10px 0}
-    .list{padding-left:16px;margin:0}
-    .list li{margin:5px 0}
-    footer{padding:26px 0 36px;text-align:center;color:var(--muted);font-size:12px}
+    .grid{
+      display:grid; grid-template-columns:repeat(2, 1fr); gap:14px;
+    }
+    .card{
+      padding:18px; border-radius:18px;
+      background:var(--card);
+      border:1px solid #ffffff1c;
+      box-shadow:0 8px 28px rgba(0,0,0,.28);
+      display:flex; align-items:center; justify-content:center;
+      text-align:center; min-height:78px; font-weight:800; letter-spacing:.3px;
+      user-select:none;
+    }
+    .card small{display:block; font-weight:600; opacity:.85; margin-top:6px; letter-spacing:.2px}
+    .card:hover{transform:translateY(-1px)}
+    .card:active{transform:translateY(0)}
+
+    .hint{margin-top:10px; font-size:13px; color:#e8dcff; opacity:.95}
+    .muted{opacity:.75}
+
+    /* QR (bottom-left) & big Pi logo (bottom-center) */
+    .qr{
+      position:absolute; left:16px; bottom:16px;
+      width:86px; height:86px; border-radius:12px; overflow:hidden;
+      border:1px solid #ffffff2a; box-shadow:0 8px 24px rgba(0,0,0,.35);
+      background:#fff;
+    }
+    .qr img{width:100%; height:100%; object-fit:cover}
+
+    .pi-badge{
+      position:absolute; left:50%; transform:translateX(-50%);
+      bottom:-20px;
+      width:min(220px, 35vw); height:min(220px, 35vw);
+      border-radius:50%;
+      background:radial-gradient(circle at 30% 30%, #ffffff, #f6e9ff 40%, #d9c4ff 70%, #b296ff 100%);
+      display:grid; place-items:center;
+      box-shadow:0 26px 60px rgba(0,0,0,.45), inset 0 0 0 10px #3b0c7a22;
+      border:2px solid #ffffffcf;
+    }
+    .pi{
+      font-size: clamp(68px, 10vw, 120px);
+      font-weight:900;
+      color:#3b0c7a;
+      filter: drop-shadow(0 6px 12px rgba(0,0,0,.25));
+      line-height:1;
+    }
+
+    /* Language blocks */
+    .lang{display:none}
+    .lang.show{display:block}
+
+    /* Footer micro copy */
+    .foot{
+      margin-top:18px; font-size:12.5px; color:#eadbff; text-align:center; opacity:.9;
+    }
+    a.inline{color:#fff; text-decoration:underline dotted}
   </style>
 </head>
 <body>
-  <!-- HEADER -->
-  <header>
-    <div class="wrap">
-      <div class="row">
-        <div class="logo" aria-hidden="true"></div>
-        <h1>🌐 Your PiTown · 나의 파이타운</h1>
+  <main class="wrap">
+    <!-- Top bar -->
+    <div class="topbar">
+      <div class="brand">
+        <div class="mark">π</div>
+        <h1>Pi Korea Bank</h1>
+        <span class="chip" id="chip-en">EN</span>
+        <span class="chip" id="chip-ko">KR</span>
       </div>
-      <div class="meta" style="margin-top:10px">
-        <div class="pill">Level 7 · 레벨 7</div>
-        <div class="pill">Pi 3,141π · 보유 파이 3,141π</div>
-      </div>
-      <div class="xp">
-        <div class="bar"><div class="fill"></div></div>
-        <small>XP Progress · 진행도 : <b>650 / 1000</b> — Keep building to reach the next tier. / 다음 티어까지 꾸준히 건설하세요.</small>
-      </div>
-
-      <div class="section-title">
-        <h2>🏙️ Your PiTown · 나의 타운</h2>
-        <div class="caption">Four core assets with bilingual guidance / 영문+한글 상세 가이드 포함 4개 핵심 자산</div>
+      <div class="controls">
+        <button class="btn" id="stakeBtn" title="Staking = 예치">Staking</button>
+        <button class="btn primary" id="loginBtn">Login</button>
       </div>
     </div>
-  </header>
 
-  <!-- GRID -->
-  <main class="wrap">
-    <div class="grid">
-      <!-- Card 1 -->
-      <article class="card">
-        <span class="badge">🏠 Cozy Cottage</span>
-        <h3>Reliable seed income / 흔들림 없는 씨앗 수익</h3>
-        <div class="sub">Level 2 · 레벨 2 · Low upkeep starter hub / 유지비 낮은 스타터 거점</div>
-        <div class="chips">
-          <span class="chip">+15π/hr</span>
-          <span class="chip">Risk-light</span>
-          <span class="chip">초보 친화</span>
+    <!-- HERO -->
+    <section class="hero">
+      <!-- Left: Headline (auto swaps by language) -->
+      <div class="headline">
+        <!-- English -->
+        <div id="en" class="lang show">
+          <h2>Global Digital Bank for Everyone</h2>
+          <p>Send • Pay • Rewards • UBI — built on the Pi ecosystem to empower everyday people.</p>
         </div>
-        <div class="desc">
-          <p><b>EN.</b> A compact home that converts early traffic into steady yield. Keep it active while you gather materials and unlock mid-tier units. Its purpose is predictability—so your upgrades never stall.</p>
-          <p><b>KO.</b> 초기 방문을 <u>꾸준한 수익</u>으로 바꾸는 소형 주택입니다. 자원을 모으고 중위 유닛을 해금하는 동안 안정적 현금흐름을 담당해 <i>업그레이드가 끊기지 않도록</i> 도와줍니다.</p>
+        <!-- Korean -->
+        <div id="ko" class="lang">
+          <h2>모두를 위한 글로벌 디지털 뱅크</h2>
+          <p>송금 • 결제 • 리워드 • 기본소득 — 파이 생태계 위에서 서민과 노동자를 돕습니다.</p>
         </div>
-        <div class="hr"></div>
-        <ul class="list">
-          <li><b>EN Tip.</b> Double down early; two Cottages smooth variance before you add Bakery.</li>
-          <li><b>KO 팁.</b> 초반엔 <b>2채</b>를 먼저 깔아 변동성을 줄인 뒤 베이커리를 추가하세요.</li>
-        </ul>
-      </article>
+      </div>
 
-      <!-- Card 2 -->
-      <article class="card">
-        <span class="badge">🏢 Pi Bakery</span>
-        <h3>Daily demand, scalable margins / 일일 수요, 확장형 마진</h3>
-        <div class="sub">Level 3 · 레벨 3 · Mid-tier throughput engine / 중위 구간 처리량 엔진</div>
-        <div class="chips">
-          <span class="chip">+25π/hr</span>
-          <span class="chip">Combo-ready</span>
-          <span class="chip">업그레이드 효율 ↑</span>
+      <!-- Right: Feature cards -->
+      <div>
+        <div class="grid">
+          <div class="card" id="card-send">
+            SEND
+            <small class="muted" data-en="Fast & borderless transfers"
+                   data-ko="빠르고 국경 없는 송금">Fast & borderless transfers</small>
+          </div>
+          <div class="card" id="card-pay">
+            PAY
+            <small class="muted" data-en="Tap to pay in Pi"
+                   data-ko="파이로 간편 결제">Tap to pay in Pi</small>
+          </div>
+          <div class="card" id="card-rewards">
+            REWARDS
+            <small class="muted" data-en="Daily missions & bonuses"
+                   data-ko="데일리 미션과 보너스">Daily missions & bonuses</small>
+          </div>
+          <div class="card" id="card-ubi">
+            UBI
+            <small class="muted" data-en="Web3 basic income model"
+                   data-ko="웹3 기반 기본소득">Web3 basic income model</small>
+          </div>
         </div>
-        <div class="desc">
-          <p><b>EN.</b> Bakery translates constant footfall into compounding revenue. Upgrade steps add output without spiking costs, making it a safe ladder to your first premium property.</p>
-          <p><b>KO.</b> 베이커리는 끊임없는 유입을 <u>복리형 매출</u>로 전환합니다. 단계 업그레이드가 비용 급등 없이 생산을 키워 <i>첫 프리미엄 자산</i>으로 가는 <b>안전한 사다리</b>가 됩니다.</p>
+        <div class="hint" id="subhint">
+          English is default • 언어 전환은 좌측 EN/KR 버튼을 사용하세요.
         </div>
-        <div class="hr"></div>
-        <ul class="list">
-          <li><b>EN Synergy.</b> Bakery + Villa balances upkeep via premium rent.</li>
-          <li><b>KO 시너지.</b> 베이커리 × 빌라 조합으로 <b>유지비</b>를 <b>프리미엄 임대</b>로 상쇄.</li>
-        </ul>
-      </article>
+      </div>
+    </section>
 
-      <!-- Card 3 -->
-      <article class="card">
-        <span class="badge">☕ Math Cafe</span>
-        <h3>Skill boost, lean cost / 스킬 부스트, 가벼운 비용</h3>
-        <div class="sub">Level 1 · 레벨 1 · Team efficiency amplifier / 팀 효율 증폭기</div>
-        <div class="chips">
-          <span class="chip">+10π/hr</span>
-          <span class="chip">Skill bonus</span>
-          <span class="chip">유지비 낮음</span>
-        </div>
-        <div class="desc">
-          <p><b>EN.</b> Not just a café—this is an efficiency node. It unlocks better yields town-wide by improving worker performance, so every other card benefits over time.</p>
-          <p><b>KO.</b> 단순 카페가 아니라 <u>효율 노드</u>입니다. 작업 성능을 올려 마을 전체 수익률을 끌어올리므로 시간이 지날수록 <i>다른 카드의 효율</i>까지 함께 상승합니다.</p>
-        </div>
-        <div class="hr"></div>
-        <ul class="list">
-          <li><b>EN Build.</b> Place early for compounding; delay hurts long-run output.</li>
-          <li><b>KO 운용.</b> <b>초기에 설치</b>해야 복리 효과가 최대화됩니다. 늦출수록 총산출이 감소합니다.</li>
-        </ul>
-      </article>
+    <!-- Small QR bottom-left (replace src) -->
+    <div class="qr" title="Scan to open in Pi Browser">
+      <!-- TODO: 여기에 혜공님 QR 이미지 링크로 교체 -->
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=pi%3A%2F%2Fpikoreabank"
+           alt="QR to Pi Korea Bank" />
+    </div>
 
-      <!-- Card 4 -->
-      <article class="card">
-        <span class="badge">🏡 Modern Villa</span>
-        <h3>Premium anchor asset / 프리미엄 앵커 자산</h3>
-        <div class="sub">Level 4 · 레벨 4 · High-yield stabilizer / 고수익 안정화 장치</div>
-        <div class="chips">
-          <span class="chip">+35π/hr</span>
-          <span class="chip">High demand</span>
-          <span class="chip">자본 효율 우수</span>
-        </div>
-        <div class="desc">
-          <p><b>EN.</b> The Villa attracts high-value tenants, locks in top-line stability, and accelerates the pace of upgrades across the board. Treat it as your growth anchor.</p>
-          <p><b>KO.</b> 빌라는 <u>고가치 수요</u>를 흡수해 매출 상단을 고정시키고 전체 업그레이드 속도를 끌어올립니다. 성장의 <i>앵커</i>로 운용하세요.</p>
-        </div>
-        <div class="hr"></div>
-        <ul class="list">
-          <li><b>EN Route.</b> Secure 2 mid-tier cards first, then step into Villa to avoid cash dips.</li>
-          <li><b>KO 경로.</b> <b>중위 카드 2개</b>로 바닥을 다진 뒤 빌라로 진입하면 현금 낙폭을 피할 수 있습니다.</li>
-        </ul>
-      </article>
+    <!-- Big Pi logo bottom-center -->
+    <div class="pi-badge" aria-hidden="true">
+      <div class="pi">π</div>
+    </div>
+
+    <div class="foot">
+      © <span id="yr"></span> Pi Korea Bank — <span data-en="“No ads. People first.”" data-ko="“광고 없음. 시민 우선.”">“No ads. People first.”</span>
+      · <a class="inline" href="#" id="policyLink">Policy</a>
     </div>
   </main>
 
-  <footer>
-    PiTown-style UI preview (KO/EN). No login / QR / chat. · 로그인·QR·채팅 미포함 미리보기 UI
-  </footer>
+  <script>
+    // Year
+    document.getElementById('yr').textContent = new Date().getFullYear();
+
+    // Language toggling (EN default)
+    const elEN = document.getElementById('en');
+    const elKO = document.getElementById('ko');
+    const chipEN = document.getElementById('chip-en');
+    const chipKO = document.getElementById('chip-ko');
+    const smalls = document.querySelectorAll('small.muted, .foot span[data-en]');
+    const setLang = (lang) => {
+      const isEN = lang === 'en';
+      elEN.classList.toggle('show', isEN);
+      elKO.classList.toggle('show', !isEN);
+      chipEN.classList.toggle('active', isEN);
+      chipKO.classList.toggle('active', !isEN);
+      smalls.forEach(s => {
+        const text = s.getAttribute(isEN ? 'data-en' : 'data-ko');
+        if(text) s.textContent = text;
+      });
+      document.documentElement.lang = isEN ? 'en' : 'ko';
+    };
+    chipEN.addEventListener('click', () => setLang('en'));
+    chipKO.addEventListener('click', () => setLang('ko'));
+    setLang('en'); // default first screen = English
+
+    // Buttons (wire later)
+    document.getElementById('loginBtn').addEventListener('click', () => {
+      // TODO: Pi Browser 로그인/Approve로 연결
+      alert('Login → (TODO) Connect Pi SDK / Approve flow.');
+    });
+    document.getElementById('stakeBtn').addEventListener('click', () => {
+      alert('Staking(예치) — Coming soon.');
+    });
+
+    // Optional: keep Policy as placeholder
+    document.getElementById('policyLink').addEventListener('click', (e)=>{
+      e.preventDefault();
+      alert('Policy page — Coming soon.');
+    });
+  </script>
 </body>
 </html>
