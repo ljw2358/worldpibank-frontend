@@ -6,7 +6,7 @@
 <title>세계파이은행 · World Pi Bank</title>
 <style>
   :root{
-    --bg:#0e0f1a; --panel:#151929; --panel2:#1b2040; --line:#2a2d4b;
+    --bg:#0e0f1a; --panel:#151a2a; --panel2:#1b2040; --line:#2a2d4b;
     --text:#e8ebff; --muted:#aab0d6; --accent:#ffd24d; --shadow:rgba(0,0,0,.28);
     --r:16px;
   }
@@ -19,113 +19,83 @@
       var(--bg);
     text-rendering:optimizeLegibility;
   }
-  .wrap{max-width:1100px;margin:0 auto;padding:22px 16px 110px}
+  .wrap{max-width:1100px;margin:0 auto;padding:22px 16px 120px}
 
   header{display:flex;justify-content:space-between;align-items:center}
-  .brand{font-weight:800;letter-spacing:.2px}
+  .brand{font-weight:900;letter-spacing:.2px}
   .brand small{display:block;color:var(--muted);font-weight:500}
-  .lang button{
-    margin-left:6px;padding:6px 10px;border-radius:999px;border:1px solid var(--line);
-    background:#1a1d33;color:#fff;cursor:pointer;font-size:12px
-  }
-  .lang button.active{background:#2a2d4b}
 
-  /* 제목/부제 */
-  .title{margin:10px 0 2px;text-align:center;font-size:34px;font-weight:900}
-  .subtitle{margin:0 0 16px;text-align:center;color:var(--muted);font-size:15px}
+  .title{margin:12px 0 4px;text-align:center;font-size:34px;font-weight:900}
+  .subtitle{margin:0 0 18px;text-align:center;color:var(--muted);font-size:15px}
 
-  /* 레이아웃: 카드 6개 + 중앙 원 */
+  /* 본문 그리드 + 중앙 원 */
   .stage{
-    margin-top:6px;
+    position:relative;
     display:grid;
-    grid-template-columns: 1fr 320px 1fr; /* 좌/중앙원/우 */
-    grid-template-rows: auto auto auto; /* 상단/중단/하단 */
-    gap:16px 18px;
-    align-items:center;
+    grid-template-columns: repeat(3, 1fr);
+    gap:16px;
+    align-items:start;
   }
-  /* 중앙 원 */
+  /* 중앙 원(로고 없음) */
   .orb{
-    grid-column:2; grid-row:1 / span 3; /* 세 줄 전체 차지 */
-    width:320px; height:320px; margin:0 auto; border-radius:50%;
+    grid-column:2; grid-row:1; order:0;
+    width:340px; height:340px; margin:0 auto 6px; border-radius:50%;
     background:
       radial-gradient(40% 40% at 50% 45%, #2a2dff33, #0000),
       radial-gradient(60% 60% at 50% 50%, #6b5bff33, #0000),
       #20224a;
     box-shadow: inset 0 0 40px #7b5cff33, 0 30px 100px #0006;
-    display:grid; place-items:center;
   }
-  .pi{
-    width:46%; aspect-ratio:1; border-radius:50%;
-    background:radial-gradient(75% 75% at 40% 35%, #ffd24d, #f2a600);
-    box-shadow:0 8px 30px #ffd24d44, inset 0 0 12px #fff9;
-    display:grid; place-items:center;
-  }
-  .pi::before{content:"π"; font-size:68px; font-weight:900; color:#3b2d00; transform:translateY(-2px)}
 
-  /* 카드 */
+  /* 2×3 카드 */
+  .cards{
+    grid-column:1 / span 3; display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:8px;
+  }
   .card{
     background:linear-gradient(180deg,var(--panel),var(--panel2));
     border:1px solid var(--line); border-radius:var(--r);
     box-shadow:0 6px 22px var(--shadow);
     padding:14px 16px; text-align:left;
     word-break:keep-all; overflow-wrap:anywhere; /* 한글 단어 깨짐 방지 */
+    min-height:112px;
   }
   .k{display:inline-block;background:#2a2d4b;color:#c9cff6;padding:3px 8px;border-radius:999px;font-size:12px;margin-bottom:6px}
   .ctitle{margin:2px 0 6px;font-weight:800}
   .cbody{margin:0;color:#cbd1ffcc;font-size:13px;line-height:1.45}
   .small{font-size:12px;opacity:.9}
 
-  /* 카드 위치(스케치와 동일) */
-  .top-center{grid-column:1 / span 3; grid-row:1; max-width:560px; justify-self:center;}
-  .mid-left {grid-column:1; grid-row:2}
-  .mid-right {grid-column:3; grid-row:2}
-  .bot-left {grid-column:1; grid-row:3}
-  .bot-mid {grid-column:2; grid-row:3; justify-self:center; width:320px; transform:translateY(180px);} /* 중앙 원 아래에 배치 느낌 */
-  .bot-right {grid-column:3; grid-row:3}
-
-  /* 푸터 */
-  footer{margin-top:220px;text-align:center;color:var(--muted);font-size:12px;line-height:1.35}
-
-  /* QR & Chat */
+  /* 오른쪽 한 단 : FAQ 위, QR 아래 */
+  .right-rail{
+    position:fixed; right:16px; bottom:16px; display:flex; flex-direction:column; gap:10px; z-index:40;
+    align-items:flex-end;
+  }
+  .faq-pill{
+    background:#1a1d33; border:1px solid var(--line); border-radius:14px; padding:10px 14px; max-width:260px;
+    box-shadow:0 10px 26px var(--shadow); color:#e8ebff;
+  }
+  .faq-pill h4{margin:0 0 6px; font-size:14px}
+  .faq-pill p{margin:0; font-size:12px; color:#cfd3ff}
   .qr{
-    position:fixed;left:14px;bottom:14px;width:84px;height:84px;border-radius:12px;
-    background:#0f1228;border:1px solid var(--line);display:grid;place-items:center;
-    box-shadow:0 8px 22px var(--shadow);z-index:30
+    width:92px; height:92px; border-radius:14px; background:#0f1228; border:1px solid var(--line);
+    display:grid; place-items:center; box-shadow:0 10px 26px var(--shadow);
   }
-  .qr svg{width:66px;height:66px}
-  .chat-btn{
-    position:fixed;right:16px;bottom:16px;z-index:35;border:none;cursor:pointer;
-    background:#2a2d4b;color:#fff;border-radius:999px;padding:12px 14px;font-weight:700;
-    box-shadow:0 10px 26px var(--shadow)
-  }
-  .chat-btn:after{content:"💬"}
-  .sheet{
-    position:fixed;inset:auto 0 0 0;max-height:70vh;background:#12142a;border-top:1px solid var(--line);
-    transform:translateY(100%);transition:transform .24s ease;z-index:40;border-top-left-radius:18px;border-top-right-radius:18px;
-    box-shadow:0 -20px 50px #0008
-  }
-  .sheet.open{transform:translateY(0)}
-  .sheet .swrap{max-width:980px;margin:0 auto;padding:18px}
-  .sheet h3{margin:4px 0 12px}
-  .faq{display:grid;gap:10px}
-  .faq details{background:#181a33;border:1px solid var(--line);border-radius:12px;padding:12px}
-  .faq summary{cursor:pointer;font-weight:700}
+  .qr svg{width:72px; height:72px}
+
+  footer{margin-top:26px;text-align:center;color:var(--muted);font-size:12px;line-height:1.35}
 
   /* 반응형 */
   @media (max-width:960px){
-    .stage{grid-template-columns:1fr 280px 1fr}
-    .orb{width:280px;height:280px}
-    .bot-mid{width:280px; transform:translateY(160px)}
-    footer{margin-top:200px}
+    .orb{width:300px;height:300px}
   }
-  @media (max-width:720px){
-    .stage{
-      grid-template-columns:1fr; grid-template-rows:auto; gap:14px;
-    }
-    .orb{order:2; width:64vw; height:64vw; grid-column:1; grid-row:auto; margin:0 auto}
-    .top-center,.mid-left,.mid-right,.bot-left,.bot-right{grid-column:1; grid-row:auto}
-    .bot-mid{grid-column:1; width:auto; transform:none; justify-self:stretch}
-    footer{margin-top:24px}
+  @media (max-width:820px){
+    .cards{grid-template-columns:1fr 1fr}
+  }
+  @media (max-width:640px){
+    .orb{width:62vw;height:62vw}
+    .cards{grid-template-columns:1fr}
+    .right-rail{right:12px; bottom:12px}
+    .qr{width:80px;height:80px}
+    .qr svg{width:60px;height:60px}
   }
 </style>
 </head>
@@ -133,187 +103,78 @@
   <div class="wrap">
     <header>
       <div class="brand">
-        <div id="brandText">세계파이은행</div>
-        <small id="brandSmall">글로벌 디지털 은행</small>
-      </div>
-      <div class="lang">
-        <button data-lang="en">EN</button>
-        <button data-lang="ko" class="active">KOR</button>
-        <button data-lang="zh">中文</button>
+        <div>세계파이은행</div>
+        <small>글로벌 디지털 은행</small>
       </div>
     </header>
 
-    <h1 class="title" id="heroTitle">세계파이은행</h1>
-    <p class="subtitle" id="heroSub">세계인을 지지하는 은행</p>
+    <h1 class="title">세계파이은행</h1>
+    <p class="subtitle">세계인을 지지하는 은행</p>
 
     <section class="stage">
-      <!-- 중앙 원 -->
-      <div class="orb" aria-hidden="true"><div class="pi"></div></div>
+      <!-- 중앙 원(로고 없음) -->
+      <div class="orb" aria-hidden="true"></div>
 
-      <!-- 상단 중앙 카드 -->
-      <article class="card top-center">
-        <span class="k" id="k1">핵심</span>
-        <h4 class="ctitle" id="c1t">송금</h4>
-        <p class="cbody" id="c1b">낮은 비용으로 빠른 개인간 이체.</p>
-      </article>
+      <!-- 2×3 네모 카드 -->
+      <div class="cards">
+        <article class="card">
+          <span class="k">핵심</span>
+          <h4 class="ctitle">송금</h4>
+          <p class="cbody">낮은 비용으로 빠른 개인간 이체.</p>
+        </article>
 
-      <!-- 중단 좌/우 -->
-      <article class="card mid-left">
-        <span class="k" id="k2">상거래</span>
-        <h4 class="ctitle" id="c2t">결제</h4>
-        <p class="cbody" id="c2b">매장/온라인 간편 결제 플로우.</p>
-      </article>
+        <article class="card">
+          <span class="k">결재</span>
+          <h4 class="ctitle">결제</h4>
+          <p class="cbody">매장/온라인 간편 결제 플로우.</p>
+        </article>
 
-      <article class="card mid-right">
-        <span class="k" id="k3">성장</span>
-        <h4 class="ctitle" id="c3t">리워드</h4>
-        <p class="cbody" id="c3b">활동에 따른 포인트와 보너스.</p>
-      </article>
+        <article class="card">
+          <span class="k">성장</span>
+          <h4 class="ctitle">리워드</h4>
+          <p class="cbody">활동에 따른 포인트와 보너스.</p>
+        </article>
 
-      <!-- 하단 좌/중/우 -->
-      <article class="card bot-left">
-        <span class="k" id="k4">수익</span>
-        <h4 class="ctitle" id="c4t">예치(스테이킹)</h4>
-        <p class="cbody" id="c4b">
-          <span id="c4bText">유연한 기간, 투명한 금리.</span>
-          <span class="small" id="c4bApy"> (예치 · APY:%)</span>
-        </p>
-      </article>
+        <article class="card">
+          <span class="k">수익</span>
+          <h4 class="ctitle">예치(스테이킹)</h4>
+          <p class="cbody">유연한 기간, 투명한 금리 <span class="small">(APY:%)</span></p>
+        </article>
 
-      <article class="card bot-mid">
-        <span class="k" id="k5">공정</span>
-        <h4 class="ctitle" id="c5t">UBI</h4>
-        <p class="cbody" id="c5b">사람 중심의 기본소득 경험.</p>
-      </article>
+        <article class="card">
+          <span class="k">공평</span>
+          <h4 class="ctitle">UBI</h4>
+          <p class="cbody">사람 중심의 기본소득 경험.</p>
+        </article>
 
-      <article class="card bot-right">
-        <span class="k" id="k6">케어</span>
-        <h4 class="ctitle" id="c6t">고객센터</h4>
-        <p class="cbody" id="c6b">다국어 실시간 상담 지원.</p>
-      </article>
+        <article class="card">
+          <span class="k">케어</span>
+          <h4 class="ctitle">고객센터</h4>
+          <p class="cbody">다국어 실시간 상담 지원.</p>
+        </article>
+      </div>
     </section>
 
     <footer>
-      <div id="foot1">노동자·노년층·소상공인·장애인 우선.</div>
-      <div id="foot2">여기서는 KYC 화면을 표시하지 않습니다. 검증 방식과 보안 가이드는 FAQ 채팅을 참고하세요.</div>
+      노동자·노년층·소상공인·장애인 우선. 여기서는 KYC 화면을 표시하지 않습니다. 검증 방식과 보안 가이드는 오른쪽 FAQ를 참고하세요.
     </footer>
   </div>
 
-  <!-- 좌하단 QR: Pi Browser로 -->
-  <a class="qr" href="pi://worldpibank" title="Open in Pi Browser">
-    <svg viewBox="0 0 100 100" aria-hidden="true">
-      <rect x="0" y="0" width="100" height="100" rx="10" fill="#20244a" stroke="#394078" />
-      <rect x="10" y="10" width="22" height="22" fill="#ffd24d"/><rect x="68" y="10" width="22" height="22" fill="#ffd24d"/>
-      <rect x="10" y="68" width="22" height="22" fill="#ffd24d"/><rect x="46" y="46" width="12" height="12" fill="#ffd24d"/>
-    </svg>
-  </a>
-
-  <!-- 우하단 FAQ/KYC 시트 -->
-  <button class="chat-btn" id="openChat" aria-label="Open FAQ/KYC chat"></button>
-  <aside class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="faqTitle">
-    <div class="swrap">
-      <button id="closeSheet" style="position:absolute;right:14px;top:10px;border:none;background:transparent;color:#cfd6ff;font-size:18px;cursor:pointer">✕</button>
-      <h3 id="faqTitle">FAQ · KYC & 보안</h3>
-      <div class="faq" id="faqList"></div>
+  <!-- 오른쪽 한 단: FAQ(위) + QR(아래) -->
+  <aside class="right-rail">
+    <div class="faq-pill">
+      <h4>FAQ (KYC의무)</h4>
+      <p>위험기반 KYC를 적용하며, 시드구절은 절대 요구하지 않습니다. 필요한 서류: 정부신분증 + 셀피(법인은 사업자등록).</p>
     </div>
+    <a class="qr" href="pi://worldpibank" title="Pi Browser에서 열기">
+      <svg viewBox="0 0 100 100" aria-hidden="true">
+        <rect x="0" y="0" width="100" height="100" rx="12" fill="#20244a" stroke="#394078" />
+        <rect x="10" y="10" width="22" height="22" fill="#ffd24d"/>
+        <rect x="68" y="10" width="22" height="22" fill="#ffd24d"/>
+        <rect x="10" y="68" width="22" height="22" fill="#ffd24d"/>
+        <rect x="46" y="46" width="12" height="12" fill="#ffd24d"/>
+      </svg>
+    </a>
   </aside>
-
-  <script>
-    const t = {
-      ko:{ brandText:"세계파이은행", brandSmall:"글로벌 디지털 은행",
-        heroTitle:"세계파이은행", heroSub:"세계인을 지지하는 은행",
-        k1:"핵심", c1t:"송금", c1b:"낮은 비용으로 빠른 개인간 이체.",
-        k2:"상거래", c2t:"결제", c2b:"매장/온라인 간편 결제 플로우.",
-        k3:"성장", c3t:"리워드", c3b:"활동에 따른 포인트와 보너스.",
-        k4:"수익", c4t:"예치(스테이킹)", c4bText:"유연한 기간, 투명한 금리.", c4bApy:" (예치 · APY:%)",
-        k5:"공정", c5t:"UBI", c5b:"사람 중심의 기본소득 경험.",
-        k6:"케어", c6t:"고객센터", c6b:"다국어 실시간 상담 지원.",
-        foot1:"노동자·노년층·소상공인·장애인 우선.",
-        foot2:"여기서는 KYC 화면을 표시하지 않습니다. 검증 방식과 보안 가이드는 FAQ 채팅을 참고하세요.",
-        faqTitle:"FAQ · KYC & 보안",
-        faq:[
-          ["KYC가 필수인가요?","네. 위험기반 KYC를 적용하며 시드구절은 절대 요구하지 않습니다."],
-          ["필요 서류는?","정부 발급 신분증 + 셀피. 법인은 사업자 등록 증빙."],
-          ["지갑 보안은 어떻게?","개인키 보관 없음. 공식 Pi 지갑 사용, pi:// 주소 확인 권장."],
-          ["사기 의심 신고","‘고객센터→신고’로 접수하고 이상 활동은 동결합니다."]
-        ]
-      },
-      en:{ brandText:"WorldPiBank", brandSmall:"Global Digital Bank",
-        heroTitle:"World Pi Bank", heroSub:"A bank for the people of the world",
-        k1:"Core", c1t:"Send", c1b:"Fast peer-to-peer transfers with low friction.",
-        k2:"Commerce", c2t:"Pay", c2b:"Simple in-store and online checkout flows.",
-        k3:"Growth", c3t:"Rewards", c3b:"Earn points and bonuses for activity.",
-        k4:"Yield", c4t:"Staking", c4bText:"Flexible terms; transparent rates.", c4bApy:" (Deposit · APY: %)",
-        k5:"Equity", c5t:"UBI", c5b:"Human-centric basic income experiences.",
-        k6:"Care", c6t:"Support", c6b:"Multilingual help with real-time chat.",
-        foot1:"Priority: workers, seniors, small businesses, and people with disabilities.",
-        foot2:"No KYC screen is shown here. See FAQ chat for verification and security guidelines.",
-        faqTitle:"FAQ · KYC & Security",
-        faq:[
-          ["Is KYC mandatory?","Yes, risk-based KYC; we never ask for seed phrases."],
-          ["What documents?","Government ID + selfie; businesses need registration proof."],
-          ["Wallet safety","We never store private keys. Verify pi:// URLs."],
-          ["Report fraud","Go to Support→Report. We freeze suspicious activity."]
-        ]
-      },
-      zh:{ brandText:"世界Pi银行", brandSmall:"全球数字银行",
-        heroTitle:"世界Pi银行", heroSub:"支持世界人民的银行",
-        k1:"核心", c1t:"转账", c1b:"低摩擦的点对点汇款。",
-        k2:"商贸", c2t:"支付", c2b:"门店/线上结算更简单。",
-        k3:"增长", c3t:"奖励", c3b:"根据活跃度获得积分与奖励。",
-        k4:"收益", c4t:"质押(存款)", c4bText:"期限灵活；费率透明清晰。", c4bApy:"（存款 · APY：%）",
-        k5:"公平", c5t:"UBI", c5b:"以人为本的基础收入体验。",
-        k6:"关怀", c6t:"客服", c6b:"多语言实时客服。",
-        foot1:"优先：劳动者、老年人、小商户、残障人士。",
-        foot2:"本页不显示KYC界面。验证方式与安全指南请见FAQ聊天。",
-        faqTitle:"FAQ · KYC 与安全",
-        faq:[
-          ["是否必须KYC？","是，基于风险的KYC，绝不索取助记词。"],
-          ["需要哪些材料？","政府身份证件 + 自拍；企业需营业资质。"],
-          ["如何保护钱包？","不保存私钥，请核对 pi:// 地址。"],
-          ["举报可疑行为","在“客服→举报”提交，我们会冻结并上报。"]
-        ]
-      }
-    };
-
-    const $ = s => document.querySelector(s);
-    const langBtns = document.querySelectorAll('.lang button');
-
-    function apply(L){
-      const tr=t[L];
-      $("#brandText").textContent=tr.brandText;
-      $("#brandSmall").textContent=tr.brandSmall;
-      $("#heroTitle").textContent=tr.heroTitle;
-      $("#heroSub").textContent=tr.heroSub;
-
-      ["k1","k2","k3","k4","k5","k6"].forEach(id=>$("#"+id).textContent=tr[id]);
-      ["c1t","c2t","c3t","c4t","c5t","c6t"].forEach(id=>$("#"+id).textContent=tr[id]);
-      $("#c1b").textContent=tr.c1b; $("#c2b").textContent=tr.c2b; $("#c3b").textContent=tr.c3b;
-      $("#c4bText").textContent=tr.c4bText; $("#c4bApy").textContent=tr.c4bApy;
-      $("#c5b").textContent=tr.c5b; $("#c6b").textContent=tr.c6b;
-
-      $("#foot1").textContent=tr.foot1; $("#foot2").textContent=tr.foot2;
-      $("#faqTitle").textContent=tr.faqTitle;
-      const list=$("#faqList"); list.innerHTML="";
-      tr.faq.forEach(([q,a])=>{
-        const el=document.createElement("details");
-        const sum=document.createElement("summary"); sum.textContent=q;
-        const p=document.createElement("p"); p.style.margin="8px 0 0"; p.style.color="#cfd6ff"; p.style.fontSize="14px"; p.textContent=a;
-        el.append(sum,p); list.appendChild(el);
-      });
-
-      document.documentElement.lang = (L==="ko"?"ko":(L==="zh"?"zh":"en"));
-      langBtns.forEach(b=>b.classList.toggle("active", b.dataset.lang===L));
-      localStorage.setItem("wlang", L);
-    }
-
-    langBtns.forEach(b=>b.addEventListener("click", ()=>apply(b.dataset.lang)));
-    apply(localStorage.getItem("wlang") || "ko");
-
-    // Chat sheet
-    const sheet=$("#sheet");
-    $("#openChat").addEventListener("click", ()=>sheet.classList.add("open"));
-    $("#closeSheet").addEventListener("click", ()=>sheet.classList.remove("open"));
-  </script>
 </body>
 </html>
