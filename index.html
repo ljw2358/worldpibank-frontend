@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>World Pi Bank</title>
+<title>World Pi Bank · 월드 파이 은행 · 世界Pi银行</title>
 <style>
   :root{
     --bg:#0e0f1a; --panel:#151a2a; --panel2:#1b2040; --line:#2a2d4b;
@@ -14,9 +14,11 @@
     margin:0; color:var(--text);
     font-family:Inter,system-ui,"Noto Sans KR","Noto Sans SC",Arial,sans-serif;
     background:var(--bg);
+    text-rendering:optimizeLegibility;
   }
   .wrap{max-width:1100px;margin:0 auto;padding:22px 16px 80px}
 
+  /* top bar */
   .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
   .brand{font-weight:800;font-size:20px}
   .lang{display:flex;gap:8px}
@@ -26,24 +28,27 @@
   }
   .pill.active{background:#2a3070}
 
+  /* hero */
   .hero{text-align:center;margin-top:20px}
   .h-title{font-size:36px;font-weight:900;margin:0 0 6px}
   .h-sub{color:#cfd3ff;margin:0;font-size:18px}
   .slogan{margin-top:10px;font-size:16px;color:#ffd24d;font-weight:700}
 
+  /* 2×3 cards */
   .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
   .card{
     background:linear-gradient(180deg,var(--panel),var(--panel2));
     border:1px solid var(--line); border-radius:var(--r);
     box-shadow:0 6px 22px var(--shadow); padding:14px 16px; text-align:left;
-    word-break:keep-all; min-height:120px;
+    word-break:keep-all; overflow-wrap:anywhere; min-height:120px;
   }
   .k{display:inline-block;background:#2a2d4b;color:#c9cff6;padding:3px 8px;border-radius:999px;font-size:12px;margin-bottom:6px}
   .ctitle{margin:2px 0 6px;font-weight:800;font-size:18px}
   .cbody{margin:0;color:#cbd1ffcc;font-size:13.5px;line-height:1.45}
 
-  footer{margin-top:28px;text-align:center;color:var(--muted);font-size:12px}
+  footer{margin-top:28px;text-align:center;color:#aab0d6;font-size:12px}
 
+  /* responsive */
   @media (max-width:760px){.cards{grid-template-columns:1fr 1fr}}
   @media (max-width:560px){.cards{grid-template-columns:1fr}}
 </style>
@@ -51,7 +56,7 @@
 <body>
   <div class="wrap">
     <div class="top">
-      <div class="brand">WorldPiBank</div>
+      <div class="brand">World Pi Bank</div>
       <div class="lang">
         <button class="pill active" data-lang="en">EN</button>
         <button class="pill" data-lang="ko">KOR</button>
@@ -59,38 +64,47 @@
       </div>
     </div>
 
+    <!-- Hero -->
     <section class="hero">
       <h1 class="h-title" data-i18n="title">World Pi Bank</h1>
-      <p class="h-sub" data-i18n="subtitle">The world’s first digital bank</p>
+      <p class="h-sub">
+        <span data-i18n="subtitle">The world’s first digital bank</span>
+      </p>
       <p class="slogan" data-i18n="slogan">Empowering People with Pi</p>
     </section>
 
+    <!-- 2×3 cards -->
     <section class="cards">
       <article class="card">
         <span class="k" data-i18n="core.tag">Core</span>
         <h4 class="ctitle" data-i18n="core.title">Send</h4>
         <p class="cbody" data-i18n="core.desc">Fast peer-to-peer transfers.</p>
       </article>
+
       <article class="card">
         <span class="k" data-i18n="commerce.tag">Commerce</span>
         <h4 class="ctitle" data-i18n="commerce.title">Pay</h4>
         <p class="cbody" data-i18n="commerce.desc">Easy checkout online & offline.</p>
       </article>
+
       <article class="card">
         <span class="k" data-i18n="growth.tag">Growth</span>
         <h4 class="ctitle" data-i18n="growth.title">Rewards</h4>
         <p class="cbody" data-i18n="growth.desc">Earn bonuses for activity.</p>
       </article>
+
       <article class="card">
         <span class="k" data-i18n="yield.tag">Yield</span>
         <h4 class="ctitle" data-i18n="yield.title">Staking (Deposit · APY%)</h4>
         <p class="cbody" data-i18n="yield.desc">Flexible terms, transparent rates.</p>
       </article>
+
       <article class="card">
         <span class="k" data-i18n="equity.tag">Equity</span>
         <h4 class="ctitle" data-i18n="equity.title">UBI</h4>
         <p class="cbody" data-i18n="equity.desc">Universal Basic Income model.</p>
       </article>
+
       <article class="card">
         <span class="k" data-i18n="care.tag">Care</span>
         <h4 class="ctitle" data-i18n="care.title">Support</h4>
@@ -104,6 +118,7 @@
   </div>
 
 <script>
+/* 이름 변경 반영: KOR에 '월드 파이 은행' */
 const dict = {
   en:{
     title:"World Pi Bank",
@@ -118,7 +133,7 @@ const dict = {
     foot:"Workers · Seniors · Small businesses · People with disabilities"
   },
   ko:{
-    title:"세계파이은행",
+    title:"월드 파이 은행",
     subtitle:"세계최초의 디지털 은행",
     slogan:"파이로 사람을 살린다",
     core:{tag:"핵심",title:"송금",desc:"빠르고 저렴한 개인간 이체"},
@@ -159,7 +174,7 @@ document.querySelectorAll(".pill").forEach(btn=>{
   btn.addEventListener("click", ()=> setLang(btn.dataset.lang));
 });
 
-setLang("en");
+setLang("en"); // 기본 EN
 </script>
 </body>
 </html>
