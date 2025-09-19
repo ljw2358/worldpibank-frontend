@@ -1,125 +1,207 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>세계파이은행</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(180deg, #1a1a2e, #16213e);
-      color: #fff;
-      text-align: center;
-    }
-    header {
-      padding: 20px;
-    }
-    .subtitle {
-      margin-top: 10px;
-      font-size: 1rem;
-      line-height: 1.5rem;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-      max-width: 1000px;
-      margin: 40px auto;
-    }
-    .card {
-      background: rgba(255, 255, 255, 0.08);
-      padding: 20px;
-      border-radius: 12px;
-      text-align: left;
-      font-size: 0.95rem;
-      line-height: 1.4rem;
-    }
-    .card h3 {
-      margin: 0 0 10px 0;
-      font-size: 1.1rem;
-    }
-    .faq {
-      position: fixed;
-      right: 20px;
-      bottom: 100px;
-      background: rgba(0,0,0,0.7);
-      padding: 15px;
-      border-radius: 12px;
-      width: 280px;
-      font-size: 0.85rem;
-      line-height: 1.4rem;
-      text-align: left;
-    }
-    .qr {
-      position: fixed;
-      right: 20px;
-      bottom: 20px;
-      width: 90px;
-      height: 90px;
-      background: #fff url('https://api.qrserver.com/v1/create-qr-code/?data=https://worldpibank.example&size=90x90') center/cover no-repeat;
-      border-radius: 12px;
-    }
-  </style>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>세계파이은행 · World Pi Bank · 世界Pi银行</title>
+<style>
+  :root{
+    --bg:#0e0f1a; --panel:#151a2a; --panel2:#1b2040; --line:#2a2d4b;
+    --text:#e8ebff; --muted:#aab0d6; --shadow:rgba(0,0,0,.28); --r:16px;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;font-family:"Noto Sans KR","Noto Sans SC",Roboto,Arial,sans-serif;
+    color:var(--text);
+    background:radial-gradient(1100px 600px at 50% 8%, rgba(123,92,255,.25), transparent 60%), var(--bg);
+  }
+  .wrap{max-width:1100px;margin:0 auto;padding:22px 16px 120px}
+
+  header{text-align:center}
+  h1{margin:8px 0 4px;font-size:34px}
+  .subtitle{margin:0 10px 18px;color:#cfd3ff;line-height:1.35}
+  .subtitle small{display:block;opacity:.9}
+
+  /* 2×3 카드 */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1100px;margin:0 auto}
+  .card{
+    background:linear-gradient(180deg,var(--panel),var(--panel2));
+    border:1px solid var(--line);border-radius:var(--r);box-shadow:0 6px 22px var(--shadow);
+    padding:14px 16px;text-align:left;word-break:keep-all;overflow-wrap:anywhere;min-height:132px;
+  }
+  .badge{display:inline-block;background:#2a2d4b;color:#c9cff6;padding:3px 8px;border-radius:999px;font-size:12px;margin-bottom:6px}
+  .title3{margin:2px 0 6px;font-weight:800}
+  .title3 span{display:inline}
+  .desc3{margin:0;color:#cbd1ffcc;font-size:13px;line-height:1.35}
+  .desc3 small{display:block}
+
+  footer{margin-top:26px;text-align:center;color:#aab0d6;font-size:12px;line-height:1.35}
+
+  /* 오른쪽 고정: 말풍선 FAQ + QR */
+  .chat-bubble{
+    position:fixed;right:16px;bottom:132px;z-index:40;
+    background:#1a1d33;border:1px solid var(--line);color:#e8ebff;border-radius:14px;
+    padding:10px 14px;font-weight:700;cursor:pointer;box-shadow:0 10px 26px var(--shadow);
+  }
+  .chat-bubble::before{
+    content:"";position:absolute;left:-8px;top:50%;width:14px;height:14px;
+    background:#1a1d33;border-left:1px solid var(--line);border-bottom:1px solid var(--line);
+    transform:translateY(-50%) rotate(45deg);
+  }
+  .qr{
+    position:fixed;right:16px;bottom:16px;z-index:35;width:92px;height:92px;border-radius:14px;
+    background:#0f1228;border:1px solid var(--line);display:grid;place-items:center;box-shadow:0 10px 26px var(--shadow);
+  }
+  .qr svg{width:72px;height:72px}
+
+  /* FAQ 시트 */
+  .sheet{position:fixed;inset:auto 0 0 0;max-height:74vh;background:#12142a;border-top:1px solid var(--line);
+    transform:translateY(100%);transition:transform .24s ease;z-index:50;border-top-left-radius:18px;border-top-right-radius:18px;box-shadow:0 -20px 50px #0008}
+  .sheet.open{transform:translateY(0)}
+  .swrap{max-width:980px;margin:0 auto;padding:18px}
+  .sheet h3{margin:4px 0 12px}
+  .faq{display:grid;gap:10px}
+  .faq details{background:#181a33;border:1px solid var(--line);border-radius:12px;padding:12px}
+  .faq summary{cursor:pointer;font-weight:700}
+  .close{position:absolute;right:14px;top:10px;border:none;background:transparent;color:#cfd6ff;font-size:18px;cursor:pointer}
+
+  /* 반응형 */
+  @media (max-width:900px){.cards{grid-template-columns:1fr 1fr}}
+  @media (max-width:640px){
+    .cards{grid-template-columns:1fr}
+    .chat-bubble{right:12px;bottom:120px}
+    .qr{right:12px;bottom:12px;width:80px;height:80px}.qr svg{width:60px;height:60px}
+  }
+</style>
 </head>
 <body>
-  <header>
-    <h1>세계파이은행<br/>World Pi Bank<br/>世界Pi银行</h1>
-    <div class="subtitle">
-      세계최초의 디지털 은행<br/>
-      The world’s first digital bank<br/>
-      全球首个数字银行
-    </div>
-  </header>
+  <div class="wrap">
+    <header>
+      <h1>세계파이은행 · World Pi Bank · 世界Pi银行</h1>
+      <p class="subtitle">
+        <small>세계최초의 디지털 은행</small>
+        <small>The world’s first digital bank</small>
+        <small>全球首个数字银行</small>
+      </p>
+    </header>
 
-  <main>
-    <div class="grid">
-      <div class="card">
-        <h3>핵심 / Core / 核心</h3>
-        <p>송금 – 낮은 비용으로 빠른 개인간 이체.<br/>
-           Send – Fast peer-to-peer transfers.<br/>
-           转账 – 低成本快速点对点转账。</p>
-      </div>
-      <div class="card">
-        <h3>결제 / Pay / 结算</h3>
-        <p>매장/온라인 간편 결제 플로우.<br/>
-           Simple in-store/online checkout.<br/>
-           线上/线下简便支付流程。</p>
-      </div>
-      <div class="card">
-        <h3>성장 / Rewards / 成长</h3>
-        <p>리워드 – 활동에 따른 포인트와 보너스.<br/>
-           Rewards – Points and bonuses.<br/>
-           奖励 – 活动积分与奖励。</p>
-      </div>
-      <div class="card">
-        <h3>수익 / Staking / 收益</h3>
-        <p>예치(스테이킹) – 유연한 기간, 투명한 금리 (APY:%).<br/>
-           Staking – Flexible terms, clear rates.<br/>
-           存款(质押) – 灵活期限，透明利率。</p>
-      </div>
-      <div class="card">
-        <h3>공평 / UBI / 公平</h3>
-        <p>UBI – 사람 중심의 기본소득 경험.<br/>
-           Human-centric basic income.<br/>
-           基本收入 – 以人为本的体验。</p>
-      </div>
-      <div class="card">
-        <h3>케어 / Support / 客服</h3>
-        <p>고객센터 – 다국어 실시간 상담 지원.<br/>
-           Support – Multilingual real-time help.<br/>
-           客服中心 – 多语言实时支持。</p>
-      </div>
-    </div>
-  </main>
+    <section class="cards">
+      <!-- 1 -->
+      <article class="card">
+        <span class="badge">핵심 / Core / 核心</span>
+        <h4 class="title3"><span>송금 · Send · 转账</span></h4>
+        <p class="desc3">
+          낮은 비용의 빠른 개인간 이체.<br/>
+          <small>Fast peer-to-peer transfers with low friction.</small>
+          <small>低成本、快速的点对点汇款。</small>
+        </p>
+      </article>
 
-  <div class="faq">
-    <strong>FAQ (KYC 의무)</strong><br/>
-    위험기반 KYC를 적용하며 시드구절은 절대 요구하지 않습니다.<br/>
-    Required docs: Government ID + Selfie (for business: license).<br/>
-    基于风险的KYC，不会要求助记词。所需材料：政府身份证 + 自拍（企业需营业执照）。
+      <!-- 2 -->
+      <article class="card">
+        <span class="badge">결재 / Pay / 支付</span>
+        <h4 class="title3"><span>결제 · Checkout · 结算</span></h4>
+        <p class="desc3">
+          매장/온라인 간편 결제 플로우.<br/>
+          <small>Simple in-store and online checkout flows.</small>
+          <small>门店/线上简便结算流程。</small>
+        </p>
+      </article>
+
+      <!-- 3 -->
+      <article class="card">
+        <span class="badge">성장 / Growth / 增长</span>
+        <h4 class="title3"><span>리워드 · Rewards · 奖励</span></h4>
+        <p class="desc3">
+          활동에 따른 포인트와 보너스.<br/>
+          <small>Earn points and bonuses for activity.</small>
+          <small>根据活跃度获得积分与奖励。</small>
+        </p>
+      </article>
+
+      <!-- 4 -->
+      <article class="card">
+        <span class="badge">수익 / Yield / 收益</span>
+        <h4 class="title3"><span>예치(스테이킹) · Staking · 存款/质押</span></h4>
+        <p class="desc3">
+          유연한 기간, 투명한 금리 (APY:%).<br/>
+          <small>Flexible terms; clear, transparent rates (APY:%).</small>
+          <small>期限灵活，利率透明清晰（APY:%）。</small>
+        </p>
+      </article>
+
+      <!-- 5 -->
+      <article class="card">
+        <span class="badge">공평 / Equity / 公平</span>
+        <h4 class="title3"><span>UBI · UBI · 基本收入</span></h4>
+        <p class="desc3">
+          사람 중심의 기본소득 경험.<br/>
+          <small>Human-centric basic income experiences.</small>
+          <small>以人为本的基本收入体验。</small>
+        </p>
+      </article>
+
+      <!-- 6 -->
+      <article class="card">
+        <span class="badge">케어 / Care / 关怀</span>
+        <h4 class="title3"><span>고객센터 · Support · 客服</span></h4>
+        <p class="desc3">
+          다국어 실시간 상담 지원.<br/>
+          <small>Multilingual help with real-time chat.</small>
+          <small>多语言实时客服支持。</small>
+        </p>
+      </article>
+    </section>
+
+    <footer>
+      노동자·노년층·소상공인·장애인 우선. KYC 화면은 표기하지 않으며 검증/보안 가이드는 오른쪽 FAQ에서 확인하세요.
+    </footer>
   </div>
 
-  <div class="qr"></div>
+  <!-- 오른쪽 말풍선 FAQ + QR -->
+  <button class="chat-bubble" id="openChat">FAQ (KYC의무)</button>
+  <a class="qr" href="pi://worldpibank" title="Pi Browser에서 열기">
+    <svg viewBox="0 0 100 100" aria-hidden="true">
+      <rect x="0" y="0" width="100" height="100" rx="12" fill="#20244a" stroke="#394078"/>
+      <rect x="10" y="10" width="22" height="22" fill="#ffd24d"/>
+      <rect x="68" y="10" width="22" height="22" fill="#ffd24d"/>
+      <rect x="10" y="68" width="22" height="22" fill="#ffd24d"/>
+      <rect x="46" y="46" width="12" height="12" fill="#ffd24d"/>
+    </svg>
+  </a>
+
+  <!-- FAQ 시트 -->
+  <aside class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="faqTitle">
+    <div class="swrap">
+      <button class="close" id="closeSheet">✕</button>
+      <h3 id="faqTitle">FAQ · KYC & 보안</h3>
+      <div class="faq">
+        <details open>
+          <summary>KYC가 필수인가요? / Is KYC required? / 是否必须KYC？</summary>
+          <p>네, 위험기반 KYC를 적용하며 시드구절은 절대 요구하지 않습니다.<br/>
+             Yes. Risk-based KYC; we never ask for seed phrases.<br/>
+             是的，采用基于风险的KYC，绝不索取助记词。</p>
+        </details>
+        <details>
+          <summary>필요 서류 / Required docs / 所需材料</summary>
+          <p>정부신분증 + 셀피 (법인은 사업자등록).<br/>
+             Government ID + selfie (business: license).<br/>
+             政府身份证 + 自拍（企业：营业执照）。</p>
+        </details>
+        <details>
+          <summary>지갑 보안 / Wallet safety / 钱包安全</summary>
+          <p>개인키 보관 안 함. 공식 지갑 사용, pi:// 주소 확인, 출처 불명 QR 금지.<br/>
+             We never store private keys. Use official wallet, verify pi:// URL, avoid unknown QR.<br/>
+             不保存私钥；使用官方钱包；核对 pi:// 链接；拒扫未知二维码。</p>
+        </details>
+      </div>
+    </div>
+  </aside>
+
+  <script>
+    const sheet=document.getElementById('sheet');
+    document.getElementById('openChat').addEventListener('click',()=>sheet.classList.add('open'));
+    document.getElementById('closeSheet').addEventListener('click',()=>sheet.classList.remove('open'));
+  </script>
 </body>
 </html>
