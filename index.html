@@ -7,97 +7,133 @@
 <meta name="color-scheme" content="dark light" />
 <style>
   :root{
-    --bg:#0e1020; --card:#1e2145; --accent:#8b8fff; --pi:#f7c62f;
+    --bg:#0d1024; --bg2:#15183a; --card:#1d2046;
+    --accent:#8b8fff; --accent2:#7a59ff; --pi:#f7c62f;
     --text:#eef0ff; --muted:#b8b9cc; --ring:rgba(139,143,255,.45);
-    --shadow:0 10px 30px rgba(0,0,0,.35); --radius:20px;
+    --radius:20px; --shadow:0 10px 30px rgba(0,0,0,.35);
   }
   *{box-sizing:border-box}
   html,body{height:100%}
   body{
-    margin:0; font-family:ui-sans-serif,-apple-system,"Segoe UI",Roboto,"Noto Sans",
-      "Apple SD Gothic Neo","Malgun Gothic","PingFang SC","Hiragino Sans","Helvetica Neue",Arial,sans-serif;
+    margin:0;
+    font-family: ui-sans-serif, -apple-system, "Segoe UI", Roboto, "Noto Sans",
+     "Apple SD Gothic Neo","Malgun Gothic","PingFang SC","Hiragino Sans","Helvetica Neue",Arial,sans-serif;
     color:var(--text);
     background:
-      radial-gradient(1200px 600px at 70% -10%, #251f62 0%, transparent 60%),
+      radial-gradient(1200px 600px at 70% -10%, #2a2173 0%, transparent 60%),
       radial-gradient(900px 500px at 20% 10%, #1b1a4a 0%, transparent 55%),
       var(--bg);
     padding-bottom: env(safe-area-inset-bottom);
   }
+  .wrap{max-width:1100px; margin:0 auto; padding:12px 18px 44px}
 
-  .wrap{max-width:1100px; margin:0 auto; padding:16px 18px 44px}
-
-  /* SAFE topbar — 겹침 방지(절대배치 제거) */
+  /* Topbar (겹침 방지 + 하이라이트) */
   .topbar{
     display:flex; align-items:center; justify-content:space-between; gap:12px;
-    padding:8px 0; position:sticky; top:0; z-index:5; background:linear-gradient(180deg, rgba(14,16,32,.9), rgba(14,16,32,0));
-    backdrop-filter:saturate(120%) blur(6px);
+    padding:10px 0; position:sticky; top:0; z-index:10;
+    background:linear-gradient(180deg, rgba(13,16,36,.9), rgba(13,16,36,0));
+    backdrop-filter:saturate(130%) blur(6px);
   }
-  .brand{display:flex; align-items:center; gap:10px; font-weight:800}
-  .dot{width:10px; height:10px; border-radius:999px; background:var(--accent); box-shadow:0 0 0 6px rgba(139,143,255,.15)}
+  .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.2px}
+  .dot{width:10px; height:10px; border-radius:999px; background:var(--accent);
+       box-shadow:0 0 0 6px rgba(139,143,255,.15)}
   .controls{display:flex; gap:8px}
   .chip{
-    border:1px solid rgba(255,255,255,.15);
-    background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.1));
-    color:var(--text); padding:7px 12px; border-radius:12px; font-size:13px; cursor:pointer; transition:.18s;
+    border:1px solid rgba(255,255,255,.18);
+    background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(0,0,0,.12));
+    color:var(--text); padding:7px 12px; border-radius:12px; font-size:13px;
+    cursor:pointer; transition:.18s ease;
   }
-  .chip[aria-pressed="true"]{border-color:var(--ring); box-shadow:0 0 0 4px rgba(139,143,255,.12)}
+  .chip:hover{transform:translateY(-1px)}
+  .chip[aria-pressed="true"]{
+    border-color:var(--ring);
+    box-shadow:0 0 0 5px rgba(139,143,255,.12), 0 6px 18px rgba(0,0,0,.35);
+  }
 
-  /* hero */
+  /* Hero */
   .hero{
-    margin-top:8px;
+    margin-top:6px;
     display:grid; grid-template-columns:1.15fr .85fr; gap:22px; align-items:center;
   }
-  .title{margin:0 0 6px; font-weight:900; font-size:32px; line-height:1.06} /* 작게 */
-  .subtitle{margin:0 0 8px; color:var(--muted); font-size:16px} /* 작게 */
-  .built{margin:12px 0 0; color:var(--muted); font-size:13px}
+  .title{
+    margin:4px 0 6px; font-weight:900; line-height:1.04;
+    font-size:32px; /* 요청대로 작게 */
+    background:linear-gradient(90deg,#ffffff 0%, #d7d9ff 40%, #f9e58a 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    text-shadow:0 2px 14px rgba(255,255,255,.08);
+  }
+  .subtitle{margin:0 0 10px; color:var(--muted); font-size:16px} /* 요청대로 작게 */
+  .built{margin:10px 0 0; color:var(--muted); font-size:13px}
 
   .pi-orb{
     aspect-ratio:1/1; border-radius:50%;
     background:radial-gradient(60% 60% at 50% 35%, #2a2a55 0%, #15163a 60%, #0e1020 100%);
     position:relative; display:grid; place-items:center;
-    box-shadow:inset 0 0 40px rgba(255,255,255,.05), 0 0 80px rgba(247,198,47,.12);
+    box-shadow:inset 0 0 40px rgba(255,255,255,.06), 0 0 120px rgba(247,198,47,.14);
+    overflow:hidden;
   }
-  .pi{width:min(44%,220px); aspect-ratio:1.2/1}
+  .pi-orb::after{
+    content:""; position:absolute; inset:-16%; border-radius:inherit;
+    background: radial-gradient(60% 60% at 50% 40%, rgba(247,198,47,.2), transparent 60%);
+    filter: blur(10px); animation: glow 5.8s ease-in-out infinite;
+  }
+  @keyframes glow{0%,100%{opacity:.55; transform:scale(1)} 50%{opacity:.9; transform:scale(1.04)}}
+  .pi{position:relative; z-index:1; width:min(44%,220px); aspect-ratio:1.2/1; display:block}
 
-  /* GRID: 3×2 고정 */
-  .grid{margin:26px 0 10px; display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
+  /* 3×2 Grid */
+  .grid{
+    margin:26px 0 8px;
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:16px;
+  }
   .card{
-    background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(0,0,0,.15));
-    border:1px solid rgba(255,255,255,.1);
+    background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(0,0,0,.16));
+    border:1px solid rgba(255,255,255,.12);
     border-radius:var(--radius);
     padding:18px 16px 16px;
     box-shadow:var(--shadow);
-    min-height:124px;
+    min-height:126px;
+    transition:border-color .18s ease, transform .18s ease;
   }
+  .card:hover{border-color:var(--ring); transform:translateY(-2px)}
   .tag{
     display:inline-flex; align-items:center; gap:6px;
     font-size:12px; color:var(--muted);
     padding:6px 10px; border-radius:999px;
-    border:1px solid rgba(255,255,255,.12);
-    background:rgba(255,255,255,.04)
+    border:1px solid rgba(255,255,255,.14);
+    background:rgba(255,255,255,.05)
   }
   .tag .dot{width:6px; height:6px; box-shadow:none}
   .card h3{margin:10px 0 6px; font-size:18px}
   .card p{margin:0; color:var(--muted); font-size:13.5px; line-height:1.45}
-  .rate{font-size:12px; opacity:.9} /* 예치율 글자 작게 */
+  .rate{font-size:12px; opacity:.92}
 
-  /* QR & FAQ row */
-  .extras{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:8px}
+  /* Extras: QR + FAQ */
+  .extras{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:10px}
   .panel{
     border:1px dashed rgba(255,255,255,.18); border-radius:16px; padding:16px;
-    background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.12));
+    background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(0,0,0,.12));
   }
-  .panel h4{margin:0 0 8px; font-size:16px}
-  .qrbox{display:grid; place-items:center; height:140px; border-radius:12px; background:rgba(0,0,0,.28)}
-  .faqbtn{display:inline-block; padding:10px 14px; border-radius:10px; border:1px solid rgba(255,255,255,.18)}
+  .panel h4{margin:0 0 10px; font-size:16px}
+  .qrbox{
+    display:grid; place-items:center; height:140px; border-radius:12px;
+    background:rgba(0,0,0,.28); letter-spacing:.5px;
+  }
+  .faqbtn{
+    display:inline-block; padding:11px 16px; border-radius:11px;
+    border:1px solid rgba(123,94,255,.55);
+    background:linear-gradient(90deg, rgba(123,94,255,.25), rgba(255,255,255,.05));
+    box-shadow:0 0 24px rgba(122,89,255,.25);
+    text-decoration:none; font-weight:700; color:#fff;
+  }
   .kyc{margin-top:10px; font-size:12px; color:var(--muted)}
 
   footer{margin-top:28px; padding-top:16px; border-top:1px dashed rgba(255,255,255,.14); color:var(--muted); font-size:13px}
+  .note{margin:8px 0 0; font-size:12.5px; color:var(--muted)}
 </style>
 </head>
 <body>
   <div class="wrap">
-    <!-- Topbar (겹침 없음) -->
+    <!-- Topbar -->
     <div class="topbar">
       <div class="brand"><span class="dot" aria-hidden="true"></span><b>WorldPiBank</b></div>
       <div class="controls" role="group" aria-label="Language selector">
@@ -115,42 +151,47 @@
         <p class="built" data-i18n="built">Pi 생태계를 기반으로</p>
       </div>
       <div class="pi-orb" aria-hidden="true">
-        <svg class="pi" viewBox="0 0 100 80" fill="none">
+        <svg class="pi" viewBox="0 0 100 80" fill="none" aria-hidden="true">
           <path d="M24 12h52c3 0 6 3 6 6v6H66v38c0 6-4 10-10 10s-10-4-10-10V24H24v38c0 6-4 10-10 10S4 68 4 62V24c0-6 4-12 10-12h10Z" fill="var(--pi)"/>
         </svg>
       </div>
     </section>
 
-    <!-- 3×2 -->
+    <!-- 3×2 Cards -->
     <section>
       <div class="grid">
-        <!-- 1행 -->
+        <!-- Row 1 -->
         <article class="card">
           <span class="tag"><span class="dot"></span><span data-i18n="tags.core">핵심</span></span>
           <h3 data-i18n="titles.send">송금</h3>
           <p data-i18n="desc.send">낮은 비용으로 빠른 개인 간 이체.</p>
         </article>
+
         <article class="card">
           <span class="tag"><span class="dot"></span><span data-i18n="tags.pay">결제</span></span>
           <h3 data-i18n="titles.payment">결재</h3>
           <p data-i18n="desc.payment">매장/온라인 결제를 간편하게.</p>
         </article>
+
         <article class="card">
           <span class="tag"><span class="dot"></span><span data-i18n="tags.growth">성장</span></span>
           <h3 data-i18n="titles.rewards">리워드</h3>
           <p data-i18n="desc.rewards">활동에 따른 포인트와 보너스.</p>
         </article>
-        <!-- 2행 -->
+
+        <!-- Row 2 -->
         <article class="card">
           <span class="tag"><span class="dot"></span><span data-i18n="tags.revenue">수익</span></span>
           <h3 data-i18n="titles.staking">예치 <span class="rate">(예치ㆍ이율:%)</span></h3>
           <p data-i18n="desc.staking">유연한 기간, 투명한 금리.</p>
         </article>
+
         <article class="card">
           <span class="tag"><span class="dot"></span><span data-i18n="tags.equity">형평</span></span>
           <h3 data-i18n="titles.ubi">UBI</h3>
           <p data-i18n="desc.ubi">사람 중심의 기본소득 경험.</p>
         </article>
+
         <article class="card">
           <span class="tag"><span class="dot"></span><span data-i18n="tags.care">케어</span></span>
           <h3 data-i18n="titles.support">고객센터</h3>
@@ -158,7 +199,9 @@
         </article>
       </div>
 
-      <!-- QR/FAQ 자리 + KYC 고지 -->
+      <p class="note" data-i18n="priority">* 우선대상: 노동자·노년층·소상공인·장애인.</p>
+
+      <!-- QR / FAQ -->
       <div class="extras">
         <div class="panel">
           <h4 data-i18n="qr.title">QR 코드</h4>
@@ -180,7 +223,7 @@
   </div>
 
 <script>
-  // 언어 사전 (EN/KO/ZH) — 하단 문구까지 각 언어로 정확히 표기
+  // 다국어 사전 — 혼용 없이 각 언어 100% 적용
   const I18N = {
     en:{
       title:"World Pi Bank",
@@ -196,6 +239,7 @@
         ubi:"Human-centric basic income experiences.",
         support:"Multilingual help with real-time chat."
       },
+      priority:"* Priority: workers, seniors, small businesses, and people with disabilities.",
       qr:{title:"QR Code", note:"* Use QR for account onboarding/verification."},
       faq:{title:"FAQ / Chat", btn:"Open live chat", note:"KYC is mandatory under regulations. See FAQ for details."},
       copyright:"© 2025 WorldPiBank. All rights reserved.",
@@ -215,6 +259,7 @@
         ubi:"사람 중심의 기본소득 경험.",
         support:"다국어 실시간 상담 지원."
       },
+      priority:"* 우선대상: 노동자·노년층·소상공인·장애인.",
       qr:{title:"QR 코드", note:"* 계정 개설/인증 시 QR을 사용합니다."},
       faq:{title:"FAQ / 채팅", btn:"실시간 상담 열기", note:"법규에 따라 KYC가 의무입니다. 자세한 사항은 FAQ 확인."},
       copyright:"© 2025 WorldPiBank. All rights reserved.",
@@ -234,6 +279,7 @@
         ubi:"以人为本的基本收入体验。",
         support:"多语言支持与实时聊天。"
       },
+      priority:"* 优先服务：劳动者、老年人、小微商户及残障人士。",
       qr:{title:"二维码", note:"* 开户/验证时使用二维码。"},
       faq:{title:"常见问题 / 聊天", btn:"打开实时聊天", note:"根据法规，KYC 为必需。详见常见问题。"},
       copyright:"© 2025 WorldPiBank. All rights reserved.",
@@ -241,6 +287,7 @@
     }
   };
 
+  const $ = (s, r=document)=>r.querySelector(s);
   const $$ = (s, r=document)=>Array.from(r.querySelectorAll(s));
 
   function applyLang(lang){
@@ -256,15 +303,19 @@
     document.documentElement.lang = (lang==='kr'?'ko':lang);
   }
 
-  const initial = (()=> {
+  // 초기 언어: URL > localStorage > kr
+  (function initLang(){
+    let lang = "kr";
     try{
       const p = new URL(location.href).searchParams.get("lang");
-      return p || localStorage.getItem("wpi.lang") || "kr";
-    }catch(e){ return "kr"; }
+      lang = p || localStorage.getItem("wpi.lang") || "kr";
+    }catch(e){}
+    applyLang(lang);
   })();
-  applyLang(initial);
 
-  $$(".chip.lang").forEach(btn=>btn.addEventListener("click", ()=>applyLang(btn.dataset.lang)));
+  $$(".chip.lang").forEach(btn=>{
+    btn.addEventListener("click", ()=>applyLang(btn.dataset.lang));
+  });
 </script>
 </body>
 </html>
