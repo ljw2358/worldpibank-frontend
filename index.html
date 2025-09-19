@@ -12,12 +12,11 @@
   *{box-sizing:border-box}
   body{
     margin:0; color:var(--text);
-    font-family:Inter,system-ui,-apple-system,"Noto Sans KR","Noto Sans SC",Arial,sans-serif;
+    font-family:Inter,system-ui,"Noto Sans KR","Noto Sans SC",Arial,sans-serif;
     background:var(--bg);
   }
-  .wrap{max-width:1120px;margin:0 auto;padding:22px 16px 80px}
+  .wrap{max-width:1100px;margin:0 auto;padding:22px 16px 80px}
 
-  /* top bar */
   .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
   .brand{font-weight:800;font-size:20px}
   .lang{display:flex;gap:8px}
@@ -27,18 +26,17 @@
   }
   .pill.active{background:#2a3070}
 
-  /* title */
   .hero{text-align:center;margin-top:20px}
   .h-title{font-size:36px;font-weight:900;margin:0 0 6px}
   .h-sub{color:#cfd3ff;margin:0;font-size:18px}
+  .slogan{margin-top:10px;font-size:16px;color:#ffd24d;font-weight:700}
 
-  /* 2x3 cards */
   .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
   .card{
     background:linear-gradient(180deg,var(--panel),var(--panel2));
     border:1px solid var(--line); border-radius:var(--r);
     box-shadow:0 6px 22px var(--shadow); padding:14px 16px; text-align:left;
-    word-break:keep-all; overflow-wrap:anywhere; min-height:120px;
+    word-break:keep-all; min-height:120px;
   }
   .k{display:inline-block;background:#2a2d4b;color:#c9cff6;padding:3px 8px;border-radius:999px;font-size:12px;margin-bottom:6px}
   .ctitle{margin:2px 0 6px;font-weight:800;font-size:18px}
@@ -46,13 +44,8 @@
 
   footer{margin-top:28px;text-align:center;color:var(--muted);font-size:12px}
 
-  /* responsive */
-  @media (max-width:760px){
-    .cards{grid-template-columns:1fr 1fr}
-  }
-  @media (max-width:560px){
-    .cards{grid-template-columns:1fr}
-  }
+  @media (max-width:760px){.cards{grid-template-columns:1fr 1fr}}
+  @media (max-width:560px){.cards{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -66,48 +59,42 @@
       </div>
     </div>
 
-    <!-- Hero -->
     <section class="hero">
       <h1 class="h-title" data-i18n="title">World Pi Bank</h1>
       <p class="h-sub" data-i18n="subtitle">The world’s first digital bank</p>
+      <p class="slogan" data-i18n="slogan">Empowering People with Pi</p>
     </section>
 
-    <!-- 2×3 cards -->
     <section class="cards">
       <article class="card">
         <span class="k" data-i18n="core.tag">Core</span>
         <h4 class="ctitle" data-i18n="core.title">Send</h4>
-        <p class="cbody" data-i18n="core.desc">Fast peer-to-peer transfers with low friction.</p>
+        <p class="cbody" data-i18n="core.desc">Fast peer-to-peer transfers.</p>
       </article>
-
       <article class="card">
         <span class="k" data-i18n="commerce.tag">Commerce</span>
         <h4 class="ctitle" data-i18n="commerce.title">Pay</h4>
-        <p class="cbody" data-i18n="commerce.desc">Simple in-store and online checkout flows.</p>
+        <p class="cbody" data-i18n="commerce.desc">Easy checkout online & offline.</p>
       </article>
-
       <article class="card">
         <span class="k" data-i18n="growth.tag">Growth</span>
         <h4 class="ctitle" data-i18n="growth.title">Rewards</h4>
-        <p class="cbody" data-i18n="growth.desc">Earn points and bonuses for activity.</p>
+        <p class="cbody" data-i18n="growth.desc">Earn bonuses for activity.</p>
       </article>
-
       <article class="card">
         <span class="k" data-i18n="yield.tag">Yield</span>
         <h4 class="ctitle" data-i18n="yield.title">Staking (Deposit · APY%)</h4>
-        <p class="cbody" data-i18n="yield.desc">Flexible terms; clear, transparent rates.</p>
+        <p class="cbody" data-i18n="yield.desc">Flexible terms, transparent rates.</p>
       </article>
-
       <article class="card">
         <span class="k" data-i18n="equity.tag">Equity</span>
         <h4 class="ctitle" data-i18n="equity.title">UBI</h4>
-        <p class="cbody" data-i18n="equity.desc">Human-centric basic income experiences.</p>
+        <p class="cbody" data-i18n="equity.desc">Universal Basic Income model.</p>
       </article>
-
       <article class="card">
         <span class="k" data-i18n="care.tag">Care</span>
         <h4 class="ctitle" data-i18n="care.title">Support</h4>
-        <p class="cbody" data-i18n="care.desc">Multilingual help with real-time chat.</p>
+        <p class="cbody" data-i18n="care.desc">Multilingual help center.</p>
       </article>
     </section>
 
@@ -117,40 +104,42 @@
   </div>
 
 <script>
-/* i18n dictionary */
 const dict = {
   en:{
     title:"World Pi Bank",
     subtitle:"The world’s first digital bank",
-    core:{tag:"Core",title:"Send",desc:"Fast peer-to-peer transfers with low friction."},
-    commerce:{tag:"Commerce",title:"Pay",desc:"Simple in-store and online checkout flows."},
-    growth:{tag:"Growth",title:"Rewards",desc:"Earn points and bonuses for activity."},
-    yield:{tag:"Yield",title:"Staking (Deposit · APY%)",desc:"Flexible terms; clear, transparent rates."},
-    equity:{tag:"Equity",title:"UBI",desc:"Human-centric basic income experiences."},
-    care:{tag:"Care",title:"Support",desc:"Multilingual help with real-time chat."},
+    slogan:"Empowering People with Pi",
+    core:{tag:"Core",title:"Send",desc:"Fast peer-to-peer transfers."},
+    commerce:{tag:"Commerce",title:"Pay",desc:"Easy checkout online & offline."},
+    growth:{tag:"Growth",title:"Rewards",desc:"Earn bonuses for activity."},
+    yield:{tag:"Yield",title:"Staking (Deposit · APY%)",desc:"Flexible terms, transparent rates."},
+    equity:{tag:"Equity",title:"UBI",desc:"Universal Basic Income model."},
+    care:{tag:"Care",title:"Support",desc:"Multilingual help center."},
     foot:"Workers · Seniors · Small businesses · People with disabilities"
   },
   ko:{
     title:"세계파이은행",
     subtitle:"세계최초의 디지털 은행",
-    core:{tag:"핵심",title:"송금",desc:"낮은 비용으로 빠른 개인간 이체."},
-    commerce:{tag:"결제",title:"결제",desc:"매장/온라인 간편 결제."},
-    growth:{tag:"성장",title:"리워드",desc:"활동에 따른 포인트와 보너스."},
-    yield:{tag:"수익",title:"예치(스테이킹 · APY%)",desc:"유연한 기간, 투명한 금리."},
-    equity:{tag:"공평",title:"UBI",desc:"사람 중심의 기본소득."},
-    care:{tag:"케어",title:"고객센터",desc:"다국어 실시간 상담 지원."},
+    slogan:"파이로 사람을 살린다",
+    core:{tag:"핵심",title:"송금",desc:"빠르고 저렴한 개인간 이체"},
+    commerce:{tag:"결제",title:"결제",desc:"매장/온라인 간편 결제"},
+    growth:{tag:"성장",title:"리워드",desc:"활동에 따른 보상 제공"},
+    yield:{tag:"수익",title:"예치(스테이킹 · APY%)",desc:"유연한 기간, 투명한 금리"},
+    equity:{tag:"공평",title:"UBI",desc:"보편적 기본소득 모델"},
+    care:{tag:"케어",title:"고객센터",desc:"다국어 지원 상담"},
     foot:"노동자 · 노년층 · 소상공인 · 장애인 우선"
   },
   zh:{
     title:"世界Pi银行",
     subtitle:"全球首个数字银行",
-    core:{tag:"核心",title:"转账",desc:"低成本、快速的点对点汇款。"},
-    commerce:{tag:"支付",title:"结算",desc:"门店/线上简便结算。"},
-    growth:{tag:"增长",title:"奖励",desc:"按活跃度获得积分与奖励。"},
-    yield:{tag:"收益",title:"存款/质押（APY%）",desc:"期限灵活，利率透明清晰。"},
-    equity:{tag:"公平",title:"基本收入",desc:"以人为本的基本收入。"},
-    care:{tag:"关怀",title:"客服",desc:"多语言实时客服。"},
-    foot:"优先：劳动者 · 老人 · 小微商户 · 残障群体"
+    slogan:"以Pi赋能全民",
+    core:{tag:"核心",title:"转账",desc:"快速、低成本的点对点汇款"},
+    commerce:{tag:"支付",title:"结算",desc:"门店/线上简便支付"},
+    growth:{tag:"增长",title:"奖励",desc:"按活跃度获取奖励"},
+    yield:{tag:"收益",title:"存款/质押（APY%）",desc:"灵活期限，透明利率"},
+    equity:{tag:"公平",title:"基本收入",desc:"普遍基本收入模式"},
+    care:{tag:"关怀",title:"客服",desc:"多语言客服支持"},
+    foot:"优先：劳动者 · 老年人 · 小微商户 · 残障人士"
   }
 };
 
@@ -170,7 +159,7 @@ document.querySelectorAll(".pill").forEach(btn=>{
   btn.addEventListener("click", ()=> setLang(btn.dataset.lang));
 });
 
-setLang("en"); // 기본 영어
+setLang("en");
 </script>
 </body>
 </html>
