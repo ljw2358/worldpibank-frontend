@@ -1,223 +1,270 @@
 <!DOCTYPE html>
-<html lang="kr">
+<html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>World Pi Bank</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0e0e2c;
-      color: white;
-      text-align: center;
-    }
-    header {
-      padding: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    header h1 {
-      font-size: 1.6em; /* 글자 크기 축소 */
-      margin: 0;
-    }
-    header p {
-      font-size: 0.9em; /* 글자 크기 축소 */
-      margin: 0;
-      opacity: 0.8;
-    }
-    .lang {
-      display: flex;
-      gap: 5px;
-    }
-    .lang button {
-      background: transparent;
-      border: 1px solid #666;
-      color: white;
-      padding: 5px 10px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .logo {
-      margin: 20px auto;
-      font-size: 3em;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-    .card {
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 10px;
-      padding: 15px;
-      min-height: 120px;
-    }
-    .card h2 {
-      margin: 0 0 10px;
-      font-size: 1.2em;
-    }
-    .small {
-      font-size: 0.8em; /* 예치율(APY %) 작은 글씨 */
-    }
-    footer {
-      margin-top: 30px;
-      padding: 15px;
-      font-size: 0.8em;
-      color: #bbb;
-    }
-    /* QR코드, FAQ */
-    .fixed-left, .fixed-right {
-      position: fixed;
-      bottom: 20px;
-      width: 80px;
-    }
-    .fixed-left {
-      left: 20px;
-    }
-    .fixed-right {
-      right: 20px;
-    }
-    .fixed-right button {
-      background: #ffcc00;
-      border: none;
-      padding: 8px;
-      border-radius: 5px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>World Pi Bank — Global Digital Bank</title>
+<meta name="color-scheme" content="dark light" />
+<style>
+  :root{
+    --bg:#0e1020; --card:#1e2145; --accent:#8b8fff; --pi:#f7c62f;
+    --text:#eef0ff; --muted:#b8b9cc; --ring:rgba(139,143,255,.45);
+    --shadow:0 10px 30px rgba(0,0,0,.35); --radius:20px;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; font-family:ui-sans-serif,-apple-system,"Segoe UI",Roboto,"Noto Sans",
+      "Apple SD Gothic Neo","Malgun Gothic","PingFang SC","Hiragino Sans","Helvetica Neue",Arial,sans-serif;
+    color:var(--text);
+    background:
+      radial-gradient(1200px 600px at 70% -10%, #251f62 0%, transparent 60%),
+      radial-gradient(900px 500px at 20% 10%, #1b1a4a 0%, transparent 55%),
+      var(--bg);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .wrap{max-width:1100px; margin:0 auto; padding:16px 18px 44px}
+
+  /* SAFE topbar — 겹침 방지(절대배치 제거) */
+  .topbar{
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    padding:8px 0; position:sticky; top:0; z-index:5; background:linear-gradient(180deg, rgba(14,16,32,.9), rgba(14,16,32,0));
+    backdrop-filter:saturate(120%) blur(6px);
+  }
+  .brand{display:flex; align-items:center; gap:10px; font-weight:800}
+  .dot{width:10px; height:10px; border-radius:999px; background:var(--accent); box-shadow:0 0 0 6px rgba(139,143,255,.15)}
+  .controls{display:flex; gap:8px}
+  .chip{
+    border:1px solid rgba(255,255,255,.15);
+    background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.1));
+    color:var(--text); padding:7px 12px; border-radius:12px; font-size:13px; cursor:pointer; transition:.18s;
+  }
+  .chip[aria-pressed="true"]{border-color:var(--ring); box-shadow:0 0 0 4px rgba(139,143,255,.12)}
+
+  /* hero */
+  .hero{
+    margin-top:8px;
+    display:grid; grid-template-columns:1.15fr .85fr; gap:22px; align-items:center;
+  }
+  .title{margin:0 0 6px; font-weight:900; font-size:32px; line-height:1.06} /* 작게 */
+  .subtitle{margin:0 0 8px; color:var(--muted); font-size:16px} /* 작게 */
+  .built{margin:12px 0 0; color:var(--muted); font-size:13px}
+
+  .pi-orb{
+    aspect-ratio:1/1; border-radius:50%;
+    background:radial-gradient(60% 60% at 50% 35%, #2a2a55 0%, #15163a 60%, #0e1020 100%);
+    position:relative; display:grid; place-items:center;
+    box-shadow:inset 0 0 40px rgba(255,255,255,.05), 0 0 80px rgba(247,198,47,.12);
+  }
+  .pi{width:min(44%,220px); aspect-ratio:1.2/1}
+
+  /* GRID: 3×2 고정 */
+  .grid{margin:26px 0 10px; display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
+  .card{
+    background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(0,0,0,.15));
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:var(--radius);
+    padding:18px 16px 16px;
+    box-shadow:var(--shadow);
+    min-height:124px;
+  }
+  .tag{
+    display:inline-flex; align-items:center; gap:6px;
+    font-size:12px; color:var(--muted);
+    padding:6px 10px; border-radius:999px;
+    border:1px solid rgba(255,255,255,.12);
+    background:rgba(255,255,255,.04)
+  }
+  .tag .dot{width:6px; height:6px; box-shadow:none}
+  .card h3{margin:10px 0 6px; font-size:18px}
+  .card p{margin:0; color:var(--muted); font-size:13.5px; line-height:1.45}
+  .rate{font-size:12px; opacity:.9} /* 예치율 글자 작게 */
+
+  /* QR & FAQ row */
+  .extras{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:8px}
+  .panel{
+    border:1px dashed rgba(255,255,255,.18); border-radius:16px; padding:16px;
+    background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.12));
+  }
+  .panel h4{margin:0 0 8px; font-size:16px}
+  .qrbox{display:grid; place-items:center; height:140px; border-radius:12px; background:rgba(0,0,0,.28)}
+  .faqbtn{display:inline-block; padding:10px 14px; border-radius:10px; border:1px solid rgba(255,255,255,.18)}
+  .kyc{margin-top:10px; font-size:12px; color:var(--muted)}
+
+  footer{margin-top:28px; padding-top:16px; border-top:1px dashed rgba(255,255,255,.14); color:var(--muted); font-size:13px}
+</style>
 </head>
 <body>
-  <header>
-    <div>
-      <h1 id="title">세계파이은행</h1>
-      <p id="subtitle">세계최초의 디지털 은행</p>
+  <div class="wrap">
+    <!-- Topbar (겹침 없음) -->
+    <div class="topbar">
+      <div class="brand"><span class="dot" aria-hidden="true"></span><b>WorldPiBank</b></div>
+      <div class="controls" role="group" aria-label="Language selector">
+        <button class="chip lang" data-lang="en" aria-pressed="false">EN</button>
+        <button class="chip lang" data-lang="kr" aria-pressed="true">KR</button>
+        <button class="chip lang" data-lang="zh" aria-pressed="false">中文</button>
+      </div>
     </div>
-    <div class="lang">
-      <button onclick="setLang('en')">EN</button>
-      <button onclick="setLang('kr')">KR</button>
-      <button onclick="setLang('zh')">中文</button>
-    </div>
-  </header>
 
-  <div class="logo">π</div>
+    <!-- Hero -->
+    <section class="hero" aria-labelledby="t">
+      <div>
+        <h1 id="t" class="title" data-i18n="title">세계파이은행</h1>
+        <p class="subtitle" data-i18n="subtitle">세계최초의 디지털 은행</p>
+        <p class="built" data-i18n="built">Pi 생태계를 기반으로</p>
+      </div>
+      <div class="pi-orb" aria-hidden="true">
+        <svg class="pi" viewBox="0 0 100 80" fill="none">
+          <path d="M24 12h52c3 0 6 3 6 6v6H66v38c0 6-4 10-10 10s-10-4-10-10V24H24v38c0 6-4 10-10 10S4 68 4 62V24c0-6 4-12 10-12h10Z" fill="var(--pi)"/>
+        </svg>
+      </div>
+    </section>
 
-  <div class="grid">
-    <div class="card">
-      <h2 id="coreTitle">핵심</h2>
-      <p id="coreText">은행의 기본 가치와 중심 서비스.</p>
-    </div>
-    <div class="card">
-      <h2 id="payTitle">결제</h2>
-      <p id="payText">온·오프라인 결제 연결과 간편 지불.</p>
-    </div>
-    <div class="card">
-      <h2 id="rewardTitle">리워드</h2>
-      <p id="rewardText">참여와 활동에 따른 보상.</p>
-    </div>
-    <div class="card">
-      <h2 id="yieldTitle">예치 <span class="small">(APY:%)</span></h2>
-      <p id="yieldText">유연한 기간, 투명한 금리.</p>
-    </div>
-    <div class="card">
-      <h2 id="ubiTitle">UBI</h2>
-      <p id="ubiText">노동자·소상공인 지원을 통한 형평성 강화.</p>
-    </div>
-    <div class="card">
-      <h2 id="careTitle">고객센터</h2>
-      <p id="careText">보안·상담·지원 서비스.</p>
-    </div>
+    <!-- 3×2 -->
+    <section>
+      <div class="grid">
+        <!-- 1행 -->
+        <article class="card">
+          <span class="tag"><span class="dot"></span><span data-i18n="tags.core">핵심</span></span>
+          <h3 data-i18n="titles.send">송금</h3>
+          <p data-i18n="desc.send">낮은 비용으로 빠른 개인 간 이체.</p>
+        </article>
+        <article class="card">
+          <span class="tag"><span class="dot"></span><span data-i18n="tags.pay">결제</span></span>
+          <h3 data-i18n="titles.payment">결재</h3>
+          <p data-i18n="desc.payment">매장/온라인 결제를 간편하게.</p>
+        </article>
+        <article class="card">
+          <span class="tag"><span class="dot"></span><span data-i18n="tags.growth">성장</span></span>
+          <h3 data-i18n="titles.rewards">리워드</h3>
+          <p data-i18n="desc.rewards">활동에 따른 포인트와 보너스.</p>
+        </article>
+        <!-- 2행 -->
+        <article class="card">
+          <span class="tag"><span class="dot"></span><span data-i18n="tags.revenue">수익</span></span>
+          <h3 data-i18n="titles.staking">예치 <span class="rate">(예치ㆍ이율:%)</span></h3>
+          <p data-i18n="desc.staking">유연한 기간, 투명한 금리.</p>
+        </article>
+        <article class="card">
+          <span class="tag"><span class="dot"></span><span data-i18n="tags.equity">형평</span></span>
+          <h3 data-i18n="titles.ubi">UBI</h3>
+          <p data-i18n="desc.ubi">사람 중심의 기본소득 경험.</p>
+        </article>
+        <article class="card">
+          <span class="tag"><span class="dot"></span><span data-i18n="tags.care">케어</span></span>
+          <h3 data-i18n="titles.support">고객센터</h3>
+          <p data-i18n="desc.support">다국어 실시간 상담 지원.</p>
+        </article>
+      </div>
+
+      <!-- QR/FAQ 자리 + KYC 고지 -->
+      <div class="extras">
+        <div class="panel">
+          <h4 data-i18n="qr.title">QR 코드</h4>
+          <div class="qrbox" aria-label="QR code placeholder">QR CODE AREA</div>
+          <p class="kyc" data-i18n="qr.note">* 계정 개설/인증 시 QR을 사용합니다.</p>
+        </div>
+        <div class="panel">
+          <h4 data-i18n="faq.title">FAQ / 채팅</h4>
+          <a class="faqbtn" href="#" data-i18n="faq.btn">실시간 상담 열기</a>
+          <p class="kyc" data-i18n="faq.note">법규에 따라 KYC가 의무입니다. 자세한 사항은 FAQ 확인.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div data-i18n="copyright">© 2025 WorldPiBank. All rights reserved.</div>
+      <div data-i18n="footnote">Pi 생태계를 기반으로 한 글로벌 디지털 은행.</div>
+    </footer>
   </div>
 
-  <footer id="footer">
-    © 2025 WorldPiBank. All rights reserved.  
-    All services comply with Pi KYC & community guidelines.
-  </footer>
-
-  <!-- QR코드 / FAQ 버튼 -->
-  <div class="fixed-left">
-    <img src="qrcode.png" alt="QR Code" width="80" />
-  </div>
-  <div class="fixed-right">
-    <button onclick="alert('FAQ & KYC 안내 준비중')">FAQ</button>
-  </div>
-
-  <script>
-    const langData = {
-      en: {
-        title: "World Pi Bank",
-        subtitle: "The world's first digital bank",
-        coreTitle: "Core",
-        coreText: "The bank's core values and central services.",
-        payTitle: "Pay",
-        payText: "Online/offline checkout and easy pay.",
-        rewardTitle: "Reward",
-        rewardText: "Activity-based participation bonus.",
-        yieldTitle: "Deposit (APY:%)",
-        yieldText: "Flexible terms, transparent rates.",
-        ubiTitle: "UBI",
-        ubiText: "Equity support for workers and small business.",
-        careTitle: "Support",
-        careText: "Security, help desk, and customer care.",
-        footer: "© 2025 WorldPiBank. All rights reserved. All services comply with Pi KYC & community guidelines."
+<script>
+  // 언어 사전 (EN/KO/ZH) — 하단 문구까지 각 언어로 정확히 표기
+  const I18N = {
+    en:{
+      title:"World Pi Bank",
+      subtitle:"The world's first digital bank",
+      built:"Built on the Pi ecosystem",
+      tags:{core:"Core", pay:"Pay", growth:"Growth", revenue:"Yield", equity:"Equity", care:"Care"},
+      titles:{send:"Send", payment:"Pay", rewards:"Rewards", staking:"Deposit · APY:%", ubi:"UBI", support:"Support"},
+      desc:{
+        send:"Fast peer-to-peer transfers with low friction.",
+        payment:"Simple in-store and online checkout flows.",
+        rewards:"Earn points and bonuses for activity.",
+        staking:"Flexible terms, clear, transparent rates.",
+        ubi:"Human-centric basic income experiences.",
+        support:"Multilingual help with real-time chat."
       },
-      kr: {
-        title: "세계파이은행",
-        subtitle: "세계최초의 디지털 은행",
-        coreTitle: "핵심",
-        coreText: "은행의 기본 가치와 중심 서비스.",
-        payTitle: "결제",
-        payText: "온·오프라인 결제 연결과 간편 지불.",
-        rewardTitle: "리워드",
-        rewardText: "참여와 활동에 따른 보상.",
-        yieldTitle: "예치 (APY:%)",
-        yieldText: "유연한 기간, 투명한 금리.",
-        ubiTitle: "UBI",
-        ubiText: "노동자·소상공인 지원을 통한 형평성 강화.",
-        careTitle: "고객센터",
-        careText: "보안·상담·지원 서비스.",
-        footer: "© 2025 WorldPiBank. All rights reserved. 모든 서비스는 Pi KYC 및 커뮤니티 지침을 준수합니다."
+      qr:{title:"QR Code", note:"* Use QR for account onboarding/verification."},
+      faq:{title:"FAQ / Chat", btn:"Open live chat", note:"KYC is mandatory under regulations. See FAQ for details."},
+      copyright:"© 2025 WorldPiBank. All rights reserved.",
+      footnote:"A global digital bank built on the Pi ecosystem."
+    },
+    kr:{
+      title:"세계파이은행",
+      subtitle:"세계최초의 디지털 은행",
+      built:"Pi 생태계를 기반으로",
+      tags:{core:"핵심", pay:"결제", growth:"성장", revenue:"수익", equity:"형평", care:"케어"},
+      titles:{send:"송금", payment:"결재", rewards:"리워드", staking:"예치 (예치ㆍ이율:%)", ubi:"UBI", support:"고객센터"},
+      desc:{
+        send:"낮은 비용으로 빠른 개인 간 이체.",
+        payment:"매장/온라인 결제를 간편하게.",
+        rewards:"활동에 따른 포인트와 보너스.",
+        staking:"유연한 기간, 투명한 금리.",
+        ubi:"사람 중심의 기본소득 경험.",
+        support:"다국어 실시간 상담 지원."
       },
-      zh: {
-        title: "世界Pi银行",
-        subtitle: "全球首家数字银行",
-        coreTitle: "核心",
-        coreText: "银行的核心价值和主要服务。",
-        payTitle: "支付",
-        payText: "线上/线下支付与便捷结算。",
-        rewardTitle: "奖励",
-        rewardText: "基于参与和活动的奖励。",
-        yieldTitle: "存款 (APY:%)",
-        yieldText: "灵活期限，透明利率。",
-        ubiTitle: "UBI",
-        ubiText: "为劳动者和小商户提供公平支持。",
-        careTitle: "客户服务",
-        careText: "安全、客服与支持服务。",
-        footer: "© 2025 WorldPiBank. All rights reserved. 所有服务遵守 Pi KYC 和社区指南。"
-      }
-    };
-
-    function setLang(lang) {
-      document.getElementById("title").innerText = langData[lang].title;
-      document.getElementById("subtitle").innerText = langData[lang].subtitle;
-      document.getElementById("coreTitle").innerText = langData[lang].coreTitle;
-      document.getElementById("coreText").innerText = langData[lang].coreText;
-      document.getElementById("payTitle").innerText = langData[lang].payTitle;
-      document.getElementById("payText").innerText = langData[lang].payText;
-      document.getElementById("rewardTitle").innerText = langData[lang].rewardTitle;
-      document.getElementById("rewardText").innerText = langData[lang].rewardText;
-      document.getElementById("yieldTitle").innerText = langData[lang].yieldTitle;
-      document.getElementById("yieldText").innerText = langData[lang].yieldText;
-      document.getElementById("ubiTitle").innerText = langData[lang].ubiTitle;
-      document.getElementById("ubiText").innerText = langData[lang].ubiText;
-      document.getElementById("careTitle").innerText = langData[lang].careTitle;
-      document.getElementById("careText").innerText = langData[lang].careText;
-      document.getElementById("footer").innerText = langData[lang].footer;
+      qr:{title:"QR 코드", note:"* 계정 개설/인증 시 QR을 사용합니다."},
+      faq:{title:"FAQ / 채팅", btn:"실시간 상담 열기", note:"법규에 따라 KYC가 의무입니다. 자세한 사항은 FAQ 확인."},
+      copyright:"© 2025 WorldPiBank. All rights reserved.",
+      footnote:"Pi 생태계를 기반으로 한 글로벌 디지털 은행."
+    },
+    zh:{
+      title:"世界Pi银行",
+      subtitle:"全球首家数字银行",
+      built:"基于 Pi 生态",
+      tags:{core:"核心", pay:"支付", growth:"成长", revenue:"收益", equity:"公平", care:"关怀"},
+      titles:{send:"转账", payment:"支付", rewards:"奖励", staking:"存款 · 年化收益%", ubi:"UBI", support:"客服"},
+      desc:{
+        send:"低成本、低摩擦的点对点转账。",
+        payment:"门店与线上便捷结算流程。",
+        rewards:"根据参与获得积分与奖励。",
+        staking:"灵活期限，透明利率。",
+        ubi:"以人为本的基本收入体验。",
+        support:"多语言支持与实时聊天。"
+      },
+      qr:{title:"二维码", note:"* 开户/验证时使用二维码。"},
+      faq:{title:"常见问题 / 聊天", btn:"打开实时聊天", note:"根据法规，KYC 为必需。详见常见问题。"},
+      copyright:"© 2025 WorldPiBank. All rights reserved.",
+      footnote:"基于 Pi 生态的全球数字银行。"
     }
-  </script>
+  };
+
+  const $$ = (s, r=document)=>Array.from(r.querySelectorAll(s));
+
+  function applyLang(lang){
+    if(lang==='ko') lang='kr';
+    const d = I18N[lang] || I18N.kr;
+    $$("[data-i18n]").forEach(el=>{
+      const path = el.getAttribute("data-i18n").split(".");
+      let v=d; for(const k of path){ v=(v||{})[k]; }
+      if(typeof v==="string") el.innerHTML=v;
+    });
+    $$(".chip.lang").forEach(b=>b.setAttribute("aria-pressed", b.dataset.lang===lang));
+    try{ localStorage.setItem("wpi.lang", lang);}catch(e){}
+    document.documentElement.lang = (lang==='kr'?'ko':lang);
+  }
+
+  const initial = (()=> {
+    try{
+      const p = new URL(location.href).searchParams.get("lang");
+      return p || localStorage.getItem("wpi.lang") || "kr";
+    }catch(e){ return "kr"; }
+  })();
+  applyLang(initial);
+
+  $$(".chip.lang").forEach(btn=>btn.addEventListener("click", ()=>applyLang(btn.dataset.lang)));
+</script>
 </body>
 </html>
