@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>World Pi Bank — Global Digital Bank</title>
 <meta name="color-scheme" content="dark light" />
 <style>
   :root{
     --bg:#0e1020;
+    --bg2:#171934;
     --card:#1e2145;
     --accent:#8b8fff;
     --pi:#f7c62f;
@@ -15,121 +16,208 @@
     --muted:#b8b9cc;
     --ring:rgba(139,143,255,.45);
     --shadow:0 10px 30px rgba(0,0,0,.35);
-    --radius:18px;
+    --radius:20px;
   }
   *{box-sizing:border-box}
+  html,body{height:100%}
   body{
     margin:0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", sans-serif;
+    font-family: ui-sans-serif, -apple-system, "Segoe UI", Roboto, "Noto Sans",
+      "Apple SD Gothic Neo","Malgun Gothic","PingFang SC","Hiragino Sans","Helvetica Neue",Arial,sans-serif;
     color:var(--text);
-    background:var(--bg);
+    background:
+      radial-gradient(1200px 600px at 70% -10%, #251f62 0%, transparent 60%),
+      radial-gradient(900px 500px at 20% 10%, #1b1a4a 0%, transparent 55%),
+      var(--bg);
+    padding-bottom: env(safe-area-inset-bottom);
   }
-  .wrap{max-width:1080px; margin:0 auto; padding:28px 20px 48px}
+  .wrap{max-width:1060px; margin:0 auto; padding:26px 18px 44px}
 
   /* top bar */
-  .topbar{display:flex; align-items:center; justify-content:space-between}
-  .brand{display:flex; align-items:center; gap:8px; font-weight:800}
-  .dot{width:10px; height:10px; border-radius:50%; background:var(--accent)}
-  .controls{display:flex; gap:6px}
+  .topbar{display:flex; align-items:center; justify-content:space-between; gap:12px}
+  .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.2px}
+  .dot{width:10px; height:10px; border-radius:999px; background:var(--accent); box-shadow:0 0 0 6px rgba(139,143,255,.15)}
+  .brand b{opacity:.95}
+
+  .controls{display:flex; align-items:center; gap:8px}
   .chip{
     border:1px solid rgba(255,255,255,.15);
-    background:rgba(255,255,255,.06);
+    background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.1));
     color:var(--text);
-    padding:6px 10px;
-    border-radius:10px;
+    padding:7px 11px;
+    border-radius:12px;
     font-size:13px;
+    cursor:pointer; user-select:none; transition:.18s ease;
   }
+  .chip[aria-pressed="true"]{border-color:var(--ring); box-shadow:0 0 0 4px rgba(139,143,255,.12)}
+  .chip:hover{transform:translateY(-1px)}
 
   /* hero */
-  .hero{margin-top:26px; display:grid; grid-template-columns:1fr 1fr; gap:20px; align-items:center}
-  .title{font-size:38px; font-weight:900; margin:0}
-  .subtitle{margin:6px 0; color:var(--muted)}
-  .pi-orb{
-    aspect-ratio:1/1; border-radius:50%; background:#1a1a3a;
-    display:grid; place-items:center; box-shadow:0 0 40px rgba(247,198,47,.2);
+  .hero{
+    margin-top:24px;
+    display:grid; grid-template-columns:1.15fr .85fr;
+    gap:22px; align-items:center;
   }
-  .pi{width:44%; fill:var(--pi)}
+  .title{margin:0 0 8px; font-weight:900; letter-spacing:.2px; font-size:clamp(32px, 4.6vw, 44px); line-height:1.06}
+  .subtitle{margin:2px 0 8px; color:var(--muted); font-size:clamp(14px,1.8vw,16px)}
+  .built{margin:14px 0 0; color:var(--muted); font-size:13px}
 
-  /* grid */
+  .pi-orb{
+    aspect-ratio:1/1; border-radius:50%;
+    background: radial-gradient(60% 60% at 50% 35%, #2a2a55 0%, #15163a 60%, #0e1020 100%);
+    position:relative; display:grid; place-items:center;
+    box-shadow: inset 0 0 40px rgba(255,255,255,.05), 0 0 80px rgba(247,198,47,.12);
+  }
+  .pi-orb::after{
+    content:""; position:absolute; inset:-14%; border-radius:inherit;
+    background: radial-gradient(60% 60% at 50% 40%, rgba(247,198,47,.18), transparent 60%);
+    filter: blur(8px); z-index:0;
+  }
+  .pi{position:relative; z-index:1; width:min(44%,220px); aspect-ratio:1.2/1; display:block}
+
+  /* 2-column fixed grid */
   .grid{
-    margin:30px 0 10px;
-    display:grid;
-    grid-template-columns:1fr 1fr; /* 항상 2열 */
-    gap:16px;
+    margin:26px 0 8px;
+    display:grid; grid-template-columns:1fr 1fr; gap:14px; /* 항상 2열 */
   }
   .card{
-    background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(0,0,0,.2));
+    background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(0,0,0,.15));
     border:1px solid rgba(255,255,255,.1);
     border-radius:var(--radius);
     padding:18px 16px;
     box-shadow:var(--shadow);
+    min-height:120px;
   }
   .card h3{margin:0 0 8px; font-size:17px}
-  .card p{margin:0; color:var(--muted); font-size:13px; line-height:1.45}
+  .card p{margin:0; color:var(--muted); font-size:13.5px; line-height:1.45}
+  .card:hover, .card:focus-within{border-color:var(--ring); outline:0}
 
-  footer{margin-top:36px; padding-top:16px; border-top:1px solid rgba(255,255,255,.15); color:var(--muted); font-size:13px}
+  .small{margin:10px 0 0; color:var(--muted); font-size:12px}
+  footer{margin-top:34px; padding-top:16px; border-top:1px dashed rgba(255,255,255,.14); color:var(--muted); font-size:13px}
 </style>
 </head>
 <body>
   <div class="wrap">
     <!-- Top -->
     <div class="topbar">
-      <div class="brand"><span class="dot"></span><b>WorldPiBank</b></div>
-      <div class="controls">
-        <span class="chip">EN</span>
-        <span class="chip">KR</span>
-        <span class="chip">ZH</span>
+      <div class="brand"><span class="dot" aria-hidden="true"></span><b>WorldPiBank</b></div>
+      <div class="controls" role="group" aria-label="Language selector">
+        <button class="chip lang" data-lang="en" aria-pressed="false">EN</button>
+        <button class="chip lang" data-lang="kr" aria-pressed="true">KR</button>
+        <button class="chip lang" data-lang="zh" aria-pressed="false">ZH</button>
       </div>
     </div>
 
     <!-- Hero -->
-    <section class="hero">
+    <section class="hero" aria-labelledby="t">
       <div>
-        <h1 class="title">세계파이은행</h1>
-        <p class="subtitle">세계최초의 디지털 은행</p>
-        <p style="color:var(--muted); font-size:13px">Pi 생태계를 기반으로</p>
+        <h1 id="t" class="title" data-i18n="title">세계파이은행</h1>
+        <p class="subtitle" data-i18n="subtitle">세계최초의 디지털 은행</p>
+        <p class="built" data-i18n="built">Pi 생태계를 기반으로</p>
       </div>
-      <div class="pi-orb">
-        <svg class="pi" viewBox="0 0 100 80">
-          <path d="M24 12h52c3 0 6 3 6 6v6H66v38c0 6-4 10-10 10s-10-4-10-10V24H24v38c0 6-4 10-10 10S4 68 4 62V24c0-6 4-12 10-12h10Z"/>
+      <div class="pi-orb" aria-hidden="true">
+        <svg class="pi" viewBox="0 0 100 80" fill="none">
+          <path d="M24 12h52c3 0 6 3 6 6v6H66v38c0 6-4 10-10 10s-10-4-10-10V24H24v38c0 6-4 10-10 10S4 68 4 62V24c0-6 4-12 10-12h10Z" fill="var(--pi)"/>
         </svg>
       </div>
     </section>
 
-    <!-- Grid -->
+    <!-- Cards: 2열 고정 3×2 -->
     <section>
       <div class="grid">
-        <div class="card">
-          <h3>핵심</h3>
-          <p>은행의 기본 가치와 중심 서비스.</p>
-        </div>
-        <div class="card">
-          <h3>수익</h3>
-          <p>예치·리워드·스테이킹 등 다양한 수익 모델.</p>
-        </div>
-        <div class="card">
-          <h3>케어</h3>
-          <p>보안, 고객센터, 상담 지원 서비스.</p>
-        </div>
-        <div class="card">
-          <h3>성장</h3>
-          <p>참여와 활동을 통한 파이 생태계 확장.</p>
-        </div>
-        <div class="card">
-          <h3>형평</h3>
-          <p>UBI·노동자·소상공인 지원으로 형평성 강화.</p>
-        </div>
-        <div class="card">
-          <h3>결재</h3>
-          <p>온·오프라인 결제 연결과 간편 지불.</p>
-        </div>
+        <article class="card"><h3 data-i18n="core.h">핵심</h3><p data-i18n="core.p">은행의 기본 가치와 중심 서비스.</p></article>
+        <article class="card"><h3 data-i18n="revenue.h">수익</h3><p data-i18n="revenue.p">예치·리워드·스테이킹 등 다양한 수익 모델.</p></article>
+        <article class="card"><h3 data-i18n="care.h">케어</h3><p data-i18n="care.p">보안, 고객센터, 상담 지원 서비스.</p></article>
+        <article class="card"><h3 data-i18n="growth.h">성장</h3><p data-i18n="growth.p">참여와 활동을 통한 파이 생태계 확장.</p></article>
+        <article class="card"><h3 data-i18n="equity.h">형평</h3><p data-i18n="equity.p">UBI·노동자·소상공인 지원으로 형평성 강화.</p></article>
+        <article class="card"><h3 data-i18n="payment.h">결재</h3><p data-i18n="payment.p">온·오프라인 결제 연결과 간편 지불.</p></article>
       </div>
+      <p class="small" data-i18n="note">* 우선대상: 노동자·노년층·소상공인·장애인. 본 화면에는 KYC가 표시되지 않습니다. 검증/보안 정책은 FAQ 참고.</p>
     </section>
 
     <footer>
-      © 2025 WorldPiBank. All rights reserved.  
-      Pi 생태계를 기반으로 한 글로벌 디지털 은행.
+      <div data-i18n="copyright">© 2025 WorldPiBank. All rights reserved.</div>
+      <div data-i18n="footnote">Pi 생태계를 기반으로 한 글로벌 디지털 은행.</div>
     </footer>
   </div>
+
+<script>
+  // 다국어 사전 (EN/KR/zh). 버튼 라벨은 EN/KR/ZH 그대로 유지.
+  const I18N = {
+    en:{
+      title:"World Pi Bank",
+      subtitle:"The world's first digital bank",
+      built:"Built on the Pi ecosystem",
+      core:{h:"Core", p:"Foundational values and core services."},
+      revenue:{h:"Revenue", p:"Deposits, rewards, and staking revenue models."},
+      care:{h:"Care", p:"Security, help center, and assisted support."},
+      growth:{h:"Growth", p:"Expand the Pi ecosystem through participation."},
+      equity:{h:"Equity", p:"UBI & support for workers and small businesses."},
+      payment:{h:"Payment", p:"Online/offline payment connections."},
+      note:"* Priority: workers, seniors, small businesses, and people with disabilities. No KYC screens are shown here. See FAQ for verification & security.",
+      copyright:"© 2025 WorldPiBank. All rights reserved.",
+      footnote:"A global digital bank built on the Pi ecosystem."
+    },
+    kr:{
+      title:"세계파이은행",
+      subtitle:"세계최초의 디지털 은행",
+      built:"Pi 생태계를 기반으로",
+      core:{h:"핵심", p:"은행의 기본 가치와 중심 서비스."},
+      revenue:{h:"수익", p:"예치·리워드·스테이킹 등 다양한 수익 모델."},
+      care:{h:"케어", p:"보안, 고객센터, 상담 지원 서비스."},
+      growth:{h:"성장", p:"참여와 활동을 통한 파이 생태계 확장."},
+      equity:{h:"형평", p:"UBI·노동자·소상공인 지원으로 형평성 강화."},
+      payment:{h:"결재", p:"온·오프라인 결제 연결과 간편 지불."},
+      note:"* 우선대상: 노동자·노년층·소상공인·장애인. 본 화면에는 KYC가 표시되지 않습니다. 검증/보안 정책은 FAQ 참고.",
+      copyright:"© 2025 WorldPiBank. All rights reserved.",
+      footnote:"Pi 생태계를 기반으로 한 글로벌 디지털 은행."
+    },
+    zh:{
+      title:"世界Pi银行",
+      subtitle:"全球首家数字银行",
+      built:"基于 Pi 生态",
+      core:{h:"核心", p:"银行核心价值与基础服务。"},
+      revenue:{h:"收益", p:"存款、奖励、质押等收益模式。"},
+      care:{h:"关怀", p:"安全、客服与咨询支持。"},
+      growth:{h:"成长", p:"通过参与壮大 Pi 生态。"},
+      equity:{h:"公平", p:"UBI 与劳动者/小微商户支持。"},
+      payment:{h:"支付", p:"线上/线下支付连接与便捷结算。"},
+      note:"* 优先服务：劳动者、老年人、小微商户及残障人士。此处不展示 KYC。验证与安全策略见 FAQ。",
+      copyright:"© 2025 WorldPiBank. All rights reserved.",
+      footnote:"基于 Pi 生态的全球数字银行。"
+    }
+  };
+
+  const $ = (s, r=document)=>r.querySelector(s);
+  const $$ = (s, r=document)=>Array.from(r.querySelectorAll(s));
+
+  function applyLang(lang){
+    // 'ko' 쿼리도 'kr'로 매핑
+    if(lang === 'ko') lang = 'kr';
+    const dict = I18N[lang] || I18N.kr;
+    $$("[data-i18n]").forEach(el=>{
+      const path = el.getAttribute("data-i18n").split(".");
+      let val = dict;
+      for(const k of path){ val = (val||{})[k]; }
+      if(typeof val === "string") el.innerHTML = val;
+    });
+    $$(".chip.lang").forEach(b=>b.setAttribute("aria-pressed", b.dataset.lang===lang));
+    try{ localStorage.setItem("wpi.lang", lang);}catch(e){}
+    document.documentElement.lang = lang === 'kr' ? 'ko' : lang;
+  }
+
+  // 초기 언어: URL > localStorage > KR
+  const initial = (()=> {
+    try{
+      const p = new URL(location.href).searchParams.get("lang");
+      return p || localStorage.getItem("wpi.lang") || "kr";
+    }catch(e){ return "kr"; }
+  })();
+  applyLang(initial);
+
+  $$(".chip.lang").forEach(btn=>{
+    btn.addEventListener("click", ()=>applyLang(btn.dataset.lang));
+  });
+</script>
 </body>
 </html>
