@@ -1,115 +1,606 @@
 <!doctype html>
 <html lang="ko">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>월드파이은행 (모바일)</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>월드파이은행 (모바일 전용 · 확장판)</title>
+<meta name="theme-color" content="#151225" />
 <style>
 :root{
-  --bg:#151225; --card:#2a2443; --muted:#c9c5d9; --text:#f5f1ff; --accent:#7c56ff;
+  --bg:#151225; --bg2:#1c1a2e; --card:#2a2443; --muted:#c9c5d9; --text:#f5f1ff; --accent:#7c56ff;
+  --ok:#2ecc71; --warn:#f39c12; --danger:#e74c3c; --line:#3e3566;
 }
 *{box-sizing:border-box}
-body{margin:0;font-family:"Noto Sans KR",Arial,sans-serif;color:var(--text);
-background:radial-gradient(70% 60% at 50% 0%,#2a2350 0%,var(--bg) 60%, #120f20 100%);
+html,body{margin:0;padding:0}
+body{
+  font-family:"Noto Sans KR","Apple SD Gothic Neo",Arial,sans-serif;
+  color:var(--text);
+  background: radial-gradient(70% 60% at 50% 0%, #2a2350 0%, var(--bg) 60%, #120f20 100%);
 }
-header{padding:12px;display:flex;justify-content:space-between;align-items:center}
-.titles h1{margin:0;font-size:20px} .titles p{margin:0;font-size:12px;color:var(--muted)}
-.lang{background:transparent;color:var(--text);border:1px solid #3e3566;padding:4px 6px;border-radius:6px;font-weight:600}
-.login-btn{background:var(--accent);color:#fff;border:0;padding:6px 10px;border-radius:8px;font-weight:700}
-.hero{text-align:center;padding:14px}
-.hero h2{margin:0;font-size:20px}
-.hero p{margin:6px 0;color:var(--muted);font-size:13px}
-.hero .apy{margin-top:6px;background:#201a38;padding:8px 12px;border-radius:10px;font-weight:800}
-.grid{display:flex;flex-direction:column;gap:12px;padding:12px}
-.card{background:var(--card);padding:14px;border-radius:12px;box-shadow:0 6px 16px rgba(0,0,0,.3)}
-.card h3{margin:0;font-size:15px} .card p{margin:4px 0 0;color:var(--muted);font-size:13px}
-.fixed-qr{position:fixed;left:10px;bottom:80px;background:#201a38;padding:8px;border-radius:10px;
-box-shadow:0 8px 20px rgba(0,0,0,.3);width:74px;text-align:center}
-.fixed-chat{position:fixed;right:10px;bottom:16px;background:#201a38;padding:10px;border-radius:12px;
-box-shadow:0 8px 20px rgba(0,0,0,.3);max-width:220px}
-.chat-title{margin:0 0 4px;font-weight:800} .chat-body{font-size:12px;color:var(--muted)}
-footer{text-align:center;padding:10px;color:var(--muted);font-size:11px}
-.btn{display:inline-block;margin-top:8px;width:100%;padding:8px;border-radius:8px;border:0;
-background:var(--accent);color:#fff;font-weight:700;text-align:center}
+
+/* 상단 */
+header{
+  position:sticky; top:0; z-index:50;
+  display:flex; align-items:center; justify-content:space-between; gap:8px;
+  padding:12px;
+  background:linear-gradient(180deg,var(--bg2),rgba(28,26,46,.92));
+  border-bottom:1px solid var(--line);
+  backdrop-filter: blur(6px);
+}
+.brand{display:flex; flex-direction:column; gap:2px}
+.brand h1{margin:0; font-size:20px; font-weight:800}
+.brand small{color:var(--muted)}
+.controls{display:flex; align-items:center; gap:6px}
+.select, .btn{
+  appearance:none; border:1px solid var(--line);
+  padding:6px 10px; border-radius:10px; background:transparent; color:var(--text); font-weight:700;
+}
+.btn.primary{background:var(--accent); border:0; color:#fff}
+.btn.ghost{border-style:dashed; opacity:.9}
+
+/* 히어로 */
+.hero{padding:14px 14px 0 14px; text-align:center}
+.hero h2{margin:4px 0 6px 0; font-size:22px; letter-spacing:.2px}
+.hero p{margin:6px auto 10px auto; max-width:600px; color:var(--muted); font-size:13px; line-height:1.5}
+.badges{display:flex; gap:6px; justify-content:center; flex-wrap:wrap}
+.badge{
+  background:#201a38; border:1px solid var(--line); padding:8px 12px; border-radius:999px; font-weight:900;
+}
+
+/* 서비스 카드: 모바일 한 줄씩 */
+.section{padding:14px}
+.grid{display:flex; flex-direction:column; gap:12px}
+.card{
+  background:var(--card); border:1px solid rgba(255,255,255,.04);
+  border-radius:14px; padding:14px; box-shadow:0 6px 18px rgba(0,0,0,.35);
+}
+.card h3{margin:0 0 4px 0; font-size:16px}
+.card p{margin:0; color:var(--muted); font-size:13px; line-height:1.45}
+.row{display:flex; gap:8px; margin-top:10px}
+.row .btn{flex:1; text-align:center}
+
+/* 안내 박스 */
+.notice{
+  margin-top:10px; padding:10px; border-radius:12px; font-size:12px; line-height:1.5;
+  background:#201a38; border:1px solid var(--line); color:var(--muted);
+}
+.notice.ok{border-color:rgba(46,204,113,.5)}
+.notice.warn{border-color:rgba(243,156,18,.5)}
+.notice.danger{border-color:rgba(231,76,60,.5)}
+
+/* 접이식(FAQ/약관) */
+.details{
+  background:#201a38; border:1px solid var(--line);
+  border-radius:12px; margin-top:10px; overflow:hidden;
+}
+.details summary{
+  list-style:none; cursor:pointer; padding:12px; font-weight:900;
+  border-bottom:1px dashed rgba(255,255,255,.08);
+}
+.details summary::-webkit-details-marker{display:none}
+.details .panel{padding:12px; color:var(--muted); font-size:13px; line-height:1.6}
+.ul{margin:0; padding-left:18px}
+
+/* 하단 고정 위젯 */
+.fixed-qr{
+  position:fixed; left:10px; bottom:90px;
+  background:#201a38; border:1px solid var(--line); width:86px;
+  border-radius:12px; text-align:center; box-shadow:0 10px 30px rgba(0,0,0,.4); padding:8px;
+}
+.fixed-qr img{width:70px; height:70px; border-radius:8px; display:block; margin:0 auto 6px}
+.fixed-qr .cap{font-size:11px; color:var(--muted)}
+
+.fixed-chat{
+  position:fixed; right:10px; bottom:16px; max-width:260px;
+  background:#201a38; border:1px solid var(--line);
+  border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,.4); padding:12px;
+}
+.chat-head{display:flex; align-items:center; justify-content:space-between; gap:8px}
+.chat-head strong{font-size:13px}
+.chat-body{margin-top:6px; font-size:12px; color:var(--muted); line-height:1.5}
+.chat-actions{display:flex; gap:8px; margin-top:10px}
+.small{font-size:12px; color:var(--muted)}
+.tiny{font-size:11px; color:var(--muted)}
+
+/* 모달 */
+.modal{
+  position:fixed; inset:0; display:none; align-items:center; justify-content:center;
+  background:rgba(0,0,0,.55); z-index:100;
+}
+.modal .sheet{
+  width:min(560px,92vw); background:var(--bg2); border:1px solid var(--line); border-radius:14px; padding:14px;
+  box-shadow:0 18px 60px rgba(0,0,0,.6);
+}
+.modal .sheet h4{margin:0 0 6px 0}
+.modal .sheet p{margin:0 0 10px 0; color:var(--muted)}
+.form{display:flex; flex-direction:column; gap:10px}
+.input, .select.wide{
+  width:100%; padding:10px 12px; border-radius:10px; border:1px solid var(--line);
+  background:#1f1a33; color:#fff; font-size:14px;
+}
+
+/* 풋터 */
+footer{
+  margin:16px 0 110px 0; /* 고정 위젯 공간 확보 */
+  text-align:center; color:var(--muted); font-size:12px;
+  padding:0 12px;
+}
+.hr{height:1px; background:linear-gradient(90deg,transparent, rgba(255,255,255,.08), transparent); margin:16px 0}
+.mono{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; font-size:12px}
+
+@media (min-width:560px){
+  /* 태블릿 이상에서도 깔끔하게 */
+  .section{max-width:720px; margin:0 auto}
+  .hero{max-width:720px; margin:0 auto}
+  header{padding:14px 18px}
+}
 </style>
 </head>
 <body>
+
+<!-- 헤더 -->
 <header>
-  <div class="titles">
+  <div class="brand">
     <h1 id="bankname">월드파이은행</h1>
-    <p id="subtitle">세계 최초의 디지털 은행</p>
+    <small id="subtitle">세계 최초의 디지털 은행</small>
   </div>
-  <div>
-    <select id="langSelect" class="lang">
+  <div class="controls">
+    <select id="lang" class="select" title="언어">
       <option value="kr">KR</option>
       <option value="en">EN</option>
       <option value="zh">ZH</option>
     </select>
-    <button id="loginBtn" class="login-btn">로그인</button>
+    <button id="login" class="btn primary">로그인</button>
+    <button id="theme" class="btn ghost" title="테마 전환">🌓</button>
   </div>
 </header>
 
+<!-- 히어로 -->
 <section class="hero">
-  <h2 id="slogan">세계 최초의 디지털 은행</h2>
-  <p id="sub">송금 · 결제 · 예치(APY 31.4%) · 리워드 · UBI · 고객센터</p>
-  <div class="apy">APY 31.4%</div>
+  <h2 id="slogan">노동 없이도, 기본소득이 가능하다 — Pi로</h2>
+  <p id="sub">
+    송금 · 결제 · 예치(<b>APY 31.4%</b>) · 리워드 · UBI · 고객센터 — 서민/노동자/소상공인을 위한 실사용 디지털 뱅크 데모.
+  </p>
+  <div class="badges">
+    <div class="badge">APY 31.4%</div>
+    <div class="badge">KR / EN / ZH</div>
+    <div class="badge">Pi SDK Ready</div>
+  </div>
 </section>
 
-<section class="grid">
-  <div class="card"><h3 id="t1">송금</h3><p id="d1">간편 송금 · QR · 외부지갑</p><div class="btn">보내기</div></div>
-  <div class="card"><h3 id="t2">결제</h3><p id="d2">온라인/오프라인 결제</p><div class="btn">결제하기</div></div>
-  <div class="card"><h3 id="t3">리워드</h3><p id="d3">설문 · 추천 보상</p><div class="btn">받기</div></div>
-  <div class="card"><h3 id="t4">예치(스테이킹)</h3><p id="d4">투명 금리 · 유연 기간</p><div class="btn">예치하기</div></div>
-  <div class="card"><h3 id="t5">UBI</h3><p id="d5">노동자 · 서민 기본소득</p><div class="btn">신청</div></div>
-  <div class="card"><h3 id="t6">FAQ / 보안</h3><p id="d6">해킹 방지 · KYC 안내</p><div class="btn" id="openFaq">FAQ 열기</div></div>
+<!-- 서비스 -->
+<section class="section">
+  <div class="grid">
+
+    <!-- 송금 -->
+    <div class="card">
+      <h3 id="t1">송금</h3>
+      <p id="d1">QR · 외부지갑 연동, 간편 전송 (데모)</p>
+      <div class="row">
+        <button class="btn primary" id="sendDemo">보내기</button>
+        <button class="btn" id="txList">내역</button>
+      </div>
+      <div class="notice ok">Tip: 테스트넷 전송 시 실제 자산 이동 없음.</div>
+    </div>
+
+    <!-- 결제 -->
+    <div class="card">
+      <h3 id="t2">결제</h3>
+      <p id="d2">온라인/오프라인 가맹점 결제(모의 결제 흐름)</p>
+      <div class="row">
+        <button class="btn primary" id="payDemo">결제하기</button>
+        <button class="btn" id="storeList">가맹점</button>
+      </div>
+      <details class="details">
+        <summary>결제 흐름 보기</summary>
+        <div class="panel">
+          ① 장바구니 → ② 금액확인 → ③ Pi 지갑 서명 → ④ 결제 완료(영수증 저장)
+        </div>
+      </details>
+    </div>
+
+    <!-- 리워드 -->
+    <div class="card">
+      <h3 id="t3">리워드</h3>
+      <p id="d3">설문 · 추천 보상 (데모 쿠폰 지급)</p>
+      <div class="row">
+        <button class="btn primary" id="rewardBtn">받기</button>
+        <button class="btn" id="surveyBtn">설문</button>
+      </div>
+      <div class="notice warn">이벤트 보상은 정책에 따라 변경될 수 있습니다.</div>
+    </div>
+
+    <!-- 예치 -->
+    <div class="card">
+      <h3 id="t4">예치(스테이킹)</h3>
+      <p id="d4">유연한 기간 · 투명한 금리 · APY: 31.4%</p>
+      <div class="row">
+        <button class="btn primary" id="stakeOpen">예치하기</button>
+        <button class="btn" id="rateOpen">이율보기</button>
+      </div>
+      <details class="details">
+        <summary>예치 계산기(간단)</summary>
+        <div class="panel">
+          <div class="form">
+            <input id="amt" class="input" type="number" min="0" placeholder="예치 수량(PI)" />
+            <select id="term" class="select wide">
+              <option value="30">30일</option>
+              <option value="90">90일</option>
+              <option value="180">180일</option>
+              <option value="365">365일</option>
+            </select>
+            <button id="calc" class="btn primary">수익 계산</button>
+            <div id="calcOut" class="notice"></div>
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <!-- UBI -->
+    <div class="card">
+      <h3 id="t5">UBI</h3>
+      <p id="d5">노동자 · 서민 대상 기본소득 시뮬레이터</p>
+      <div class="row">
+        <button class="btn primary" id="ubiSim">시뮬</button>
+        <button class="btn" id="ubiApply">신청</button>
+      </div>
+      <div class="notice">※ 정책·지자체 제휴 필요. 데모 화면입니다.</div>
+    </div>
+
+    <!-- FAQ/보안 -->
+    <div class="card">
+      <h3 id="t6">FAQ / 보안</h3>
+      <p id="d6">해킹 방지, KYC 지침, 문의 채널</p>
+      <div class="row">
+        <button class="btn primary" id="openFaq">FAQ 열기</button>
+        <button class="btn" id="contact">문의</button>
+      </div>
+
+      <details class="details">
+        <summary>핵심 보안 수칙</summary>
+        <div class="panel">
+          <ul class="ul">
+            <li>비밀구절(Seed) 종이·금속에 <b>오프라인</b> 보관</li>
+            <li>공식 도메인/앱만 사용, 의심 링크 금지</li>
+            <li>거래 승인 전 수신자/금액 재확인</li>
+            <li>의심 거래 즉시 신고 및 기록 보관</li>
+          </ul>
+        </div>
+      </details>
+      <details class="details">
+        <summary>KYC 안내</summary>
+        <div class="panel">
+          서비스 정책/지역 법규에 따라 선택·의무가 달라질 수 있습니다. 필요 시 본인확인 문서와
+          개인정보 보호지침에 따라 처리합니다.
+        </div>
+      </details>
+    </div>
+
+    <!-- 고정 안내/상태 -->
+    <div class="notice danger">
+      ⚠️ 데모 모드: 현재 화면은 정적 데모입니다. 실제 자산은 이동하지 않습니다. Pi SDK 연동 시 서명·송금·결제가 활성화됩니다.
+    </div>
+
+    <!-- 약관/정책 -->
+    <details class="details">
+      <summary>이용약관 / 개인정보 처리방침(요약)</summary>
+      <div class="panel">
+        이 데모는 기능 시연 목적입니다. 수집되는 데이터는 테스트 폼 입력 값뿐이며 외부로 전송되지 않습니다.
+        정식 서비스 전환 시 별도의 약관/정책이 고지됩니다.
+      </div>
+    </details>
+
+  </div>
 </section>
 
+<!-- 하단 고정 위젯 -->
 <div class="fixed-qr">
-  <img src="assets/qr-placeholder.png" alt="QR" style="width:60px;height:60px;border-radius:6px;display:block;margin:0 auto 4px">
-  <div style="font-size:11px;color:var(--muted)">후원</div>
+  <img src="assets/qr-placeholder.png" alt="후원/다운로드 QR 자리표시자" />
+  <div class="cap">후원 · 다운로드</div>
 </div>
 
 <div class="fixed-chat">
-  <div class="chat-title" id="faqtitle">FAQ • 보안 안내</div>
-  <div class="chat-body" id="faqbody">1) 시드 구절 오프라인 보관<br>2) 공식 도메인만 사용<br>3) 의심 거래 즉시 신고</div>
+  <div class="chat-head">
+    <strong id="faqTitle">FAQ • 보안</strong>
+    <button class="btn tiny" id="faqAll">열람</button>
+  </div>
+  <div class="chat-body" id="faqBody">
+    ① 비밀구절 오프라인 보관<br>
+    ② 공식 도메인만 사용<br>
+    ③ 의심 거래 즉시 신고
+  </div>
+  <div class="chat-actions">
+    <button class="btn" id="openReport">의심거래 신고</button>
+    <button class="btn" id="openTips">더보기</button>
+  </div>
 </div>
 
-<footer>© 월드파이은행 • 문의: ljw2358@naver.com</footer>
+<!-- 모달: 로그인 -->
+<div id="modalLogin" class="modal" role="dialog" aria-modal="true">
+  <div class="sheet">
+    <h4>로그인 (데모)</h4>
+    <p>Pi SDK 연동 전 임시 로그인입니다.</p>
+    <div class="form">
+      <input class="input" id="uid" placeholder="사용자 ID 또는 이메일" />
+      <input class="input" id="pin" placeholder="PIN (데모)" type="password" />
+      <div class="row">
+        <button class="btn primary" id="doLogin">확인</button>
+        <button class="btn" data-close="#modalLogin">닫기</button>
+      </div>
+      <div id="loginOut" class="notice"></div>
+    </div>
+  </div>
+</div>
+
+<!-- 모달: 예치 -->
+<div id="modalStake" class="modal" role="dialog" aria-modal="true">
+  <div class="sheet">
+    <h4>예치(스테이킹) 신청 — 데모</h4>
+    <p>아래 정보를 입력하면 모의 신청 결과가 표시됩니다.</p>
+    <div class="form">
+      <input id="sAmt" class="input" type="number" min="0" placeholder="예치 수량(PI)" />
+      <select id="sTerm" class="select wide">
+        <option value="30">30일</option>
+        <option value="90">90일</option>
+        <option value="180">180일</option>
+        <option value="365">365일</option>
+      </select>
+      <div class="row">
+        <button class="btn primary" id="sApply">신청</button>
+        <button class="btn" data-close="#modalStake">닫기</button>
+      </div>
+      <div id="sOut" class="notice"></div>
+    </div>
+  </div>
+</div>
+
+<!-- 모달: 이율표 -->
+<div id="modalRate" class="modal" role="dialog" aria-modal="true">
+  <div class="sheet">
+    <h4>이율표 (APY 31.4% 기준 · 데모)</h4>
+    <p class="mono">
+      30일: 단기 보너스<br>
+      90일: 표준 금리<br>
+      180일: 우대 금리<br>
+      365일: 최대 우대
+    </p>
+    <div class="row">
+      <button class="btn primary" data-close="#modalRate">확인</button>
+    </div>
+  </div>
+</div>
+
+<!-- 모달: FAQ 전체 -->
+<div id="modalFaq" class="modal" role="dialog" aria-modal="true">
+  <div class="sheet">
+    <h4>FAQ 전체</h4>
+    <div class="form tiny">
+      <details class="details" open><summary>보안</summary>
+        <div class="panel">
+          비밀구절 오프라인 보관, 피싱 링크 차단, 승인 전 세부 확인, 공식 앱만 사용.
+        </div>
+      </details>
+      <details class="details"><summary>KYC</summary>
+        <div class="panel">
+          지역 규정·제휴 정책에 따르며, 최소 수집·암호화 저장·목적 제한을 준수합니다.
+        </div>
+      </details>
+      <details class="details"><summary>지원</summary>
+        <div class="panel">
+          문의: <span class="mono">ljw2358@naver.com</span> / 추천인: <span class="mono">ljw2358</span>
+        </div>
+      </details>
+    </div>
+    <div class="row" style="margin-top:12px">
+      <button class="btn primary" data-close="#modalFaq">닫기</button>
+    </div>
+  </div>
+</div>
+
+<!-- 모달: 신고 -->
+<div id="modalReport" class="modal" role="dialog" aria-modal="true">
+  <div class="sheet">
+    <h4>의심 거래 신고(데모)</h4>
+    <p>TXID/상대지갑/시간을 적어주세요. (전송되지 않음)</p>
+    <div class="form">
+      <input id="txid" class="input" placeholder="TXID 또는 링크" />
+      <input id="addr" class="input" placeholder="상대 지갑 주소" />
+      <input id="twhen" class="input" placeholder="발생 일시" />
+      <div class="row">
+        <button class="btn primary" id="doReport">기록</button>
+        <button class="btn" data-close="#modalReport">닫기</button>
+      </div>
+      <div id="repOut" class="notice"></div>
+    </div>
+  </div>
+</div>
+
+<!-- 모달: 보안팁 -->
+<div id="modalTips" class="modal" role="dialog" aria-modal="true">
+  <div class="sheet">
+    <h4>보안 팁</h4>
+    <ul class="ul small">
+      <li>공용 와이파이에서 승인 금지</li>
+      <li>루팅/탈옥 기기 사용 자제</li>
+      <li>의심 DM/링크 즉시 차단</li>
+      <li>기기 분실 시 즉시 로그아웃/재발급</li>
+    </ul>
+    <div class="row">
+      <button class="btn primary" data-close="#modalTips">확인</button>
+    </div>
+  </div>
+</div>
+
+<!-- 풋터 -->
+<footer>
+  <div class="hr"></div>
+  © <span id="brandFoot">월드파이은행</span> — 문의: <span class="mono">ljw2358@naver.com</span> · 추천인: <span class="mono">ljw2358</span><br/>
+  <span class="tiny">본 화면은 심사용/시연용 정적 데모입니다. 이미지/QR는 <span class="mono">assets/</span> 교체.</span>
+</footer>
 
 <script>
-const sel=document.getElementById('langSelect');
-function setLang(v){
-  if(v==='kr'){
-    document.getElementById('bankname').textContent='월드파이은행';
-    document.getElementById('subtitle').textContent='세계 최초의 디지털 은행';
-    document.getElementById('slogan').textContent='세계 최초의 디지털 은행';
-    document.getElementById('sub').textContent='송금 · 결제 · 예치(APY 31.4%) · 리워드 · UBI · 고객센터';
-    document.getElementById('loginBtn').textContent='로그인';
+/* ===== 유틸 ===== */
+const $ = sel => document.querySelector(sel);
+const $$ = sel => Array.from(document.querySelectorAll(sel));
+const show = id => $(id).style.display = 'flex';
+const hide = id => $(id).style.display = 'none';
+const open = id => show(id);
+const closeByBtn = (e) => { const t = e.target.getAttribute('data-close'); if(t) hide(t); };
+document.addEventListener('click', closeByBtn);
+
+/* ===== 테마 토글 ===== */
+const themeBtn = $('#theme');
+let dark = true;
+themeBtn.addEventListener('click', ()=>{
+  dark = !dark;
+  document.documentElement.style.filter = dark ? '' : 'invert(1) hue-rotate(180deg)';
+});
+
+/* ===== 언어 자동 인식 + 전환 ===== */
+const L = {
+  kr: {
+    bankname:'월드파이은행', subtitle:'세계 최초의 디지털 은행',
+    slogan:'노동 없이도, 기본소득이 가능하다 — Pi로',
+    sub:'송금 · 결제 · 예치(APY 31.4%) · 리워드 · UBI · 고객센터 — 서민/노동자/소상공인을 위한 실사용 디지털 뱅크 데모.',
+    t1:'송금', d1:'QR · 외부지갑 연동, 간편 전송 (데모)',
+    t2:'결제', d2:'온라인/오프라인 가맹점 결제(모의 결제 흐름)',
+    t3:'리워드', d3:'설문 · 추천 보상 (데모 쿠폰 지급)',
+    t4:'예치(스테이킹)', d4:'유연한 기간 · 투명한 금리 · APY: 31.4%',
+    t5:'UBI', d5:'노동자 · 서민 대상 기본소득 시뮬레이터',
+    t6:'FAQ / 보안', d6:'해킹 방지, KYC 지침, 문의 채널',
+    login:'로그인', faqTitle:'FAQ • 보안'
+  },
+  en: {
+    bankname:'World Pi Bank', subtitle:"The world's first digital bank",
+    slogan:'Basic income without labor — powered by Pi',
+    sub:'Transfer · Pay · Deposit(APY 31.4) · Rewards · UBI · Support — a practical demo for workers & small businesses.',
+    t1:'Transfer', d1:'QR · External wallet · Quick send (demo)',
+    t2:'Pay', d2:'Online/Offline merchant payments (mock flow)',
+    t3:'Rewards', d3:'Survey · Referral rewards (demo coupon)',
+    t4:'Staking (Deposit)', d4:'Flexible term · Transparent rate · APY 31.4%',
+    t5:'UBI', d5:'Basic income simulator for citizens',
+    t6:'FAQ / Security', d6:'Hacking prevention, KYC guide, contact',
+    login:'Login', faqTitle:'FAQ • Security'
+  },
+  zh: {
+    bankname:'世界Pi银行', subtitle:'世界首个数字银行',
+    slogan:'无需劳动也可实现基本收入 — 由 Pi 驱动',
+    sub:'转账 · 支付 · 存款(APY 31.4) · 奖励 · 基本收入 · 客服 — 面向工人/小商户的实用演示。',
+    t1:'转账', d1:'QR · 外部钱包 · 快速发送 (演示)',
+    t2:'支付', d2:'线上/线下商户支付（模拟流程）',
+    t3:'奖励', d3:'调查 · 推荐奖励（演示券）',
+    t4:'存款（质押）', d4:'灵活期限 · 透明利率 · APY 31.4%',
+    t5:'基本收入', d5:'全民基本收入模拟器',
+    t6:'FAQ / 安全', d6:'防黑客、KYC 指南、联系渠道',
+    login:'登录', faqTitle:'FAQ • 安全'
   }
-  if(v==='en'){
-    document.getElementById('bankname').textContent='World Pi Bank';
-    document.getElementById('subtitle').textContent='The world\'s first digital bank';
-    document.getElementById('slogan').textContent='The world\'s first digital bank';
-    document.getElementById('sub').textContent='Transfer · Pay · Deposit(APY 31.4) · Rewards · UBI · Support';
-    document.getElementById('loginBtn').textContent='Login';
-  }
-  if(v==='zh'){
-    document.getElementById('bankname').textContent='世界Pi银行';
-    document.getElementById('subtitle').textContent='世界首个数字银行';
-    document.getElementById('slogan').textContent='世界首个数字银行';
-    document.getElementById('sub').textContent='转账 · 支付 · 存款(APY 31.4) · 奖励 · 基本收入 · 客服';
-    document.getElementById('loginBtn').textContent='登录';
-  }
+};
+
+const langSel = $('#lang');
+function applyLang(code){
+  const t = L[code] || L.kr;
+  $('#bankname').textContent = t.bankname;
+  $('#subtitle').textContent = t.subtitle;
+  $('#slogan').textContent = t.slogan;
+  $('#sub').textContent = t.sub;
+  $('#t1').textContent = t.t1; $('#d1').textContent = t.d1;
+  $('#t2').textContent = t.t2; $('#d2').textContent = t.d2;
+  $('#t3').textContent = t.t3; $('#d3').textContent = t.d3;
+  $('#t4').textContent = t.t4; $('#d4').textContent = t.d4;
+  $('#t5').textContent = t.t5; $('#d5').textContent = t.d5;
+  $('#t6').textContent = t.t6; $('#d6').textContent = t.d6;
+  $('#login').textContent = t.login;
+  $('#faqTitle').textContent = t.faqTitle;
+  $('#brandFoot').textContent = t.bankname;
 }
-sel.addEventListener('change',e=>setLang(e.target.value));
-// 자동 감지
-(function auto(){
-  const lang=(navigator.language||'ko').toLowerCase();
-  if(lang.startsWith('ko')){sel.value='kr';setLang('kr')}
-  else if(lang.startsWith('zh')){sel.value='zh';setLang('zh')}
-  else{sel.value='en';setLang('en')}
+langSel.addEventListener('change', e=> applyLang(e.target.value));
+// OS 언어 감지
+(function autoLang(){
+  const sys = (navigator.language||'ko').toLowerCase();
+  if(sys.startsWith('ko')){ langSel.value='kr'; }
+  else if(sys.startsWith('zh')){ langSel.value='zh'; }
+  else { langSel.value='en'; }
+  applyLang(langSel.value);
 })();
-document.getElementById('openFaq').addEventListener('click',()=>alert('FAQ:\n• 시드 구절 오프라인 보관\n• 공식 도메인만 사용\n• 의심 거래 즉시 신고'));
+
+/* ===== 모달/버튼 로직 ===== */
+const modalLogin = $('#modalLogin');
+const modalStake = $('#modalStake');
+const modalRate = $('#modalRate');
+const modalFaq = $('#modalFaq');
+const modalReport= $('#modalReport');
+const modalTips = $('#modalTips');
+
+$('#login').addEventListener('click', ()=> open('#modalLogin'));
+$('#stakeOpen').addEventListener('click', ()=> open('#modalStake'));
+$('#rateOpen').addEventListener('click', ()=> open('#modalRate'));
+$('#faqAll').addEventListener('click', ()=> open('#modalFaq'));
+$('#openFaq').addEventListener('click', ()=> open('#modalFaq'));
+$('#openReport').addEventListener('click',()=> open('#modalReport'));
+$('#openTips').addEventListener('click', ()=> open('#modalTips'));
+
+// 로그인 데모
+$('#doLogin').addEventListener('click', ()=>{
+  const id = $('#uid').value.trim();
+  const pin= $('#pin').value.trim();
+  const out= $('#loginOut');
+  if(!id || !pin){ out.textContent = 'ID와 PIN을 입력하세요.'; out.className='notice danger'; return; }
+  out.textContent = '데모 로그인 완료: ' + id + ' (실제 인증 아님)';
+  out.className = 'notice ok';
+});
+
+// 송금/결제/리워드 가짜 알림
+$('#sendDemo').addEventListener('click', ()=> alert('데모 송금 플로우 — Pi SDK 연동 필요'));
+$('#txList').addEventListener('click', ()=> alert('거래내역(데모): 최근 전송 0건'));
+$('#payDemo').addEventListener('click', ()=> alert('결제 데모 시작 — 금액 확인 후 서명(가상)'));
+$('#storeList').addEventListener('click',()=> alert('가맹점(데모): 월드마켓, 파이카페, 디지털서점'));
+$('#rewardBtn').addEventListener('click',()=> alert('쿠폰(데모) 발급: REWARD-PI-314'));
+$('#surveyBtn').addEventListener('click',()=> alert('설문(데모): 3문항 완료 시 1포인트'));
+
+// 예치 계산기
+$('#calc').addEventListener('click', ()=>{
+  const amt = parseFloat($('#amt').value||'0');
+  const term= parseInt($('#term').value||'30',10);
+  const out = $('#calcOut');
+  if(amt<=0){ out.textContent='예치 수량을 입력하세요.'; out.className='notice danger'; return; }
+  // 초간단 APY 계산(연 31.4% 단리 근사) — 데모
+  const apy = 0.314;
+  const profit = Math.round( (amt * apy * (term/365)) * 10000 )/10000;
+  out.innerHTML = `예치 수량 <b>${amt}</b> PI, 기간 <b>${term}일</b> 기준 예상 이자 ≈ <b>${profit}</b> PI (데모)`;
+  out.className = 'notice ok';
+});
+
+// 예치 신청 데모
+$('#sApply').addEventListener('click', ()=>{
+  const amt = parseFloat($('#sAmt').value||'0');
+  const term= parseInt($('#sTerm').value||'30',10);
+  const out = $('#sOut');
+  if(amt<=0){ out.textContent='예치 수량을 입력하세요.'; out.className='notice danger'; return; }
+  out.innerHTML = `예치 신청 접수(데모): <b>${amt} PI / ${term}일</b> — Pi SDK 연동 시 실제 서명 흐름으로 전환됩니다.`;
+  out.className = 'notice ok';
+});
+
+// 신고 데모
+$('#doReport').addEventListener('click', ()=>{
+  const tx = $('#txid').value.trim();
+  const ad = $('#addr').value.trim();
+  const tm = $('#twhen').value.trim();
+  const out= $('#repOut');
+  if(!tx || !ad){ out.textContent='TXID와 상대 지갑 주소를 입력하세요.'; out.className='notice danger'; return; }
+  out.innerHTML = `임시 기록 완료(로컬):<br><span class="mono">${tx}</span><br><span class="mono">${ad}</span><br>${tm||''}`;
+  out.className = 'notice ok';
+});
+
+// 모달 바깥 클릭 시 닫기
+$$('.modal').forEach(m=>{
+  m.addEventListener('click', (e)=>{ if(e.target===m) m.style.display='none'; });
+});
+
+/* ===== 네트워크/오프라인 안내(선택) ===== */
+window.addEventListener('offline', ()=>{
+  alert('오프라인 모드 감지 — 데모 기능만 사용 가능합니다.');
+});
 </script>
+
 </body>
 </html>
