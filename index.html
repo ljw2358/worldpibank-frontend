@@ -24,6 +24,7 @@
       font-size: 16px;
       margin: 5px 0 20px 0;
       white-space: nowrap; /* 줄바꿈 방지 */
+      word-break: keep-all; /* 한국어 단어 쪼개짐 방지 */
     }
     .lang-buttons {
       margin: 10px 0;
@@ -82,8 +83,8 @@
 </head>
 <body>
   <header>
-    <h1>월드파이은행</h1>
-    <h2 class="subtitle">서민과 모두를 위한 디지털 은행</h2>
+    <h1 id="t_title">월드파이은행</h1>
+    <h2 id="t_sub" class="subtitle">서민과 모두를 위한 디지털&nbsp;은행</h2>
     <div class="lang-buttons">
       <button id="btn-ko">KR</button>
       <button id="btn-en">EN</button>
@@ -106,14 +107,14 @@
   </div>
 
   <footer>
-    © 2025 월드파이은행 · 모두를 위한 은행 · Build v10
+    © 2025 월드파이은행 · 모두를 위한 은행 · Build v13
   </footer>
 
   <script>
     const content = {
       ko: {
         title: "월드파이은행",
-        subtitle: "서민과 모두를 위한 디지털 은행",
+        subtitle: "서민과 모두를 위한 디지털\u00A0은행", // NBSP 적용
         cards: [
           ["송금 / 결제", "빠르고 안전한 결제와 P2P 송금.", "LIVE"],
           ["리워드", "참여·미션으로 포인트 적립, 서민과 함께 성장.", "POINTS"],
@@ -125,7 +126,7 @@
       },
       en: {
         title: "World Pi Bank",
-        subtitle: "A digital bank for all citizens",
+        subtitle: "A digital\u00A0bank for all citizens", // NBSP 적용
         cards: [
           ["Payment / Transfer", "Fast and secure payments with P2P transfers.", "LIVE"],
           ["Rewards", "Earn points through missions and grow together.", "POINTS"],
@@ -157,8 +158,8 @@
 
     function apply(lang) {
       const c = content[lang];
-      document.querySelector("h1").innerText = c.title;
-      document.querySelector("h2").innerText = c.subtitle;
+      document.getElementById("t_title").innerHTML = c.title;
+      document.getElementById("t_sub").innerHTML = c.subtitle;
       const cardEls = document.querySelectorAll(".card");
       c.cards.forEach((card, i) => {
         cardEls[i].querySelector("b").innerText = card[0];
