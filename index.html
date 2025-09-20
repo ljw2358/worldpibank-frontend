@@ -3,151 +3,213 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover"/>
+  <meta name="color-scheme" content="dark light"/>
   <title>월드파이은행 • World Pi Bank</title>
   <style>
-    body {margin:0;padding:0;background:#201547;color:#fff;
-      font-family:Arial,"Noto Sans KR",sans-serif;text-align:center;}
-    header {display:flex;justify-content:space-between;align-items:center;padding:18px 20px;}
-    h1 {font-size:22px;margin:0;}
-    p.sub {color:#cfc7ff;margin:4px 0 0;font-size:13px;}
-    .lang button{
-      background:transparent;border:1px solid #8a7aff;color:#8a7aff;
-      padding:4px 8px;border-radius:8px;cursor:pointer;font-size:12px;
+    :root{
+      --bg:#1b1530; --panel:#241d46; --line:#342a66;
+      --txt:#ffffff; --muted:#cfc7ff; --accent:#8a7aff; --accent2:#b9a6ff;
     }
-    .lang button.active{background:#8a7aff;color:#100b1d;font-weight:700}
-    .pi-circle{width:70px;height:70px;margin:20px auto;border-radius:50%;
-      background:radial-gradient(circle at 30% 30%,#b9a6ff,#8a7aff);
-      display:flex;align-items:center;justify-content:center;
-      font-size:28px;font-weight:900;color:#100b1d;}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:620px;margin:0 auto;padding:0 16px;}
-    .card{background:#2a1d55;border:1px solid #3b2d70;border-radius:16px;padding:14px;}
-    .card h3{margin:0 0 6px;font-size:15px;}
-    .card p{margin:0;font-size:13px;color:#d2cfff;}
-    footer{margin:22px 0 12px;font-size:12px;color:#b5aaff;}
-    .btns{margin-top:10px;}
-    .btn{background:#8a7aff;border:0;border-radius:10px;color:#100b1d;
-      font-weight:700;padding:8px 14px;margin:4px;font-size:12px;cursor:pointer;}
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--txt);
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,"Apple SD Gothic Neo","Noto Sans KR","Noto Sans SC",Arial; }
+    .wrap{max-width:560px;margin:0 auto;padding:22px 16px 36px}
+    header{display:flex;justify-content:space-between;align-items:center;gap:12px}
+    .brand h1{margin:0;font-size:22px}
+    .brand p{margin:6px 0 0;color:var(--muted);font-size:13px}
+    .lang{display:flex;gap:6px}
+    .lang button{border:1px solid var(--accent);background:transparent;color:var(--accent);
+      padding:4px 10px;border-radius:999px;font-size:12px}
+    .lang button.active{background:var(--accent);color:#0f0b1e;font-weight:800}
+    .logo{
+      width:72px;height:72px;border-radius:50%;margin:18px auto 10px;
+      display:grid;place-items:center;font-weight:900;font-size:28px;color:#0f0b1e;
+      background:radial-gradient(30% 30% at 30% 30%,var(--accent2),var(--accent));
+      box-shadow:0 10px 28px rgba(138,122,255,.45), inset 0 0 12px rgba(255,255,255,.25);
+    }
+    .hero{margin:8px 0 18px;text-align:center}
+    .hero h2{margin:0 0 6px;font-size:18px}
+    .hero p{margin:0;color:var(--muted);font-size:13px}
+    .grid{display:grid;grid-template-columns:1fr;gap:12px}
+    .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px}
+    .row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+    .label{font-size:16px;font-weight:800}
+    .badge{font-size:11px;padding:4px 8px;border-radius:999px;background:var(--accent);color:#0f0b1e;font-weight:900}
+    .desc{margin:10px 0 0;font-size:13px;color:var(--muted);line-height:1.35}
+    .cta{display:flex;gap:10px;justify-content:center;margin-top:14px}
+    .btn{border:0;border-radius:12px;padding:10px 14px;font-weight:800}
+    .primary{background:var(--accent);color:#0f0b1e}
+    .ghost{background:transparent;border:1px solid var(--accent2);color:var(--accent2)}
+    footer{margin:22px 0 10px;text-align:center;color:var(--muted);font-size:12px}
+
+    /* 하단 고정 FAQ 버튼 */
+    .fab{position:fixed;right:16px;bottom:18px;width:56px;height:56px;border-radius:50%;
+      display:grid;place-items:center;background:var(--accent);color:#0f0b1e;border:0;font-weight:900}
+    .fab:active{transform:translateY(1px)}
+
+    @media (max-width:360px){ .wrap{padding-left:12px;padding-right:12px} .brand h1{font-size:20px} }
   </style>
 </head>
 <body>
-  <header>
-    <div>
-      <h1 id="t_title">월드파이은행</h1>
-      <p class="sub" id="t_sub">세계 최초의 디지털 은행</p>
-    </div>
-    <div class="lang">
-      <button data-lang="ko" id="btn-ko">KR</button>
-      <button data-lang="en" id="btn-en">EN</button>
-      <button data-lang="zh" id="btn-zh">中文</button>
-    </div>
-  </header>
-
-  <div class="pi-circle">π</div>
-
-  <div class="grid">
-    <div class="card">
-      <h3 id="t_pay">송금 / 결제</h3>
-      <p id="t_pay_desc">빠르고 안전한 결제와 P2P 송금.</p>
-    </div>
-    <div class="card">
-      <h3 id="t_reward">리워드</h3>
-      <p id="t_reward_desc">참여·미션으로 포인트 적립, 생태계 기여 보상.</p>
-    </div>
-    <div class="card">
-      <h3 id="t_stake">예치 (Staking)</h3>
-      <p id="t_stake_desc">연이율(APY) 31.4% • 유연한 기간 • 투명한 금리</p>
-    </div>
-    <div class="card">
-      <h3 id="t_ubi">UBI (기본소득)</h3>
-      <p id="t_ubi_desc">노동 없이도 가능한 디지털 기본소득 실험.</p>
-    </div>
-    <div class="card">
-      <h3 id="t_support">고객센터</h3>
-      <p id="t_support_desc">문제 해결, 계정·보안, 피드백 접수.</p>
-    </div>
-    <div class="card">
-      <h3 id="t_faq">FAQ / 보안</h3>
-      <p id="t_faq_desc">KYC 검증, 해킹 방지책, 자주 묻는 질문.</p>
-      <div class="btns">
-        <button class="btn" id="t_btn_faq">Open FAQ</button>
-        <button class="btn" id="t_btn_demo">데모 보기</button>
+  <main class="wrap">
+    <header aria-label="Top">
+      <div class="brand">
+        <h1 id="t_title">월드파이은행</h1>
+        <p id="t_sub">세계 최초의 디지털 은행</p>
       </div>
-    </div>
-  </div>
+      <nav class="lang" aria-label="Language switcher">
+        <button id="btn-ko" data-lang="ko">KR</button>
+        <button id="btn-en" data-lang="en">EN</button>
+        <button id="btn-zh" data-lang="zh">中文</button>
+      </nav>
+    </header>
 
-  <footer id="t_footer">
-    © 2025 월드파이은행 • Powered by AI • Web3 • Pi
-  </footer>
+    <div class="logo" aria-hidden="true">π</div>
 
-<script>
-const L={
-  ko:{
-    title:"월드파이은행",sub:"세계 최초의 디지털 은행",
-    pay:"송금 / 결제",pay_desc:"빠르고 안전한 결제와 P2P 송금.",
-    reward:"리워드",reward_desc:"참여·미션으로 포인트 적립, 생태계 기여 보상.",
-    stake:"예치 (Staking)",stake_desc:"연이율(APY) 31.4% • 유연한 기간 • 투명한 금리",
-    ubi:"UBI (기본소득)",ubi_desc:"노동 없이도 가능한 디지털 기본소득 실험.",
-    support:"고객센터",support_desc:"문제 해결, 계정·보안, 피드백 접수.",
-    faq:"FAQ / 보안",faq_desc:"KYC 검증, 해킹 방지책, 자주 묻는 질문.",
-    btn_faq:"Open FAQ",btn_demo:"데모 보기",
-    footer:"© 2025 월드파이은행 • Powered by AI • Web3 • Pi"
-  },
-  en:{
-    title:"World Pi Bank",sub:"The world's first digital bank",
-    pay:"Pay / Send",pay_desc:"Fast & secure payments and P2P transfers.",
-    reward:"Rewards",reward_desc:"Earn points via participation & missions.",
-    stake:"Staking (Deposit)",stake_desc:"APY 31.4% • Flexible terms • Transparent rates",
-    ubi:"UBI (Basic Income)",ubi_desc:"Exploring digital basic income without labor.",
-    support:"Support",support_desc:"Help center for account, security, feedback.",
-    faq:"FAQ / Security",faq_desc:"KYC verification, anti-hacking, FAQs.",
-    btn_faq:"Open FAQ",btn_demo:"View Demo",
-    footer:"© 2025 World Pi Bank • Powered by AI • Web3 • Pi"
-  },
-  zh:{
-    title:"世界Pi银行",sub:"全球首家数字银行",
-    pay:"转账 / 支付",pay_desc:"快速且安全的支付与点对点转账。",
-    reward:"奖励",reward_desc:"参与任务赚取积分，生态贡献回馈。",
-    stake:"质押（存款）",stake_desc:"年利率(APY) 31.4% • 灵活期限 • 透明利率",
-    ubi:"UBI（基本收入）",ubi_desc:"探索无需劳动的数字基本收入。",
-    support:"客服中心",support_desc:"账号与安全支持，问题反馈。",
-    faq:"常见问题 / 安全",faq_desc:"KYC验证、防黑客措施、常见问题。",
-    btn_faq:"打开FAQ",btn_demo:"查看演示",
-    footer:"© 2025 世界Pi银行 • 由 AI • Web3 • Pi 驱动"
-  }
-};
+    <section class="hero" aria-label="Intro">
+      <h2 id="t_hero_title">모두를 위한 파이 생태계 기반</h2>
+      <p id="t_hero_desc">휴대폰 언어 자동 감지 + 수동 전환 지원</p>
+    </section>
 
-function applyLang(code){
-  const P=L[code]||L.ko;
-  document.getElementById("t_title").textContent=P.title;
-  document.getElementById("t_sub").textContent=P.sub;
-  document.getElementById("t_pay").textContent=P.pay;
-  document.getElementById("t_pay_desc").textContent=P.pay_desc;
-  document.getElementById("t_reward").textContent=P.reward;
-  document.getElementById("t_reward_desc").textContent=P.reward_desc;
-  document.getElementById("t_stake").textContent=P.stake;
-  document.getElementById("t_stake_desc").textContent=P.stake_desc;
-  document.getElementById("t_ubi").textContent=P.ubi;
-  document.getElementById("t_ubi_desc").textContent=P.ubi_desc;
-  document.getElementById("t_support").textContent=P.support;
-  document.getElementById("t_support_desc").textContent=P.support_desc;
-  document.getElementById("t_faq").textContent=P.faq;
-  document.getElementById("t_faq_desc").textContent=P.faq_desc;
-  document.getElementById("t_btn_faq").textContent=P.btn_faq;
-  document.getElementById("t_btn_demo").textContent=P.btn_demo;
-  document.getElementById("t_footer").textContent=P.footer;
-  document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('active',b.dataset.lang===code));
-  try{localStorage.setItem('wpb_lang',code);}catch(e){}
-}
+    <section class="grid" aria-label="Features">
+      <article class="card">
+        <div class="row">
+          <div class="label" id="t_pay_label">송금 / 결제</div>
+          <span class="badge" id="t_live">LIVE</span>
+        </div>
+        <p class="desc" id="t_pay_desc">빠르고 안전한 결제와 P2P 송금.</p>
+      </article>
 
-(function init(){
-  let saved=null; try{saved=localStorage.getItem('wpb_lang');}catch(e){}
-  let code=saved||(navigator.language||'ko').slice(0,2).toLowerCase();
-  if(!['ko','en','zh'].includes(code)) code='en';
-  applyLang(code);
-})();
-document.getElementById('btn-ko').onclick=()=>applyLang('ko');
-document.getElementById('btn-en').onclick=()=>applyLang('en');
-document.getElementById('btn-zh').onclick=()=>applyLang('zh');
-</script>
+      <article class="card">
+        <div class="row">
+          <div class="label" id="t_reward_label">리워드</div>
+          <span class="badge" id="t_points">POINTS</span>
+        </div>
+        <p class="desc" id="t_reward_desc">참여·미션으로 포인트 적립, 생태계 기여 보상.</p>
+      </article>
+
+      <article class="card">
+        <div class="row">
+          <div class="label" id="t_stake_label">예치 (Staking)</div>
+          <span class="badge" id="t_apy">APY 31.4%</span>
+        </div>
+        <p class="desc" id="t_stake_desc">유연한 기간, 투명한 금리. 예치로 수익을 만드세요.</p>
+      </article>
+
+      <article class="card">
+        <div class="row">
+          <div class="label" id="t_ubi_label">UBI (기본소득)</div>
+          <span class="badge" id="t_beta">BETA</span>
+        </div>
+        <p class="desc" id="t_ubi_desc">노동 없이도 가능한 디지털 기본소득 실험.</p>
+      </article>
+
+      <article class="card">
+        <div class="row">
+          <div class="label" id="t_support_label">고객센터</div>
+          <span class="badge" id="t_help">HELP</span>
+        </div>
+        <p class="desc" id="t_support_desc">문제 해결, 계정·보안, 피드백 접수.</p>
+      </article>
+
+      <article class="card">
+        <div class="row">
+          <div class="label" id="t_faq_label">FAQ / 보안</div>
+          <span class="badge" id="t_open">OPEN</span>
+        </div>
+        <p class="desc" id="t_faq_desc">해킹 방지책, KYC 검증 방식, 자주 묻는 질문.</p>
+        <div class="cta">
+          <button class="btn primary" id="t_btn_faq">Open FAQ</button>
+          <button class="btn ghost" id="t_btn_demo">데모 보기(정적)</button>
+        </div>
+      </article>
+    </section>
+
+    <footer id="t_footer">© 2025 월드파이은행 • Powered by AI • Web3 • Pi</footer>
+  </main>
+
+  <button class="fab" id="t_fab" aria-label="FAQ">FAQ</button>
+
+  <script>
+    // 3개 언어 리소스(한/영/중)
+    const L = {
+      ko:{ title:"월드파이은행", sub:"세계 최초의 디지털 은행",
+        hero_title:"모두를 위한 파이 생태계 기반", hero_desc:"휴대폰 언어 자동 감지 + 수동 전환 지원",
+        pay_label:"송금 / 결제", pay_desc:"빠르고 안전한 결제와 P2P 송금.", live:"LIVE",
+        reward_label:"리워드", reward_desc:"참여·미션으로 포인트 적립, 생태계 기여 보상.", points:"POINTS",
+        stake_label:"예치 (Staking)", stake_desc:"유연한 기간, 투명한 금리. 예치로 수익을 만드세요.", apy:"APY 31.4%",
+        ubi_label:"UBI (기본소득)", ubi_desc:"노동 없이도 가능한 디지털 기본소득 실험.", beta:"BETA",
+        support_label:"고객센터", support_desc:"문제 해결, 계정·보안, 피드백 접수.", help:"HELP",
+        faq_label:"FAQ / 보안", faq_desc:"해킹 방지책, KYC 검증 방식, 자주 묻는 질문.", open:"OPEN",
+        btn_faq:"Open FAQ", btn_demo:"데모 보기(정적)",
+        footer:"© 2025 월드파이은행 • Powered by AI • Web3 • Pi", fab:"FAQ"
+      },
+      en:{ title:"World Pi Bank", sub:"The world's first digital bank",
+        hero_title:"Pi ecosystem for everyone", hero_desc:"Auto-detects phone language + manual switch",
+        pay_label:"Pay / Send", pay_desc:"Fast & secure payments and P2P transfers.", live:"LIVE",
+        reward_label:"Rewards", reward_desc:"Earn points via participation & missions.", points:"POINTS",
+        stake_label:"Staking (Deposit)", stake_desc:"Flexible terms, transparent rates.", apy:"APY 31.4%",
+        ubi_label:"UBI (Basic Income)", ubi_desc:"Exploring digital basic income without labor.", beta:"BETA",
+        support_label:"Support", support_desc:"Help for account, security, feedback.", help:"HELP",
+        faq_label:"FAQ / Security", faq_desc:"Anti-hacking measures, KYC verification, FAQs.", open:"OPEN",
+        btn_faq:"Open FAQ", btn_demo:"View Demo (static)",
+        footer:"© 2025 World Pi Bank • Powered by AI • Web3 • Pi", fab:"FAQ"
+      },
+      zh:{ title:"世界Pi银行", sub:"全球首家数字银行",
+        hero_title:"面向所有人的 Pi 生态", hero_desc:"自动识别手机语言 + 支持手动切换",
+        pay_label:"转账 / 支付", pay_desc:"快速安全的支付与点对点转账。", live:"LIVE",
+        reward_label:"奖励", reward_desc:"参与任务赚取积分，生态贡献回馈。", points:"POINTS",
+        stake_label:"质押（存款）", stake_desc:"期限灵活，利率透明。", apy:"APY 31.4%",
+        ubi_label:"UBI（基本收入）", ubi_desc:"探索无需劳动的数字基本收入。", beta:"BETA",
+        support_label:"客服中心", support_desc:"账号与安全支持、问题反馈。", help:"HELP",
+        faq_label:"常见问题 / 安全", faq_desc:"防黑客措施、KYC 验证、常见问题。", open:"OPEN",
+        btn_faq:"打开 FAQ", btn_demo:"查看演示（静态）",
+        footer:"© 2025 世界Pi银行 • 由 AI • Web3 • Pi 驱动", fab:"FAQ"
+      }
+    };
+
+    const ids = ["title","sub","hero_title","hero_desc",
+      "pay_label","pay_desc","reward_label","reward_desc","stake_label","stake_desc",
+      "ubi_label","ubi_desc","support_label","support_desc","faq_label","faq_desc",
+      "live","points","apy","beta","help","open","btn_faq","btn_demo","footer","fab"];
+
+    function t(id){ return document.getElementById('t_'+id); }
+
+    function apply(code){
+      const P = L[code] || L.ko;
+      document.documentElement.lang = (code==="ko"?"ko":code==="zh"?"zh":"en");
+      t("title").textContent=P.title; t("sub").textContent=P.sub;
+      t("hero_title").textContent=P.hero_title; t("hero_desc").textContent=P.hero_desc;
+      t("pay_label").textContent=P.pay_label; t("pay_desc").textContent=P.pay_desc; t("live").textContent=P.live;
+      t("reward_label").textContent=P.reward_label; t("reward_desc").textContent=P.reward_desc; t("points").textContent=P.points;
+      t("stake_label").textContent=P.stake_label; t("stake_desc").textContent=P.stake_desc; t("apy").textContent=P.apy;
+      t("ubi_label").textContent=P.ubi_label; t("ubi_desc").textContent=P.ubi_desc; t("beta").textContent=P.beta;
+      t("support_label").textContent=P.support_label; t("support_desc").textContent=P.support_desc; t("help").textContent=P.help;
+      t("faq_label").textContent=P.faq_label; t("faq_desc").textContent=P.faq_desc; t("open").textContent=P.open;
+      t("btn_faq").textContent=P.btn_faq; t("btn_demo").textContent=P.btn_demo;
+      document.getElementById("t_footer").textContent=P.footer;
+      document.getElementById("t_fab").textContent=P.fab;
+      document.querySelectorAll(".lang button").forEach(b=>b.classList.toggle("active", b.dataset.lang===code));
+      try{ localStorage.setItem("wpb_lang", code); }catch(e){}
+    }
+
+    // 초기 언어: 저장값 > 기기언어(ko/zh 우선) > en
+    (function init(){
+      let saved=null; try{ saved=localStorage.getItem("wpb_lang"); }catch(e){}
+      let code = saved || (navigator.language||"en").slice(0,2).toLowerCase();
+      if(!["ko","en","zh"].includes(code)) code="en";
+      apply(code);
+    })();
+
+    // 수동 전환
+    document.getElementById("btn-ko").onclick=()=>apply("ko");
+    document.getElementById("btn-en").onclick=()=>apply("en");
+    document.getElementById("btn-zh").onclick=()=>apply("zh");
+
+    // 데모 버튼
+    document.getElementById("t_btn_faq").onclick=()=>alert("FAQ는 곧 연결됩니다.\n(보안·KYC·안티해킹 가이드 포함)");
+    document.getElementById("t_btn_demo").onclick=()=>alert("정적 데모 화면입니다.");
+    document.getElementById("t_fab").onclick=()=>alert("실시간 챗봇/FAQ 준비 중입니다.");
+  </script>
 </body>
 </html>
