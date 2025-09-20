@@ -136,10 +136,19 @@ function apply(lang){
   document.getElementById("t_footer").textContent=P.footer;
   document.querySelectorAll(".lang button").forEach(b=>b.classList.toggle("active",b.dataset.lang===lang));
 }
-(function init(){let code=(navigator.language||"ko").slice(0,2);if(!["ko","en","zh"].includes(code)) code="en";apply(code);})();
-document.getElementById("btn-ko").onclick=()=>apply("ko");
-document.getElementById("btn-en").onclick=()=>apply("en");
-document.getElementById("btn-zh").onclick=()=>apply("zh");
+
+// 초기 언어 결정: 해시 우선 (#lang=ko|en|zh), 없으면 브라우저 언어
+(function init(){
+  const hash = (location.hash||"").match(/lang=(ko|en|zh)/);
+  let code = hash ? hash[1] : (navigator.language||"ko").slice(0,2);
+  if(!["ko","en","zh"].includes(code)) code="en";
+  apply(code);
+})();
+
+// 언어 버튼 클릭 시 해시 업데이트
+document.getElementById("btn-ko").onclick=()=>{location.hash="#lang=ko";apply("ko");};
+document.getElementById("btn-en").onclick=()=>{location.hash="#lang=en";apply("en");};
+document.getElementById("btn-zh").onclick=()=>{location.hash="#lang=zh";apply("zh");};
 </script>
 </body>
 </html>
