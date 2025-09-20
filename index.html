@@ -1,119 +1,180 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>월드파이은행 (World Pi Bank)</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      background: #1e1e2f;
-      color: #fff;
-      margin: 0;
-      padding: 0;
-    }
-    h1 {
-      font-size: 28px;
-      margin-top: 25px;
-    }
-    h2 {
-      font-size: 16px;
-      font-weight: normal;
-      margin-bottom: 25px;
-    }
-    .logo {
-      width: 120px;
-      height: 120px;
-      margin: 15px auto;
-      background: gold;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 40px;
-      color: #4b0082;
-      font-weight: bold;
-    }
-    .menu {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 15px;
-      padding: 20px;
-    }
-    .menu button {
-      padding: 18px;
-      border: none;
-      border-radius: 12px;
-      background: #4b0082;
-      color: #fff;
-      font-size: 16px;
-      font-weight: bold;
-      width: 100%;
-    }
-    footer {
-      margin: 25px 0;
-      font-size: 12px;
-      opacity: 0.7;
-    }
-  </style>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>World Pi Bank · 월드 파이 은행 · 世界Pi银行</title>
+<style>
+  :root{
+    --bg:#0e0f1a; --panel:#151a2a; --panel2:#1b2040; --line:#2a2d4b;
+    --text:#e8ebff; --muted:#aab0d6; --shadow:rgba(0,0,0,.28); --r:16px;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; color:var(--text);
+    font-family:Inter,system-ui,"Noto Sans KR","Noto Sans SC",Arial,sans-serif;
+    background:var(--bg);
+    text-rendering:optimizeLegibility;
+  }
+  .wrap{max-width:1100px;margin:0 auto;padding:22px 16px 80px}
+
+  /* top bar */
+  .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+  .brand{font-weight:800;font-size:20px}
+  .lang{display:flex;gap:8px}
+  .pill{
+    border:1px solid var(--line); background:#1a1d33; color:#e8ebff;
+    padding:6px 10px;border-radius:999px;cursor:pointer;font-weight:700;font-size:12px;
+  }
+  .pill.active{background:#2a3070}
+
+  /* hero */
+  .hero{text-align:center;margin-top:20px}
+  .h-title{font-size:36px;font-weight:900;margin:0 0 6px}
+  .h-sub{color:#cfd3ff;margin:0;font-size:18px}
+  .slogan{margin-top:10px;font-size:16px;color:#ffd24d;font-weight:700}
+
+  /* 2×3 cards */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
+  .card{
+    background:linear-gradient(180deg,var(--panel),var(--panel2));
+    border:1px solid var(--line); border-radius:var(--r);
+    box-shadow:0 6px 22px var(--shadow); padding:14px 16px; text-align:left;
+    word-break:keep-all; overflow-wrap:anywhere; min-height:120px;
+  }
+  .k{display:inline-block;background:#2a2d4b;color:#c9cff6;padding:3px 8px;border-radius:999px;font-size:12px;margin-bottom:6px}
+  .ctitle{margin:2px 0 6px;font-weight:800;font-size:18px}
+  .cbody{margin:0;color:#cbd1ffcc;font-size:13.5px;line-height:1.45}
+
+  footer{margin-top:28px;text-align:center;color:#aab0d6;font-size:12px}
+
+  /* responsive */
+  @media (max-width:760px){.cards{grid-template-columns:1fr 1fr}}
+  @media (max-width:560px){.cards{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
-  <h1 id="title"></h1>
-  <h2 id="subtitle"></h2>
+  <div class="wrap">
+    <div class="top">
+      <div class="brand">World Pi Bank</div>
+      <div class="lang">
+        <button class="pill active" data-lang="en">EN</button>
+        <button class="pill" data-lang="ko">KOR</button>
+        <button class="pill" data-lang="zh">中文</button>
+      </div>
+    </div>
 
-  <div class="logo">π</div>
+    <!-- Hero -->
+    <section class="hero">
+      <h1 class="h-title" data-i18n="title">World Pi Bank</h1>
+      <p class="h-sub">
+        <span data-i18n="subtitle">The world’s first digital bank</span>
+      </p>
+      <p class="slogan" data-i18n="slogan">Empowering People with Pi</p>
+    </section>
 
-  <div class="menu">
-    <button id="send"></button>
-    <button id="rewards"></button>
-    <button id="deposit"></button>
-    <button id="ubi"></button>
-    <button id="support"></button>
-    <button id="faq"></button>
+    <!-- 2×3 cards -->
+    <section class="cards">
+      <article class="card">
+        <span class="k" data-i18n="core.tag">Core</span>
+        <h4 class="ctitle" data-i18n="core.title">Send</h4>
+        <p class="cbody" data-i18n="core.desc">Fast peer-to-peer transfers.</p>
+      </article>
+
+      <article class="card">
+        <span class="k" data-i18n="commerce.tag">Commerce</span>
+        <h4 class="ctitle" data-i18n="commerce.title">Pay</h4>
+        <p class="cbody" data-i18n="commerce.desc">Easy checkout online & offline.</p>
+      </article>
+
+      <article class="card">
+        <span class="k" data-i18n="growth.tag">Growth</span>
+        <h4 class="ctitle" data-i18n="growth.title">Rewards</h4>
+        <p class="cbody" data-i18n="growth.desc">Earn bonuses for activity.</p>
+      </article>
+
+      <article class="card">
+        <span class="k" data-i18n="yield.tag">Yield</span>
+        <h4 class="ctitle" data-i18n="yield.title">Staking (Deposit · APY%)</h4>
+        <p class="cbody" data-i18n="yield.desc">Flexible terms, transparent rates.</p>
+      </article>
+
+      <article class="card">
+        <span class="k" data-i18n="equity.tag">Equity</span>
+        <h4 class="ctitle" data-i18n="equity.title">UBI</h4>
+        <p class="cbody" data-i18n="equity.desc">Universal Basic Income model.</p>
+      </article>
+
+      <article class="card">
+        <span class="k" data-i18n="care.tag">Care</span>
+        <h4 class="ctitle" data-i18n="care.title">Support</h4>
+        <p class="cbody" data-i18n="care.desc">Multilingual help center.</p>
+      </article>
+    </section>
+
+    <footer data-i18n="foot">
+      Workers · Seniors · Small businesses · People with disabilities
+    </footer>
   </div>
 
-  <footer>© 2025 World Pi Bank</footer>
+<script>
+/* 이름 변경 반영: KOR에 '월드 파이 은행' */
+const dict = {
+  en:{
+    title:"World Pi Bank",
+    subtitle:"The world’s first digital bank",
+    slogan:"Empowering People with Pi",
+    core:{tag:"Core",title:"Send",desc:"Fast peer-to-peer transfers."},
+    commerce:{tag:"Commerce",title:"Pay",desc:"Easy checkout online & offline."},
+    growth:{tag:"Growth",title:"Rewards",desc:"Earn bonuses for activity."},
+    yield:{tag:"Yield",title:"Staking (Deposit · APY%)",desc:"Flexible terms, transparent rates."},
+    equity:{tag:"Equity",title:"UBI",desc:"Universal Basic Income model."},
+    care:{tag:"Care",title:"Support",desc:"Multilingual help center."},
+    foot:"Workers · Seniors · Small businesses · People with disabilities"
+  },
+  ko:{
+    title:"월드 파이 은행",
+    subtitle:"세계최초의 디지털 은행",
+    slogan:"파이로 사람을 살린다",
+    core:{tag:"핵심",title:"송금",desc:"빠르고 저렴한 개인간 이체"},
+    commerce:{tag:"결제",title:"결제",desc:"매장/온라인 간편 결제"},
+    growth:{tag:"성장",title:"리워드",desc:"활동에 따른 보상 제공"},
+    yield:{tag:"수익",title:"예치(스테이킹 · APY%)",desc:"유연한 기간, 투명한 금리"},
+    equity:{tag:"공평",title:"UBI",desc:"보편적 기본소득 모델"},
+    care:{tag:"케어",title:"고객센터",desc:"다국어 지원 상담"},
+    foot:"노동자 · 노년층 · 소상공인 · 장애인 우선"
+  },
+  zh:{
+    title:"世界Pi银行",
+    subtitle:"全球首个数字银行",
+    slogan:"以Pi赋能全民",
+    core:{tag:"核心",title:"转账",desc:"快速、低成本的点对点汇款"},
+    commerce:{tag:"支付",title:"结算",desc:"门店/线上简便支付"},
+    growth:{tag:"增长",title:"奖励",desc:"按活跃度获取奖励"},
+    yield:{tag:"收益",title:"存款/质押（APY%）",desc:"灵活期限，透明利率"},
+    equity:{tag:"公平",title:"基本收入",desc:"普遍基本收入模式"},
+    care:{tag:"关怀",title:"客服",desc:"多语言客服支持"},
+    foot:"优先：劳动者 · 老年人 · 小微商户 · 残障人士"
+  }
+};
 
-  <script>
-    const userLang = navigator.language || navigator.userLanguage;
-    const title = document.getElementById("title");
-    const subtitle = document.getElementById("subtitle");
-    const send = document.getElementById("send");
-    const rewards = document.getElementById("rewards");
-    const deposit = document.getElementById("deposit");
-    const ubi = document.getElementById("ubi");
-    const support = document.getElementById("support");
-    const faq = document.getElementById("faq");
+function setLang(lang){
+  const d = dict[lang];
+  document.querySelectorAll("[data-i18n]").forEach(el=>{
+    const key = el.getAttribute("data-i18n");
+    const parts = key.split(".");
+    let val = d;
+    parts.forEach(p=> val = val[p]);
+    if(typeof val === "string") el.textContent = val;
+  });
+  document.querySelectorAll(".pill").forEach(p=>p.classList.toggle("active", p.dataset.lang===lang));
+}
 
-    if (userLang.startsWith("ko")) {
-      title.textContent = "월드파이은행";
-      subtitle.textContent = "세계 최초의 디지털 은행";
-      send.textContent = "송금 / 결제";
-      rewards.textContent = "리워드";
-      deposit.textContent = "예치 (APY 31.4%)";
-      ubi.textContent = "기본소득 (UBI)";
-      support.textContent = "고객센터";
-      faq.textContent = "FAQ / 보안";
-    } else if (userLang.startsWith("zh")) {
-      title.textContent = "世界派银行";
-      subtitle.textContent = "世界首个数字银行";
-      send.textContent = "转账 / 支付";
-      rewards.textContent = "奖励";
-      deposit.textContent = "存款 (APY 31.4%)";
-      ubi.textContent = "基本收入 (UBI)";
-      support.textContent = "客户服务";
-      faq.textContent = "常见问题 / 安全";
-    } else {
-      title.textContent = "World Pi Bank";
-      subtitle.textContent = "The World's First Digital Bank";
-      send.textContent = "Send / Pay";
-      rewards.textContent = "Rewards";
-      deposit.textContent = "Staking (APY 31.4%)";
-      ubi.textContent = "Universal Basic Income (UBI)";
-      support.textContent = "Support";
-      faq.textContent = "FAQ / Security";
-    }
-  </script>
+document.querySelectorAll(".pill").forEach(btn=>{
+  btn.addEventListener("click", ()=> setLang(btn.dataset.lang));
+});
+
+setLang("en"); // 기본 EN
+</script>
 </body>
 </html>
