@@ -4,9 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>World Pi Bank — Web3 + AI</title>
-  <meta name="theme-color" content="#4B0082">
+  <meta name="theme-color" content="#4B0082" />
 
-  <!-- Inline PWA manifest (아이콘 내장) -->
+  <!-- PWA Manifest (아이콘 내장) -->
   <link rel="manifest" href='data:application/manifest+json,{
     "name":"World Pi Bank",
     "short_name":"PiBank",
@@ -22,87 +22,101 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect fill='%234B0082' width='512' height='512' rx='96'/%3E%3Ctext x='50%25' y='58%25' text-anchor='middle' font-size='300' fill='white' font-family='Arial, Helvetica, sans-serif'%3E%CF%80%3C/text%3E%3C/svg%3E'>
 
   <style>
-    :root{ --purple:#4B0082; --white:#fff; }
-    *{ box-sizing:border-box; }
-    body{ margin:0; font-family:Arial,"Noto Sans CJK KR","Noto Sans SC",sans-serif; background:var(--purple); color:var(--white); padding:18px; text-align:center; }
-    .wrap{ max-width:920px; margin:0 auto; }
-    h1{ margin:6px 0 4px; font-size:1.4rem; }
-    .slogan{ margin:10px 0 16px; line-height:1.5; opacity:.95; }
-    .services{ display:flex; flex-direction:column; gap:10px; align-items:center; margin:12px 0; }
-    .btn{ display:block; width:100%; max-width:420px; padding:12px; background:#fff; color:var(--purple); border-radius:10px; font-weight:700; text-decoration:none; }
-    .card{ background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); border-radius:12px; padding:14px; text-align:left; margin:12px auto; max-width:880px; }
-    .muted{ opacity:.9; font-size:.92rem; }
-    .footer{ font-size:.85rem; opacity:.85; margin-top:12px; }
-    .row{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:8px; }
+    :root{ --purple:#4B0082; --white:#fff;}
+    *{ box-sizing:border-box;}
+    body{ margin:0; background:var(--purple); color:var(--white);
+          font-family:Arial,"Noto Sans CJK KR","Noto Sans SC",sans-serif;
+          text-align:center; padding:20px;}
+    .wrap{ max-width:980px; margin:0 auto;}
+    h1{ margin:6px 0 4px; font-size:1.45rem;}
+    .slogan{ margin:8px 0 14px; line-height:1.5; opacity:.95;}
+    .grid{ display:flex; flex-direction:column; gap:10px; align-items:center; margin:12px 0;}
+    .btn{ display:block; width:100%; max-width:460px; padding:12px 14px;
+          background:#fff; color:var(--purple); border-radius:12px; font-weight:800; text-decoration:none;}
+    .row{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:8px;}
+    .card{ background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15);
+           border-radius:14px; padding:16px; margin:12px auto; text-align:left;}
+    .muted{ opacity:.9; font-size:.95rem;}
+    pre{ white-space:pre-wrap; word-break:break-word; }
+    a.inline{ color:#fff; text-decoration:underline;}
+    .footer{ opacity:.85; font-size:.9rem; margin-top:12px;}
   </style>
 </head>
 <body>
   <div class="wrap">
     <h1>🌐 월드파이은행 / World Pi Bank / 世界派银行</h1>
+
     <div class="slogan">
-      KR: <b>Web3 + AI</b>로 작동하는 세계 최초의 디지털 은행<br>
-      EN: The world’s first digital bank powered by <b>Web3 + AI</b><br>
-      ZH: 由<b>Web3与AI</b>驱动的全球首个数字银行
+      KR: <b>Web3 + AI</b>로 작동하는 세계 디지털 은행<br>
+      EN: The world’s digital bank powered by <b>Web3 + AI</b><br>
+      ZH: 由<b>Web3 与 AI</b>驱动的全球数字银行
     </div>
 
-    <!-- Pi SDK 데모 (Pi Browser에서만 동작) -->
+    <!-- Pi SDK 데모(브라우저에서만 동작) + 백엔드 연동 버튼 -->
     <div class="row">
       <a class="btn" href="#" onclick="doAuth();return false;">🔐 Pi 로그인 / Login / 登录</a>
-      <a class="btn" href="#" onclick="doPayment();return false;">💳 샌드박스 결제 / Payment / 支付</a>
+      <a class="btn" href="#" onclick="doPayment();return false;">💳 결제 Demo / Payment / 支付</a>
+      <a class="btn" href="#" onclick="fetchFAQFromBackend();return false;">📖 FAQ(백엔드) 불러오기</a>
+      <a class="btn" href="#" onclick="fetchTxFromBackend();return false;">💰 거래내역(백엔드) 불러오기</a>
     </div>
 
-    <!-- 6대 서비스 -->
-    <div class="services">
-      <a class="btn" href="#">송금 · Transfer · 转账</a>
-      <a class="btn" href="#">결제 · Payment · 支付</a>
-      <a class="btn" href="#">리워드 · Rewards · 奖励</a>
-      <a class="btn" href="#">예치 · Deposit · 存款</a>
-      <a class="btn" href="#">기본소득 · UBI · 基本收入</a>
-      <a class="btn" href="#faq">고객센터 · FAQ · 客服</a>
+    <!-- 6가지 핵심 서비스(한·영·중 동시 표기) -->
+    <div class="grid">
+      <a class="btn" href="#">① 송금 · Transfer · 转账</a>
+      <a class="btn" href="#">② 결제 · Payment · 支付</a>
+      <a class="btn" href="#">③ 리워드 · Rewards · 奖励</a>
+      <a class="btn" href="#">④ 예치 · Deposit · 存款</a>
+      <a class="btn" href="#">⑤ 기본소득 · UBI · 基本收入</a>
+      <a class="btn" href="#faq">⑥ 고객센터 · FAQ · 客服</a>
     </div>
 
-    <!-- README / Contact -->
-    <div class="card">
+    <!-- README / 연락처 -->
+    <div class="card muted">
       <b>README</b><br>
       Demo(GitHub Pages): 이 페이지 URL<br>
-      Pi Browser: pi://worldpibank (App Studio 등록 예정)<br>
-      Contact: <a href="mailto:ljw2358@naver.com" style="color:#fff">ljw2358@naver.com</a><br>
-      <span class="muted">Built on Web3 · Powered by AI</span>
+      Pi Browser: pi://worldpibank (App Studio 제출 예정)<br>
+      Contact: <a class="inline" href="mailto:ljw2358@naver.com">ljw2358@naver.com</a><br>
+      Built on Web3 · Powered by AI
     </div>
 
     <!-- Vision -->
-    <div class="card">
-      <b>Vision / 비전 / 愿景</b>
-      <p class="muted">
-        KR: Web3 지갑=신원, AI가 이상거래 탐지·스테이킹 추천·자동결제를 지원합니다.<br>
-        EN: Wallet-as-identity; AI for fraud detection, staking recommendations & auto-payments.<br>
-        ZH: Web3钱包即身份；AI用于异常检测、质押推荐与自动支付。
-      </p>
+    <div class="card muted">
+      <b>Vision / 비전 / 愿景</b><br>
+      KR: Web3 지갑=신원, AI는 이상거래 탐지·스테이킹 추천·자동결제를 수행합니다.<br>
+      EN: Wallet-as-identity on Web3; AI powers fraud detection, staking recommendations, and auto-payments.<br>
+      ZH: Web3 钱包即身份；AI 用于异常检测、质押推荐与自动支付。
     </div>
 
-    <!-- FAQ(기본) + 백엔드에서 불러오기 버튼 -->
-    <div id="faq" class="card">
-      <b>FAQ (기본 표시)</b>
-      <p><b>Q1. KYC?</b><br>KR: 로컬 암호화 검증… / EN: Local encrypted verification… / ZH: 本地加密验证…</p>
-      <p><b>Q2. 보안?</b><br>KR: 하드웨어 키, 다중서명… / EN: Hardware keys, multi-sig… / ZH: 硬件密钥、多重签名…</p>
-      <a class="btn" href="#" onclick="fetchFAQFromBackend();return false;">🔄 백엔드에서 FAQ 다시 불러오기</a>
+    <!-- FAQ (기본 표기 + 백엔드로 대체 로딩 버튼 위에 있음) -->
+    <div id="faq" class="card muted">
+      <b>FAQ (한·영·중)</b><br><br>
+      <b>Q1. KYC?</b><br>
+      KR: 로컬 암호화 검증, 최소 데이터 저장. <br>
+      EN: Local encrypted verification; minimal data stored. <br>
+      ZH: 本地加密验证，仅保存最少数据。 <br><br>
+
+      <b>Q2. 보안(Security)?</b><br>
+      KR: 하드웨어 키, 다중서명, 이상거래 탐지. <br>
+      EN: Hardware keys, multi-signature, anomaly detection. <br>
+      ZH: 硬件密钥、多重签名、异常交易检测。 <br><br>
+
+      <b>Q3. 수수료/이율(Fees/APY)?</b><br>
+      KR: 투명 공시, 시장 연동 조정. <br>
+      EN: Transparent fees; APY adjusts with market. <br>
+      ZH: 手续费透明；APY 随市场调整。
     </div>
 
-    <div class="card">
-      <a class="btn" href="#" onclick="fetchTxFromBackend();return false;">💰 거래내역 불러오기 (Backend)</a>
-    </div>
-
-    <div class="footer">PWA로 홈화면에 추가 가능 · 일부 기능은 데모용입니다.</div>
+    <div class="footer">📲 홈 화면에 추가(PWA) 가능 · PC와 모바일에서 동일한 내용이 보입니다.</div>
   </div>
 
-  <!-- Pi SDK -->
+  <!-- Pi SDK (Pi Browser에서만 동작) -->
   <script src="https://downloads.minepi.com/sdk/v1/prod.js"></script>
 
   <script>
-    // ✅ 배포된 백엔드 URL
+    // ✅ 배포된 백엔드 URL로 설정
     const API_BASE = "https://worldpibank-backend.onrender.com";
 
-    // Pi SDK init (Pi Browser)
+    // Pi SDK 초기화(가능한 환경에서만)
     if (window.Pi && Pi.init) {
       Pi.init({ version: "2.0", sandbox: true });
     }
@@ -137,15 +151,15 @@
       try { Pi.createPayment(paymentData, cbs); } catch(e){ console.error(e); alert("결제 시작 실패"); }
     }
 
+    // 백엔드에서 FAQ/거래내역 가져오기
     async function fetchFAQFromBackend(){
       try {
         const r = await fetch(API_BASE + "/faq");
         const data = await r.json();
         const html = data.map(x => `<p>❓ ${x.q}<br>KR: ${x.a_kr}<br>EN: ${x.a_en}<br>ZH: ${x.a_zh}</p>`).join("");
-        document.getElementById("faq").innerHTML = "<b>FAQ (from backend)</b>" + html;
+        document.getElementById("faq").innerHTML = "<b>FAQ (from backend)</b><br>" + html;
       } catch(e){ console.error(e); alert("FAQ 불러오기 실패"); }
     }
-
     async function fetchTxFromBackend(){
       try {
         const r = await fetch(API_BASE + "/transactions");
@@ -154,7 +168,7 @@
       } catch(e){ console.error(e); alert("거래내역 불러오기 실패"); }
     }
 
-    // 간단 PWA SW 등록
+    // 간단 Service Worker 등록(PWA)
     const swCode = `
       self.addEventListener('install', e => {
         e.waitUntil(caches.open('wpb-v1').then(c=>c.addAll(['.'])));
@@ -164,7 +178,7 @@
       });
     `;
     if ('serviceWorker' in navigator) {
-      const blob = new Blob([swCode], { type: 'text/javascript' });
+      const blob = new Blob([swCode], { type:'text/javascript' });
       const url = URL.createObjectURL(blob);
       navigator.serviceWorker.register(url).catch(()=>{});
     }
