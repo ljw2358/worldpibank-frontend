@@ -1,79 +1,173 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="ko">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>World Pi Bank</title>
-<meta name="theme-color" content="#6b4eff">
-<style>
-:root{--bg:#f7f5ff;--card:#fff;--primary:#6b4eff;--text:#111;--muted:#666;--shadow:0 10px 28px rgba(0,0,0,.08)}
-*{box-sizing:border-box}body{margin:0;font-family:sans-serif;background:var(--bg);color:var(--text)}
-.wrap{max-width:1000px;margin:0 auto;padding:16px}
-.header{display:flex;align-items:center;justify-content:space-between;margin:6px 0 14px}
-.brand{display:flex;align-items:center;gap:12px}
-.logo{width:46px;height:46px;border-radius:50%;background:conic-gradient(from 0deg,#5a34ff,#6b4eff,#815cff);
-display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;box-shadow:var(--shadow)}
-.lang button{margin-left:6px;padding:6px 12px;border:1px solid #e3dcff;border-radius:10px;background:#fff;color:var(--primary);cursor:pointer}
-.lang button.active{background:var(--primary);color:#fff}
-.hero{background:linear-gradient(180deg,#fff,#efeaff);border-radius:22px;padding:22px;box-shadow:var(--shadow)}
-.hero h1{margin:0 0 6px;font-size:28px}
-.hero h2{margin:0;color:var(--muted);font-size:15px}
-.grid{display:grid;gap:12px;margin:18px 0;grid-template-columns:1fr}
-@media(min-width:520px){.grid{grid-template-columns:repeat(2,1fr)}}
-@media(min-width:900px){.grid{grid-template-columns:repeat(3,1fr)} .hero h1{font-size:32px}}
-.card{background:var(--card);border-radius:18px;padding:16px;box-shadow:var(--shadow)}
-.t{font-weight:800;color:var(--primary)}.d{font-size:13px;color:var(--muted)}
-.footer{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:6px}
-.badge{font-size:12px;color:#fff;background:var(--primary);padding:6px 10px;border-radius:999px;box-shadow:var(--shadow)}
-.note{font-size:12px;color:var(--muted)}
-.installer{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);background:#fff;border:1px solid #ddd;border-radius:14px;box-shadow:var(--shadow);padding:8px 12px;display:none;align-items:center;gap:10px;z-index:9999}
-.installer.show{display:flex}.install-btn{background:var(--primary);color:#fff;border:none;border-radius:10px;padding:6px 12px;cursor:pointer}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>World Pi Bank — Web3 + AI</title>
+  <meta name="theme-color" content="#4B0082">
+
+  <!-- Inline PWA manifest (아이콘 내장) -->
+  <link rel="manifest" href='data:application/manifest+json,{
+    "name":"World Pi Bank",
+    "short_name":"PiBank",
+    "start_url":".",
+    "display":"standalone",
+    "background_color":"#4B0082",
+    "theme_color":"#4B0082",
+    "icons":[
+      {"src":"data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\"><rect fill=\"%234B0082\" width=\"512\" height=\"512\" rx=\"96\"/><text x=\"50%\" y=\"58%\" text-anchor=\"middle\" font-size=\"300\" fill=\"white\" font-family=\"Arial, Helvetica, sans-serif\">π</text></svg>","sizes":"192x192","type":"image/svg+xml"},
+      {"src":"data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\"><rect fill=\"%234B0082\" width=\"512\" height=\"512\" rx=\"96\"/><text x=\"50%\" y=\"58%\" text-anchor=\"middle\" font-size=\"300\" fill=\"white\" font-family=\"Arial, Helvetica, sans-serif\">π</text></svg>","sizes":"512x512","type":"image/svg+xml"}
+    ]
+  }'>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect fill='%234B0082' width='512' height='512' rx='96'/%3E%3Ctext x='50%25' y='58%25' text-anchor='middle' font-size='300' fill='white' font-family='Arial, Helvetica, sans-serif'%3E%CF%80%3C/text%3E%3C/svg%3E'>
+
+  <style>
+    :root{ --purple:#4B0082; --white:#fff; }
+    *{ box-sizing:border-box; }
+    body{ margin:0; font-family:Arial,"Noto Sans CJK KR","Noto Sans SC",sans-serif; background:var(--purple); color:var(--white); padding:18px; text-align:center; }
+    .wrap{ max-width:920px; margin:0 auto; }
+    h1{ margin:6px 0 4px; font-size:1.4rem; }
+    .slogan{ margin:10px 0 16px; line-height:1.5; opacity:.95; }
+    .services{ display:flex; flex-direction:column; gap:10px; align-items:center; margin:12px 0; }
+    .btn{ display:block; width:100%; max-width:420px; padding:12px; background:#fff; color:var(--purple); border-radius:10px; font-weight:700; text-decoration:none; }
+    .card{ background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); border-radius:12px; padding:14px; text-align:left; margin:12px auto; max-width:880px; }
+    .muted{ opacity:.9; font-size:.92rem; }
+    .footer{ font-size:.85rem; opacity:.85; margin-top:12px; }
+    .row{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:8px; }
+  </style>
 </head>
 <body>
-<div class="wrap">
-  <header class="header">
-    <div class="brand"><div class="logo">π</div><div><div id="brandTitle">World Pi Bank</div><div id="brandSubtitle" class="note">The world's first digital bank (demo)</div></div></div>
-    <div class="lang"><button data-lang="en" id="btn-en">EN</button><button data-lang="ko" id="btn-ko">KR</button><button data-lang="zh" id="btn-zh">中文</button></div>
-  </header>
-  <section class="hero">
-    <h1 id="heroTitle">World Pi Bank</h1>
-    <h2 id="heroSubtitle">The world's first digital bank — built on the Pi ecosystem</h2>
-    <div class="grid">
-      <div class="card"><div class="t" id="f1t">Send / Pay</div><div class="d" id="f1d">Fast P2P payments</div></div>
-      <div class="card"><div class="t" id="f2t">Rewards</div><div class="d" id="f2d">Daily incentives</div></div>
-      <div class="card"><div class="t" id="f3t">Deposit · APY 31.4%</div><div class="d" id="f3d">Flexible terms</div></div>
-      <div class="card"><div class="t" id="f4t">UBI</div><div class="d" id="f4d">Basic income pilot</div></div>
-      <div class="card"><div class="t" id="f5t">Support</div><div class="d" id="f5d">KYC & Security</div></div>
-      <div class="card"><div class="t" id="f6t">Demo</div><div class="d" id="f6d">Static preview</div></div>
+  <div class="wrap">
+    <h1>🌐 월드파이은행 / World Pi Bank / 世界派银行</h1>
+    <div class="slogan">
+      KR: <b>Web3 + AI</b>로 작동하는 세계 최초의 디지털 은행<br>
+      EN: The world’s first digital bank powered by <b>Web3 + AI</b><br>
+      ZH: 由<b>Web3与AI</b>驱动的全球首个数字银行
     </div>
-    <div class="footer"><div class="badge" id="badge">APY 31.4% · Pilot</div><div class="note" id="slogan">“No labor? Basic income is still possible — with Pi.”</div></div>
-  </section>
-  <p class="note" style="margin:10px 4px 0"><span id="footNote">Chrome & Pi Browser supported. Add to Home Screen for app mode.</span></p>
-</div>
 
-<!-- 설치 배너 -->
-<div class="installer" id="installer"><span id="installMsg">Install World Pi Bank?</span><button class="install-btn" id="installBtn">Install</button></div>
+    <!-- Pi SDK 데모 (Pi Browser에서만 동작) -->
+    <div class="row">
+      <a class="btn" href="#" onclick="doAuth();return false;">🔐 Pi 로그인 / Login / 登录</a>
+      <a class="btn" href="#" onclick="doPayment();return false;">💳 샌드박스 결제 / Payment / 支付</a>
+    </div>
 
-<script>
-// 다국어
-const dict={en:{brandTitle:"World Pi Bank",brandSubtitle:"The world's first digital bank (demo)",heroTitle:"World Pi Bank",heroSubtitle:"The world's first digital bank — built on the Pi ecosystem",f1t:"Send / Pay",f1d:"Fast P2P payments",f2t:"Rewards",f2d:"Daily incentives",f3t:"Deposit · APY 31.4%",f3d:"Flexible terms",f4t:"UBI",f4d:"Basic income pilot",f5t:"Support",f5d:"KYC & Security",f6t:"Demo",f6d:"Static preview",badge:"APY 31.4% · Pilot",slogan:"“No labor? Basic income is still possible — with Pi.”",footNote:"Chrome & Pi Browser supported. Add to Home Screen."},ko:{brandTitle:"월드파이은행",brandSubtitle:"세계최초의 디지털은행 (데모)",heroTitle:"월드파이은행",heroSubtitle:"파이 생태계 위에 구축된 세계최초의 디지털 은행",f1t:"송금 / 결제",f1d:"초간편 결제",f2t:"리워드",f2d:"일일 보상",f3t:"예치 · APY 31.4%",f3d:"유연한 금리",f4t:"UBI",f4d:"디지털 기본소득",f5t:"고객센터",f5d:"KYC & 보안",f6t:"데모",f6d:"정적 미리보기",badge:"APY 31.4% · 파일럿",slogan:"“노동 없이도 기본소득은 가능합니다 — 파이와 함께.”",footNote:"크롬 & 파이 브라우저 지원. 홈 화면에 추가하세요."},zh:{brandTitle:"世界Pi银行",brandSubtitle:"全球首家数字银行（演示）",heroTitle:"世界Pi银行",heroSubtitle:"基于 Pi 生态构建的全球首家数字银行",f1t:"转账/支付",f1d:"快捷支付",f2t:"奖励",f2d:"每日奖励",f3t:"存款 · 年化31.4%",f3d:"灵活利率",f4t:"UBI",f4d:"数字基本收入",f5t:"客服",f5d:"KYC与安全",f6t:"演示",f6d:"静态预览",badge:"年化31.4% · 试点",slogan:"“无须劳动? 通过 Pi 也能实现基本收入。”",footNote:"支持 Chrome 与 Pi 浏览器。请添加到主屏。"}};
-function applyLang(code){const t=dict[code]||dict.en;Object.keys(t).forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=t[id]});document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('active',b.dataset.lang===code));localStorage.setItem('lang',code);}
-let initial=(localStorage.getItem('lang')||navigator.language||'en').toLowerCase();applyLang(initial.startsWith('ko')?'ko':initial.startsWith('zh')?'zh':'en');
-document.getElementById('btn-en').onclick=()=>applyLang('en');document.getElementById('btn-ko').onclick=()=>applyLang('ko');document.getElementById('btn-zh').onclick=()=>applyLang('zh');
+    <!-- 6대 서비스 -->
+    <div class="services">
+      <a class="btn" href="#">송금 · Transfer · 转账</a>
+      <a class="btn" href="#">결제 · Payment · 支付</a>
+      <a class="btn" href="#">리워드 · Rewards · 奖励</a>
+      <a class="btn" href="#">예치 · Deposit · 存款</a>
+      <a class="btn" href="#">기본소득 · UBI · 基本收入</a>
+      <a class="btn" href="#faq">고객센터 · FAQ · 客服</a>
+    </div>
 
-// 매니페스트 동적 생성
-const manifest={name:"World Pi Bank",short_name:"WorldPiBank",start_url:"./",display:"standalone",background_color:"#ffffff",theme_color:"#6b4eff",icons:[{src:"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect rx='96' ry='96' width='512' height='512' fill='%236b4eff'/><text x='50%' y='60%' text-anchor='middle' font-size='260' fill='white'>π</text></svg>",sizes:"512x512",type:"image/svg+xml",purpose:"maskable any"}]};
-const blob=new Blob([JSON.stringify(manifest)],{type:"application/manifest+json"});const url=URL.createObjectURL(blob);const link=document.createElement("link");link.rel="manifest";link.href=url;document.head.appendChild(link);
+    <!-- README / Contact -->
+    <div class="card">
+      <b>README</b><br>
+      Demo(GitHub Pages): 이 페이지 URL<br>
+      Pi Browser: pi://worldpibank (App Studio 등록 예정)<br>
+      Contact: <a href="mailto:ljw2358@naver.com" style="color:#fff">ljw2358@naver.com</a><br>
+      <span class="muted">Built on Web3 · Powered by AI</span>
+    </div>
 
-// SW 등록
-const swBlob=new Blob([`self.addEventListener('install',e=>{e.waitUntil(caches.open('wpi').then(c=>c.addAll(['./'])))});self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)))})`],{type:"text/javascript"});
-const swURL=URL.createObjectURL(swBlob);if('serviceWorker'in navigator){navigator.serviceWorker.register(swURL);}
+    <!-- Vision -->
+    <div class="card">
+      <b>Vision / 비전 / 愿景</b>
+      <p class="muted">
+        KR: Web3 지갑=신원, AI가 이상거래 탐지·스테이킹 추천·자동결제를 지원합니다.<br>
+        EN: Wallet-as-identity; AI for fraud detection, staking recommendations & auto-payments.<br>
+        ZH: Web3钱包即身份；AI用于异常检测、质押推荐与自动支付。
+      </p>
+    </div>
 
-// 설치 배너
-let deferredPrompt;const installer=document.getElementById('installer');const installBtn=document.getElementById('installBtn');
-window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;installer.classList.add('show');});
-installBtn.addEventListener('click',async()=>{if(!deferredPrompt)return;deferredPrompt.prompt();const {outcome}=await deferredPrompt.userChoice;if(outcome==='accepted'){installer.classList.remove('show');deferredPrompt=null;}});
-</script>
+    <!-- FAQ(기본) + 백엔드에서 불러오기 버튼 -->
+    <div id="faq" class="card">
+      <b>FAQ (기본 표시)</b>
+      <p><b>Q1. KYC?</b><br>KR: 로컬 암호화 검증… / EN: Local encrypted verification… / ZH: 本地加密验证…</p>
+      <p><b>Q2. 보안?</b><br>KR: 하드웨어 키, 다중서명… / EN: Hardware keys, multi-sig… / ZH: 硬件密钥、多重签名…</p>
+      <a class="btn" href="#" onclick="fetchFAQFromBackend();return false;">🔄 백엔드에서 FAQ 다시 불러오기</a>
+    </div>
+
+    <div class="card">
+      <a class="btn" href="#" onclick="fetchTxFromBackend();return false;">💰 거래내역 불러오기 (Backend)</a>
+    </div>
+
+    <div class="footer">PWA로 홈화면에 추가 가능 · 일부 기능은 데모용입니다.</div>
+  </div>
+
+  <!-- Pi SDK -->
+  <script src="https://downloads.minepi.com/sdk/v1/prod.js"></script>
+
+  <script>
+    // ✅ 배포된 백엔드 URL
+    const API_BASE = "https://worldpibank-backend.onrender.com";
+
+    // Pi SDK init (Pi Browser)
+    if (window.Pi && Pi.init) {
+      Pi.init({ version: "2.0", sandbox: true });
+    }
+
+    async function doAuth(){
+      try {
+        if (!window.Pi || !Pi.authenticate) return alert("Pi Browser에서 열어주세요.");
+        const auth = await Pi.authenticate(['username','payments']);
+        alert("Logged in as @" + (auth.user?.username || "unknown"));
+      } catch (e) { console.error(e); alert("로그인 실패"); }
+    }
+
+    function doPayment(){
+      if (!window.Pi || !Pi.createPayment) return alert("Pi Browser에서 열어주세요.");
+      const paymentData = { amount: 3.14, memo: "World Pi Bank Demo", metadata:{ itemId:"demo-001" } };
+      const cbs = {
+        onReadyForServerApproval: (paymentId) => {
+          fetch(API_BASE + "/payments/approve", {
+            method: "POST", headers: { "Content-Type":"application/json" },
+            body: JSON.stringify({ paymentId })
+          }).catch(console.error);
+        },
+        onReadyForServerCompletion: (paymentId, txid) => {
+          fetch(API_BASE + "/payments/complete", {
+            method: "POST", headers: { "Content-Type":"application/json" },
+            body: JSON.stringify({ paymentId, txid })
+          }).catch(console.error);
+        },
+        onCancel: () => alert("결제 취소"),
+        onError: (err) => { console.error(err); alert("결제 오류"); }
+      };
+      try { Pi.createPayment(paymentData, cbs); } catch(e){ console.error(e); alert("결제 시작 실패"); }
+    }
+
+    async function fetchFAQFromBackend(){
+      try {
+        const r = await fetch(API_BASE + "/faq");
+        const data = await r.json();
+        const html = data.map(x => `<p>❓ ${x.q}<br>KR: ${x.a_kr}<br>EN: ${x.a_en}<br>ZH: ${x.a_zh}</p>`).join("");
+        document.getElementById("faq").innerHTML = "<b>FAQ (from backend)</b>" + html;
+      } catch(e){ console.error(e); alert("FAQ 불러오기 실패"); }
+    }
+
+    async function fetchTxFromBackend(){
+      try {
+        const r = await fetch(API_BASE + "/transactions");
+        const data = await r.json();
+        alert("Transactions: " + JSON.stringify(data));
+      } catch(e){ console.error(e); alert("거래내역 불러오기 실패"); }
+    }
+
+    // 간단 PWA SW 등록
+    const swCode = `
+      self.addEventListener('install', e => {
+        e.waitUntil(caches.open('wpb-v1').then(c=>c.addAll(['.'])));
+      });
+      self.addEventListener('fetch', e => {
+        e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)));
+      });
+    `;
+    if ('serviceWorker' in navigator) {
+      const blob = new Blob([swCode], { type: 'text/javascript' });
+      const url = URL.createObjectURL(blob);
+      navigator.serviceWorker.register(url).catch(()=>{});
+    }
+  </script>
 </body>
 </html>
