@@ -1,204 +1,310 @@
-<!DOCTYPE html>
-<html lang="ko">
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
-  <title>월드파이은행 • World Pi Bank</title>
-
-  <meta name="theme-color" content="#8a7aff">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="월드파이은행">
-
+  <meta charset="utf-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  />
+  <title>World Pi Bank</title>
+  <meta name="theme-color" content="#6b4eff" />
+  <meta
+    name="description"
+    content="World Pi Bank — Global Web3 Pi-powered digital bank demo (EN/KR/ZH)."
+  />
   <style>
-    :root{--bg:#1b1530;--panel:#241d46;--line:#3b2d70;--txt:#fff;--muted:#cfc7ff;--accent:#8a7aff;--accent2:#b9a6ff}
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{background:var(--bg);color:var(--txt);font-family:system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans KR","Noto Sans SC",Arial;text-align:center;-webkit-text-size-adjust:100%}
-    .wrap{max-width:560px;margin:0 auto;padding:0 14px 64px}
-    .lang{position:fixed;top:12px;right:14px;display:flex;gap:6px;z-index:10}
-    .lang button{padding:4px 8px;border-radius:6px;border:1px solid var(--accent);background:transparent;color:var(--accent);font-size:11px;cursor:pointer}
-    .lang button.active{background:var(--accent);color:#0f0b1e;font-weight:700}
-    h1{margin-top:44px;font-size:clamp(18px,5vw,22px);font-weight:900;white-space:nowrap}
-    #t_sub{margin:8px 0 20px;font-size:clamp(12px,3.5vw,14px);line-height:1.3;word-break:keep-all}
-    .logo{margin:16px auto 20px;width:80px;height:80px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 30% 30%,#b9a6ff,#8a7aff);font-size:32px;font-weight:900;color:#0f0b1e}
-    .grid{display:grid;gap:10px}
-    .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px;text-align:left}
-    .row{display:flex;justify-content:space-between;align-items:center}
-    .label{font-size:14px;font-weight:700}
-    .badge{font-size:10px;padding:3px 6px;border-radius:999px;background:var(--accent);color:#0f0b1e;font-weight:700}
-    .desc{margin-top:8px;font-size:12px;color:#cfc7ff;word-break:keep-all}
-    .cta{display:flex;gap:6px;margin-top:10px;justify-content:center;flex-wrap:wrap}
-    .btn{padding:6px 10px;border-radius:8px;font-weight:700;border:0;font-size:11px;cursor:pointer}
-    .primary{background:var(--accent);color:#0f0b1e}
-    .ghost{background:transparent;border:1px solid var(--accent2);color:var(--accent2)}
-    footer{margin:40px 0 20px;font-size:clamp(10px,2.8vw,12px);color:#cfc7ff;white-space:nowrap}
-
-    /* 설치 배너 */
-    #installBar{position:fixed;bottom:0;left:0;right:0;background:var(--accent);color:#0f0b1e;padding:12px;display:none;justify-content:space-between;align-items:center;font-size:14px;z-index:999}
-    #btnInstall{background:#0f0b1e;color:#fff;border:0;padding:6px 12px;border-radius:6px;font-weight:700;cursor:pointer;display:none}
+    :root{
+      --bg:#f6f6ff;
+      --card:#ffffff;
+      --primary:#6b4eff;
+      --text:#111;
+      --muted:#666;
+      --shadow:0 10px 30px rgba(0,0,0,.08);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Pretendard,Apple SD Gothic Neo,Noto Sans CJK KR,Noto Sans CJK SC,Arial,sans-serif;background:var(--bg);color:var(--text)}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1000px;margin:0 auto;padding:16px}
+    .header{display:flex;align-items:center;justify-content:space-between;margin:8px 0 16px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:44px;height:44px;border-radius:50%;background:conic-gradient(from 0deg,#6b4eff,#8a6bff,#6b4eff);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;box-shadow:var(--shadow)}
+    .lang{display:flex;align-items:center;gap:8px}
+    .lang button{border:1px solid #e6e0ff;background:#fff;padding:6px 10px;border-radius:10px;cursor:pointer}
+    .lang button.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+    .hero{background:linear-gradient(180deg,#fff, #f3f0ff);border-radius:24px;padding:24px;box-shadow:var(--shadow)}
+    .hero h1{margin:0 0 8px;font-size:28px}
+    .hero h2{margin:0;color:var(--muted);font-size:16px}
+    .grid{display:grid;gap:14px;margin:18px 0;grid-template-columns:repeat(2,1fr)}
+    @media(min-width:768px){.grid{grid-template-columns:repeat(3,1fr)} .hero h1{font-size:32px}}
+    .card{background:var(--card);border-radius:20px;padding:18px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+    .card .title{font-size:16px;font-weight:700}
+    .card .desc{font-size:13px;color:var(--muted)}
+    .footer{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    .badge{font-size:12px;color:#fff;background:var(--primary);padding:6px 10px;border-radius:999px;box-shadow:var(--shadow)}
+    .qr{width:86px;height:86px;border-radius:12px;background:#fff url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22white%22/><rect x=%2210%22 y=%2210%22 width=%2220%22 height=%2220%22 fill=%22000%22/><rect x=%2270%22 y=%2210%22 width=%2220%22 height=%2220%22 fill=%22000%22/><rect x=%2210%22 y=%2270%22 width=%2220%22 height=%2220%22 fill=%22000%22/><rect x=%2240%22 y=%2240%22 width=%2220%22 height=%2220%22 fill=%22000%22/></svg>') center/80% no-repeat;box-shadow:var(--shadow)}
+    .installer{position:fixed;left:50%;transform:translateX(-50%);bottom:14px;background:#fff;border:1px solid #eee;border-radius:14px;box-shadow:var(--shadow);padding:10px 14px;display:none;align-items:center;gap:10px;z-index:9999}
+    .installer.show{display:flex}
+    .install-btn{background:var(--primary);color:#fff;border:none;border-radius:10px;padding:8px 12px;cursor:pointer}
+    .close-x{background:transparent;border:none;font-size:18px;cursor:pointer}
+    .small{font-size:12px;color:var(--muted)}
   </style>
 </head>
 <body>
-  <!-- 언어 선택 -->
-  <div class="lang">
-    <button id="btn-ko" data-lang="ko">KR</button>
-    <button id="btn-en" data-lang="en">EN</button>
-    <button id="btn-zh" data-lang="zh">中文</button>
-  </div>
-
-  <div class="wrap">
-    <h1 id="t_title">월드파이은행</h1>
-    <p id="t_sub">서민과 모두를 위한 디지털&nbsp;은행</p>
-    <div class="logo">π</div>
-
-    <section class="grid">
-      <article class="card">
-        <div class="row"><div class="label" id="t_pay">송금 / 결제</div><span class="badge" id="b1">LIVE</span></div>
-        <p class="desc" id="t_pay_desc">빠르고 안전한 결제와 P2P 송금.</p>
-      </article>
-      <article class="card">
-        <div class="row"><div class="label" id="t_reward">리워드</div><span class="badge" id="b2">POINTS</span></div>
-        <p class="desc" id="t_reward_desc">참여·미션으로 포인트 적립, 서민과 함께 성장.</p>
-      </article>
-      <article class="card">
-        <div class="row"><div class="label" id="t_stake">예치 (Staking)</div><span class="badge" id="b3">APY 31.4%</span></div>
-        <p class="desc" id="t_stake_desc">유연한 기간, 투명한 금리. 예치로 수익을 만드세요.</p>
-      </article>
-      <article class="card">
-        <div class="row"><div class="label" id="t_ubi">UBI (기본소득)</div><span class="badge" id="b4">BETA</span></div>
-        <p class="desc" id="t_ubi_desc">노동자·서민도 함께 누리는 디지털 기본소득.</p>
-      </article>
-      <article class="card">
-        <div class="row"><div class="label" id="t_support">고객센터</div><span class="badge" id="b5">HELP</span></div>
-        <p class="desc" id="t_support_desc">계정·보안 문제 해결, 의견 접수.</p>
-      </article>
-      <article class="card">
-        <div class="row"><div class="label" id="t_faq">FAQ / 보안</div><span class="badge" id="b6">OPEN</span></div>
-        <p class="desc" id="t_faq_desc">해킹 방지, KYC 검증, 자주 묻는 질문.</p>
-        <div class="cta">
-          <button class="btn primary" id="t_btn_faq">Open FAQ</button>
-          <button class="btn ghost" id="t_btn_demo">데모 보기</button>
+  <div class="container">
+    <header class="header">
+      <div class="brand">
+        <div class="logo">π</div>
+        <div>
+          <div id="brandTitle" style="font-weight:800">World Pi Bank</div>
+          <div id="brandSubtitle" class="small">The world's first digital bank (demo)</div>
         </div>
-      </article>
+      </div>
+      <div class="lang">
+        <button data-lang="en" id="btn-en">EN</button>
+        <button data-lang="ko" id="btn-ko">KR</button>
+        <button data-lang="zh" id="btn-zh">中文</button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <h1 id="heroTitle">World Pi Bank</h1>
+      <h2 id="heroSubtitle">The world's first digital bank — built on the Pi ecosystem</h2>
+
+      <div class="grid" id="featureGrid">
+        <div class="card">
+          <div class="title" id="f1t">Send / Pay</div>
+          <div class="desc" id="f1d">Fast P2P payments and merchant checkout</div>
+        </div>
+        <div class="card">
+          <div class="title" id="f2t">Rewards</div>
+          <div class="desc" id="f2d">Daily tasks and community incentives</div>
+        </div>
+        <div class="card">
+          <div class="title" id="f3t">Deposit · APY 31.4%</div>
+          <div class="desc" id="f3d">Flexible terms, transparent rates</div>
+        </div>
+        <div class="card">
+          <div class="title" id="f4t">UBI</div>
+          <div class="desc" id="f4d">Digital basic income pilot</div>
+        </div>
+        <div class="card">
+          <div class="title" id="f5t">Support</div>
+          <div class="desc" id="f5d">KYC, security & anti-fraud FAQ</div>
+        </div>
+        <div class="card">
+          <div class="title" id="f6t">Demo</div>
+          <div class="desc" id="f6d">Static preview (no wallet required)</div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <div class="badge" id="badge">APY 31.4% · Pilot</div>
+        <div class="small" id="slogan">“No labor? Basic income is still possible — with Pi.”</div>
+        <div class="qr" title="QR placeholder (disabled)"></div>
+      </div>
     </section>
 
-    <footer id="t_footer">© 2025 월드파이은행 • Build v28b</footer>
+    <p class="small" style="margin:10px 4px 0">
+      <span id="footNote">For Chrome & Pi Browser. Add to Home Screen to use full-screen app mode.</span>
+    </p>
   </div>
 
-  <!-- 설치 배너 -->
-  <div id="installBar">
-    <span id="t_banner">📲 월드파이은행을 설치하시겠습니까?</span>
-    <button id="btnInstall">설치</button>
+  <!-- Install Banner (PWA) -->
+  <div class="installer" id="installer">
+    <span id="installMsg">Install World Pi Bank?</span>
+    <button class="install-btn" id="installBtn">Install</button>
+    <button class="close-x" id="closeInstall">×</button>
   </div>
 
-<script>
-/* ===== 환경 감지 ===== */
-const UA = navigator.userAgent || "";
-const isAndroid = /Android/i.test(UA);
-const isChrome = /Chrome\/\d+/i.test(UA) && /Google/i.test(navigator.vendor||"");
-const isEdge = /Edg\//i.test(UA);
-const isSamsung = /SamsungBrowser/i.test(UA);
-const isPi = /PiBrowser/i.test(UA);
-const isIOS = /iPhone|iPad|iPod/i.test(UA);
-const isDesktop = !/Mobi|Android|iPhone|iPad|iPod/i.test(UA);
+  <script>
+    // --------- i18n dictionaries ---------
+    const dict = {
+      en: {
+        brandTitle: "World Pi Bank",
+        brandSubtitle: "The world's first digital bank (demo)",
+        heroTitle: "World Pi Bank",
+        heroSubtitle: "The world's first digital bank — built on the Pi ecosystem",
+        f1t: "Send / Pay", f1d: "Fast P2P payments and merchant checkout",
+        f2t: "Rewards", f2d: "Daily tasks and community incentives",
+        f3t: "Deposit · APY 31.4%", f3d: "Flexible terms, transparent rates",
+        f4t: "UBI", f4d: "Digital basic income pilot",
+        f5t: "Support", f5d: "KYC, security & anti-fraud FAQ",
+        f6t: "Demo", f6d: "Static preview (no wallet required)",
+        badge: "APY 31.4% · Pilot",
+        slogan: "“No labor? Basic income is still possible — with Pi.”",
+        footNote: "For Chrome & Pi Browser. Add to Home Screen to use full-screen app mode.",
+        installMsg: "Install World Pi Bank?"
+      },
+      ko: {
+        brandTitle: "월드파이은행",
+        brandSubtitle: "세계최초의 디지털은행 (데모)",
+        heroTitle: "월드파이은행",
+        heroSubtitle: "파이 생태계 위에 구축된 세계최초의 디지털 은행",
+        f1t: "송금 / 결제", f1d: "초간편 개인 간·가맹점 결제",
+        f2t: "리워드", f2d: "일일 미션과 커뮤니티 보상",
+        f3t: "예치 · APY 31.4%", f3d: "유연한 기간, 투명한 금리",
+        f4t: "UBI", f4d: "디지털 기본소득 파일럿",
+        f5t: "고객센터", f5d: "KYC, 보안 & 해킹 방지 FAQ",
+        f6t: "데모", f6d: "정적 미리보기 (지갑 불필요)",
+        badge: "APY 31.4% · 파일럿",
+        slogan: "“노동 없이도 기본소득은 가능합니다 — 파이와 함께.”",
+        footNote: "크롬 & 파이 브라우저 지원. 홈 화면에 추가하면 전체 화면 앱 모드.",
+        installMsg: "월드파이은행을 설치할까요?"
+      },
+      zh: {
+        brandTitle: "世界Pi银行",
+        brandSubtitle: "全球首家数字银行（演示）",
+        heroTitle: "世界Pi银行",
+        heroSubtitle: "基于 Pi 生态构建的全球首家数字银行",
+        f1t: "转账 / 支付", f1d: "快捷P2P与商家收款",
+        f2t: "奖励", f2d: "每日任务与社区激励",
+        f3t: "存款 · 年化 31.4%", f3d: "期限灵活，利率透明",
+        f4t: "UBI", f4d: "数字基本收入试点",
+        f5t: "客服", f5d: "KYC、安全与反欺诈常见问答",
+        f6t: "演示", f6d: "静态预览（无需钱包）",
+        badge: "年化 31.4% · 试点",
+        slogan: "“无须劳动？通过 Pi 也能实现基本收入。”",
+        footNote: "支持 Chrome 与 Pi 浏览器。添加到主屏以全屏应用模式运行。",
+        installMsg: "安装世界Pi银行？"
+      }
+    };
 
-/* ===== 다국어 리소스 ===== */
-const L={
-  ko:{title:"월드파이은행",sub:"서민과 모두를 위한 디지털&nbsp;은행",footer:"© 2025 월드파이은행 • 모두를 위한 은행",
-      bannerInstall:"📲 월드파이은행을 설치하시겠습니까?", install:"설치",
-      bannerGuideMobile:"📲 이 브라우저에서는 ‘홈 화면에 추가’로 설치하세요.",
-      bannerGuidePi:"📲 Pi Browser: 메뉴에서 ‘홈 화면에 추가’로 설치하세요.",
-      bannerGuideDesktop:"💡 PC에서는 주소창의 ‘+’ 버튼 또는 브라우저 메뉴로 설치할 수 있어요."},
-  en:{title:"World Pi Bank",sub:"A digital&nbsp;bank for everyone",footer:"© 2025 World Pi Bank • A bank for everyone",
-      bannerInstall:"📲 Install World Pi Bank?", install:"Install",
-      bannerGuideMobile:"📲 In this browser, use “Add to Home Screen”.",
-      bannerGuidePi:"📲 Pi Browser: use “Add to Home Screen”.",
-      bannerGuideDesktop:"💡 On desktop, click the ‘+’ icon in the address bar to install."},
-  zh:{title:"世界Pi银行",sub:"为所有人提供的数字银行",footer:"© 2025 世界Pi银行 • 属于所有人的银行",
-      bannerInstall:"📲 要安装世界Pi银行吗？", install:"安装",
-      bannerGuideMobile:"📲 在此浏览器中，请使用“添加到主屏幕”。",
-      bannerGuidePi:"📲 Pi 浏览器：请使用“添加到主屏幕”。",
-      bannerGuideDesktop:"💡 在电脑端，请点击地址栏的 “+” 图标进行安装。"}
-};
+    function applyLang(code){
+      const t = dict[code] || dict.en;
+      for (const k in t){
+        const el = document.getElementById(k);
+        if (el) el.textContent = t[k];
+      }
+      document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('active', b.dataset.lang===code));
+      localStorage.setItem('wpi_lang', code);
+      document.documentElement.lang = code;
+    }
 
-function applyLang(code){
-  const P=L[code]||L.ko;
-  document.documentElement.lang=(code==="zh"?"zh":code==="en"?"en":"ko");
-  t_title.textContent=P.title;
-  t_sub.innerHTML=P.sub;
-  t_footer.innerHTML=P.footer+" • Build v28b";
-  t_btn_faq.textContent=(code==="ko"?"Open FAQ":code==="zh"?"打开 FAQ":"Open FAQ");
-  t_btn_demo.textContent=(code==="ko"?"데모 보기":code==="zh"?"查看演示":"View Demo");
+    // Auto-detect language
+    const saved = localStorage.getItem('wpi_lang');
+    let initial = saved || (navigator.languages && navigator.languages[0] || navigator.language || 'en');
+    initial = initial.toLowerCase().startsWith('ko') ? 'ko'
+            : initial.toLowerCase().startsWith('zh') ? 'zh'
+            : 'en';
+    applyLang(initial);
 
-  // 배너 문구 기본값(환경 안내)
-  let guide = P.bannerGuideMobile;
-  if (isDesktop) guide = P.bannerGuideDesktop;
-  if (isPi) guide = P.bannerGuidePi;
-  t_banner.textContent = guide;
-}
-applyLang("ko");
-btn-ko.onclick=()=>applyLang("ko");
-btn-en.onclick=()=>applyLang("en");
-btn-zh.onclick=()=>applyLang("zh");
+    // Manual toggles
+    document.getElementById('btn-en').onclick = ()=>applyLang('en');
+    document.getElementById('btn-ko').onclick = ()=>applyLang('ko');
+    document.getElementById('btn-zh').onclick = ()=>applyLang('zh');
 
-/* ===== manifest & 아이콘(단일파일) ===== */
-(function(){
-  const makeIcon=(s)=>{
-    const c=document.createElement("canvas");c.width=c.height=s;
-    const ctx=c.getContext("2d"), r=s/2;
-    const g=ctx.createRadialGradient(r*0.7,r*0.7,s*0.1,r,r,r);
-    g.addColorStop(0,"#b9a6ff"); g.addColorStop(1,"#8a7aff");
-    ctx.fillStyle=g; ctx.beginPath(); ctx.arc(r,r,r,0,Math.PI*2); ctx.fill();
-    ctx.fillStyle="#0f0b1e"; ctx.font=`${Math.round(s*0.55)}px system-ui`;
-    ctx.textAlign="center"; ctx.textBaseline="middle"; ctx.fillText("π",r,r+s*0.03);
-    return c.toDataURL("image/png");
-  };
-  const icon192=makeIcon(192), icon512=makeIcon(512);
-  const manifest={name:"월드파이은행 • World Pi Bank",short_name:"월드파이은행",start_url:".",display:"standalone",background_color:"#1b1530",theme_color:"#8a7aff",
-    icons:[{src:icon192,sizes:"192x192",type:"image/png"},{src:icon512,sizes:"512x512",type:"image/png"}]};
-  const blob=new Blob([JSON.stringify(manifest)],{type:"application/json"});
-  const url=URL.createObjectURL(blob);
-  const link=document.createElement("link");link.rel="manifest";link.href=url;document.head.appendChild(link);
-  [["icon",icon192,"192x192"],["icon",icon512,"512x512"],["apple-touch-icon",icon512]].forEach(([rel,src,s])=>{
-    const l=document.createElement("link");l.rel=rel;l.href=src;if(s)l.sizes=s;l.type="image/png";document.head.appendChild(l);
-  });
-})();
+    // ---------- Single-file PWA setup: generate manifest + service worker on the fly ----------
+    // 1) Create a maskable PNG icon as a tiny inline data (fallback SVG as icon)
+    const iconSvg = encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
+      <defs><linearGradient id='g' x1='0' x2='1' y1='0' y2='1'><stop stop-color='#6b4eff'/><stop offset='1' stop-color='#8a6bff'/></linearGradient></defs>
+      <rect rx='96' ry='96' width='512' height='512' fill='url(#g)'/>
+      <rect x='92' y='170' width='328' height='52' rx='12' fill='#fff'/>
+      <rect x='152' y='222' width='64' height='160' rx='12' fill='#fff'/>
+      <rect x='296' y='222' width='64' height='160' rx='12' fill='#fff'/>
+    </svg>`);
+    const iconDataURL = `data:image/svg+xml;charset=utf-8,${iconSvg}`;
 
-/* ===== 설치 배너 처리 ===== */
-let deferredPrompt;
-window.addEventListener('beforeinstallprompt',(e)=>{
-  e.preventDefault();
-  deferredPrompt=e;
-  // 이벤트가 오면 설치 버튼까지 노출
-  installBar.style.display="flex";
-  btnInstall.style.display="inline-block";
-  const lang=document.documentElement.lang;
-  const P = (lang==="zh"?L.zh:(lang==="en"?L.en:L.ko));
-  t_banner.textContent = P.bannerInstall;
-});
-btnInstall.addEventListener("click", async ()=>{
-  if(deferredPrompt){
-    deferredPrompt.prompt();
-    await deferredPrompt.userChoice;
-    deferredPrompt=null;
-    installBar.style.display="none";
-  }
-});
+    // 2) Build a manifest blob and attach to document
+    const manifest = {
+      name: "World Pi Bank",
+      short_name: "WorldPiBank",
+      start_url: "./",
+      scope: "./",
+      display: "standalone",
+      background_color: "#ffffff",
+      theme_color: "#6b4eff",
+      description: "World Pi Bank — Global Web3 Pi-powered digital bank demo (EN/KR/ZH).",
+      icons: [
+        { src: iconDataURL, sizes: "192x192", type: "image/svg+xml", purpose: "maskable any" },
+        { src: iconDataURL, sizes: "512x512", type: "image/svg+xml", purpose: "maskable any" }
+      ]
+    };
+    const manifestBlob = new Blob([JSON.stringify(manifest)], {type: "application/manifest+json"});
+    const manifestURL = URL.createObjectURL(manifestBlob);
+    const link = document.createElement('link');
+    link.rel = 'manifest';
+    link.href = manifestURL;
+    document.head.appendChild(link);
 
-// 이벤트가 없어도(일부 브라우저/PC) 안내 배너는 보여줌
-window.addEventListener('load', ()=>{ installBar.style.display="flex"; });
+    // 3) Service worker code as a blob (cache this page for offline)
+    const swCode = `
+      const CACHE = 'worldpibank-singlefile-v1';
+      self.addEventListener('install', e => {
+        e.waitUntil((async () => {
+          const c = await caches.open(CACHE);
+          await c.addAll(['./']);
+        })());
+        self.skipWaiting();
+      });
+      self.addEventListener('activate', e => {
+        e.waitUntil((async () => {
+          const keys = await caches.keys();
+          await Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)));
+        })());
+        self.clients.claim();
+      });
+      self.addEventListener('fetch', e => {
+        const u = new URL(e.request.url);
+        if (u.origin === location.origin) {
+          e.respondWith(
+            caches.match(e.request).then(r => r || fetch(e.request))
+          );
+        }
+      });
+    `;
+    const swBlob = new Blob([swCode], {type:'text/javascript'});
+    const swURL = URL.createObjectURL(swBlob);
 
-/* ===== sw.js (동적 생성/등록) ===== */
-if('serviceWorker' in navigator){
-  const swCode=`self.addEventListener("install",()=>self.skipWaiting());self.addEventListener("activate",()=>self.clients.claim());`;
-  const blob=new Blob([swCode],{type:"text/javascript"});
-  const swURL=URL.createObjectURL(blob);
-  navigator.serviceWorker.register(swURL).catch(console.warn);
-}
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        // Register the blob-URL service worker
+        navigator.serviceWorker.register(swURL).catch(console.error);
+      });
+    }
 
-/* 데모 버튼 */
-t_btn_faq.onclick=()=>alert("FAQ는 곧 연결됩니다. (보안·KYC·해킹 피해 예방 안내)");
-t_btn_demo.onclick=()=>alert("정적 데모 화면입니다.");
-</script>
+    // ---------- Install banner ----------
+    let deferredPrompt;
+    const installer = document.getElementById('installer');
+    const installBtn = document.getElementById('installBtn');
+    const closeInstall = document.getElementById('closeInstall');
+    const installMsg = document.getElementById('installMsg');
+
+    // Localize banner text when language changes
+    function syncInstallMsg(){
+      const lang = document.documentElement.lang || 'en';
+      const t = dict[lang] || dict.en;
+      installMsg.textContent = t.installMsg;
+    }
+    syncInstallMsg();
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installer.classList.add('show');
+    });
+
+    installBtn.addEventListener('click', async () => {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      const choice = await deferredPrompt.userChoice;
+      if (choice.outcome === 'accepted'){
+        installer.classList.remove('show');
+        deferredPrompt = null;
+      }
+    });
+    closeInstall.addEventListener('click', ()=> installer.classList.remove('show'));
+
+    // Fallback banner after a delay if the event didn't fire (varies by device/policy)
+    setTimeout(()=> {
+      if (!window.matchMedia('(display-mode: standalone)').matches && !deferredPrompt){
+        installer.classList.add('show');
+      }
+    }, 2500);
+
+    // Re-sync banner text when toggling language
+    document.getElementById('btn-en').addEventListener('click', syncInstallMsg);
+    document.getElementById('btn-ko').addEventListener('click', syncInstallMsg);
+    document.getElementById('btn-zh').addEventListener('click', syncInstallMsg);
+  </script>
 </body>
 </html>
